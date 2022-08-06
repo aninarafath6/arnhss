@@ -1,13 +1,31 @@
+import 'dart:async';
+
+import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingView extends StatelessWidget {
-  static const routeName = "/onboarding";
-  const OnboardingView({Key? key}) : super(key: key);
+class SplashView extends StatefulWidget {
+  static const routeName = "/splash";
+  const SplashView({Key? key}) : super(key: key);
+
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    Timer(
+      const Duration(seconds: 3),
+      () => Navigator.pushReplacementNamed(context, "/OnboardingView"),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SizedBox(
           width: context.getWidth(100),
@@ -15,7 +33,7 @@ class OnboardingView extends StatelessWidget {
             children: [
               const Spacer(),
               Image.asset(
-                "assets/images/pngs/logo.png",
+                "assets/images/pngs/logo-2.jpeg",
                 width: context.getWidth(55),
               ),
               const Spacer(),

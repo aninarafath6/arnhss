@@ -1,5 +1,5 @@
 import 'package:arnhss/common/routes/app_routes.dart';
-import 'package:arnhss/fetures/onboarding/views/onbaording_view.dart';
+import 'package:arnhss/fetures/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'arnhss',
-      initialRoute: OnboardingView.routeName,
+      initialRoute: SplashView.routeName,
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRoutes.generateRoute,
     );

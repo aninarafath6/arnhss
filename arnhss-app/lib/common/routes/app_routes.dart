@@ -1,4 +1,5 @@
-import 'package:arnhss/fetures/onboarding/views/onbaording_view.dart';
+import 'package:arnhss/fetures/onboarding/views/Onboarding_view.dart';
+import 'package:arnhss/fetures/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -6,6 +7,8 @@ class AppRoutes {
     switch (settings.name) {
       case OnboardingView.routeName:
         return MaterialPageRoute(builder: (_) => const OnboardingView());
+      case SplashView.routeName:
+        return MaterialPageRoute(builder: (_) => const SplashView());
 
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
