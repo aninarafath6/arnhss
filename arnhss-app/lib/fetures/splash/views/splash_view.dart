@@ -17,7 +17,7 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     Timer(
       const Duration(seconds: 3),
-      () => Navigator.pushReplacementNamed(context, "/OnboardingView"),
+      () => Navigator.pushReplacementNamed(context, "/onboarding"),
     );
     super.initState();
   }
@@ -33,7 +33,7 @@ class _SplashViewState extends State<SplashView> {
             children: [
               const Spacer(),
               Image.asset(
-                "assets/images/pngs/logo-2.jpeg",
+               Images.splash_logo,
                 width: context.getWidth(55),
               ),
               const Spacer(),

@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'arnhss',
       initialRoute: SplashView.routeName,
+      
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRoutes.generateRoute,
     );

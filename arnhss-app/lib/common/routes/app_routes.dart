@@ -1,4 +1,4 @@
-import 'package:arnhss/fetures/onboarding/views/Onboarding_view.dart';
+import 'package:arnhss/fetures/onboarding/views/onboarding_view.dart';
 import 'package:arnhss/fetures/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
