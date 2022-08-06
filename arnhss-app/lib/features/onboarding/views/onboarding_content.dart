@@ -1,9 +1,8 @@
-import 'package:arnhss/fetures/onboarding/views/content.dart';
-import 'package:arnhss/fetures/onboarding/views/heading.dart';
-import 'package:arnhss/fetures/widgets/custom_button.dart';
+import 'package:arnhss/features/onboarding/views/content.dart';
+import 'package:arnhss/features/onboarding/views/heading.dart';
+import 'package:arnhss/features/widgets/custom_button.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
-import "package:flutter/widgets.dart";
 
 class OnboardingContent extends StatelessWidget {
   const OnboardingContent({

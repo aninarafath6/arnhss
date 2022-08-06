@@ -1,5 +1,5 @@
-import 'package:arnhss/fetures/onboarding/views/onboarding_view.dart';
-import 'package:arnhss/fetures/splash/views/splash_view.dart';
+import 'package:arnhss/features/onboarding/views/onboarding_view.dart';
+import 'package:arnhss/features/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {

@@ -1,5 +1,5 @@
 import 'package:arnhss/common/routes/app_routes.dart';
-import 'package:arnhss/fetures/splash/views/splash_view.dart';
+import 'package:arnhss/features/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
