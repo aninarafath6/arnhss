@@ -12,11 +12,19 @@ class OnboardingView extends StatelessWidget {
         child: SizedBox(
           width: context.getWidth(100),
           child: Column(
-            children: const [
-              Spacer(),
-              Text("Arnhss."),
-              Spacer(),
-              Text("Beta version 0.0.1"),
+            children: [
+              const Spacer(),
+              Image.asset(
+                "assets/images/pngs/logo.png",
+                width: context.getWidth(55),
+              ),
+              const Spacer(),
+              Text(
+                "Beta version 0.0.1",
+                style: TextStyle(
+                  color: Colors.grey[400],
+                ),
+              ),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
