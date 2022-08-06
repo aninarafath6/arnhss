@@ -1,0 +1,20 @@
+import 'package:arnhss/common/constants/image_constant.dart';
+import 'package:arnhss/utils/dimensions.dart';
+import 'package:flutter/material.dart';
+
+class Background extends StatelessWidget {
+  const Background({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: context.getHeight(70),
+      child: Image.asset(
+        Images.onboarding_image,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+}
