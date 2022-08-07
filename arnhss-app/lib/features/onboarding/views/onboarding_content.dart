@@ -28,7 +28,7 @@ class OnboardingContent extends StatelessWidget {
           child: Column(
             children: [
               // context.spacing(height: 2),
-              const Spacer(flex: 1),
+              // const Spacer(flex: 1),
               const Heading(),
               context.spacing(height: 2.5),
               const Content(),

@@ -12,7 +12,7 @@ class Background extends StatelessWidget {
     return SizedBox(
       height: context.getHeight(70),
       child: Padding(
-        padding: const EdgeInsets.all(0.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Image.asset(
           Images.onboarding_image,
           // fit: BoxFit.cover,
