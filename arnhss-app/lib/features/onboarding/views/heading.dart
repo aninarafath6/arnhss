@@ -1,3 +1,4 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class Heading extends StatelessWidget {
       child: Text(
         "Ar Nagar Hss- A complete educational institute",
         style: TextStyle(
-          color: Colors.grey[900],
+          color: CustomColors.dark,
           fontSize: context.getHeight(2.5),
           fontWeight: FontWeight.bold,
         ),
