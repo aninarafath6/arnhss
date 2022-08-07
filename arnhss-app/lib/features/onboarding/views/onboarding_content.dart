@@ -14,7 +14,7 @@ class OnboardingContent extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        height: context.getHeight(45),
+        height: context.getHeight(40),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -26,8 +26,8 @@ class OnboardingContent extends StatelessWidget {
           padding: const EdgeInsets.all(21.0),
           child: Column(
             children: [
-              context.spacing(height: 1),
-              const Spacer(flex: 1),
+              context.spacing(height: 2),
+              // const Spacer(flex: 1),
               const Heading(),
               context.spacing(height: 2),
               const Content(),
