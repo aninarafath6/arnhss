@@ -1,10 +1,11 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
-    this.color = Colors.black,
+    this.color = CustomColors.dark,
     this.onTap,
   }) : super(key: key);
 
@@ -16,7 +17,7 @@ class CustomButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         overlayColor:
-            MaterialStateColor.resolveWith((states) => color.withOpacity(.1)),
+            MaterialStateColor.resolveWith((states) => color.withOpacity(1)),
       ),
       onPressed: onTap,
       child: Container(

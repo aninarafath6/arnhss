@@ -38,7 +38,7 @@ class _SplashViewState extends State<SplashView> {
               ),
               const Spacer(),
               Text(
-                "by COMPUTER⚡SCIENCE 2021-23.",
+                "BY COMPUTER⚡SCIENCE 2021-23.",
                 style: TextStyle(
                   color: Colors.grey[400],
                 ),
