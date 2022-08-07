@@ -1,6 +1,5 @@
 # arnhss
 
-an open-source scool project. 
+#an open-source scool project. 
 
-<img width="289" alt="Screenshot 2022-08-07 at 2 55 20 PM" src="https://user-images.githubusercontent.com/65447144/183284159-8ecda777-30bd-4231-8904-1b7c50c3bc8c.png"><img width="289" alt="Screenshot 2022-08-07 at 2 55 09 PM" src="https://user-images.githubusercontent.com/65447144/183284151-17031a15-23ad-43f2-b35c-9f1068a99eb7.png">
-
+![Simulator Screen Shot - iPhone 13 Pro Max - 2022-08-07 at 22 32 56](https://user-images.githubusercontent.com/65447144/183302407-246d78f3-8261-4f72-8042-1eb7259426c2.png)![Simulator Screen Shot - iPhone 13 Pro Max - 2022-08-07 at 20 55 14](https://user-images.githubusercontent.com/65447144/183302409-9f2debd9-d6b2-4e33-bb0e-fd4056df09ad.png)
