@@ -33,12 +33,12 @@ class _SplashViewState extends State<SplashView> {
             children: [
               const Spacer(),
               Image.asset(
-               Images.splash_logo,
+                Images.splash_logo,
                 width: context.getWidth(55),
               ),
               const Spacer(),
               Text(
-                "Beta version 0.0.1",
+                "by COMPUTER⚡SCIENCE 2021-23.",
                 style: TextStyle(
                   color: Colors.grey[400],
                 ),

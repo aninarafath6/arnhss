@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
-    this.color = const Color(0xff855f95),
+    this.color = Colors.black,
     this.onTap,
   }) : super(key: key);
 

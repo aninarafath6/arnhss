@@ -14,12 +14,12 @@ class OnboardingContent extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        height: context.getHeight(35),
+        height: context.getHeight(45),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+            topLeft: Radius.circular(0),
+            topRight: Radius.circular(0),
           ),
         ),
         child: Padding(
@@ -33,7 +33,7 @@ class OnboardingContent extends StatelessWidget {
               const Content(),
               const Spacer(flex: 2),
               const CustomButton(),
-              const Spacer(flex: 1),
+              // const Spacer(flex: 1),
             ],
           ),
         ),

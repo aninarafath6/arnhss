@@ -12,7 +12,7 @@ class Heading extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 28.0),
       child: Text(
-        "Lorem Ipsum is simply dummy text of the printing",
+        "Ar Nagar Hss- A complete educational institute",
         style: TextStyle(
           color: CustomColors.dark_text,
           fontSize: context.getHeight(2.5),

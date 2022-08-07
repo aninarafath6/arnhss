@@ -9,7 +9,7 @@ class Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      " is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout",
+      " An Interface to share the Creative Works and Others By Ar Nagar Hss Students and Teachers.  A Small Innovation By COMPUTER⚡SCIENCE 2021-23.",
       style: TextStyle(
         color: Colors.grey.withOpacity(.8),
         fontSize: context.getHeight(1.7),

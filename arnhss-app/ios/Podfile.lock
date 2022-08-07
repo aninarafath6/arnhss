@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - vibration (1.7.5):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - vibration (from `.symlinks/plugins/vibration/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  vibration:
+    :path: ".symlinks/plugins/vibration/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  vibration: 7d883d141656a1c1a6d8d238616b2042a51a1241
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.11.3

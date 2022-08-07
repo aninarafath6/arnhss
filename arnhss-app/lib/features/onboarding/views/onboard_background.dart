@@ -13,7 +13,7 @@ class Background extends StatelessWidget {
       height: context.getHeight(70),
       child: Image.asset(
         Images.onboarding_image,
-        fit: BoxFit.cover,
+        // fit: BoxFit.cover,
       ),
     );
   }
