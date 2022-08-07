@@ -1,3 +1,4 @@
+import 'package:arnhss/features/authentication/login/view/login.dart';
 import 'package:arnhss/features/onboarding/views/content.dart';
 import 'package:arnhss/features/onboarding/views/heading.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
@@ -26,13 +27,17 @@ class OnboardingContent extends StatelessWidget {
           padding: const EdgeInsets.all(21.0),
           child: Column(
             children: [
-              context.spacing(height: 2),
-              // const Spacer(flex: 1),
+              // context.spacing(height: 2),
+              const Spacer(flex: 1),
               const Heading(),
-              context.spacing(height: 2),
+              context.spacing(height: 2.5),
               const Content(),
               const Spacer(flex: 2),
-              const CustomButton(),
+              CustomButton(
+                onTap: () => {
+                  Navigator.pushNamed(context, LoginView.routeName),
+                },
+              ),
               // const Spacer(flex: 1),
             ],
           ),

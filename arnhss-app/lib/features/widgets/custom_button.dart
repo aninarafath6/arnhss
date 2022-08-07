@@ -17,7 +17,7 @@ class CustomButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         overlayColor:
-            MaterialStateColor.resolveWith((states) => color.withOpacity(1)),
+            MaterialStateColor.resolveWith((states) => color.withOpacity(.1)),
       ),
       onPressed: onTap,
       child: Container(

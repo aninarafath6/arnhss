@@ -11,9 +11,12 @@ class Background extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: context.getHeight(70),
-      child: Image.asset(
-        Images.onboarding_image,
-        // fit: BoxFit.cover,
+      child: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: Image.asset(
+          Images.onboarding_image,
+          // fit: BoxFit.cover,
+        ),
       ),
     );
   }
