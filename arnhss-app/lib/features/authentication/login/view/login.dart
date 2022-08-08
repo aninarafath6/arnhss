@@ -6,6 +6,15 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Login")));
+    return Scaffold(
+      body: Column(
+        children: [
+          const Spacer(),
+          Image.asset("assets/images/pngs/login 1.png"),
+          const Text("Login with Mobile Number"),
+          const Spacer(flex: 10),
+        ],
+      ),
+    );
   }
 }
