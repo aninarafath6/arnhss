@@ -10,4 +10,13 @@ class CustomTextTheme {
       fontWeight: FontWeight.bold,
     );
   }
+
+  static TextStyle paragraph() {
+    return const TextStyle(
+      color: CustomColors.texty,
+      fontSize: 15,
+      fontWeight: FontWeight.normal,
+      height: 1.5,
+    );
+  }
 }
