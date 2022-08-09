@@ -1,8 +1,10 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/login/widgets/custom_button.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ActionSection extends StatelessWidget {
   const ActionSection({
@@ -23,7 +25,10 @@ class ActionSection extends StatelessWidget {
           child: const CustomInput(),
         ),
         const SizedBox(height: 25),
-        const CustomButton(label: "Get OTP"),
+        CustomButton(
+          label: "Get OTP",
+        
+        ),
         const Spacer(),
         RichText(
           textAlign: TextAlign.center,

@@ -49,6 +49,7 @@ class CountryDropDown extends StatelessWidget {
                             context.read<CountryViewModel>().setCountry(
                                   snapshot.data![index],
                                 );
+
                             Navigator.pop(context);
                           },
                           title: Text(snapshot.data![index].name),

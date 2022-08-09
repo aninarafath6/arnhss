@@ -22,13 +22,14 @@ class CustomInput extends StatelessWidget {
                   (states) => CustomColors.dark.withOpacity(.1)),
             ),
             onPressed: () {
+              context.read<CountryViewModel>().updateDropDown(true);
               showDialog(
                 context: context,
                 builder: (context) {
-                  context.watch<CountryViewModel>().updateDropDown(true);
                   return const CountryDropDown();
                 },
-              );
+              ).then((value) =>
+                  context.read<CountryViewModel>().updateDropDown(false));
             },
             child: Row(
               children: [
@@ -46,7 +47,7 @@ class CustomInput extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 8.0),
           child: VerticalDivider(),
         ),
-        const InputBox(),
+         InputBox(),
       ],
     );
   }

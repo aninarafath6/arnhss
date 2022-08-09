@@ -22,13 +22,13 @@ class CountryViewModel with ChangeNotifier {
 
   void updateDropDown(bool status) {
     _isDropDownOpen = status;
+    notifyListeners();
   }
 
   void setCountry(CountryModel country) {
     _selectedCountry = country;
     notifyListeners();
     _result = _allCountry;
-    updateDropDown(false);
   }
 
   void searchCountry(String qry) {

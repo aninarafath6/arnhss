@@ -11,7 +11,7 @@ class AppRoutes {
       case SplashView.routeName:
         return MaterialPageRoute(builder: (_) => const SplashView());
       case LoginView.routeName:
-        return MaterialPageRoute(builder: (_) => const LoginView());
+        return MaterialPageRoute(builder: (_) => LoginView());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

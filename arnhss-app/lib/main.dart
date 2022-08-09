@@ -1,6 +1,7 @@
 import 'package:arnhss/common/routes/app_routes.dart';
 import 'package:arnhss/common/theme/theme.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
+import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CountryViewModel()),
+        ChangeNotifierProvider(create: (_) => LoginViewModel()),
       ],
       child: MaterialApp(
         title: 'arnhss',
