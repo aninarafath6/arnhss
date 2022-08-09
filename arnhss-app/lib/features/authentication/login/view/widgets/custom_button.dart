@@ -1,5 +1,9 @@
+import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/features/authentication/login/view/widgets/country_drop_down.dart';
 import 'package:arnhss/features/authentication/login/view/widgets/input_box.dart';
+import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomInput extends StatelessWidget {
   const CustomInput({
@@ -10,26 +14,38 @@ class CustomInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        MaterialButton(
-          height: 55,
-          onPressed: () {},
-          child: Row(
-            children: const [
-              Text(
-                "+91",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: TextButton(
+            style: ButtonStyle(
+              overlayColor: MaterialStateColor.resolveWith(
+                  (states) => CustomColors.dark.withOpacity(.1)),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return const CountryDropDown();
+                },
+              ).then((value) => print(value));
+            },
+            child: Row(
+              children: [
+                Text(
+                  context.watch<CountryViewModel>().selectedCountry.dialCode,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, color: CustomColors.dark),
                 ),
-              ),
-              Icon(Icons.arrow_drop_down)
-            ],
+                const Icon(Icons.arrow_drop_down, color: CustomColors.dark)
+              ],
+            ),
           ),
         ),
         const Padding(
-          padding:  EdgeInsets.symmetric(vertical: 8.0),
-          child:  VerticalDivider(),
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: VerticalDivider(),
         ),
-        const InputBox(),
+         InputBox(),
       ],
     );
   }

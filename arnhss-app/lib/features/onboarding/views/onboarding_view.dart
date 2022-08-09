@@ -1,7 +1,5 @@
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/onboarding/views/onboard_background.dart';
 import 'package:arnhss/features/onboarding/views/onboarding_content.dart';
-import 'package:arnhss/features/widgets/custom_button.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 

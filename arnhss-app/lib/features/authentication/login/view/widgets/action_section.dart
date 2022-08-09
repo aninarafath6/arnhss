@@ -15,7 +15,6 @@ class ActionSection extends StatelessWidget {
       children: [
         context.spacing(height: 5),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
           width: context.getWidth(100),
           height: 55,
           decoration: BoxDecoration(
@@ -52,7 +51,7 @@ class ActionSection extends StatelessWidget {
             ],
           ),
         ),
-        Spacer(),
+        const Spacer(),
         const CustomButton(label: "Get OTP"),
       ],
     );
