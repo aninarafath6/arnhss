@@ -43,6 +43,7 @@ class _SplashViewState extends State<SplashView> {
                   color: Colors.grey[400],
                 ),
               ),
+              const SizedBox(height: 15),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

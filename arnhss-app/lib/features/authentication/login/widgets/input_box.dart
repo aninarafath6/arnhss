@@ -3,11 +3,35 @@ import 'package:arnhss/features/authentication/login/view_model/login_view_model
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class InputBox extends StatelessWidget {
-  InputBox({
+class InputBox extends StatefulWidget {
+  const InputBox({
     Key? key,
   }) : super(key: key);
-  final FocusNode myFocusNode = FocusNode();
+
+  @override
+  State<InputBox> createState() => _InputBoxState();
+}
+
+class _InputBoxState extends State<InputBox> {
+  late FocusNode myFocusNode;
+
+  @override
+  void initState() {
+    myFocusNode = FocusNode();
+
+    myFocusNode.addListener(() {
+      if (myFocusNode.hasFocus) {
+        print("init");
+        context.read<LoginViewModel>().scrollToBottom();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

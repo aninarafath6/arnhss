@@ -1,6 +1,4 @@
-import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginBanner extends StatelessWidget {
   const LoginBanner({
@@ -10,7 +8,6 @@ class LoginBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      key: context.read<LoginViewModel>().dataKey,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Image.asset("assets/images/pngs/login 1.png"),
