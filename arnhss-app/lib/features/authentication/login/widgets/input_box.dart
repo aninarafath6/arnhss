@@ -16,9 +16,7 @@ class InputBox extends StatelessWidget {
         child: TextField(
           focusNode: myFocusNode,
           onTap: () {
-            !myFocusNode.hasFocus
-                ? context.read<LoginViewModel>().scrollToBottom()
-                : null;
+            context.read<LoginViewModel>().scrollToBottom();
           },
           controller: context.read<LoginViewModel>().mobileNumberController,
           keyboardType: TextInputType.number,
