@@ -10,13 +10,15 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: context.getWidth(0)),
-        child: Stack(
-          children: const [
-            Background(),
-            OnboardingContent(),
-          ],
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: context.getWidth(0)),
+          child: Stack(
+            children: const [
+              Background(),
+              OnboardingContent(),
+            ],
+          ),
         ),
       ),
     );
