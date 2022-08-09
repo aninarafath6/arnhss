@@ -1,6 +1,3 @@
-# user flow 
-[user flow chart ](https://www.figma.com/file/BAcGajYbla8hJGDNEUoAQ3/arnhss?node-id=0%3A1)
-
 
 # screen shorts work progress
 
@@ -13,3 +10,47 @@
 
 
 
+
+
+# ARNHSS -> School project
+
+_Description here_
+### Libraries used
+1. [Flutter](https://flutter.dev/)
+2. [dart](https://dart.dev/) basic language
+3. [Provider](https://pub.dev/packages/provider/) for statemanagement
+
+### Tools used
+1. [flutter_lint](https://pub.dev/packages/flutter_lints/) for lint
+2. [Google_fonts](https://pub.dev/packages/google_fonts/) for typography
+
+### Preferred tools
+1. Code editor [VS Code](https://code.visualstudio.com/)
+
+### Folder structure
+
+#### `utils`
+It will have all the basic utilites dimension,navigation etc...
+
+#### `common`
+It will have all the constants and common things  like  constants , themes ,  routes ... etc
+
+#### `fetures`
+It will have all the basic fetuers of app like login , splash , home... etc.
+
+#### `assets`
+It will contains all the assets is used in this project.
+
+### Commands
+
+```
+# start dev
+flutter run
+
+# test app
+flutter test [<DIRECTORY|DART_FILE>] 
+
+
+
+### Links
+1.[user flow chart ](https://www.figma.com/file/BAcGajYbla8hJGDNEUoAQ3/arnhss?node-id=0%3A1)
