@@ -50,7 +50,7 @@ flutter run
 # test app
 flutter test [<DIRECTORY|DART_FILE>] 
 
-
+```
 
 ### Links
 1.[user flow chart ](https://www.figma.com/file/BAcGajYbla8hJGDNEUoAQ3/arnhss?node-id=0%3A1)
