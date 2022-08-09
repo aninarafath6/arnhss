@@ -33,6 +33,7 @@ class CountryDropDown extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 30.0, horizontal: 20),
                     child: TextField(
+                      onChanged: context.read<CountryViewModel>().searchCountry,
                       cursorColor: CustomColors.dark,
                       style: Theme.of(context).textTheme.subtitle1,
                       decoration: const InputDecoration(
@@ -44,6 +45,12 @@ class CountryDropDown extends StatelessWidget {
                     child: ListView.separated(
                       itemBuilder: (context, index) {
                         return ListTile(
+                          onTap: () {
+                            context.read<CountryViewModel>().setCountry(
+                                  snapshot.data![index],
+                                );
+                            Navigator.pop(context);
+                          },
                           title: Text(snapshot.data![index].name),
                           subtitle: Text(snapshot.data![index].dialCode),
                         );
