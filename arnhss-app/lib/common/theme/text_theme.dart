@@ -19,4 +19,13 @@ class CustomTextTheme {
       height: 1.5,
     );
   }
+
+  static TextStyle paragraph2() {
+    return const TextStyle(
+      color: CustomColors.texty,
+      fontSize: 12,
+      fontWeight: FontWeight.normal,
+      height: 1.5,
+    );
+  }
 }

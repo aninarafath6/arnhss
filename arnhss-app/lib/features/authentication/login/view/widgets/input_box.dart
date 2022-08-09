@@ -10,16 +10,13 @@ class InputBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(
         child: Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: TextField(
-          keyboardType: TextInputType.number,
-          cursorColor: CustomColors.dark,
-          style: Theme.of(context).textTheme.subtitle1,
-          decoration: const InputDecoration(
-            border: InputBorder.none,
-            hintText: "Enter your mobile number",
-          ),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        cursorColor: CustomColors.dark,
+        style: Theme.of(context).textTheme.subtitle1,
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+          hintText: "Enter your mobile number",
         ),
       ),
     ));

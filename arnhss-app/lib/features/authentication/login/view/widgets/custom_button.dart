@@ -25,7 +25,10 @@ class CustomInput extends StatelessWidget {
             ],
           ),
         ),
-        const VerticalDivider(),
+        const Padding(
+          padding:  EdgeInsets.symmetric(vertical: 8.0),
+          child:  VerticalDivider(),
+        ),
         const InputBox(),
       ],
     );

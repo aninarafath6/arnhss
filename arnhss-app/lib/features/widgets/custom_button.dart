@@ -3,13 +3,15 @@ import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({
-    Key? key,
-    this.color = CustomColors.dark,
-    this.onTap,
-  }) : super(key: key);
+  const CustomButton(
+      {Key? key,
+      this.color = CustomColors.dark,
+      this.onTap,
+      this.label = "Get Started"})
+      : super(key: key);
 
   final Color color;
+  final String label;
   final Function()? onTap;
 
   @override
@@ -29,10 +31,10 @@ class CustomButton extends StatelessWidget {
             context.getHeight(1),
           ),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
-            "Get Started",
-            style: TextStyle(
+            label,
+            style: const TextStyle(
               color: Colors.white,
             ),
           ),

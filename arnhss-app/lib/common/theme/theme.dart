@@ -9,8 +9,10 @@ class Theming {
     return ThemeData(
       scaffoldBackgroundColor: CustomColors.white,
       textTheme: TextTheme(
-          headline1: CustomTextTheme.headLine(),
-          subtitle1: CustomTextTheme.paragraph()),
+        headline1: CustomTextTheme.headLine(),
+        subtitle1: CustomTextTheme.paragraph(),
+        subtitle2: CustomTextTheme.paragraph2(),
+      ),
     );
   }
 }
