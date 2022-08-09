@@ -6,6 +6,9 @@ class CountryViewModel with ChangeNotifier {
       countryModelFromJson(getJson());
   Future<List<CountryModel>>? _result = countryModelFromJson(getJson());
 
+  // used to keybord overlap
+  bool _isDropDownOpen = false;
+
   CountryModel _selectedCountry = CountryModel(
     name: "India",
     dialCode: "+91",
@@ -15,11 +18,17 @@ class CountryViewModel with ChangeNotifier {
   CountryModel get selectedCountry => _selectedCountry;
   Future<List<CountryModel>>? get result => _result;
   Future<List<CountryModel>> get country => _allCountry;
+  bool get isDropDownOpen => _isDropDownOpen;
+
+  void updateDropDown(bool status) {
+    _isDropDownOpen = status;
+  }
 
   void setCountry(CountryModel country) {
     _selectedCountry = country;
     notifyListeners();
     _result = _allCountry;
+    updateDropDown(false);
   }
 
   void searchCountry(String qry) {

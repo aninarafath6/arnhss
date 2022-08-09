@@ -1,10 +1,8 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class InputBox extends StatelessWidget {
-  InputBox({
+  const InputBox({
     Key? key,
   }) : super(key: key);
 
@@ -13,7 +11,6 @@ class InputBox extends StatelessWidget {
     return Flexible(
       child: Center(
         child: TextField(
-        
           keyboardType: TextInputType.number,
           cursorColor: CustomColors.dark,
           style: Theme.of(context).textTheme.subtitle1,

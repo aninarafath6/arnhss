@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/utils/generate_color.dart';
@@ -12,6 +10,7 @@ class Theming {
       scaffoldBackgroundColor: CustomColors.white,
       textTheme: TextTheme(
         headline1: CustomTextTheme.headLine(),
+        headline2: CustomTextTheme.headLine2(),
         subtitle1: CustomTextTheme.paragraph(),
         subtitle2: CustomTextTheme.paragraph2(),
       ),

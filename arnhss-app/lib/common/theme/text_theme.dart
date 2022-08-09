@@ -11,6 +11,14 @@ class CustomTextTheme {
     );
   }
 
+  static TextStyle headLine2() {
+    return const TextStyle(
+      color: CustomColors.dark,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
   static TextStyle paragraph() {
     return const TextStyle(
       color: CustomColors.texty,

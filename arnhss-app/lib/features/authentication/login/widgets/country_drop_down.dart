@@ -44,6 +44,7 @@ class CountryDropDown extends StatelessWidget {
                     child: ListView.separated(
                       itemBuilder: (context, index) {
                         return ListTile(
+                          enableFeedback: true,
                           onTap: () {
                             context.read<CountryViewModel>().setCountry(
                                   snapshot.data![index],

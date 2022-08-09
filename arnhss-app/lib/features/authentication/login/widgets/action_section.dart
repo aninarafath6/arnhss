@@ -1,5 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/features/authentication/login/view/widgets/custom_button.dart';
+import 'package:arnhss/features/authentication/login/widgets/custom_button.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +22,11 @@ class ActionSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(8)),
           child: const CustomInput(),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 25),
+        const CustomButton(label: "Get OTP"),
+        const Spacer(),
         RichText(
+          textAlign: TextAlign.center,
           text: TextSpan(
             children: [
               TextSpan(
@@ -35,6 +38,7 @@ class ActionSection extends StatelessWidget {
                 style: TextStyle(
                   color: CustomColors.dark.withOpacity(1),
                   fontSize: 12,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               TextSpan(
@@ -45,14 +49,13 @@ class ActionSection extends StatelessWidget {
                 text: ' Privacy Policy',
                 style: TextStyle(
                   fontSize: 12,
+                  fontWeight: FontWeight.w500,
                   color: CustomColors.dark.withOpacity(1),
                 ),
               ),
             ],
           ),
         ),
-        const Spacer(),
-        const CustomButton(label: "Get OTP"),
       ],
     );
   }
