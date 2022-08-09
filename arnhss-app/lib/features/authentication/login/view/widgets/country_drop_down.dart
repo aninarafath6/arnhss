@@ -26,7 +26,6 @@ class CountryDropDown extends StatelessWidget {
           child: FutureBuilder<List<CountryModel>>(
             future: context.watch<CountryViewModel>().result,
             builder: (context, snapshot) {
-              if (!snapshot.hasData) return const SizedBox();
               return Column(
                 children: [
                   Padding(
