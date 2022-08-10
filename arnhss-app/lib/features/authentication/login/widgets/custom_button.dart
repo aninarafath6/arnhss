@@ -34,11 +34,15 @@ class CustomInput extends StatelessWidget {
             },
             child: Row(
               children: [
-                const SizedBox(width: 8),
                 Text(
                   context.watch<CountryViewModel>().selectedCountry.dialCode,
                   style: const TextStyle(
                       fontWeight: FontWeight.w500, color: CustomColors.dark),
+                ),
+                const SizedBox(width: 5),
+                Image.network(
+                  "https://flagcdn.com/48x36/${context.watch<CountryViewModel>().selectedCountry.code.toLowerCase()}.png",
+                  width: 15,
                 ),
                 const Icon(Icons.arrow_drop_down, color: CustomColors.dark)
               ],
