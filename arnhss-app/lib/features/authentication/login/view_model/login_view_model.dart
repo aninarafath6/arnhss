@@ -2,12 +2,29 @@ import 'package:flutter/material.dart';
 
 class LoginViewModel with ChangeNotifier {
   final TextEditingController _mobileNumberController = TextEditingController();
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   final FocusNode _myFocusNode = FocusNode();
 
   TextEditingController get mobileNumberController => _mobileNumberController;
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
+
+  @override
+  void initState() {
+    // super.initState();
+    myFocusNode.addListener(() {
+      if (myFocusNode.hasFocus) {
+        scrollToBottom();
+      }
+    });
+  }
+
+  @override
+  @override
+  void dispose() {
+    _myFocusNode.dispose();
+    super.dispose();
+  }
 
   scrollToBottom() {
     print("scrollToBottom");
