@@ -13,6 +13,20 @@ class InputBox extends StatefulWidget {
 }
 
 class _InputBoxState extends State<InputBox> {
+  late FocusNode myFocusNode = context.read<LoginViewModel>().myFocusNode;
+  @override
+  void initState() {
+    super.initState();
+    print("init");
+    // super.initState();
+    myFocusNode.addListener(() {
+      if (myFocusNode.hasFocus) {
+        print("focus");
+        context.read<LoginViewModel>().scrollToBottom();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Flexible(

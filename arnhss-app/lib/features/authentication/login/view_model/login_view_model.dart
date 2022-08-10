@@ -9,23 +9,6 @@ class LoginViewModel with ChangeNotifier {
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
 
-  @override
-  void initState() {
-    // super.initState();
-    myFocusNode.addListener(() {
-      if (myFocusNode.hasFocus) {
-        scrollToBottom();
-      }
-    });
-  }
-
-  @override
-  @override
-  void dispose() {
-    _myFocusNode.dispose();
-    super.dispose();
-  }
-
   scrollToBottom() {
     print("scrollToBottom");
     final contentSize = _scrollController.position.viewportDimension +
@@ -33,7 +16,7 @@ class LoginViewModel with ChangeNotifier {
 
 // Scroll to that position.
     _scrollController.position.animateTo(
-      contentSize / 6,
+      contentSize / 7,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );

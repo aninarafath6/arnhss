@@ -29,8 +29,8 @@ class CountryDropDown extends StatelessWidget {
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 30.0, horizontal: 20),
+                    padding: const EdgeInsets.only(
+                        top: 30.0, bottom: 15, left: 20, right: 20),
                     child: TextField(
                       onChanged: context.read<CountryViewModel>().searchCountry,
                       cursorColor: CustomColors.dark,
@@ -41,25 +41,31 @@ class CountryDropDown extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          enableFeedback: true,
-                          onTap: () {
-                            context.read<CountryViewModel>().setCountry(
-                                  snapshot.data![index],
-                                );
-
-                            Navigator.pop(context);
-                          },
-                          title: Text(snapshot.data![index].name),
-                          subtitle: Text(snapshot.data![index].dialCode),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 10);
-                      },
-                      itemCount: snapshot.data?.length ?? 0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            onTap: () {
+                              context.read<CountryViewModel>().setCountry(
+                                    snapshot.data![index],
+                                  );
+                              Navigator.pop(context);
+                            },
+                            enableFeedback: true,
+                            leading: Image.network(
+                              "https://flagcdn.com/48x36/${snapshot.data![index].code.toLowerCase()}.png",
+                              width: 30,
+                            ),
+                            title: Text(snapshot.data![index].name),
+                            subtitle: Text(snapshot.data![index].dialCode),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(height: 10);
+                        },
+                        itemCount: snapshot.data?.length ?? 0,
+                      ),
                     ),
                   ),
                 ],

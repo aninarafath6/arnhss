@@ -1,5 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
+import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/login/widgets/country_drop_down.dart';
 import 'package:arnhss/features/authentication/login/widgets/input_box.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class CustomInput extends StatelessWidget {
             },
             child: Row(
               children: [
+                const SizedBox(width: 8),
                 Text(
                   context.watch<CountryViewModel>().selectedCountry.dialCode,
                   style: const TextStyle(
@@ -47,7 +49,7 @@ class CustomInput extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 8.0),
           child: VerticalDivider(),
         ),
-         InputBox(),
+        const InputBox(),
       ],
     );
   }

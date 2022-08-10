@@ -25,9 +25,8 @@ class ActionSection extends StatelessWidget {
           child: const CustomInput(),
         ),
         const SizedBox(height: 25),
-        CustomButton(
+        const CustomButton(
           label: "Get OTP",
-        
         ),
         const Spacer(),
         RichText(
