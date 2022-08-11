@@ -27,6 +27,7 @@ _Description here_
 1. Code editor [VS Code](https://code.visualstudio.com/)
 
 ### Folder structure
+followd mvvm architecutre
 
 #### `utils`
 It will have all the basic utilites dimension,navigation etc...
