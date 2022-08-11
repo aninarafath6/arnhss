@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,10 +41,10 @@ class _InputBoxState extends State<InputBox> {
           keyboardType: TextInputType.number,
           cursorColor: CustomColors.dark,
           style: Theme.of(context).textTheme.subtitle1,
-          decoration: const InputDecoration(
-            border: InputBorder.none,
-            hintText: "Enter your mobile number",
-          ),
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: "Enter your mobile number",
+              hintStyle: CustomTextTheme(context: context).paragraph()),
         ),
       ),
     );
