@@ -1,5 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
+import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/login/widgets/country_drop_down.dart';
 import 'package:arnhss/features/authentication/login/widgets/input_box.dart';
 import 'package:flutter/material.dart';

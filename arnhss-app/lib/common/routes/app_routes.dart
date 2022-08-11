@@ -1,4 +1,5 @@
 import 'package:arnhss/features/authentication/login/view/login.dart';
+import 'package:arnhss/features/authentication/otp_verification/views/otp_verify_view.dart';
 import 'package:arnhss/features/onboarding/views/onboarding_view.dart';
 import 'package:arnhss/features/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,9 @@ class AppRoutes {
       case SplashView.routeName:
         return MaterialPageRoute(builder: (_) => const SplashView());
       case LoginView.routeName:
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(builder: (_) => const LoginView());
+      case OtpVerificationView.routeName:
+        return MaterialPageRoute(builder: (_) => const OtpVerificationView());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

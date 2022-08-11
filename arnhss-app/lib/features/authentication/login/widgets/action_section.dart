@@ -1,11 +1,10 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
-import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/login/widgets/custom_button.dart';
+import 'package:arnhss/features/authentication/otp_verification/views/otp_verify_view.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ActionSection extends StatelessWidget {
   const ActionSection({
@@ -26,8 +25,10 @@ class ActionSection extends StatelessWidget {
           child: const CustomInput(),
         ),
         const SizedBox(height: 25),
-        const CustomButton(
+        CustomButton(
           label: "Get OTP",
+          onTap: () =>
+              Navigator.pushNamed(context, OtpVerificationView.routeName),
         ),
         const Spacer(),
         RichText(
