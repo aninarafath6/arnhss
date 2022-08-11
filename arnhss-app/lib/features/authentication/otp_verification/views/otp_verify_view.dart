@@ -3,6 +3,7 @@ import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
 import 'package:arnhss/features/widgets/custom_app_bar.dart';
+import 'package:arnhss/features/widgets/custom_button.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,8 @@ class OtpVerificationView extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
+                  Spacer(),
+
                   Image.asset(
                     Images.otp_image,
                   ),
@@ -63,7 +66,9 @@ class OtpVerificationView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  // const SizedBox(height: 30),
+                  Spacer(),
+
                   OtpTextField(
                     focusedBorderColor: CustomColors.dark,
                     keyboardType: TextInputType.number,
@@ -90,6 +95,8 @@ class OtpVerificationView extends StatelessWidget {
                     }, // end onSubmit
                   ),
                   const SizedBox(height: 50),
+                  Spacer(flex: 3),
+
                   Text(
                     "I Didn't receive the code! resend after 0:59 s",
                     style: CustomTextTheme(context: context).paragraph(),
@@ -98,8 +105,14 @@ class OtpVerificationView extends StatelessWidget {
                     "Resend",
                     style: CustomTextTheme(context: context)
                         .paragraph()
-                        .copyWith(fontSize: context.getHeight(2.3)),
+                        .copyWith(
+                            fontSize: context.getHeight(2),
+                            color: CustomColors.dark,
+                            fontWeight: FontWeight.w500),
                   ),
+                  Spacer(),
+
+                  CustomButton(label: "Verifay OTP"),
                 ],
               ),
             ),

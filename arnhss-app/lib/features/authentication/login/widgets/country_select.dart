@@ -2,7 +2,6 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/models/country_dropdown_model.dart';
 import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
-import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,16 +60,20 @@ class CountrySelect extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
         child: FutureBuilder<List<CountryModel>>(
-            future: context.read<CountryViewModel>().result,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const SizedBox();
-              }
-              return ListView.separated(
-                itemBuilder: (context, index) {
-                  bool status =
-                      context.read<CountryViewModel>().selectedCountry.code ==
-                          snapshot.data![index].code;
+          future: context.read<CountryViewModel>().result,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const SizedBox();
+            }
+            return ListView.separated(
+              itemBuilder: (context, index) {
+                // bool status =
+                //     context.read<CountryViewModel>().selectedCountry.code ==
+                //         snapshot.data![index].code;
+                if (snapshot.data!.isEmpty) {
+                  return Text("No matches found");
+                  print("empty");
+                } else {
                   return ListTile(
                     onTap: () {
                       context.read<CountryViewModel>().setCountry(
@@ -92,15 +95,17 @@ class CountrySelect extends StatelessWidget {
                       width: 25,
                     ),
                   );
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider(
-                    thickness: 1.2,
-                  );
-                },
-                itemCount: snapshot.data?.length ?? 0,
-              );
-            }),
+                }
+              },
+              separatorBuilder: (context, index) {
+                return const Divider(
+                  thickness: 1.2,
+                );
+              },
+              itemCount: snapshot.data?.length ?? 0,
+            );
+          },
+        ),
       ),
     );
   }
