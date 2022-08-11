@@ -8,6 +8,7 @@ class CountryViewModel with ChangeNotifier {
 
   // used to keybord overlap
   bool _isDropDownOpen = false;
+  bool _isSearching = false;
 
   CountryModel _selectedCountry = CountryModel(
     name: "India",
@@ -19,6 +20,12 @@ class CountryViewModel with ChangeNotifier {
   Future<List<CountryModel>>? get result => _result;
   Future<List<CountryModel>> get country => _allCountry;
   bool get isDropDownOpen => _isDropDownOpen;
+  bool get isSearching => _isSearching;
+
+  void toggleSearching() {
+    _isSearching = !_isSearching;
+    notifyListeners();
+  }
 
   void updateDropDown(bool status) {
     _isDropDownOpen = status;

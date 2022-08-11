@@ -1,4 +1,5 @@
 import 'package:arnhss/features/authentication/login/view/login.dart';
+import 'package:arnhss/features/authentication/login/widgets/country_select.dart';
 import 'package:arnhss/features/authentication/otp_verification/views/otp_verify_view.dart';
 import 'package:arnhss/features/onboarding/views/onboarding_view.dart';
 import 'package:arnhss/features/splash/views/splash_view.dart';
@@ -15,6 +16,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const LoginView());
       case OtpVerificationView.routeName:
         return MaterialPageRoute(builder: (_) => const OtpVerificationView());
+      case CountrySelect.routeName:
+        return MaterialPageRoute(builder: (_) => CountrySelect());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }
