@@ -21,7 +21,7 @@ class LoginView extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: ListView(
-            physics: NeverScrollableScrollPhysics(),
+            // physics: NeverScrollableScrollPhysics(),
             controller: context.watch<LoginViewModel>().scrollController,
             children: [
               context.spacing(height: 10),

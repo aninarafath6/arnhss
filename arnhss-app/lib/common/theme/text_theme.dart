@@ -1,39 +1,43 @@
+import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
 
 class CustomTextTheme {
-  static TextStyle headLine() {
-    return const TextStyle(
+  CustomTextTheme({required this.context});
+  final BuildContext context;
+
+  TextStyle headLine() {
+    return TextStyle(
       color: CustomColors.dark,
-      fontSize: 24,
+      fontSize: context.getHeight(2.6),
       fontWeight: FontWeight.bold,
     );
   }
 
-  static TextStyle headLine2() {
-    return const TextStyle(
+  TextStyle headLine2() {
+    return TextStyle(
       color: CustomColors.dark,
-      fontSize: 20,
+      fontSize: context.getHeight(2),
       fontWeight: FontWeight.bold,
     );
   }
 
-  static TextStyle paragraph() {
-    return const TextStyle(
+  TextStyle paragraph() {
+    return TextStyle(
       color: CustomColors.texty,
-      fontSize: 15,
       fontWeight: FontWeight.normal,
       height: 1.5,
+      fontSize: context.getHeight(1.7),
     );
   }
 
-  static TextStyle paragraph2() {
-    return const TextStyle(
+  TextStyle paragraph2() {
+    return TextStyle(
       color: CustomColors.texty,
-      fontSize: 12,
+      fontSize: context.getHeight(1.3),
       fontWeight: FontWeight.normal,
-      height: 1.5,
+      height: 1,
     );
   }
 }

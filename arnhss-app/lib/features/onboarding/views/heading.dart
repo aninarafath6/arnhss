@@ -1,3 +1,4 @@
+import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class Heading extends StatelessWidget {
@@ -12,7 +13,7 @@ class Heading extends StatelessWidget {
       child: Text(
         "Ar Nagar Hss- A complete educational institute",
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headline1,
+        style: CustomTextTheme(context: context).headLine(),
       ),
     );
   }

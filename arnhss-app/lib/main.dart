@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'arnhss',
         initialRoute: SplashView.routeName,
-        theme: Theming.theme(),
+        theme: Theming(context: context).theme(),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: AppRoutes.generateRoute,
       ),

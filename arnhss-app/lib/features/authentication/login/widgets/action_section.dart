@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/login/widgets/custom_button.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
@@ -35,24 +36,24 @@ class ActionSection extends StatelessWidget {
             children: [
               TextSpan(
                 text: 'By continuing, you agree to our Terms of ',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: CustomTextTheme(context: context).paragraph2(),
               ),
               TextSpan(
                 text: 'Terms of Service ',
                 style: TextStyle(
                   color: CustomColors.dark.withOpacity(1),
-                  fontSize: 12,
+                  fontSize: context.getHeight(1.4),
                   fontWeight: FontWeight.w500,
                 ),
               ),
               TextSpan(
                 text: 'and',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: CustomTextTheme(context: context).paragraph2(),
               ),
               TextSpan(
                 text: ' Privacy Policy',
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: context.getHeight(1.4),
                   fontWeight: FontWeight.w500,
                   color: CustomColors.dark.withOpacity(1),
                 ),
