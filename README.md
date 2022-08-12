@@ -9,7 +9,7 @@
 
 # UI prototype of Alpha verison -> School project
 
- <img width='400' src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/>          <img width='400' src="https://user-images.githubusercontent.com/65447144/184448875-794db9a1-10cb-421d-ab27-d8f1a97cc8d8.jpeg"/> 
+ <img width='400' src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/>          <img width='400' src="https://user-images.githubusercontent.com/65447144/184449048-4d43402e-e6ac-406d-8b64-e6534568fdc7.jpeg"/> 
 
 
 # ARNHSS -> School project
