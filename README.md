@@ -7,6 +7,10 @@
 
 
 
+# UI prototype of Alpha verison -> School project
+
+ <img width='210' src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/> 
+
 
 
 # ARNHSS -> School project
