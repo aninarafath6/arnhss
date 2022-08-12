@@ -81,7 +81,7 @@ class OtpVerificationView extends StatelessWidget {
             ),
             context.spacing(height: 10),
             Text(
-              "I Didn't receive the code! resend after 0:59 s",
+              "Resend OTP again after 00:${context.watch<VerifyOtpViewModel>().balanceTime} sec",
               textAlign: TextAlign.center,
               style: CustomTextTheme(context: context).paragraph(),
             ),

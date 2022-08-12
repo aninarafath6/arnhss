@@ -1,8 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
-import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 AppBar customAppBar(BuildContext context,
     {required String title, FocusNode? focus}) {

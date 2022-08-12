@@ -1,4 +1,7 @@
+import 'package:arnhss/features/authentication/otp_verification/views/otp_verify_view.dart';
+import 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginViewModel with ChangeNotifier {
   final TextEditingController _mobileNumberController = TextEditingController();
@@ -28,5 +31,14 @@ class LoginViewModel with ChangeNotifier {
     } else {
       return false;
     }
+  }
+
+  void getOtp(BuildContext context) {
+    context.read<VerifyOtpViewModel>().resendTimer();
+    Navigator.pop(context);
+    Navigator.pushNamed(
+      context,
+      OtpVerificationView.routeName,
+    );
   }
 }
