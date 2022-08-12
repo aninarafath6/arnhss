@@ -2,7 +2,7 @@
 # screen shorts work progress
 
 
-<img width='210' src="https://user-images.githubusercontent.com/65447144/183302437-8c846b5e-3f4b-4caa-8626-6e1eef4ac295.png"/>    <img width='210' src="https://user-images.githubusercontent.com/65447144/183710986-60f101db-12d2-45f0-bbfb-57913aea97d7.png"/>     <img width='210' src="https://user-images.githubusercontent.com/65447144/183711644-6be5797f-a741-407c-aa87-b729a0f806b9.png"/>    <img width='210' src="https://user-images.githubusercontent.com/65447144/183737998-00b34e90-349f-4d36-9722-01588d4543c6.png"/>    
+<img width='210' src="https://user-images.githubusercontent.com/65447144/183302437-8c846b5e-3f4b-4caa-8626-6e1eef4ac295.png"/>    <img width='210' src="https://user-images.githubusercontent.com/65447144/183710986-60f101db-12d2-45f0-bbfb-57913aea97d7.png"/>       
 
 
 
