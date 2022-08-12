@@ -1,14 +1,17 @@
 
-# screen shorts work progress
+# screen shorts and work progress
 
 
-<img width='210' src="https://user-images.githubusercontent.com/65447144/183302437-8c846b5e-3f4b-4caa-8626-6e1eef4ac295.png"/>    <img width='210' src="https://user-images.githubusercontent.com/65447144/183710986-60f101db-12d2-45f0-bbfb-57913aea97d7.png"/>     <img width='210' src="https://user-images.githubusercontent.com/65447144/183711644-6be5797f-a741-407c-aa87-b729a0f806b9.png"/>    <img width='210' src="https://user-images.githubusercontent.com/65447144/183737998-00b34e90-349f-4d36-9722-01588d4543c6.png"/>    <img width='210' src="https://user-images.githubusercontent.com/65447144/184005099-049829b1-6751-4d09-a525-afc4e4a18d09.png"/>    <img width='210' src="https://user-images.githubusercontent.com/65447144/184139551-d4b4db0d-a8e8-4396-b8e5-87a071dcc941.png"/> 
-
-
+<img width='210' src="https://user-images.githubusercontent.com/65447144/183302437-8c846b5e-3f4b-4caa-8626-6e1eef4ac295.png"/>          <img width='210' src="https://user-images.githubusercontent.com/65447144/183710986-60f101db-12d2-45f0-bbfb-57913aea97d7.png"/>          <img width='210' src="https://user-images.githubusercontent.com/65447144/184447100-b1210113-e040-41a5-bc66-28ace657f777.png"/>          <img width='210' src="https://user-images.githubusercontent.com/65447144/184447225-d0192f64-97c9-4422-9383-2f362d8a9f99.png"/>          <img width='210' src="https://user-images.githubusercontent.com/65447144/184447337-5df1ac9f-93bb-46ff-8f5a-ee64e892ab6d.png"/>          <img width='210' src="https://user-images.githubusercontent.com/65447144/184447609-87db16c3-b2ad-49e7-b309-09a2315f145b.png"/>          <img width='210' src="https://user-images.githubusercontent.com/65447144/184447740-909c709e-4a14-4afd-b6e8-d95d5d3f2687.png"/>          <img width='210' src="https://user-images.githubusercontent.com/65447144/184447882-bb42d38f-0b80-4ce4-a7db-1f91c0788ec8.png"/>          <img width='210' src="https://user-images.githubusercontent.com/65447144/184448000-447c2f50-f7fb-4c55-99ff-dea4c9f31f16.png"/> 
 
 
 
 
+# UI prototype of Alpha verison -> School project
+
+ <img width='400' src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/>          <img width='400' src="https://user-images.githubusercontent.com/65447144/184449048-4d43402e-e6ac-406d-8b64-e6534568fdc7.jpeg"/> 
+
+ [user flow chart ](https://www.figma.com/file/hqW9fdd2K8r4gRhCvAkCmG/user-flow-of-arnhss?node-id=0%3A1)
 
 
 # ARNHSS -> School project
