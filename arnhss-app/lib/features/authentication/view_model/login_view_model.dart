@@ -36,17 +36,17 @@ class LoginViewModel with ChangeNotifier {
 
 // get otp functionality
   void getOtp(BuildContext context, {bool reGet = false}) {
-    if (!reGet) {
-      Navigator.pop(context);
-      Navigator.pushNamed(
-        context,
-        OtpVerificationView.routeName,
-      );
-    }
-    context.read<VerifyOtpViewModel>().resetTimer();
-    context.read<VerifyOtpViewModel>().resendTimer();
+    final provider = context.read<VerifyOtpViewModel>();
 
-    // get otp functions
-    print("request to get otp with $_mobileNumberController.text");
+    if (provider.isFirstReq) {
+      provider.verifyOtp(int.parse(_mobileNumberController.text));
+      print("get otp with ${_mobileNumberController.text}");
+    } else if (!provider.isFirstReq && provider.resendAvailable) {
+      provider.verifyOtp(int.parse(_mobileNumberController.text));
+      print(
+          "get otp with ${_mobileNumberController.text} after waiting for resend");
+    } else {
+      print("try after ${provider.balanceTime} seconds");
+    }
   }
 }

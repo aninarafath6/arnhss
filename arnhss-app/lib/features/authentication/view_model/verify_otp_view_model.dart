@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
   int _balanceTime = 60;
+  bool _isFirstReq = true;
 
   int get balanceTime => _balanceTime;
   bool get resendAvailable => _balanceTime == 0 ? true : false;
+  bool get isFirstReq => _isFirstReq;
 
 // reset the timer
   void resetTimer() {
     _balanceTime = 60;
+
     notifyListeners();
+    _isFirstReq = false;
   }
 
 // the time for resend the otp
