@@ -58,6 +58,7 @@ class ActionSection extends StatelessWidget {
                           child: const Text("EDIT")),
                       TextButton(
                         onPressed: () {
+                          Navigator.pop(context);
                           Navigator.pushNamed(
                             context,
                             OtpVerificationView.routeName,

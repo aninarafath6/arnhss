@@ -10,11 +10,8 @@ class LoginViewModel with ChangeNotifier {
   FocusNode get myFocusNode => _myFocusNode;
 
   scrollToBottom() {
-    print("scrollToBottom");
     final contentSize = _scrollController.position.viewportDimension +
         _scrollController.position.maxScrollExtent;
-
-// Scroll to that position.
     _scrollController.position.animateTo(
       contentSize / 7,
       duration: const Duration(milliseconds: 500),
@@ -31,7 +28,5 @@ class LoginViewModel with ChangeNotifier {
     } else {
       return false;
     }
-
-    // if(_mobileNumberController.text.ma)
   }
 }

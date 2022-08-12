@@ -4,7 +4,8 @@ import 'package:arnhss/features/authentication/view_model/login_view_model.dart'
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-AppBar customAppBar(BuildContext context, {required String title}) {
+AppBar customAppBar(BuildContext context,
+    {required String title, FocusNode? focus}) {
   return AppBar(
     backgroundColor: Colors.transparent,
     centerTitle: true,
@@ -12,8 +13,9 @@ AppBar customAppBar(BuildContext context, {required String title}) {
     leading: IconButton(
       splashRadius: 25,
       onPressed: () {
-        if (WidgetsBinding.instance.window.viewInsets.bottom > 0.0) {
-          context.read<LoginViewModel>().myFocusNode.unfocus();
+        if (WidgetsBinding.instance.window.viewInsets.bottom > 0.0 &&
+            focus != null) {
+          focus.unfocus();
         } else {
           Navigator.pop(context);
         }
