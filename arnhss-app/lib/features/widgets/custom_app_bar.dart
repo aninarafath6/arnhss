@@ -1,5 +1,5 @@
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 AppBar customAppBar(BuildContext context,
@@ -11,9 +11,8 @@ AppBar customAppBar(BuildContext context,
     leading: IconButton(
       splashRadius: 25,
       onPressed: () {
-        if (WidgetsBinding.instance.window.viewInsets.bottom > 0.0 &&
-            focus != null) {
-          focus.unfocus();
+        if (FocusScope.of(context).hasFocus) {
+          FocusScope.of(context).unfocus();
         } else {
           Navigator.pop(context);
         }

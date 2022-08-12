@@ -11,7 +11,7 @@ class LoginViewModel with ChangeNotifier {
   TextEditingController get mobileNumberController => _mobileNumberController;
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
-
+// scroll when keybord is shown
   scrollToBottom() {
     final contentSize = _scrollController.position.viewportDimension +
         _scrollController.position.maxScrollExtent;
@@ -22,6 +22,7 @@ class LoginViewModel with ChangeNotifier {
     );
   }
 
+// a popup for validate mobile number
   bool otpDialog() {
     String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
     RegExp regExp = RegExp(pattern);
@@ -33,12 +34,19 @@ class LoginViewModel with ChangeNotifier {
     }
   }
 
-  void getOtp(BuildContext context) {
+// get otp functionality
+  void getOtp(BuildContext context, {bool reGet = false}) {
+    if (!reGet) {
+      Navigator.pop(context);
+      Navigator.pushNamed(
+        context,
+        OtpVerificationView.routeName,
+      );
+    }
+    context.read<VerifyOtpViewModel>().resetTimer();
     context.read<VerifyOtpViewModel>().resendTimer();
-    Navigator.pop(context);
-    Navigator.pushNamed(
-      context,
-      OtpVerificationView.routeName,
-    );
+
+    // get otp functions
+    print("request to get otp with $_mobileNumberController.text");
   }
 }

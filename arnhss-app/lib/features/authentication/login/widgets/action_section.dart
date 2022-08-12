@@ -6,6 +6,7 @@ import 'package:arnhss/features/authentication/otp_verification/views/otp_verify
 import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
+import 'package:arnhss/features/widgets/custom_snack_bar.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -67,11 +68,7 @@ class ActionSection extends StatelessWidget {
                 },
               );
             } else {
-              const snackBar = SnackBar(
-                backgroundColor: CustomColors.dark,
-                content: Text('Invalid Phone number!'),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              customSnackBar(context, "Please enter valid mobile number");
             }
 
             // Navigator.pushNamed(context, OtpVerificationView.routeName);

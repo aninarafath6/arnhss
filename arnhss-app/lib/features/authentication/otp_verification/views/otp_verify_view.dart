@@ -2,9 +2,11 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
+import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/features/widgets/custom_app_bar.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
+import 'package:arnhss/features/widgets/custom_snack_bar.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +19,7 @@ class OtpVerificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, title: "Verification"),
+      appBar: customAppBar(context, title: ""),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: ListView(
@@ -81,7 +83,7 @@ class OtpVerificationView extends StatelessWidget {
             ),
             context.spacing(height: 10),
             Text(
-              "Resend OTP again after 00:${context.watch<VerifyOtpViewModel>().balanceTime} sec",
+              "Send OTP again after 00:${context.watch<VerifyOtpViewModel>().balanceTime} seconds",
               textAlign: TextAlign.center,
               style: CustomTextTheme(context: context).paragraph(),
             ),
@@ -89,10 +91,17 @@ class OtpVerificationView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: context.getWidth(25)),
               child: CustomButton(
-                onTap: context.read<VerifyOtpViewModel>().resendTimer,
+                onTap: () => context.read<VerifyOtpViewModel>().balanceTime == 0
+                    ? context
+                        .read<LoginViewModel>()
+                        .getOtp(context, reGet: true)
+                    : customSnackBar(context,
+                        "Please wait for ${context.read<VerifyOtpViewModel>().balanceTime} seconds"),
                 label: "resend",
+                textColor: context.watch<VerifyOtpViewModel>().resendAvailable
+                    ? CustomColors.dark
+                    : CustomColors.light,
                 color: Colors.transparent,
-                textColor: CustomColors.dark,
                 // width: 20,
                 fontWeight: FontWeight.bold,
                 height: 3,
@@ -105,6 +114,7 @@ class OtpVerificationView extends StatelessWidget {
                 int a = 10;
               },
             ),
+            context.spacing(height: 8),
           ],
         ),
       ),
