@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/models/country_dropdown_model.dart';
 import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
@@ -8,7 +9,7 @@ import 'package:provider/provider.dart';
 class CountrySelect extends StatelessWidget {
   CountrySelect({Key? key}) : super(key: key);
   static const routeName = "/country_selection";
-  FocusNode focusNode = FocusNode();
+  final FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -60,20 +61,16 @@ class CountrySelect extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
         child: FutureBuilder<List<CountryModel>>(
-          future: context.read<CountryViewModel>().result,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const SizedBox();
-            }
-            return ListView.separated(
-              itemBuilder: (context, index) {
-                // bool status =
-                //     context.read<CountryViewModel>().selectedCountry.code ==
-                //         snapshot.data![index].code;
-                if (snapshot.data!.isEmpty) {
-                  return Text("No matches found");
-                  print("empty");
-                } else {
+            future: context.read<CountryViewModel>().result,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const SizedBox();
+              }
+              return ListView.separated(
+                itemBuilder: (context, index) {
+                  bool status =
+                      context.read<CountryViewModel>().selectedCountry.code ==
+                          snapshot.data![index].code;
                   return ListTile(
                     onTap: () {
                       context.read<CountryViewModel>().setCountry(
@@ -91,21 +88,22 @@ class CountrySelect extends StatelessWidget {
                     ),
                     title: Text(snapshot.data![index].name),
                     leading: Image.network(
-                      "https://flagcdn.com/48x36/${snapshot.data![index].code.toLowerCase()}.png",
+                      "${Images.flag_base_url + snapshot.data![index].code.toLowerCase()}.png",
                       width: 25,
+                      errorBuilder: ((context, error, stackTrace) {
+                        return Text(snapshot.data![index].code);
+                      }),
                     ),
                   );
-                }
-              },
-              separatorBuilder: (context, index) {
-                return const Divider(
-                  thickness: 1.2,
-                );
-              },
-              itemCount: snapshot.data?.length ?? 0,
-            );
-          },
-        ),
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider(
+                    thickness: 1.2,
+                  );
+                },
+                itemCount: snapshot.data?.length ?? 0,
+              );
+            }),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 AppBar customAppBar(BuildContext context, {required String title}) {
   return AppBar(
@@ -10,7 +12,11 @@ AppBar customAppBar(BuildContext context, {required String title}) {
     leading: IconButton(
       splashRadius: 25,
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
+        if (WidgetsBinding.instance.window.viewInsets.bottom > 0.0) {
+          context.read<LoginViewModel>().myFocusNode.unfocus();
+        } else {
+          Navigator.pop(context);
+        }
       },
       icon: const Icon(
         Icons.arrow_back_ios_new,

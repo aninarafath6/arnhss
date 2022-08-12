@@ -15,29 +15,17 @@ class InputBox extends StatefulWidget {
 
 class _InputBoxState extends State<InputBox> {
   late FocusNode myFocusNode = context.read<LoginViewModel>().myFocusNode;
-  @override
-  void initState() {
-    super.initState();
-    print("init");
-    // super.initState();
-    myFocusNode.addListener(() {
-      if (myFocusNode.hasFocus) {
-        print("focus");
-        context.read<LoginViewModel>().scrollToBottom();
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
       child: Center(
         child: TextField(
-          focusNode: context.watch<LoginViewModel>().myFocusNode,
           onTap: () {
             context.read<LoginViewModel>().scrollToBottom();
           },
           controller: context.read<LoginViewModel>().mobileNumberController,
+          focusNode: myFocusNode,
           keyboardType: TextInputType.number,
           cursorColor: CustomColors.dark,
           style: Theme.of(context).textTheme.subtitle1,

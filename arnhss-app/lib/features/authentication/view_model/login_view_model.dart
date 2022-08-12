@@ -21,4 +21,17 @@ class LoginViewModel with ChangeNotifier {
       curve: Curves.easeInOut,
     );
   }
+
+  bool otpDialog() {
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = RegExp(pattern);
+
+    if (regExp.hasMatch(_mobileNumberController.text)) {
+      return true;
+    } else {
+      return false;
+    }
+
+    // if(_mobileNumberController.text.ma)
+  }
 }

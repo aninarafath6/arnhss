@@ -1,7 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/widgets/country_select.dart';
 import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
-import 'package:arnhss/features/authentication/login/widgets/country_drop_down.dart';
 import 'package:arnhss/features/authentication/login/widgets/input_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,12 +22,6 @@ class CustomInput extends StatelessWidget {
                   (states) => CustomColors.dark.withOpacity(.1)),
             ),
             onPressed: () {
-              // context.read<CountryViewModel>().updateDropDown(true);
-              // showDialog(
-              //   context: context,
-              //   builder: (context) {
-              //     return const CountryDropDown();
-              //   },
               // ).then((value) =>
               //     context.read<CountryViewModel>().updateDropDown(false));
               Navigator.pushNamed(context, CountrySelect.routeName);

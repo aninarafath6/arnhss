@@ -14,8 +14,6 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset:
-          !context.watch<CountryViewModel>().isDropDownOpen,
       appBar: customAppBar(context, title: "Login"),
       body: SafeArea(
         child: Container(
