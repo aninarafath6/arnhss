@@ -5,6 +5,7 @@ import 'package:arnhss/features/authentication/login/widgets/terms_paragraph.dar
 import 'package:arnhss/features/authentication/otp_verification/views/otp_verify_view.dart';
 import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
+import 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
 import 'package:arnhss/features/widgets/custom_snack_bar.dart';
 import 'package:arnhss/utils/dimensions.dart';
@@ -58,8 +59,17 @@ class ActionSection extends StatelessWidget {
                           },
                           child: const Text("EDIT")),
                       TextButton(
-                        onPressed: () =>
-                            context.read<LoginViewModel>().getOtp(context),
+                        onPressed: () {
+                          if (context
+                                  .read<VerifyOtpViewModel>()
+                                  .resendAvailable ||
+                              context.read<VerifyOtpViewModel>().isFirstReq) {
+                            context.read<LoginViewModel>().getOtp(context);
+                          } else {
+                            customSnackBar(context,
+                                "Please wait for ${context.read<VerifyOtpViewModel>().balanceTime} seconds");
+                          }
+                        },
                         child: const Text("CONTINUE"),
                       ),
                     ],

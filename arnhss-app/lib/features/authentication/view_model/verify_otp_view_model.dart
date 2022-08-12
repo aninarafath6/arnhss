@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
-  int _balanceTime = 60;
+  int _balanceTime = 30;
   bool _isFirstReq = true;
 
   int get balanceTime => _balanceTime;
@@ -13,25 +13,21 @@ class VerifyOtpViewModel extends ChangeNotifier {
 // reset the timer
   void resetTimer() {
     _balanceTime = 60;
-
-    notifyListeners();
     _isFirstReq = false;
+    notifyListeners();
   }
 
 // the time for resend the otp
-  void resendTimer() {
+  Future<void> resendTimer() async {
     const Duration lim = Duration(seconds: 1);
-    Timer.periodic(
-      lim,
-      (timer) {
-        if (_balanceTime == 0) {
-          timer.cancel();
-        } else {
-          _balanceTime--;
-          notifyListeners();
-        }
-      },
-    );
+    Timer.periodic(lim, (timer) {
+      if (_balanceTime == 0) {
+        timer.cancel();
+      } else {
+        _balanceTime--;
+        notifyListeners();
+      }
+    });
   }
 
   void verifyOtp(int code) {
