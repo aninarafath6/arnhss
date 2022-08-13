@@ -4,7 +4,6 @@
 
 
 
-![Simulator Screen Shot - iPhone 13 Pro Max - 2022-08-14 at 02 37 18]()
 
 <img width='400' src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/> <img width='400' src="https://user-images.githubusercontent.com/65447144/184449048-4d43402e-e6ac-406d-8b64-e6534568fdc7.jpeg"/>
 
