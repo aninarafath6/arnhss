@@ -11,13 +11,14 @@ class LoginViewModel with ChangeNotifier {
   TextEditingController get mobileNumberController => _mobileNumberController;
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
+
 // scroll when keybord is shown
-  scrollToBottom() {
+  scroll() {
     final contentSize = _scrollController.position.viewportDimension +
         _scrollController.position.maxScrollExtent;
     _scrollController.position.animateTo(
       contentSize / 7,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
   }
