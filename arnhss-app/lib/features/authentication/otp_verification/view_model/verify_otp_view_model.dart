@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:arnhss/features/authentication/login/view/index.dart';
+import 'package:arnhss/features/authentication/otp_verification/widgets/success_screen.dart';
+import 'package:arnhss/features/widgets/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
@@ -49,5 +52,23 @@ class VerifyOtpViewModel extends ChangeNotifier {
       debugPrint("invalid otp");
       return false;
     }
+  }
+
+  // handle veriyOtp and
+  void handleVerifyOtp(BuildContext context) {
+    () {
+      if (context.read<VerifyOtpViewModel>().verifyOtp()) {
+        SuccessScreen(context);
+        Timer(
+          const Duration(seconds: 3),
+          () {
+            Navigator.pushNamedAndRemoveUntil(
+                context, "/userRole", (r) => false);
+          },
+        );
+      } else {
+        customSnackBar(context, "sorry 😞, Please enter valid OTP");
+      }
+    };
   }
 }
