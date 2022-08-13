@@ -20,7 +20,7 @@ class OtpVerificationView extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(context, title: ""),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,

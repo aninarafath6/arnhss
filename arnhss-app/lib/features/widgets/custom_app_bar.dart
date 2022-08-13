@@ -1,5 +1,6 @@
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 AppBar customAppBar(BuildContext context,
@@ -11,7 +12,7 @@ AppBar customAppBar(BuildContext context,
     leading: IconButton(
       splashRadius: 25,
       onPressed: () {
-        if (FocusScope.of(context).hasFocus) {
+        if (context.isKeyboard) {
           FocusScope.of(context).unfocus();
         } else {
           Navigator.pop(context);
