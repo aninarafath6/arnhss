@@ -17,6 +17,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
 
 //setters
   set setOtp(String? otp) => (_otp = otp);
+  set isFirstReq(bool status) => (_isFirstReq = status);
 
   // functions
 // reset the timer
