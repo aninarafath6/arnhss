@@ -40,7 +40,13 @@ class VerifyOtpViewModel extends ChangeNotifier {
   }
 
 // validate the otp by api
-  void verifyOtp() {
-    print("verify otp with $_otp ");
+  bool verifyOtp() {
+    if (_otp!.length == 5 && num.tryParse(_otp!) != null) {
+      debugPrint("verifying otp");
+      return true;
+    } else {
+      debugPrint("invalid otp");
+      return false;
+    }
   }
 }

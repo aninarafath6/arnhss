@@ -4,6 +4,7 @@ import 'package:arnhss/features/authentication/otp_verification/widgets/verifica
 import 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/features/widgets/custom_app_bar.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
+import 'package:arnhss/features/widgets/custom_snack_bar.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +55,12 @@ class _VerifyOtpActionButton extends StatelessWidget {
     return CustomButton(
       label: "Verify OTP",
       isDisabled: context.watch<VerifyOtpViewModel>().otp == null,
-      onTap: context.read<VerifyOtpViewModel>().verifyOtp,
+      onTap: () {
+        if (context.read<VerifyOtpViewModel>().verifyOtp()) {
+        } else {
+          customSnackBar(context, "Please enter valid OTP");
+        }
+      },
     );
   }
 }
