@@ -53,9 +53,13 @@ class VerifyOtpViewModel extends ChangeNotifier {
   Future<bool> verifyOtp(BuildContext context) async {
     if (_otp!.length == 5 && num.tryParse(_otp!) != null) {
       debugPrint("verifying otp");
-      // loading just for ui test
+
       updateLoading();
+      // implimentation of api call
+      try {} catch (e) {}
+      // loading just for ui test
       await Future.delayed(const Duration(seconds: 3));
+
       updateLoading();
 
       SuccessScreen(context);
