@@ -45,10 +45,10 @@ class _InputBoxState extends State<InputBox> {
         child: TextField(
           controller: context.read<LoginViewModel>().mobileNumberController,
           onTap: () {
-            if (!context.isKeyboard) {
-              ScrollUtil().scroll(
-                  controller: context.read<LoginViewModel>().scrollController);
-            }
+            // if (!context.isKeyboard) {
+            //   ScrollUtil().scroll(
+            //       controller: context.read<LoginViewModel>().scrollController);
+            // }
           },
           keyboardType: TextInputType.number,
           cursorColor: CustomColors.dark,

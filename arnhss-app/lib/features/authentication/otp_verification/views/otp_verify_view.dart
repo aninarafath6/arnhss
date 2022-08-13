@@ -15,7 +15,13 @@ class OtpVerificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, title: ""),
+      appBar: customAppBar(
+        context,
+        title: "",
+        onBack: () => {
+          context.read<VerifyOtpViewModel>().setOtp = null,
+        },
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
@@ -29,14 +35,26 @@ class OtpVerificationView extends StatelessWidget {
             context.spacing(height: 10),
             const ResendOtpSection(),
             context.spacing(height: 2),
-            CustomButton(
-              label: "Verify OTP",
-              onTap: () => context.read<VerifyOtpViewModel>().verifyOtp,
-            ),
+            const _VerifyOtpActionButton(),
             context.spacing(height: 8),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _VerifyOtpActionButton extends StatelessWidget {
+  const _VerifyOtpActionButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomButton(
+      label: "Verify OTP",
+      isDisabled: context.watch<VerifyOtpViewModel>().otp == null,
+      onTap: context.read<VerifyOtpViewModel>().verifyOtp,
     );
   }
 }

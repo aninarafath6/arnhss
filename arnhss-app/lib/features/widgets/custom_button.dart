@@ -13,6 +13,8 @@ class CustomButton extends StatelessWidget {
     this.fontSize = 15,
     this.label = "Get Started",
     this.fontWeight = FontWeight.w500,
+    this.isDisabled = false,
+    this.nonActiveColor = CustomColors.light,
   }) : super(key: key);
 
   final Color color;
@@ -23,6 +25,8 @@ class CustomButton extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final double height;
+  final bool isDisabled;
+  final Color nonActiveColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +37,12 @@ class CustomButton extends StatelessWidget {
           overlayColor:
               MaterialStateColor.resolveWith((states) => color.withOpacity(.1)),
         ),
-        onPressed: onTap,
+        onPressed: isDisabled ? null : onTap,
         child: Container(
           width: context.getWidth(width),
           height: context.getHeight(height),
           decoration: BoxDecoration(
-            color: color,
+            color: isDisabled ? nonActiveColor : color,
             borderRadius: BorderRadius.circular(
               context.getHeight(1),
             ),

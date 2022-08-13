@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ScrollUtil {
-  scroll({required ScrollController controller, pos = 7}) {
+  scroll({required ScrollController controller, pos = 6}) {
     final contentSize = controller.position.viewportDimension +
         controller.position.maxScrollExtent;
     controller.position.animateTo(

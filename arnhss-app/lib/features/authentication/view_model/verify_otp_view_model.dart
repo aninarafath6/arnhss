@@ -6,12 +6,19 @@ class VerifyOtpViewModel extends ChangeNotifier {
   int _balanceTime = 30;
   bool _isFirstReq = true;
   final ScrollController _otpScrollController = ScrollController();
+  String? _otp;
 
+  // getters
   int get balanceTime => _balanceTime;
   bool get resendAvailable => _balanceTime == 0 ? true : false;
   bool get isFirstReq => _isFirstReq;
   ScrollController get otpScrollController => _otpScrollController;
+  String? get otp => _otp;
 
+//setters
+  set setOtp(String? otp) => (_otp = otp);
+
+  // functions
 // reset the timer
   void resetTimer() {
     _balanceTime = 60;
@@ -32,7 +39,8 @@ class VerifyOtpViewModel extends ChangeNotifier {
     });
   }
 
-  void verifyOtp(String code) {
-    debugPrint("verify otp with ");
+// validate the otp by api
+  void verifyOtp() {
+    print("verify otp with $_otp ");
   }
 }

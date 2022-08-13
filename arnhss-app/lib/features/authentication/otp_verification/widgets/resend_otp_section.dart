@@ -15,34 +15,39 @@ class ResendOtpSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Column(
-        children: [
-          Text(
-            "Send OTP again after 00:${context.watch<VerifyOtpViewModel>().balanceTime} seconds",
-            textAlign: TextAlign.center,
-            style: CustomTextTheme(context: context).paragraph(),
+    return Column(
+      children: [
+        Text(
+          "Send OTP again after 00:${context.watch<VerifyOtpViewModel>().balanceTime} seconds",
+          textAlign: TextAlign.center,
+          style: CustomTextTheme(context: context).paragraph(),
+        ),
+        context.spacing(height: .8),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.getWidth(25),
           ),
-          context.spacing(height: .8),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.getWidth(25)),
-            child: CustomButton(
-              onTap: () => context.read<VerifyOtpViewModel>().balanceTime == 0
-                  ? context.read<LoginViewModel>().getOtp(context, reGet: true)
-                  : customSnackBar(context,
-                      "Please wait for ${context.read<VerifyOtpViewModel>().balanceTime} seconds"),
-              label: "resend",
-              textColor: context.watch<VerifyOtpViewModel>().resendAvailable
-                  ? CustomColors.dark
-                  : CustomColors.light,
-              color: Colors.transparent,
-              // width: 20,
-              fontWeight: FontWeight.bold,
-              height: 3,
-            ),
+          child: CustomButton(
+            onTap: () => context.read<VerifyOtpViewModel>().balanceTime == 0
+                ? context.read<LoginViewModel>().getOtp(
+                      context,
+                      reGet: true,
+                    )
+                : customSnackBar(
+                    context,
+                    "Please wait for ${context.read<VerifyOtpViewModel>().balanceTime} seconds",
+                  ),
+            label: "resend",
+            textColor: context.watch<VerifyOtpViewModel>().resendAvailable
+                ? CustomColors.dark
+                : CustomColors.light,
+            color: Colors.transparent,
+            // width: 20,
+            fontWeight: FontWeight.bold,
+            height: 3,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

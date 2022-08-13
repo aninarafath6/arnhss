@@ -44,7 +44,6 @@ class _OtpInputState extends State<OtpInput> {
   Widget build(BuildContext context) {
     return OtpTextField(
       focusedBorderColor: CustomColors.dark,
-
       keyboardType: TextInputType.number,
       numberOfFields: 5,
       //set to true to show as box or false to show as dash
@@ -52,11 +51,12 @@ class _OtpInputState extends State<OtpInput> {
       // margin: const EdgeInsets.only(right: 15),
       autoFocus: false,
       //runs when a code is typed in
+      clearText: true,
       onCodeChanged: (String code) {
         //handle validation or checks here
       },
       //runs when every textfield is filled
-      onSubmit: context.read<VerifyOtpViewModel>().verifyOtp
+      onSubmit: (otp) => context.read<VerifyOtpViewModel>().setOtp = otp,
     );
   }
 }

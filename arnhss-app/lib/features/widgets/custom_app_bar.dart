@@ -3,8 +3,12 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
-AppBar customAppBar(BuildContext context,
-    {required String title, FocusNode? focus}) {
+AppBar customAppBar(
+  BuildContext context, {
+  required String title,
+  FocusNode? focus,
+  Function()? onBack,
+}) {
   return AppBar(
     backgroundColor: Colors.transparent,
     centerTitle: true,
@@ -17,6 +21,7 @@ AppBar customAppBar(BuildContext context,
         } else {
           Navigator.pop(context);
         }
+        onBack?.call();
       },
       icon: const Icon(
         Icons.arrow_back_ios_new,
