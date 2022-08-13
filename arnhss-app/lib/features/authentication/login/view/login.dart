@@ -1,10 +1,4 @@
-import 'package:arnhss/features/authentication/login/widgets/action_section.dart';
-import 'package:arnhss/features/authentication/login/widgets/login_banner.dart';
-import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
-import 'package:arnhss/features/widgets/custom_app_bar.dart';
-import 'package:arnhss/utils/dimensions.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import './index.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);

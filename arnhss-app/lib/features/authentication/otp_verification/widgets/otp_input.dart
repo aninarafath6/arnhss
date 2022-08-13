@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/utils/scroll.util.dart';
 import 'package:flutter/material.dart';
@@ -46,16 +45,9 @@ class _OtpInputState extends State<OtpInput> {
       focusedBorderColor: CustomColors.dark,
       keyboardType: TextInputType.number,
       numberOfFields: 5,
-      //set to true to show as box or false to show as dash
       showFieldAsBox: true,
-      // margin: const EdgeInsets.only(right: 15),
       autoFocus: false,
-      //runs when a code is typed in
       clearText: true,
-      onCodeChanged: (String code) {
-        //handle validation or checks here
-      },
-      //runs when every textfield is filled
       onSubmit: (otp) => context.read<VerifyOtpViewModel>().setOtp = otp,
     );
   }
