@@ -12,17 +12,6 @@ class LoginViewModel with ChangeNotifier {
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
 
-// scroll when keybord is shown
-  scroll() {
-    final contentSize = _scrollController.position.viewportDimension +
-        _scrollController.position.maxScrollExtent;
-    _scrollController.position.animateTo(
-      contentSize / 7,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOut,
-    );
-  }
-
 // a popup for validate mobile number
   bool otpDialog() {
     String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';

@@ -1,8 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/features/authentication/otp_verification/widgets/otp_input.dart';
 import 'package:arnhss/features/authentication/otp_verification/widgets/verification_banner.dart';
-import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/features/widgets/custom_app_bar.dart';
@@ -24,34 +23,11 @@ class OtpVerificationView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: ListView(
+          controller: context.read<VerifyOtpViewModel>().otpScrollController,
           children: [
             const VerificationBanner(),
             context.spacing(height: 4),
-            OtpTextField(
-              focusedBorderColor: CustomColors.dark,
-              keyboardType: TextInputType.number,
-              numberOfFields: 5,
-              //set to true to show as box or false to show as dash
-              showFieldAsBox: true,
-              // margin: const EdgeInsets.only(right: 15),
-              autoFocus: false,
-              //runs when a code is typed in
-              onCodeChanged: (String code) {
-                //handle validation or checks here
-              },
-              //runs when every textfield is filled
-              onSubmit: (String verificationCode) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text("Verification Code"),
-                      content: Text('Code entered is $verificationCode'),
-                    );
-                  },
-                );
-              }, // end onSubmit
-            ),
+            const OtpInput(),
             context.spacing(height: 10),
             Text(
               "Send OTP again after 00:${context.watch<VerifyOtpViewModel>().balanceTime} seconds",
@@ -81,9 +57,7 @@ class OtpVerificationView extends StatelessWidget {
             context.spacing(height: 2),
             CustomButton(
               label: "Verify OTP",
-              onTap: () {
-                int a = 10;
-              },
+              onTap: () {},
             ),
             context.spacing(height: 8),
           ],

@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class VerifyOtpViewModel extends ChangeNotifier {
   int _balanceTime = 30;
   bool _isFirstReq = true;
+  final ScrollController _otpScrollController = ScrollController();
 
   int get balanceTime => _balanceTime;
   bool get resendAvailable => _balanceTime == 0 ? true : false;
   bool get isFirstReq => _isFirstReq;
+  ScrollController get otpScrollController => _otpScrollController;
 
 // reset the timer
   void resetTimer() {

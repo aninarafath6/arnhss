@@ -4,6 +4,7 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
 import 'package:arnhss/utils/dimensions.dart';
+import 'package:arnhss/utils/scroll.util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,6 @@ class InputBox extends StatefulWidget {
 }
 
 class _InputBoxState extends State<InputBox> {
-  late FocusNode myFocusNode = context.read<LoginViewModel>().myFocusNode;
   late StreamSubscription<bool> subscription;
 
   @override
@@ -26,7 +26,8 @@ class _InputBoxState extends State<InputBox> {
     super.initState();
     subscription = KeyboardVisibilityController().onChange.listen((open) {
       if (open) {
-        context.read<LoginViewModel>().scroll();
+        ScrollUtil().scroll(
+            controller: context.read<LoginViewModel>().scrollController);
       }
     });
   }
@@ -34,7 +35,6 @@ class _InputBoxState extends State<InputBox> {
   @override
   void dispose() {
     subscription.cancel();
-    myFocusNode.dispose();
     super.dispose();
   }
 
@@ -45,9 +45,11 @@ class _InputBoxState extends State<InputBox> {
         child: TextField(
           controller: context.read<LoginViewModel>().mobileNumberController,
           onTap: () {
-            if (!context.isKeyboard) context.read<LoginViewModel>().scroll();
+            if (!context.isKeyboard) {
+              ScrollUtil().scroll(
+                  controller: context.read<LoginViewModel>().scrollController);
+            }
           },
-          focusNode: myFocusNode,
           keyboardType: TextInputType.number,
           cursorColor: CustomColors.dark,
           style: Theme.of(context).textTheme.subtitle1,
