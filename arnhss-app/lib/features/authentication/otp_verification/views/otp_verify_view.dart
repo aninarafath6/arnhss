@@ -10,7 +10,6 @@ import 'package:arnhss/features/widgets/custom_snack_bar.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 class OtpVerificationView extends StatelessWidget {
   const OtpVerificationView({Key? key}) : super(key: key);
@@ -23,6 +22,8 @@ class OtpVerificationView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: ListView(
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
           controller: context.read<VerifyOtpViewModel>().otpScrollController,
           children: [
             const VerificationBanner(),
