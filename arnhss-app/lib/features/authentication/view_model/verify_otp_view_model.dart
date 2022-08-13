@@ -33,6 +33,6 @@ class VerifyOtpViewModel extends ChangeNotifier {
   }
 
   void verifyOtp(String code) {
-    debugPrint("verify otp with $code");
+    debugPrint("verify otp with ");
   }
 }
