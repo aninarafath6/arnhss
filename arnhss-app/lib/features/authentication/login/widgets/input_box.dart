@@ -21,18 +21,16 @@ class _InputBoxState extends State<InputBox> {
     return Flexible(
       child: Center(
         child: TextField(
-          onTap: () {
-            context.read<LoginViewModel>().scrollToBottom();
-          },
           controller: context.read<LoginViewModel>().mobileNumberController,
           focusNode: myFocusNode,
           keyboardType: TextInputType.number,
           cursorColor: CustomColors.dark,
           style: Theme.of(context).textTheme.subtitle1,
           decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: "Enter your mobile number",
-              hintStyle: CustomTextTheme(context: context).paragraph()),
+            border: InputBorder.none,
+            hintText: "Enter your mobile number",
+            hintStyle: CustomTextTheme(context: context).paragraph(),
+          ),
         ),
       ),
     );
