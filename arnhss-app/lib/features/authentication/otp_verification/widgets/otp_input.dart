@@ -27,8 +27,9 @@ class _OtpInputState extends State<OtpInput> {
     subscription = KeyboardVisibilityController().onChange.listen((open) {
       if (open) {
         ScrollUtil().scroll(
-            controller: context.read<VerifyOtpViewModel>().otpScrollController,
-            pos: 3);
+          controller: context.read<VerifyOtpViewModel>().otpScrollController,
+          pos: 3,
+        );
       }
     });
   }

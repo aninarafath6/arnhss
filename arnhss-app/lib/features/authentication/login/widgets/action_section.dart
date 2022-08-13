@@ -58,15 +58,7 @@ class ActionSection extends StatelessWidget {
                           child: const Text("EDIT")),
                       TextButton(
                         onPressed: () {
-                          if (context
-                                  .read<VerifyOtpViewModel>()
-                                  .resendAvailable ||
-                              context.read<VerifyOtpViewModel>().isFirstReq) {
-                            context.read<LoginViewModel>().getOtp(context);
-                          } else {
-                            customSnackBar(context,
-                                "Please wait for ${context.read<VerifyOtpViewModel>().balanceTime} seconds");
-                          }
+                          context.read<LoginViewModel>().getOtp(context);
                         },
                         child: const Text("CONTINUE"),
                       ),
