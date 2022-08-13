@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/authentication/otp_verification/widgets/success_screen.dart';
 import 'package:arnhss/features/widgets/custom_snack_bar.dart';
-import 'package:flutter/material.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
   int _balanceTime = 30;
   bool _isFirstReq = true;
   final ScrollController _otpScrollController = ScrollController();
   String? _otp;
+  bool _isLoading = false;
 
   // getters
   int get balanceTime => _balanceTime;
@@ -17,6 +17,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
   bool get isFirstReq => _isFirstReq;
   ScrollController get otpScrollController => _otpScrollController;
   String? get otp => _otp;
+  bool get isLoading => _isLoading;
 
 //setters
   set setOtp(String? otp) => (_otp = otp);
@@ -27,6 +28,11 @@ class VerifyOtpViewModel extends ChangeNotifier {
   void resetTimer() {
     _balanceTime = 60;
     _isFirstReq = false;
+    notifyListeners();
+  }
+
+  void updateLoading() {
+    _isLoading = !_isLoading;
     notifyListeners();
   }
 
@@ -44,31 +50,43 @@ class VerifyOtpViewModel extends ChangeNotifier {
   }
 
 // validate the otp by api
-  bool verifyOtp() {
+  Future<bool> verifyOtp(BuildContext context) async {
     if (_otp!.length == 5 && num.tryParse(_otp!) != null) {
       debugPrint("verifying otp");
+      // loading just for ui test
+      updateLoading();
+      await Future.delayed(const Duration(seconds: 3));
+      updateLoading();
+
+      SuccessScreen(context);
+      Timer(
+        const Duration(seconds: 3),
+        () {
+          Navigator.pushNamedAndRemoveUntil(context, "/userRole", (r) => false);
+        },
+      );
       return true;
     } else {
       debugPrint("invalid otp");
+      customSnackBar(context, "sorry 😞, Please enter valid OTP");
       return false;
     }
   }
 
-  // handle veriyOtp and
-  void handleVerifyOtp(BuildContext context) {
-    () {
-      if (context.read<VerifyOtpViewModel>().verifyOtp()) {
-        SuccessScreen(context);
-        Timer(
-          const Duration(seconds: 3),
-          () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, "/userRole", (r) => false);
-          },
-        );
-      } else {
-        customSnackBar(context, "sorry 😞, Please enter valid OTP");
-      }
-    };
-  }
+//   // handle verify OTP and
+//   void handleVerifyOtp(BuildContext context) {
+//     () {
+//       if (context.read<VerifyOtpVi  SuccessScreen(context);
+//         Timer(
+//           const Duration(seconds: 3),
+//           () {
+//             Navigator.pushNamedAndRemoveUntil(
+//                 context, "/userRole", (r) => false);
+//           },
+//         );
+//       } else {
+//         customSnackBar(context, "sorry 😞, Please enter valid OTP");
+//       }
+//     };
+//   }
 }
