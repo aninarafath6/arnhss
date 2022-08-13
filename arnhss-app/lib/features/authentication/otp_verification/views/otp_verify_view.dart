@@ -58,7 +58,7 @@ class _VerifyOtpActionButton extends StatelessWidget {
       onTap: () {
         if (context.read<VerifyOtpViewModel>().verifyOtp()) {
         } else {
-          customSnackBar(context, "Please enter valid OTP");
+          customSnackBar(context, "sorry 😞, Please enter valid OTP");
         }
       },
     );
