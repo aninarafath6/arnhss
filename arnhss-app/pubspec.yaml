@@ -18,6 +18,7 @@ dependencies:
   dio: ^4.0.6
   flutter_otp_text_field: ^1.1.0
   flutter_keyboard_visibility: ^5.3.0
+  lottie: ^1.4.1
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +31,4 @@ flutter:
   assets:
     - assets/images/pngs/
     - assets/data/
+    - assets/lottie/

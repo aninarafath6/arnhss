@@ -1,8 +1,8 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
-import 'package:arnhss/features/authentication/models/country_dropdown_model.dart';
-import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
+import 'package:arnhss/features/authentication/login/models/country_dropdown_model.dart';
+import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
+import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/utils/scroll.util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';

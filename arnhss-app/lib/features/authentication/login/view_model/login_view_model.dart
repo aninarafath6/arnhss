@@ -1,5 +1,5 @@
-import 'package:arnhss/features/authentication/otp_verification/views/otp_verify_view.dart';
-import 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
+import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
+import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +39,5 @@ class LoginViewModel with ChangeNotifier {
       provider.isFirstReq = false;
       debugPrint("start timer");
     }
-    // get otp implimentations
   }
 }

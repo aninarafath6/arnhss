@@ -1,6 +1,6 @@
 import 'package:arnhss/features/authentication/login/view/login.dart';
-import 'package:arnhss/features/onboarding/views/content.dart';
-import 'package:arnhss/features/onboarding/views/heading.dart';
+import 'package:arnhss/features/onboarding/view/content.dart';
+import 'package:arnhss/features/onboarding/view/heading.dart';
 import 'package:arnhss/features/widgets/custom_button.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';

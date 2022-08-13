@@ -1,7 +1,7 @@
 export 'package:arnhss/features/authentication/otp_verification/widgets/otp_input.dart';
 export 'package:arnhss/features/authentication/otp_verification/widgets/resend_otp_section.dart';
 export 'package:arnhss/features/authentication/otp_verification/widgets/verification_banner.dart';
-export 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
+export 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
 export 'package:arnhss/features/widgets/custom_app_bar.dart';
 export 'package:arnhss/features/widgets/custom_button.dart';
 export 'package:arnhss/features/widgets/custom_snack_bar.dart';

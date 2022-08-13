@@ -1,5 +1,5 @@
-import 'package:arnhss/features/onboarding/views/onboard_background.dart';
-import 'package:arnhss/features/onboarding/views/onboarding_content.dart';
+import 'package:arnhss/features/onboarding/view/onboard_background.dart';
+import 'package:arnhss/features/onboarding/view/onboarding_content.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 

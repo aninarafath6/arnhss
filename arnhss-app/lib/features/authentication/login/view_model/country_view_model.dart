@@ -1,4 +1,4 @@
-import 'package:arnhss/features/authentication/models/country_dropdown_model.dart';
+import 'package:arnhss/features/authentication/login/models/country_dropdown_model.dart';
 import 'package:flutter/material.dart';
 
 class CountryViewModel with ChangeNotifier {
