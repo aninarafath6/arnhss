@@ -1,4 +1,5 @@
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class LoginBanner extends StatelessWidget {
@@ -11,7 +12,10 @@ class LoginBanner extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Image.asset("assets/images/pngs/login 1.png"),
+        SizedBox(
+          height: context.getHeight(32),
+          child: Image.asset("assets/images/pngs/login 1.png"),
+        ),
         Text(
           "Login with Mobile Number",
           style: CustomTextTheme(context: context).headLine(),

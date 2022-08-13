@@ -3,6 +3,7 @@ import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/view_model/login_view_model.dart';
+import 'package:arnhss/features/authentication/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +15,11 @@ class VerificationBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset(
-          Images.otp_image,
+        SizedBox(
+          height: context.getHeight(33),
+          child: Image.asset(
+            Images.otp_image,
+          ),
         ),
         Text(
           "Check Your Message",

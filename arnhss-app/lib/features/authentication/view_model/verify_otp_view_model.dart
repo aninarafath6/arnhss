@@ -20,7 +20,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
   }
 
 // the time for resend the otp
-  Future<void> resendTimer() async {
+  Future<void> startTimer() async {
     const Duration lim = Duration(seconds: 1);
     Timer.periodic(lim, (timer) {
       if (_balanceTime == 0) {
@@ -32,7 +32,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
     });
   }
 
-  void verifyOtp(int code) {
-    print("verify otp with $code");
+  void verifyOtp(String code) {
+    debugPrint("verify otp with $code");
   }
 }

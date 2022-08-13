@@ -31,8 +31,7 @@ class LoginViewModel with ChangeNotifier {
       Navigator.pop(context);
       Navigator.of(context).pushNamed(OtpVerificationView.routeName);
     }
-    await provider.resendTimer();
-    print("after timesdfd");
+    await provider.startTimer();
     if (reGet) {
       provider.resetTimer();
     }

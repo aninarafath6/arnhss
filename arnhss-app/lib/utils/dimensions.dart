@@ -7,6 +7,7 @@ extension Dimensions on BuildContext {
 
   // check keyboard is open or not
   bool get isKeyboard => MediaQuery.of(this).viewInsets.bottom != 0;
+  double get bottomINset => MediaQuery.of(this).viewInsets.bottom;
 
 // spacing widget
   SizedBox spacing({
