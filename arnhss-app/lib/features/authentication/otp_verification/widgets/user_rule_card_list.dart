@@ -3,6 +3,7 @@ import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/authentication/otp_verification/widgets/user_card_rule.dart';
+import 'package:arnhss/features/users/students/authentication/view/student_authentication.dart';
 
 class UserCardList extends StatelessWidget {
   const UserCardList({
@@ -31,7 +32,14 @@ class UserCardList extends StatelessWidget {
                 .copyWith(fontSize: 20),
           ),
           context.spacing(height: 3),
-          const UserRuleCard(title: "Student", icon: Images.studentRoleIcon),
+          UserRuleCard(
+            title: "Student",
+            icon: Images.studentRoleIcon,
+            onTap: () => Navigator.pushNamed(
+              context,
+              StudentAuthencation.routeName,
+            ),
+          ),
           const UserRuleCard(
               title: "Teacher", icon: "assets/images/icons/teacher.png"),
           const UserRuleCard(

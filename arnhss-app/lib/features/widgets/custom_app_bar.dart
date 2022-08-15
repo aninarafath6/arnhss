@@ -9,6 +9,7 @@ AppBar customAppBar(
   FocusNode? focus,
   Function()? onBack,
 }) {
+  /// [context] must need to handile mediquorys and keybord focus changing so it's need to as required
   return AppBar(
     backgroundColor: Colors.transparent,
     centerTitle: true,

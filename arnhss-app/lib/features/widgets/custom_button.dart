@@ -31,6 +31,8 @@ class CustomButton extends StatelessWidget {
   final Color nonActiveColor;
   final bool loading;
 
+  /// [color] is not required because there is defualt color , it  used to color of backouround
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

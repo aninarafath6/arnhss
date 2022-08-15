@@ -6,9 +6,11 @@ class UserRuleCard extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.title,
+    this.onTap,
   }) : super(key: key);
   final String title;
   final String icon;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class UserRuleCard extends StatelessWidget {
       child: Center(
         child: ListTile(
           title: Text(title),
+          onTap: onTap,
           // leading: Icon(),
           leading: Image.asset(
             icon,
