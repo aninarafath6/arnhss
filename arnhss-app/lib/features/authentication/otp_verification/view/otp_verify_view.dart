@@ -1,6 +1,4 @@
-import 'package:arnhss/common/constants/app_sizes.dart';
-import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/features/authentication/otp_verification/widgets/select_rule_bottom_sheet.dart';
 
 import './index.dart';
 
@@ -52,50 +50,7 @@ class _VerifyOtpActionButton extends StatelessWidget {
       isDisabled: context.watch<VerifyOtpViewModel>().otp == null,
       loading: context.watch<VerifyOtpViewModel>().isLoading,
       onTap: () {
-        showModalBottomSheet(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          context: context,
-          builder: (BuildContext context) {
-            return Container(
-              padding: const EdgeInsets.all(AppSizes.defualt_padding + 2),
-              height: context.getHeight(40),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 5),
-                  Text(
-                    "Select Your Role",
-                    style: CustomTextTheme(context: context)
-                        .headLine()
-                        .copyWith(fontSize: 20),
-                  ),
-                  context.spacing(height: 5),
-                  Container(
-                    height: context.getHeight(7),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(
-                        AppSizes.defualt_border_raidus,
-                      ),
-                    ),
-                    child: const ListTile(
-                      title: Text("student"),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
+        SelectRoleBottomShete(context);
         // return context.read<VerifyOtpViewModel>().verifyOtp(context);
       },
     );
