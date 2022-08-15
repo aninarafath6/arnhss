@@ -8,6 +8,8 @@ class OtpVerificationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("=====OTP screen=====");
+
     return Scaffold(
       appBar: customAppBar(
         context,

@@ -24,6 +24,8 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("=====splash screen=====");
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(

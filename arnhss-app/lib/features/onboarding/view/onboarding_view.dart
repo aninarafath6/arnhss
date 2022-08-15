@@ -9,6 +9,8 @@ class OnboardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("=====login screen=====");
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
