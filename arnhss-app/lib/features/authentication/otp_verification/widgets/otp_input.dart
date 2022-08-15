@@ -48,7 +48,7 @@ class _OtpInputState extends State<OtpInput> {
       showFieldAsBox: true,
       autoFocus: false,
       clearText: true,
-      onSubmit: (otp) => context.read<VerifyOtpViewModel>().setOtp = otp,
+      onSubmit: (otp) => context.read<VerifyOtpViewModel>().setOtp(otp),
     );
   }
 }

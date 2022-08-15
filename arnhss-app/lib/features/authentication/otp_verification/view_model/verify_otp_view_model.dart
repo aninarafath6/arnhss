@@ -20,7 +20,11 @@ class VerifyOtpViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
 //setters
-  set setOtp(String? otp) => (_otp = otp);
+  void setOtp(String? otp) {
+    _otp = otp;
+    notifyListeners();
+  }
+
   set isFirstReq(bool status) => (_isFirstReq = status);
 
   // functions

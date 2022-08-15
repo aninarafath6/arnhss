@@ -13,7 +13,7 @@ class OtpVerificationView extends StatelessWidget {
         context,
         title: "",
         onBack: () => {
-          context.read<VerifyOtpViewModel>().setOtp = null,
+          context.read<VerifyOtpViewModel>().setOtp(null),
         },
       ),
       body: Padding(
