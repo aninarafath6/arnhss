@@ -59,7 +59,7 @@ class _VerifyOtpActionButton extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return Container(
-              padding: const EdgeInsets.all(AppSizes.defualt_padding),
+              padding: const EdgeInsets.all(AppSizes.defualt_padding + 2),
               height: context.getHeight(40),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -70,11 +70,26 @@ class _VerifyOtpActionButton extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  const SizedBox(height: 5),
                   Text(
-                    "Select Your role",
+                    "Select Your Role",
                     style: CustomTextTheme(context: context)
                         .headLine()
                         .copyWith(fontSize: 20),
+                  ),
+                  context.spacing(height: 5),
+                  Container(
+                    height: context.getHeight(7),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(
+                        AppSizes.defualt_border_raidus,
+                      ),
+                    ),
+                    child: const ListTile(
+                      title: Text("student"),
+                    ),
                   ),
                 ],
               ),
