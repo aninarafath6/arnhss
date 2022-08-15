@@ -62,7 +62,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
 
       updateLoading();
 
-      SuccessScreen(context);
+      // SuccessScreen(context);
       Timer(
         const Duration(seconds: 3),
         () {

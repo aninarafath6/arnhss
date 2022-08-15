@@ -1,3 +1,7 @@
+import 'package:arnhss/common/constants/app_sizes.dart';
+import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/theme/text_theme.dart';
+
 import './index.dart';
 
 class OtpVerificationView extends StatelessWidget {
@@ -47,7 +51,38 @@ class _VerifyOtpActionButton extends StatelessWidget {
       label: "Verify OTP",
       isDisabled: context.watch<VerifyOtpViewModel>().otp == null,
       loading: context.watch<VerifyOtpViewModel>().isLoading,
-      onTap: () => context.read<VerifyOtpViewModel>().verifyOtp(context),
+      onTap: () {
+        showModalBottomSheet(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          context: context,
+          builder: (BuildContext context) {
+            return Container(
+              padding: const EdgeInsets.all(AppSizes.defualt_padding),
+              height: context.getHeight(40),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    "Select Your role",
+                    style: CustomTextTheme(context: context)
+                        .headLine()
+                        .copyWith(fontSize: 20),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+        // return context.read<VerifyOtpViewModel>().verifyOtp(context);
+      },
     );
   }
 }

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
-import 'package:arnhss/utils/dimensions.dart';
 import 'package:arnhss/utils/scroll.util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
