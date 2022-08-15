@@ -40,11 +40,8 @@ class UserCardList extends StatelessWidget {
               StudentAuthencation.routeName,
             ),
           ),
-          const UserRuleCard(
-              title: "Teacher", icon: "assets/images/icons/teacher.png"),
-          const UserRuleCard(
-              title: "parent",
-              icon: "assets/images/icons/woman-answering-phone.png.webp"),
+          const UserRuleCard(title: "Teacher", icon: Images.teacherRoleIcon),
+          const UserRuleCard(title: "parent", icon: Images.parentRoleIcon),
         ],
       ),
     );
