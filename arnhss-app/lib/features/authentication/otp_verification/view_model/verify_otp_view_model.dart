@@ -61,14 +61,6 @@ class VerifyOtpViewModel extends ChangeNotifier {
       await Future.delayed(const Duration(seconds: 3));
 
       updateLoading();
-
-      // SuccessScreen(context);
-      Timer(
-        const Duration(seconds: 3),
-        () {
-          Navigator.pushNamedAndRemoveUntil(context, "/userRole", (r) => false);
-        },
-      );
       return true;
     } else {
       debugPrint("invalid otp");

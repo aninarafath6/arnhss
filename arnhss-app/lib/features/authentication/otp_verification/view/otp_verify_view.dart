@@ -49,8 +49,12 @@ class _VerifyOtpActionButton extends StatelessWidget {
       label: "Verify OTP",
       isDisabled: context.watch<VerifyOtpViewModel>().otp == null,
       loading: context.watch<VerifyOtpViewModel>().isLoading,
-      onTap: () {
-        SelectRoleBottomShete(context);
+      onTap: () async {
+        bool isOtpValid =
+            await context.read<VerifyOtpViewModel>().verifyOtp(context);
+        if (isOtpValid) {
+          SelectRoleBottomShete(context);
+        }
         // return context.read<VerifyOtpViewModel>().verifyOtp(context);
       },
     );
