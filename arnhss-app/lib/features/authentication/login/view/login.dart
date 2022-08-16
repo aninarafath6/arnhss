@@ -16,6 +16,7 @@ class LoginView extends StatelessWidget {
             builder: ((context, value, child) => ListView(
                   // physics: NeverScrollableScrollPhysics(),
                   controller: value.scrollController,
+                  addAutomaticKeepAlives: true,
                   children: [
                     context.spacing(height: 10),
                     const LoginBanner(),
