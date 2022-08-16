@@ -9,4 +9,5 @@ class Images {
   static const teacherRoleIcon = "assets/images/icons/teacher.png";
   static const parentRoleIcon =
       "assets/images/icons/woman-answering-phone.png.webp";
+  static const loginIcon = "assets/images/pngs/login 1.png";
 }

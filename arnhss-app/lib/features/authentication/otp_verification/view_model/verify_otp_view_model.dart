@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/authentication/otp_verification/widgets/success_screen.dart';
-import 'package:arnhss/features/widgets/custom_snack_bar.dart';
+import 'package:arnhss/common/widgets/custom_snack_bar.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
   int _balanceTime = 30;

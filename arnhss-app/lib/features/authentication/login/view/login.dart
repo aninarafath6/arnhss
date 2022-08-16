@@ -1,3 +1,5 @@
+import 'package:arnhss/common/constants/image_constant.dart';
+
 import './index.dart';
 
 class LoginView extends StatelessWidget {
@@ -19,7 +21,10 @@ class LoginView extends StatelessWidget {
                   addAutomaticKeepAlives: true,
                   children: [
                     context.spacing(height: 10),
-                    const LoginBanner(),
+                    const CustomBanner(
+                        title: "Login With Mobile Number",
+                        subtitle: "Enter your mobile number to Continue",
+                        image: Images.loginIcon),
                     SizedBox(
                       height: context.getHeight(35),
                       child: const ActionSection(),
