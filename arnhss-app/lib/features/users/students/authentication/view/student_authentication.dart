@@ -1,6 +1,10 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/common/widgets/custom_banner.dart';
+import 'package:arnhss/common/widgets/custom_drop_down.dart';
+import 'package:arnhss/features/authentication/login/widgets/custom_footer.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 
 class StudentAuthencation extends StatelessWidget {
@@ -15,53 +19,46 @@ class StudentAuthencation extends StatelessWidget {
         padding: const EdgeInsets.all(AppSizes.defualt_padding),
         child: Column(
           children: [
+            const Spacer(),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CustomBanner(
+                image:
+                    "assets/images/icons/team-features-illustration.png.webp",
+                title: "Find Your Profile",
+                subtitle:
+                    "serach your profile and get access from your class teacher within 48 Hours",
+              ),
+            ),
             const SizedBox(height: 30),
-            SizedBox(
-              height: context.getHeight(30),
-              width: context.getWidth(90),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                      "assets/images/icons/team-features-illustration.png.webp")
-                ],
-              ),
+            CustomDropDown(
+              title: "Select Your Profile",
+              leadingIcon: Icons.keyboard_arrow_down_rounded,
+              onTap: () {},
             ),
-            Text(
-              "Find Your Profile",
-              style: CustomTextTheme(context: context).headLine(),
-            ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 30),
 
-            Text(
-              "serach your profile and get access from your class teacher within 48 Hours",
-              textAlign: TextAlign.center,
-              style: CustomTextTheme(context: context).paragraph(),
+            const CustomButton(
+              label: "Containue",
             ),
-            const SizedBox(height: 80),
-            Container(
-              width: context.getWidth(100),
-              height: 55,
-              decoration: BoxDecoration(
-                  color: const Color(0xfff1f5f9),
-                  borderRadius: BorderRadius.circular(8)),
-              child: ListTile(
-                title: Text(
-                  "Select your Profile",
-                  style: CustomTextTheme(context: context).headLine2().copyWith(
-                        fontWeight: FontWeight.w500,
-                        fontSize: context.getHeight(1.6),
-                      ),
+            const SizedBox(height: 30),
+            const Spacer(flex: 2),
+//
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text("Cant't find your profile? "),
+                Text(
+                  "Contact with us",
+                  style: TextStyle(
+                    color: Colors.blueAccent,
+                  ),
                 ),
-                trailing: const Icon(Icons.keyboard_arrow_down_sharp),
-              ),
-            )
-            // const CustomButton(
-            //   label: "Select your Profile",
-            //   color: Color(0xfff1f5f9),
-            //   textColor: CustomColors.dark,
-            // ),
+              ],
+            ),
+            const SizedBox(height: 30),
+
+            // const Spacer(),
           ],
         ),
       ),

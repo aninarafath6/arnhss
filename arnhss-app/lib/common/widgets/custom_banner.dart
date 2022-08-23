@@ -24,10 +24,13 @@ class CustomBanner extends StatelessWidget {
         ),
         Text(
           title,
+          textAlign: TextAlign.center,
           style: CustomTextTheme(context: context).headLine(),
         ),
+        const SizedBox(height: 15),
         Text(
           subtitle,
+          textAlign: TextAlign.center,
           style: CustomTextTheme(context: context).paragraph(),
         ),
       ],

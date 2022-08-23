@@ -1,5 +1,5 @@
 import 'package:arnhss/features/authentication/login/widgets/custom_button.dart';
-import 'package:arnhss/features/authentication/login/widgets/terms_paragraph.dart';
+import 'package:arnhss/features/authentication/login/widgets/custom_footer.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/common/widgets/custom_button.dart';
 import 'package:arnhss/common/widgets/custom_modal.dart';
