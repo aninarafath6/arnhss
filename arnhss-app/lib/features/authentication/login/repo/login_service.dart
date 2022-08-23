@@ -11,16 +11,19 @@ class LoginService {
       await _auth.verifyPhoneNumber(
         phoneNumber: phonenumber,
         verificationCompleted: (PhoneAuthCredential credential) {
-          print('verification complicated');
+          // print('verification complicated');
+          // print(credential);
         },
         verificationFailed: (FirebaseAuthException e) {
-          print(e);
+          // if (e.code == 'invalid-phone-number') {
+          //   print('The provided phone number is not valid.');
+          // }
         },
         codeSent: codeSetn,
         codeAutoRetrievalTimeout: ((String verificationId) => {}),
       );
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("catch in line no 23");
     }
   }
 }
