@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1051720302845",
+    "project_id": "arnhss",
+    "storage_bucket": "arnhss.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051720302845:android:d35de5dc7051a581293e94",
+        "android_client_info": {
+          "package_name": "com.example.arnhss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051720302845-3fen943qkqjguch6ca2ealrv7m8ej3fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB15lL2kFRkTEC9PeqYxe8_-MFARfxvkv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051720302845-3fen943qkqjguch6ca2ealrv7m8ej3fh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1051720302845-bdhfe4ek8jeskpe8shio4sv2u316bl46.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.arnhssgvghhgfgh"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

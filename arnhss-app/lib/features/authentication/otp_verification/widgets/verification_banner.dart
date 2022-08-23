@@ -14,10 +14,14 @@ class VerificationBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: context.getHeight(33),
-          child: Image.asset(
-            Images.otp_image,
+        Padding(
+          padding: const EdgeInsets.only(left: 50.0),
+          child: SizedBox(
+            height: context.getHeight(33),
+            child: Image.asset(
+              "assets/images/icons/Export1.png",
+              width: context.getWidth(60),
+            ),
           ),
         ),
         Text(
