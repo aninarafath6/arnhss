@@ -30,14 +30,14 @@ class TermsParagraph extends StatelessWidget {
             text: 'and',
             style: CustomTextTheme(context: context).paragraph2(),
           ),
-          // TextSpan(
-          //   text: ' Privacy Policy',
-          //   style: TextStyle(
-          //     fontSize: context.getHeight(1.4),
-          //     fontWeight: FontWeight.w500,
-          //     color: CustomColors.dark.withOpacity(1),
-          //   ),
-          // ),
+          TextSpan(
+            text: ' Privacy Policy',
+            style: TextStyle(
+              fontSize: context.getHeight(1.4),
+              fontWeight: FontWeight.w500,
+              color: CustomColors.dark.withOpacity(1),
+            ),
+          ),
         ],
       ),
     );
