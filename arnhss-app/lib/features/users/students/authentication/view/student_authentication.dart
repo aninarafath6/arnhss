@@ -1,10 +1,6 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
-import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/constants/image_constant.dart';
-import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/custom_banner.dart';
 import 'package:arnhss/common/widgets/custom_drop_down.dart';
-import 'package:arnhss/features/authentication/login/widgets/custom_footer.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 
 class StudentAuthencation extends StatelessWidget {
