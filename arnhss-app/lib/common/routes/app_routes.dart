@@ -1,3 +1,4 @@
+import 'package:arnhss/features/authentication/account/view/select_account.dart';
 import 'package:arnhss/features/authentication/login/view/login.dart';
 import 'package:arnhss/features/authentication/login/widgets/country_select.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
@@ -24,6 +25,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const UserRole());
       case StudentAuthencation.routeName:
         return MaterialPageRoute(builder: (_) => const StudentAuthencation());
+      case SelectAccount.routeName:
+        return MaterialPageRoute(builder: (_) => const SelectAccount());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

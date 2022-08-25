@@ -1,4 +1,4 @@
-import 'package:arnhss/features/authentication/otp_verification/widgets/select_rule_bottom_sheet.dart';
+import 'package:arnhss/features/authentication/account/view/select_account.dart';
 
 import './index.dart';
 
@@ -54,10 +54,9 @@ class _VerifyOtpActionButton extends StatelessWidget {
       onTap: () async {
         bool isOtpValid =
             await context.read<VerifyOtpViewModel>().verifyOtp(context);
-        if (isOtpValid) {
-          SelectRoleBottomShete(context);
-        }
+        if (isOtpValid) {}
         // return context.read<VerifyOtpViewModel>().verifyOtp(context);
+        Navigator.pushNamed(context, SelectAccount.routeName);
       },
     );
   }

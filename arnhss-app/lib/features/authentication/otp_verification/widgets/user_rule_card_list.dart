@@ -26,7 +26,7 @@ class UserCardList extends StatelessWidget {
         children: [
           const SizedBox(height: 5),
           Text(
-            "Select Your Role",
+            "Select Your Account",
             style: CustomTextTheme(context: context)
                 .headLine()
                 .copyWith(fontSize: 20),
