@@ -22,6 +22,7 @@ dependencies:
   dotted_border: ^2.0.0+2
   firebase_core: ^1.21.0
   firebase_auth: ^3.6.4
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
