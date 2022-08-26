@@ -32,14 +32,22 @@ class BaseClient {
   }
 
   //  POST
-  Future<dynamic> post(String baseUrl, String api, dynamic paylodObj) async {
+  Future<dynamic> post(
+      String baseUrl, String api, Map<String, String> paylodObj) async {
     final Uri uri = Uri.parse(baseUrl + api);
     final paylod = json.encode(paylodObj);
+    print(paylod);
 
     try {
-      var response = await http.post(uri, body: paylod).timeout(
-            const Duration(seconds: TIME_OUT_DURATION),
-          );
+      var response = await http.post(
+        uri,
+        body: paylod,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      ).timeout(
+        const Duration(seconds: TIME_OUT_DURATION),
+      );
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException(

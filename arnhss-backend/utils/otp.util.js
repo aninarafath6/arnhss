@@ -6,6 +6,7 @@ const client = require("twilio")(accountSid, authToken);
 
 module.exports = {
   sendOtp: (phoneNo, channel = "sms") => {
+    console.log("phone number", phoneNo);
     return new Promise((resolve, reject) => {
       // send otp functionality.
       client.verify

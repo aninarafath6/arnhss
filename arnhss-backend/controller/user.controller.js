@@ -6,7 +6,7 @@ const { validationResult } = require("express-validator");
 module.exports = {
   sendOtp: async (req, res) => {
     console.log("-> send otp route");
-
+    console.log(req.body);
     const errors = validationResult(req);
     // console.log(errors);
     if (!errors.isEmpty()) {

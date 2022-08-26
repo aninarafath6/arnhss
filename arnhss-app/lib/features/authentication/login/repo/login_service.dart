@@ -10,8 +10,8 @@ class LoginService {
       ApiConstatns.BASE_URL,
       ApiConstatns.GET_OTP,
       {
-        phone: phone,
-        countryCode: countryCode,
+        "phone": phone.toString(),
+        "countryCode": countryCode.toString(),
       },
     );
     return response;
