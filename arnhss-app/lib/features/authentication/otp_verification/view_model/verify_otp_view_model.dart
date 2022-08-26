@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/authentication/otp_verification/widgets/success_screen.dart';
 import 'package:arnhss/common/widgets/custom_snack_bar.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
@@ -68,7 +67,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
       return true;
     } else {
       debugPrint("invalid otp");
-      customSnackBar(context, "sorry 😞, Please enter valid OTP");
+      customSnackBar(content: "sorry 😞, Please enter valid OTP");
       return false;
     }
   }

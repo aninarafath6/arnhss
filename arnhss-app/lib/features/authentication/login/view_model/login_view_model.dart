@@ -2,10 +2,11 @@ import 'package:arnhss/features/authentication/login/repo/login_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
+import 'package:arnhss/services/handle_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginViewModel with ChangeNotifier {
+class LoginViewModel extends ChangeNotifier with HandleException {
   final LoginService _loginService = LoginService();
   final TextEditingController _mobileNumberController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -47,10 +48,13 @@ class LoginViewModel with ChangeNotifier {
     }
     if (provider.isFirstReq || provider.resendAvailable) {
       toggleLoading();
-      await _loginService.getOtp(
-          phone: mobileNumberController.text,
-          countryCode:
-              context.read<CountryViewModel>().selectedCountry.dialCode);
+      await _loginService
+          .getOtp(
+            phone: mobileNumberController.text,
+            countryCode:
+                context.read<CountryViewModel>().selectedCountry.dialCode,
+          )
+          .catchError(handleException);
       toggleLoading();
       await provider.startTimer();
 

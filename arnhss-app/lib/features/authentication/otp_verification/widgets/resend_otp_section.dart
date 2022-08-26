@@ -34,8 +34,8 @@ class ResendOtpSection extends StatelessWidget {
                       reGet: true,
                     )
                 : customSnackBar(
-                    context,
-                    "⏳ Please wait for ${context.read<VerifyOtpViewModel>().balanceTime} seconds ",
+                    content:
+                        "⏳ Please wait for ${context.read<VerifyOtpViewModel>().balanceTime} seconds ",
                   ),
             label: "resend",
             textColor: context.watch<VerifyOtpViewModel>().resendAvailable

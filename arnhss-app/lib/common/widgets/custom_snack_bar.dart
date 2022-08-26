@@ -1,10 +1,12 @@
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-void customSnackBar(BuildContext context, String content) {
-  SnackBar snackBar = SnackBar(
-    backgroundColor: CustomColors.dark,
-    content: Text(content),
+void customSnackBar({String? content = "something went wrog!!🫡"}) {
+  Get.snackbar(
+    'Ooooops!',
+    content!,
+    snackPosition: SnackPosition.TOP,
+    margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+    isDismissible: true,
   );
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

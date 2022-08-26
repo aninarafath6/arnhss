@@ -34,7 +34,7 @@ class ActionSection extends StatelessWidget {
               customModal(context);
             } else {
               customSnackBar(
-                  context, "sorry 🙂, Please enter valid mobile number.");
+                  content: "sorry 🙂, Please enter valid mobile number.");
             }
 
             // Navigator.pushNamed(context, OtpVerificationView.routeName);
