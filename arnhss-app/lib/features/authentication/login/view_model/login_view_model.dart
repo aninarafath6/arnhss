@@ -11,6 +11,8 @@ class LoginViewModel with ChangeNotifier {
   final ScrollController _scrollController = ScrollController();
   final FocusNode _myFocusNode = FocusNode();
 
+  bool loading = false;
+
   TextEditingController get mobileNumberController => _mobileNumberController;
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
@@ -27,24 +29,31 @@ class LoginViewModel with ChangeNotifier {
     }
   }
 
+  void toggleLoading() {
+    loading != loading;
+  }
+
 // get otp functionality
   void getOtp(BuildContext context, {bool reGet = false}) async {
     final String phoneNumber =
         CountryViewModel().selectedCountry.dialCode.toString() +
             mobileNumberController.text.toString();
 
-    print(phoneNumber);
+    debugPrint(phoneNumber);
     final provider = context.read<VerifyOtpViewModel>();
     if (!reGet) {
       Navigator.pop(context);
       Navigator.of(context).pushNamed(OtpVerificationView.routeName);
     }
     if (provider.isFirstReq || provider.resendAvailable) {
-      _loginService.getOtp(
-        phonenumber: phoneNumber,
-        codeSetn: (String verificationId, int? resendToken) {},
-      );
+      toggleLoading();
+      await _loginService.getOtp(
+          phone: mobileNumberController.text,
+          countryCode:
+              context.read<CountryViewModel>().selectedCountry.dialCode);
+      toggleLoading();
       await provider.startTimer();
+
       if (reGet) {
         provider.resetTimer();
       }

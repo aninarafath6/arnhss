@@ -34,7 +34,7 @@ class BaseClient {
   //  POST
   Future<dynamic> post(String baseUrl, String api, dynamic paylodObj) async {
     final Uri uri = Uri.parse(baseUrl + api);
-    final paylod = json.decode(paylodObj);
+    final paylod = json.encode(paylodObj);
 
     try {
       var response = await http.post(uri, body: paylod).timeout(
