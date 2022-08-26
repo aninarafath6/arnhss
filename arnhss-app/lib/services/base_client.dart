@@ -31,6 +31,31 @@ class BaseClient {
     }
   }
 
+  //  POST
+  Future<dynamic> post(String baseUrl, String api, dynamic paylodObj) async {
+    final Uri uri = Uri.parse(baseUrl + api);
+    final paylod = json.decode(paylodObj);
+
+    try {
+      var response = await http.post(uri, body: paylod).timeout(
+            const Duration(seconds: TIME_OUT_DURATION),
+          );
+      return _processResponse(response);
+    } on SocketException {
+      throw FetchDataException(
+        "No internet Connection ",
+        uri.toString(),
+      );
+    } on TimeoutException {
+      throw ApiNotRespodingException(
+        "API not responded in time ",
+        uri.toString(),
+      );
+    } catch (e) {
+      FetchDataException(e.toString(), uri.toString());
+    }
+  }
+
   dynamic _processResponse(http.Response response) {
     var responseJson = utf8.decode(response.bodyBytes);
     switch (response.statusCode) {
