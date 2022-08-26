@@ -31,7 +31,9 @@ class LoginViewModel extends ChangeNotifier with HandleException {
   }
 
   void toggleLoading() {
-    loading != loading;
+    // print(loading);
+    loading = !loading;
+    notifyListeners();
   }
 
 // get otp functionality
@@ -42,21 +44,19 @@ class LoginViewModel extends ChangeNotifier with HandleException {
 
     debugPrint(phoneNumber);
     final provider = context.read<VerifyOtpViewModel>();
-    if (!reGet) {
-      Navigator.pop(context);
-      Navigator.of(context).pushNamed(OtpVerificationView.routeName);
-    }
+
     if (provider.isFirstReq || provider.resendAvailable) {
       toggleLoading();
-      await _loginService
-          .getOtp(
-            phone: mobileNumberController.text,
-            countryCode:
-                context.read<CountryViewModel>().selectedCountry.dialCode,
-          )
-          .catchError(handleException);
+      await _loginService.getOtp(
+        phone: mobileNumberController.text,
+        countryCode: context.read<CountryViewModel>().selectedCountry.dialCode,
+      );
+      //   Navigator.pop(context);
+      //   Navigator.of(context).pushNamed(OtpVerificationView.routeName);
+      // }
       toggleLoading();
-      await provider.startTimer();
+
+      // await provider.startTimer();
 
       if (reGet) {
         provider.resetTimer();

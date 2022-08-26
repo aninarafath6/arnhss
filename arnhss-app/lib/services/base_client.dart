@@ -48,10 +48,11 @@ class BaseClient {
       ).timeout(
         const Duration(seconds: TIME_OUT_DURATION),
       );
+      print(response.statusCode);
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException(
-        "No internet Connection ",
+        "Something went wrong!!",
         uri.toString(),
       );
     } on TimeoutException {
@@ -66,10 +67,12 @@ class BaseClient {
 
   dynamic _processResponse(http.Response response) {
     var responseJson = utf8.decode(response.bodyBytes);
+
     switch (response.statusCode) {
       case 200:
         return responseJson;
       case 400:
+        print("somthing");
         throw BadRequestException(
           responseJson,
           response.request?.url.toString(),
@@ -81,6 +84,11 @@ class BaseClient {
         );
       case 404:
       case 500:
+        print("errror here 500");
+        throw BadRequestException(
+          responseJson,
+          response.request?.url.toString(),
+        );
       default:
         throw FetchDataException(
           "Error occured with code: ${response.statusCode}",

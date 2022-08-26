@@ -15,13 +15,13 @@ module.exports = {
 
     try {
       otp
-        .sendOtp(req.body.phone, req.body.channel)
+        .sendOtp(req.body.phone, req.body.channel, req.body.countryCode)
         .then((response) => {
           console.log(response);
           res.json(response);
         })
         .catch((error) => {
-          res.json(error);
+          res.status(500).json(error);
           // console.log("error HERE");
         });
     } catch (error) {

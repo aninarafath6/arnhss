@@ -5,13 +5,13 @@ const serviceSid = process.env.SERVICE_SID;
 const client = require("twilio")(accountSid, authToken);
 
 module.exports = {
-  sendOtp: (phoneNo, channel = "sms") => {
+  sendOtp: (phoneNo, channel = "sms", countryCode) => {
     console.log("phone number", phoneNo);
     return new Promise((resolve, reject) => {
       // send otp functionality.
       client.verify
         .services(serviceSid)
-        .verifications.create({ to: `+91${phoneNo}`, channel: channel })
+        .verifications.create({ to: `${countryCode + phoneNo}`, channel: channel })
         .then((verification) => {
           if (verification.sendCodeAttempts.length > 3) {
             reject({ status: false, error: "bulk attempts", statusCode: 400 });
@@ -20,7 +20,7 @@ module.exports = {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.log("error here");
           reject({ status: false, error: error, statusCode: 500, });
         });
     });

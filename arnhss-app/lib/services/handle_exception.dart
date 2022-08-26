@@ -3,6 +3,7 @@ import 'package:arnhss/services/app_exceptions.dart';
 
 class HandleException {
   void handleException(error) {
+    print("handiling");
     if (error is BadRequestException) {
       customSnackBar(content: error.message);
     } else if (error is FetchDataException) {
