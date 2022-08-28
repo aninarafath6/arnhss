@@ -9,11 +9,11 @@ router.post(
   authVerify.verifyOtpValidation,
   userController.verifyOtp
 );
-router.post(
-  "/create-user",
-  authVerify.createUserValidation,
-  userController.createUser
-);
+// router.post(
+//   "/create-user",
+//   authVerify.createUserValidation,
+//   userController.createUser
+// );
 
 // router.post("/login", (req, res) => userController.login(req, res));
 

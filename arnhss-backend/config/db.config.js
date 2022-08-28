@@ -4,7 +4,7 @@ const state = {
 };
 module.exports.connect = (done) => {
   const url =
-    "mongodb+srv://arnhss:rWwic2J417syd83l@cluster0.nrpdda3.mongodb.net/?retryWrites=true&w=majority";
+    "mongodb+srv://myarnhss:Rw2EatxviCL1KMAZ@cluster0.cvoo5cf.mongodb.net/?retryWrites=true&w=majority";
   const dbname = "marketfeed";
   mongoClient.connect(url, { useUnifiedTopology: true }, (err, data) => {
     if (err) return done(err);

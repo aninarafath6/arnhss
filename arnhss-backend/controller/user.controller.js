@@ -41,7 +41,7 @@ module.exports = {
     }
     try {
       otp
-        .verifyOtp(req.body.phone, req.body.otp)
+        .verifyOtp(req.body.phone, req.body.otp, req.body.countryCode)
         .then((response) => {
           userAuth
             .checkUser(req.body.phone)
@@ -79,39 +79,39 @@ module.exports = {
     } catch (error) {
       res.json(error);
     }
-  },
-  createUser: async (req, res) => {
-    console.log("-> create user route");
-    const errors = validationResult(req);
-    console.log(errors);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array(), success: false });
-    }
-    try {
-      // verify phone number is okay
-      userAuth
-        .createUser(req.body.user)
-        .then(async (response) => {
-          const token = await jwt.generate({ id: response._id });
-          if (response.status) {
-            res.json({
-              status: true,
-              login: true,
-              toke: token,
-            });
-          } else {
-            res.json({
-              status: false,
-              login: false,
-              toke: null,
-            });
-          }
-        })
-        .catch((data) => {
-          res.json(data);
-        });
-    } catch (error) {
-      res.json(error);
-    }
+    // },
+    // createUser: async (req, res) => {
+    //   console.log("-> create user route");
+    //   const errors = validationResult(req);
+    //   console.log(errors);
+    //   if (!errors.isEmpty()) {
+    //     return res.status(400).json({ errors: errors.array(), success: false });
+    //   }
+    //   try {
+    //     // verify phone number is okay
+    //     userAuth
+    //       .createUser(req.body.user)
+    //       .then(async (response) => {
+    //         const token = await jwt.generate({ id: response._id });
+    //         if (response.status) {
+    //           res.json({
+    //             status: true,
+    //             login: true,
+    //             toke: token,
+    //           });
+    //         } else {
+    //           res.json({
+    //             status: false,
+    //             login: false,
+    //             toke: null,
+    //           });
+    //         }
+    //       })
+    //       .catch((data) => {
+    //         res.json(data);
+    //       });
+    //   } catch (error) {
+    //     res.json(error);
+    //   }
   },
 };

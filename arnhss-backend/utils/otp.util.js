@@ -21,16 +21,16 @@ module.exports = {
         })
         .catch((error) => {
           console.log("error here");
-          reject({ status: false, error: "check inputs is okay?⁉️", statusCode: 500, });
+          reject({ status: false, error: "check inputs is okay?⁉️", statusCode: 500, err: error });
         });
     });
   },
   // check verify otp
-  verifyOtp: (phoneNo, otp) => {
+  verifyOtp: (phoneNo, otp, countryCode) => {
     return new Promise((resolve, reject) => {
       client.verify
         .services(serviceSid)
-        .verificationChecks.create({ to: `+91${phoneNo}`, code: otp })
+        .verificationChecks.create({ to: `${countryCode + phoneNo}`, code: otp })
         .then((verification_check) => {
           // console.log(verification_check);
           if (
