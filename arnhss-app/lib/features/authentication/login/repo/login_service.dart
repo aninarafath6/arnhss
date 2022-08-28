@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/api_constants.dart';
+import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/services/base_client.dart';
 import 'package:arnhss/services/handle_exception.dart';
 
@@ -14,7 +15,11 @@ class LoginService with HandleException {
         "phone": phone.toString(),
         "countryCode": countryCode.toString(),
       },
-    ).then((val) => print(val));
-    // return response;
+    ).catchError(handleException);
+    if (response["status"]) {
+      return response;
+    } else {
+      customSnackBar(white: true, content: response["error"]);
+    }
   }
 }

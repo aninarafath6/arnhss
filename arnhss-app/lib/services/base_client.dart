@@ -48,7 +48,7 @@ class BaseClient {
       ).timeout(
         const Duration(seconds: TIME_OUT_DURATION),
       );
-      print(response.statusCode);
+      // print(response.statusCode);
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException(
@@ -67,33 +67,34 @@ class BaseClient {
 
   dynamic _processResponse(http.Response response) {
     var responseJson = utf8.decode(response.bodyBytes);
+    return jsonDecode(responseJson);
 
-    switch (response.statusCode) {
-      case 200:
-        return responseJson;
-      case 400:
-        print("somthing");
-        throw BadRequestException(
-          responseJson,
-          response.request?.url.toString(),
-        );
-      case 403:
-        throw UnAuthorizedException(
-          responseJson,
-          response.request?.url.toString(),
-        );
-      case 404:
-      case 500:
-        print("errror here 500");
-        throw BadRequestException(
-          responseJson,
-          response.request?.url.toString(),
-        );
-      default:
-        throw FetchDataException(
-          "Error occured with code: ${response.statusCode}",
-          response.request?.url.toString(),
-        );
-    }
+    // switch (response.statusCode) {
+    //   case 200:
+    //     return responseJson;
+    //   case 400:
+    //     print("somthing");
+    //     throw BadRequestException(
+    //       responseJson,
+    //       response.request?.url.toString(),
+    //     );
+    //   case 403:
+    //     throw UnAuthorizedException(
+    //       responseJson,
+    //       response.request?.url.toString(),
+    //     );
+    //   case 404:
+    //   case 500:
+    //     print(responseJson);
+    //     throw ApiNotRespodingException(
+    //       responseJson,
+    //       response.request?.url.toString(),
+    //     );
+    //   default:
+    //     throw FetchDataException(
+    //       "Error occured with code: ${response.statusCode}",
+    //       response.request?.url.toString(),
+    //     );
+    // }
   }
 }

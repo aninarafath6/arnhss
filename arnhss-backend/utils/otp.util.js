@@ -21,7 +21,7 @@ module.exports = {
         })
         .catch((error) => {
           console.log("error here");
-          reject({ status: false, error: error, statusCode: 500, });
+          reject({ status: false, error: "check inputs is okay?⁉️", statusCode: 500, });
         });
     });
   },
