@@ -54,9 +54,10 @@ class _VerifyOtpActionButton extends StatelessWidget {
       onTap: () async {
         bool isOtpValid =
             await context.read<VerifyOtpViewModel>().verifyOtp(context);
-        if (isOtpValid) {}
+        if (isOtpValid) {
+          Navigator.pushNamed(context, SelectAccount.routeName);
+        }
         // return context.read<VerifyOtpViewModel>().verifyOtp(context);
-        Navigator.pushNamed(context, SelectAccount.routeName);
       },
     );
   }

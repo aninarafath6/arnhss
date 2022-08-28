@@ -44,7 +44,7 @@ class _OtpInputState extends State<OtpInput> {
     return OtpTextField(
       focusedBorderColor: CustomColors.dark,
       keyboardType: TextInputType.number,
-      numberOfFields: 5,
+      numberOfFields: 6,
       showFieldAsBox: true,
       autoFocus: false,
       clearText: true,
