@@ -16,10 +16,12 @@ class LoginService with HandleException {
         "countryCode": countryCode.toString(),
       },
     ).catchError(handleException);
+    print(response);
     if (response["status"]) {
       return response;
     } else {
       customSnackBar(white: true, content: response["error"]);
+      return null;
     }
   }
 }

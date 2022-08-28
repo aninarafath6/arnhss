@@ -47,22 +47,24 @@ class LoginViewModel extends ChangeNotifier with HandleException {
 
     if (provider.isFirstReq || provider.resendAvailable) {
       toggleLoading();
-      await _loginService.getOtp(
+      var status = await _loginService.getOtp(
         phone: mobileNumberController.text,
         countryCode: context.read<CountryViewModel>().selectedCountry.dialCode,
       );
-      //   Navigator.pop(context);
-      //   Navigator.of(context).pushNamed(OtpVerificationView.routeName);
-      // }
       toggleLoading();
 
-      // await provider.startTimer();
-
-      if (reGet) {
-        provider.resetTimer();
+      if (status != null && !reGet) {
+        Navigator.pop(context);
+        Navigator.of(context).pushNamed(OtpVerificationView.routeName);
       }
-      provider.isFirstReq = false;
-      debugPrint("start timer");
     }
+
+    await provider.startTimer();
+
+    if (reGet) {
+      provider.resetTimer();
+    }
+    provider.isFirstReq = false;
+    debugPrint("start timer");
   }
 }

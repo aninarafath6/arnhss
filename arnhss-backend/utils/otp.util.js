@@ -14,9 +14,9 @@ module.exports = {
         .verifications.create({ to: `${countryCode + phoneNo}`, channel: channel })
         .then((verification) => {
           if (verification.sendCodeAttempts.length > 3) {
-            reject({ status: false, error: "bulk attempts", statusCode: 400 });
+            reject({ status: false, error: "bulk attempts! wait for some times⛔️", statusCode: 400 });
           } else {
-            resolve({ status: verification.status, channel: verification.channel, statusCode: 200 });
+            resolve({ vStatus: verification.status, status: true, channel: verification.channel, statusCode: 200 });
           }
         })
         .catch((error) => {
