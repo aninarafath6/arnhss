@@ -22,7 +22,7 @@ module.exports = {
         })
         .catch((error) => {
           res.status(500).json(error);
-          console.log("error HERE");
+          console.log(error);
         });
     } catch (error) {
       console.log("error");
