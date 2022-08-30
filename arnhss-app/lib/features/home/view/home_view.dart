@@ -1,5 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/home/widgets/user_avatar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatelessWidget {
@@ -41,44 +42,5 @@ class HomeView extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class UserAvatar extends StatelessWidget {
-  const UserAvatar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-          child: Center(
-            child: InkWell(
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(25),
-                  gradient: const LinearGradient(
-                    colors: [Colors.orange, Colors.purple],
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                  ),
-                ),
-                child: const Center(
-                  child: CircleAvatar(
-                    radius: 21,
-                    backgroundImage: NetworkImage(
-                        "https://media-exp1.licdn.com/dms/image/C4D03AQF9epYnUdO4Bw/profile-displayphoto-shrink_200_200/0/1657266713987?e=2147483647&v=beta&t=Lgsc7nKjjMI1vXuzqOkQbpq2iLZoyaJpUZaIbGCe8cQ"),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ));
   }
 }
