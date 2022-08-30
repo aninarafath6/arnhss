@@ -63,14 +63,14 @@ class VerifyOtpViewModel extends ChangeNotifier {
       updateLoading();
       // implimentation of api call
       // try {} catch (e) {}
-      await _verifyOtpService.verifyOtp(
+      var response = await _verifyOtpService.verifyOtp(
           otp: _otp!,
           phone: context.read<LoginViewModel>().mobileNumberController.text,
           countryCode:
               context.read<CountryViewModel>().selectedCountry.dialCode);
       // loading just for ui test
       // await Future.delayed(const Duration(seconds: 3));
-
+      print(response);
       updateLoading();
       return true;
     } else {
@@ -79,21 +79,4 @@ class VerifyOtpViewModel extends ChangeNotifier {
       return false;
     }
   }
-
-//   // handle verify OTP and
-//   void handleVerifyOtp(BuildContext context) {
-//     () {
-//       if (context.read<VerifyOtpVi  SuccessScreen(context);
-//         Timer(
-//           const Duration(seconds: 3),
-//           () {
-//             Navigator.pushNamedAndRemoveUntil(
-//                 context, "/userRole", (r) => false);
-//           },
-//         );
-//       } else {
-//         customSnackBar(context, "sorry 😞, Please enter valid OTP");
-//       }
-//     };
-//   }
 }
