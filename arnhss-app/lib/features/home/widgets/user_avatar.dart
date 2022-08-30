@@ -16,7 +16,7 @@ class UserAvatar extends StatelessWidget {
             child: Container(
               // width: 100,
               // height: 50,
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
               decoration: BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(26),
@@ -35,13 +35,13 @@ class UserAvatar extends StatelessWidget {
                       backgroundImage: NetworkImage(
                           "https://aninarafath.me/images/about-1.jpeg"),
                     ),
-                    SizedBox(width: 5),
-                    Text(
-                      "CS-2",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
+                    // SizedBox(width: 5),
+                    // Text(
+                    //   "CS-2",
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // )
                   ],
                 ),
               ),
