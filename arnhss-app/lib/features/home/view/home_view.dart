@@ -1,5 +1,6 @@
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/widgets/home_banner.dart';
+import 'package:arnhss/features/home/widgets/notice_item.dart';
 import 'package:arnhss/features/home/widgets/user_avatar.dart';
 import 'package:flutter/services.dart';
 import 'package:remixicon/remixicon.dart';
@@ -53,7 +54,7 @@ class HomeView extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.arrow_forward_outlined),
+                    icon: const Icon(Icons.arrow_forward_outlined),
                   ),
                   const SizedBox(width: 24),
                 ],
@@ -61,60 +62,6 @@ class HomeView extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class NoticeItem extends StatelessWidget {
-  const NoticeItem({
-    Key? key,
-    required this.icon,
-    required this.text,
-  }) : super(key: key);
-  final IconData icon;
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 180,
-      margin: const EdgeInsets.only(right: 20),
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(.1),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 6),
-              Icon(icon),
-              const Spacer(),
-              Text(
-                text,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const Spacer(),
-              const Text(
-                "02 April 2022.",
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
