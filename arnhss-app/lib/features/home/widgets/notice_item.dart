@@ -22,7 +22,7 @@ class NoticeItem extends StatelessWidget {
       child: Container(
         width: 200,
         height: 180,
-        margin: const EdgeInsets.only(right: 20),
+        margin: const EdgeInsets.only(right: 0, left: 24),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
           color: Colors.grey.withOpacity(.1),

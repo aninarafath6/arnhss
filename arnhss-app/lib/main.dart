@@ -4,6 +4,7 @@ import 'package:arnhss/features/authentication/login/view_model/country_view_mod
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/features/home/view/home_view.dart';
+import 'package:arnhss/features/home/view_models/notice_view_model.dart';
 import 'package:arnhss/features/splash/views/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CountryViewModel()),
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
         ChangeNotifierProvider(create: (_) => VerifyOtpViewModel()),
+        ChangeNotifierProvider(create: (_) => NoticeViewModel()),
       ],
       child: GetMaterialApp(
         title: 'arnhss',
