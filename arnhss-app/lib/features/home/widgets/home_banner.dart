@@ -29,6 +29,15 @@ class HomeBanner extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
+        const SizedBox(height: 3),
+        Text(
+          "Sunday, March 25th",
+          style: GoogleFonts.firaSans(
+            fontSize: 14,
+            color: CustomColors.dark.withOpacity(.5),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ],
     );
   }
