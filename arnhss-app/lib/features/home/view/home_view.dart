@@ -1,4 +1,5 @@
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/widgets/home_banner.dart';
 import 'package:arnhss/features/home/widgets/notice_item.dart';
 import 'package:arnhss/features/home/widgets/user_avatar.dart';
@@ -39,18 +40,27 @@ class HomeView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 children: [
                   const SizedBox(width: 24),
-                  const NoticeItem(
-                    icon: Remix.notification_line,
-                    text:
-                        "Everyone bring the fee tomorrow. It will be difficult to collect the fee as the program will be held on the next day.",
+                  NoticeItem(
+                    notice: NoticeModel(
+                      icon: Remix.notification_line,
+                      title:
+                          "Everyone bring the fee tomorrow. It will be difficult to collect the fee as the program will be held on the next day.",
+                      date: "01 March 2022",
+                    ),
                   ),
-                  const NoticeItem(
-                    icon: Remix.money_pound_circle_line,
-                    text: "School is going for veccation in next month.",
+                  NoticeItem(
+                    notice: NoticeModel(
+                      date: "01 March 2022",
+                      icon: Remix.money_pound_circle_line,
+                      title: "School is going for veccation in next month.",
+                    ),
                   ),
-                  const NoticeItem(
-                    icon: Remix.notification_line,
-                    text: "School is going for veccation in next month.",
+                  NoticeItem(
+                    notice: NoticeModel(
+                      date: "01 March 2022",
+                      icon: Remix.notification_line,
+                      title: "School is going for veccation in next month.",
+                    ),
                   ),
                   IconButton(
                     onPressed: () {},
