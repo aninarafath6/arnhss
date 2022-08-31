@@ -1,5 +1,6 @@
+import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
-import 'package:flutter/material.dart';
+import 'package:arnhss/features/home/widgets/notice_dailog.dart';
 
 class NoticeItem extends StatelessWidget {
   const NoticeItem({
@@ -11,45 +12,53 @@ class NoticeItem extends StatelessWidget {
   final NoticeModel notice;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 180,
-      margin: const EdgeInsets.only(right: 20),
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(.1),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 6),
-              Icon(notice.icon),
-              const Spacer(),
-              Text(
-                notice.title ?? "",
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+    return InkWell(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => NoticeDailog(notice: notice),
+        );
+      },
+      child: Container(
+        width: 200,
+        height: 180,
+        margin: const EdgeInsets.only(right: 20),
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(.1),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6),
+                Icon(notice.icon),
+                const Spacer(),
+                Text(
+                  notice.title ?? "",
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const Spacer(),
-              Text(
-                notice.date ?? "",
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.italic,
+                const Spacer(),
+                Text(
+                  notice.date ?? "",
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

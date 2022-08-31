@@ -42,24 +42,28 @@ class HomeView extends StatelessWidget {
                   const SizedBox(width: 24),
                   NoticeItem(
                     notice: NoticeModel(
-                      icon: Remix.notification_line,
-                      title:
-                          "Everyone bring the fee tomorrow. It will be difficult to collect the fee as the program will be held on the next day.",
-                      date: "01 March 2022",
-                    ),
+                        icon: Remix.notification_line,
+                        title: "Everyone Bring the fee tomorrow",
+                        descritption:
+                            "Everyone bring the fee tomorrow. It will be difficult to collect the fee as the program will be held on the next day.",
+                        date: "01 March 2022",
+                        subDescription:
+                            " Examination fees for children taking the 1st Year Higher Secondary Improvement Examination are also due tomorrow (1/9/22, 2/9/22) at school. Documents to be submitted to the school 1. Application Form 2.+1 Marklist Copy fee Paper 1 N 175 + 40 A child can write maximum 3 papers"),
                   ),
                   NoticeItem(
                     notice: NoticeModel(
                       date: "01 March 2022",
                       icon: Remix.money_pound_circle_line,
-                      title: "School is going for veccation in next month.",
+                      descritption:
+                          "School is going for veccation in next month.",
                     ),
                   ),
                   NoticeItem(
                     notice: NoticeModel(
                       date: "01 March 2022",
                       icon: Remix.notification_line,
-                      title: "School is going for veccation in next month.",
+                      descritption:
+                          "School is going for veccation in next month.",
                     ),
                   ),
                   IconButton(
