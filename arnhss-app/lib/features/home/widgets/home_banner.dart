@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/features/home/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,35 +10,41 @@ class HomeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       children: [
-        Text(
-          "Hey,",
-          style: GoogleFonts.firaSans(
-            fontSize: 28,
-            color: CustomColors.dark,
-            fontWeight: FontWeight.w400,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Hey,",
+              style: GoogleFonts.firaSans(
+                fontSize: 28,
+                color: CustomColors.dark,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              "Anin Arafath 👋🏻",
+              style: GoogleFonts.firaSans(
+                fontSize: 32,
+                color: CustomColors.dark,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 3),
+            Text(
+              "Sunday, March 25th",
+              style: GoogleFonts.firaSans(
+                fontSize: 15,
+                color: CustomColors.dark.withOpacity(.8),
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 6),
-        Text(
-          "Anin Arafath 👋🏻",
-          style: GoogleFonts.firaSans(
-            fontSize: 32,
-            color: CustomColors.dark,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 3),
-        Text(
-          "Sunday, March 25th",
-          style: GoogleFonts.firaSans(
-            fontSize: 15,
-            color: CustomColors.dark.withOpacity(.8),
-            fontWeight: FontWeight.w300,
-          ),
-        ),
+        Spacer(),
+        UserAvatar(),
       ],
     );
   }

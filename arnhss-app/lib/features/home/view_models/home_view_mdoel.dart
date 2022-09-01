@@ -1,9 +1,10 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
+import 'package:arnhss/features/home/model/blog_model.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/widgets/notice_item.dart';
 import 'package:remixicon/remixicon.dart';
 
-class NoticeViewModel with ChangeNotifier {
+class HomeViewModel with ChangeNotifier {
   final List<NoticeItem> noticeList = [
     NoticeItem(
       notice: NoticeModel(
@@ -34,6 +35,17 @@ class NoticeViewModel with ChangeNotifier {
           date: "01 March 2022",
           subDescription:
               " Examination fees for children taking the 1st Year Higher Secondary Improvement Examination are also due tomorrow (1/9/22, 2/9/22) at school. Documents to be submitted to the school 1. Application Form 2.+1 Marklist Copy fee Paper 1 N 175 + 40 A child can write maximum 3 papers"),
+    ),
+  ];
+  final List<Blog> blogList = <Blog>[
+    Blog(
+      title: "20 Ways to Learn More Efficiently",
+      avatar:
+          "https://cdn.britannica.com/54/188754-050-A3613741/Elon-Musk-2010.jpg",
+      content: "",
+      time: "2 hour ago",
+      displayImage:
+          "https://www.educationworld.in/wp-content/uploads/2016/12/thoughtful-little-girl-with-book-near-a-school-board_1150-3853.jpg",
     ),
   ];
 }

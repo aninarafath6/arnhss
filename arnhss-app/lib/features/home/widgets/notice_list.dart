@@ -1,5 +1,5 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/home/view_models/notice_view_model.dart';
+import 'package:arnhss/features/home/view_models/home_view_mdoel.dart';
 
 class NoticeList extends StatelessWidget {
   const NoticeList({
@@ -14,10 +14,10 @@ class NoticeList extends StatelessWidget {
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: context.read<NoticeViewModel>().noticeList.length + 1,
+        itemCount: context.read<HomeViewModel>().noticeList.length + 1,
         itemBuilder: (BuildContext context, index) {
-          if (context.read<NoticeViewModel>().noticeList.length != index) {
-            return context.read<NoticeViewModel>().noticeList[index];
+          if (context.read<HomeViewModel>().noticeList.length != index) {
+            return context.read<HomeViewModel>().noticeList[index];
           } else {
             return Row(
               children: [
