@@ -12,6 +12,7 @@ class NoticeList extends StatelessWidget {
       width: 200,
       height: 180,
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: context.read<NoticeViewModel>().noticeList.length + 1,
         itemBuilder: (BuildContext context, index) {

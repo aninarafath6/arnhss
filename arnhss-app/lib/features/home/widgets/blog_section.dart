@@ -11,7 +11,7 @@ class BlogSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
-      margin: EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 15),
       // height: 300,
       width: double.infinity,
       decoration: BoxDecoration(
