@@ -1,6 +1,7 @@
+import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/home/view_models/notice_view_model.dart';
 import 'package:arnhss/features/home/widgets/home_banner.dart';
+import 'package:arnhss/features/home/widgets/notice_list.dart';
 import 'package:arnhss/features/home/widgets/user_avatar.dart';
 import 'package:flutter/services.dart';
 
@@ -30,32 +31,30 @@ class HomeView extends StatelessWidget {
               child: HomeBanner(),
             ),
             const SizedBox(height: 40),
-            SizedBox(
-              width: 200,
-              height: 180,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount:
-                    context.read<NoticeViewModel>().noticeList.length + 1,
-                itemBuilder: (BuildContext context, index) {
-                  if (context.read<NoticeViewModel>().noticeList.length !=
-                      index) {
-                    return context.read<NoticeViewModel>().noticeList[index];
-                  } else {
-                    return Row(
-                      children: [
-                        const SizedBox(width: 24),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.arrow_forward_outlined),
-                        ),
-                        const SizedBox(width: 24),
-                      ],
-                    );
-                  }
-                },
+            const NoticeList(),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Jst For You",
+                    style: CustomTextTheme(context: context)
+                        .headLine()
+                        .copyWith(fontSize: 20),
+                  ),
+                  const Spacer(),
+                  Text(
+                    "View all",
+                    style: CustomTextTheme(context: context)
+                        .paragraph()
+                        .copyWith(fontSize: 14, color: Colors.blue),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),
