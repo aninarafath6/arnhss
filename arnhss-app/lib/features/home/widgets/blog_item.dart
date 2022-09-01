@@ -1,45 +1,36 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/features/home/model/blog_model.dart';
 import 'package:flutter/material.dart';
 
 class BlogItem extends StatelessWidget {
   const BlogItem({
     Key? key,
+    required this.blog,
   }) : super(key: key);
-
+  final Blog blog;
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 30),
+      margin: const EdgeInsets.only(bottom: 25),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              Container(
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: CustomColors.dark,
-                  borderRadius: BorderRadius.circular(5),
-                  image: const DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              color: CustomColors.dark,
+              borderRadius: BorderRadius.circular(5),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  blog.displayImage ??
                       "https://collegemarker.com/blogs/wp-content/uploads/2022/02/secondary-school-student.jpg",
-                    ),
-                  ),
                 ),
               ),
-              Container(
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: CustomColors.dark.withOpacity(.5),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-            ],
+            ),
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -50,7 +41,7 @@ class BlogItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "20 Ways to Learn More\nEfficiently",
+                    blog.title ?? "",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: CustomTextTheme(context: context)
@@ -72,15 +63,15 @@ class BlogItem extends StatelessWidget {
                     // mainAxisAlignment:
                     // MainAxisAlignment.spaceBetween,
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 12,
-                        backgroundImage: NetworkImage(
+                        backgroundImage: NetworkImage(blog.avatar ??
                             "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg"),
                       ),
                       const SizedBox(width: 10),
-                      const Text(
-                        "Elone musk",
-                        style: TextStyle(
+                      Text(
+                        blog.user!,
+                        style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
                         ),
@@ -91,7 +82,7 @@ class BlogItem extends StatelessWidget {
                       const SizedBox(width: 8),
 
                       Text(
-                        "Yesterday",
+                        blog.time ?? "",
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 12,

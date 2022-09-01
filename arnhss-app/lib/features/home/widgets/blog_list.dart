@@ -1,6 +1,8 @@
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/features/home/view_models/home_view_mdoel.dart';
 import 'package:arnhss/features/home/widgets/blog_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BlogList extends StatelessWidget {
   const BlogList({
@@ -12,15 +14,20 @@ class BlogList extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24.0),
       child: Column(
-        children: const [
-          _Header(),
-          SizedBox(height: 20),
-          BlogItem(),
-          BlogItem(),
-          BlogItem(),
-          BlogItem(),
-          BlogItem(),
-        ],
+        children: List.generate(
+          context.read<HomeViewModel>().blogList.length + 1,
+          (index) {
+            if (index == 0) {
+              return Column(
+                children: const [_Header(), SizedBox(height: 20)],
+              );
+            } else {
+              return BlogItem(
+                blog: context.read<HomeViewModel>().blogList[index - 1],
+              );
+            }
+          },
+        ),
       ),
     );
   }

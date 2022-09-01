@@ -39,13 +39,44 @@ class HomeViewModel with ChangeNotifier {
   ];
   final List<Blog> blogList = <Blog>[
     Blog(
-      title: "20 Ways to Learn More Efficiently",
+      title: "20 Ways to Learn More Efficiently,\nBy Marianne Stenger",
       avatar:
           "https://cdn.britannica.com/54/188754-050-A3613741/Elon-Musk-2010.jpg",
       content: "",
       time: "2 hour ago",
+      user: "Elone musk",
       displayImage:
-          "https://www.educationworld.in/wp-content/uploads/2016/12/thoughtful-little-girl-with-book-near-a-school-board_1150-3853.jpg",
+          "https://www.opencolleges.edu.au/informed/wp-content/uploads/2014/01/memory-test-002.jpg",
+    ),
+    Blog(
+      title: "Leadership Styles: The 5 Most Common & How to Find Your Own",
+      avatar:
+          "https://imageio.forbes.com/specials-images/imageserve/60d46873321b437f2cf2f788/0x0.jpg?format=jpg&width=1200",
+      content: "",
+      time: "8 hour ago",
+      user: "Jeff Bezos",
+      displayImage:
+          "https://www.northeastern.edu/graduate/blog/wp-content/uploads/2019/03/Leadership-styles.jpg",
+    ),
+    Blog(
+      title: "Leadership Styles: The 5 Most Common & How to Find Your Own",
+      avatar:
+          "https://imageio.forbes.com/specials-images/imageserve/60d46873321b437f2cf2f788/0x0.jpg?format=jpg&width=1200",
+      content: "",
+      time: "8 hour ago",
+      user: "Jeff Bezos",
+      displayImage:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9j9dUqLl35JBl7of0g-coWC1uguJoKbBE4XtfmW1YDHZzjubntnJtXWrqpBvIA-Que_8&usqp=CAU",
+    ),
+    Blog(
+      title: "20 Ways to Learn More Efficiently,\nBy Marianne Stenger",
+      avatar:
+          "https://cdn.britannica.com/54/188754-050-A3613741/Elon-Musk-2010.jpg",
+      content: "",
+      time: "2 hour ago",
+      user: "Elone musk",
+      displayImage:
+          "https://www.opencolleges.edu.au/informed/wp-content/uploads/2014/01/memory-test-002.jpg",
     ),
   ];
 }
