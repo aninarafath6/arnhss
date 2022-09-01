@@ -32,10 +32,11 @@ class QoutOfTheDay extends StatelessWidget {
                 Text(
                   "We cannot solve our problems with the same thinking we used when we created them....",
                   style: CustomTextTheme(context: context).paragraph().copyWith(
-                        color: Colors.grey[300],
-                        fontWeight: FontWeight.w600,
-                      ),
-                  textAlign: TextAlign.center,
+                      color: Colors.grey[300],
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                      fontStyle: FontStyle.italic),
+                  // textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 18),
                 Row(

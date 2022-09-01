@@ -99,6 +99,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.4"
+  flashy_tab_bar2:
+    dependency: "direct main"
+    description:
+      name: flashy_tab_bar2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -352,6 +359,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  rounded_tabbar_widget:
+    dependency: "direct main"
+    description:
+      name: rounded_tabbar_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   sky_engine:
     dependency: transitive
     description: flutter

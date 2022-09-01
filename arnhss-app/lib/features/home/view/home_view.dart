@@ -3,14 +3,22 @@ import 'package:arnhss/features/authentication/otp_verification/view/index.dart'
 import 'package:arnhss/features/home/widgets/blog_list.dart';
 import 'package:arnhss/features/home/widgets/home_banner.dart';
 import 'package:arnhss/features/home/widgets/notice_list.dart';
+import 'package:arnhss/features/home/widgets/qout_0f_the_day.dart';
 import 'package:arnhss/features/home/widgets/user_avatar.dart';
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/services.dart';
 import 'package:remixicon/remixicon.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
   static const routeName = "/home ";
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,8 +46,13 @@ class HomeView extends StatelessWidget {
               child: HomeBanner(),
             ),
             SizedBox(height: 40),
+            // Padding(
+            //   padding: EdgeInsets.all(24.0),
+            //   child: QoutOfTheDay(),
+            // ),
             NoticeList(),
-            SizedBox(height: 20),
+
+            // SizedBox(height: 20),
             BlogList()
           ],
         ),
