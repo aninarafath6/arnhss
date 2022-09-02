@@ -37,7 +37,7 @@ class UserCardList extends StatelessWidget {
             icon: Images.studentRoleIcon,
             onTap: () => Navigator.pushNamed(
               context,
-              StudentAuthencation.routeName,
+              StudentAuthentication.routeName,
             ),
           ),
           const UserRuleCard(title: "Teacher", icon: Images.teacherRoleIcon),

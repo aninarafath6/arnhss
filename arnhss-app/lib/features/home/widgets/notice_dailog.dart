@@ -42,7 +42,7 @@ class NoticeDailog extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 20),
-                  Text(notice.descritption ?? "",
+                  Text(notice.description ?? "",
                       textAlign: TextAlign.start,
                       style: CustomTextTheme(context: context).paragraph()),
                   const SizedBox(height: 15),
