@@ -5,6 +5,8 @@ import 'package:arnhss/features/home/widgets/notice_item.dart';
 import 'package:remixicon/remixicon.dart';
 
 class HomeViewModel with ChangeNotifier {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   final List<NoticeItem> noticeList = [
     NoticeItem(
       notice: NoticeModel(

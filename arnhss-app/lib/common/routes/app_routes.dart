@@ -31,7 +31,7 @@ class AppRoutes {
       case SelectAccount.routeName:
         return MaterialPageRoute(builder: (_) => const SelectAccount());
       case HomeView.routeName:
-        return MaterialPageRoute(builder: (_) => const HomeView());
+        return MaterialPageRoute(builder: (_) => HomeView());
       case NoticeView.routeName:
         final NoticeModel args = settings.arguments as NoticeModel;
         return MaterialPageRoute(
