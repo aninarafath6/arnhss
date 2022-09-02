@@ -3,8 +3,8 @@ import 'package:arnhss/common/widgets/custom_banner.dart';
 import 'package:arnhss/common/widgets/custom_drop_down.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 
-class StudentAuthencation extends StatelessWidget {
-  const StudentAuthencation({Key? key}) : super(key: key);
+class StudentAuthentication extends StatelessWidget {
+  const StudentAuthentication({Key? key}) : super(key: key);
   static const routeName = "/studentAutentication";
 
   @override

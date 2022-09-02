@@ -1,3 +1,4 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 class Tile extends StatelessWidget {
@@ -21,7 +22,7 @@ class Tile extends StatelessWidget {
             top: 10, bottom: isSmall! ? 10 : 0, left: 10, right: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
-          color: Colors.grey.withOpacity(.1),
+          color: CustomColors.lightBgOverlay,
         ),
         child: Center(
           child: Column(

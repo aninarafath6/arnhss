@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class NoticeModel {
   final String? title;
-  final String? descritption;
+  final String? description;
   final String? subDescription;
   final String? date;
   final String? role;
@@ -11,7 +11,7 @@ class NoticeModel {
 
   NoticeModel({
     this.title,
-    this.descritption,
+    this.description,
     this.subDescription,
     this.date,
     this.role,

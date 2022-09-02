@@ -1,6 +1,7 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
-import 'package:arnhss/features/home/widgets/notice_dailog.dart';
+import 'package:arnhss/features/home/view/notice_veiw.dart';
 
 class NoticeItem extends StatelessWidget {
   const NoticeItem({
@@ -16,17 +17,14 @@ class NoticeItem extends StatelessWidget {
       margin: const EdgeInsets.only(right: 0, left: 10),
       child: InkWell(
         onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => NoticeDailog(notice: notice),
-          );
+          Navigator.pushNamed(context, NoticeView.routeName, arguments: notice);
         },
         child: Container(
           width: 200,
           height: 180,
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(.1),
+            color: CustomColors.lightBgOverlay,
             borderRadius: BorderRadius.circular(5),
           ),
           child: Stack(
