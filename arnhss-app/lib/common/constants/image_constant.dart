@@ -10,4 +10,5 @@ class Images {
   static const parentRoleIcon =
       "assets/images/icons/woman-answering-phone.png.webp";
   static const loginIcon = "assets/images/pngs/login 1.png";
+  static const homeImages = [""];
 }
