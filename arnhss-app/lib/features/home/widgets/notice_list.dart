@@ -17,7 +17,16 @@ class NoticeList extends StatelessWidget {
         itemCount: context.read<HomeViewModel>().noticeList.length + 1,
         itemBuilder: (BuildContext context, index) {
           if (context.read<HomeViewModel>().noticeList.length != index) {
-            return context.read<HomeViewModel>().noticeList[index];
+            if (index == 0) {
+              return Row(
+                children: [
+                  const SizedBox(width: 14),
+                  context.read<HomeViewModel>().noticeList[index],
+                ],
+              );
+            } else {
+              return context.read<HomeViewModel>().noticeList[index];
+            }
           } else {
             return Row(
               children: [

@@ -1,0 +1,103 @@
+import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/features/home/widgets/tile.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+class HomeGrid extends StatelessWidget {
+  const HomeGrid({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 24.0, right: 24, top: 20),
+      child: StaggeredGrid.count(
+        crossAxisCount: 6,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 8,
+        children: [
+          const StaggeredGridTile.count(
+            crossAxisCellCount: 3,
+            mainAxisCellCount: 3.8,
+            child: Tile(
+              index: 0,
+              image: "assets/images/icons/nt-to-do-list-removebg-preview.png",
+              label: "Attendance",
+            ),
+          ),
+          const StaggeredGridTile.count(
+            crossAxisCellCount: 3,
+            mainAxisCellCount: 3,
+            child: Tile(
+              index: 1,
+              image:
+                  "assets/images/icons/oc-taking-note-removebg-preview (1).png",
+              label: "Task",
+            ),
+          ),
+          StaggeredGridTile.count(
+            crossAxisCellCount: 3,
+            mainAxisCellCount: .8,
+            child: TextButton(
+              style: ButtonStyle(
+                overlayColor: MaterialStateColor.resolveWith(
+                    (states) => Colors.grey.shade800.withOpacity(.9)),
+                backgroundColor: MaterialStateProperty.all(
+                  CustomColors.dark,
+                ),
+              ),
+              onPressed: () {},
+              child: const Center(
+                child: Text(
+                  "Add Task",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const StaggeredGridTile.count(
+            crossAxisCellCount: 2,
+            mainAxisCellCount: 2,
+            child: Tile(
+                index: 3,
+                image: "assets/images/icons/oc-plane-removebg-preview.png",
+                label: "Notifications"),
+          ),
+          const StaggeredGridTile.count(
+            crossAxisCellCount: 2,
+            mainAxisCellCount: 2,
+            child: Tile(
+              index: 4,
+              image:
+                  "assets/images/icons/oc-hand-holding-papers-removebg-preview.png",
+              label: "Notes",
+            ),
+          ),
+          const StaggeredGridTile.count(
+            crossAxisCellCount: 2,
+            mainAxisCellCount: 2,
+            child: Tile(
+              index: 4,
+              image: "assets/images/icons/planning-badge.png.webp",
+              label: "Time Table",
+            ),
+          ),
+          const StaggeredGridTile.count(
+            crossAxisCellCount: 6,
+            mainAxisCellCount: 3,
+            child: Tile(
+              index: 6,
+              image:
+                  "assets/images/icons/nt-people-holding-cards-removebg-preview.png",
+              label: "Activity",
+              isSmall: false,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

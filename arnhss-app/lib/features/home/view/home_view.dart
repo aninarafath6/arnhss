@@ -1,11 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/home/widgets/blog_list.dart';
-import 'package:arnhss/features/home/widgets/home_banner.dart';
+import 'package:arnhss/features/home/widgets/home_grid.dart';
 import 'package:arnhss/features/home/widgets/notice_list.dart';
-import 'package:arnhss/features/home/widgets/qout_0f_the_day.dart';
-import 'package:arnhss/features/home/widgets/user_avatar.dart';
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/services.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -18,21 +14,47 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      // extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        // leadingWidth: 60,
         systemOverlayStyle: SystemUiOverlayStyle.dark, // 1
         backgroundColor: Colors.transparent,
-        toolbarHeight: 72,
+        automaticallyImplyLeading: false, // Don't show the leading button
+        toolbarHeight: 100,
+        title: Row(
+          children: [
+            IconButton(
+              splashRadius: 28,
+              onPressed: () {},
+              icon:
+                  const Icon(Remix.command_fill, color: Colors.black, size: 30),
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text("Hey, Anin Arafath",
+                    style: TextStyle(
+                        color: CustomColors.dark, fontWeight: FontWeight.bold)),
+                SizedBox(height: 5),
+                Text(
+                  "Monday, 4 march ",
+                  style: TextStyle(
+                    color: CustomColors.light,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
         elevation: 0,
-        leading:
-            const Icon(Remix.menu_4_line, color: CustomColors.dark, size: 30),
-        actions: const [UserAvatar()],
+        centerTitle: false,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -41,19 +63,9 @@ class _HomeViewState extends State<HomeView> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: const [
-            Padding(
-              padding: EdgeInsets.only(left: 24.0, right: 24, top: 20),
-              child: HomeBanner(),
-            ),
-            SizedBox(height: 40),
-            // Padding(
-            //   padding: EdgeInsets.all(24.0),
-            //   child: QoutOfTheDay(),
-            // ),
             NoticeList(),
-
-            // SizedBox(height: 20),
-            BlogList()
+            HomeGrid(),
+            SizedBox(height: 50),
           ],
         ),
       ),
