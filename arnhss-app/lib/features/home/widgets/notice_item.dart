@@ -1,3 +1,4 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/widgets/notice_dailog.dart';
@@ -26,7 +27,7 @@ class NoticeItem extends StatelessWidget {
           height: 180,
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(.1),
+            color: CustomColors.lightBgOverlay,
             borderRadius: BorderRadius.circular(5),
           ),
           child: Stack(

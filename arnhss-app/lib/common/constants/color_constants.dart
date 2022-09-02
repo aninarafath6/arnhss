@@ -5,4 +5,5 @@ class CustomColors {
   static const texty = Color(0xff566275);
   static const white = Colors.white;
   static const light = Colors.grey;
+  static Color lightBgOverlay = Colors.grey.shade300.withOpacity(.3);
 }
