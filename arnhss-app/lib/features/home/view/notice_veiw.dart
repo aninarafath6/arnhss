@@ -2,7 +2,6 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
-import 'package:flutter/material.dart';
 
 class NoticeView extends StatelessWidget {
   static const routeName = "/noticeView";
