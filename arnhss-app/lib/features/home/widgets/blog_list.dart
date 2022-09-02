@@ -55,7 +55,7 @@ class _Header extends StatelessWidget {
           "View all",
           style: CustomTextTheme(context: context)
               .paragraph()
-              .copyWith(fontSize: 14, color: Colors.blue),
+              .copyWith(fontSize: 14, color: Colors.purple),
         ),
       ],
     );

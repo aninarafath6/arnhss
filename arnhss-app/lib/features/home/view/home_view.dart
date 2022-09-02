@@ -3,10 +3,9 @@ import 'package:arnhss/features/authentication/otp_verification/view/index.dart'
 import 'package:arnhss/features/home/widgets/blog_list.dart';
 import 'package:arnhss/features/home/widgets/home_banner.dart';
 import 'package:arnhss/features/home/widgets/notice_list.dart';
-import 'package:arnhss/features/home/widgets/qout_0f_the_day.dart';
 import 'package:arnhss/features/home/widgets/user_avatar.dart';
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:remixicon/remixicon.dart';
 
 class HomeView extends StatefulWidget {
@@ -18,7 +17,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
         toolbarHeight: 72,
         elevation: 0,
         leading:
-            const Icon(Remix.menu_4_line, color: CustomColors.dark, size: 30),
+            const Icon(Remix.menu_4_line, color: Colors.transparent, size: 30),
         actions: const [UserAvatar()],
       ),
       body: Padding(
@@ -40,23 +39,99 @@ class _HomeViewState extends State<HomeView> {
         ),
         child: ListView(
           physics: const BouncingScrollPhysics(),
-          children: const [
-            Padding(
+          children: [
+            const Padding(
               padding: EdgeInsets.only(left: 24.0, right: 24, top: 20),
               child: HomeBanner(),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 35),
             // Padding(
             //   padding: EdgeInsets.all(24.0),
             //   child: QoutOfTheDay(),
             // ),
-            NoticeList(),
-
-            // SizedBox(height: 20),
-            BlogList()
+            const NoticeList(),
+            Padding(
+              padding: const EdgeInsets.only(left: 24.0, right: 24, top: 20),
+              child: StaggeredGrid.count(
+                crossAxisCount: 6,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 8,
+                children: [
+                  const StaggeredGridTile.count(
+                    crossAxisCellCount: 3,
+                    mainAxisCellCount: 3.8,
+                    child: Tile(index: 0),
+                  ),
+                  const StaggeredGridTile.count(
+                    crossAxisCellCount: 3,
+                    mainAxisCellCount: 3,
+                    child: Tile(index: 1),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 3,
+                    mainAxisCellCount: .8,
+                    child: TextButton(
+                      style: ButtonStyle(
+                          overlayColor: MaterialStateColor.resolveWith(
+                              (states) => Colors.grey.shade800.withOpacity(.9)),
+                          backgroundColor: MaterialStateProperty.all(
+                            CustomColors.dark,
+                          )),
+                      onPressed: () {},
+                      child: const Center(
+                        child: Text(
+                          "Add Task",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const StaggeredGridTile.count(
+                    crossAxisCellCount: 2,
+                    mainAxisCellCount: 2,
+                    child: Tile(index: 3),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 2,
+                    mainAxisCellCount: 2,
+                    child: Tile(index: 4),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 2,
+                    mainAxisCellCount: 2,
+                    child: Tile(index: 5),
+                  ),
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: 6,
+                    mainAxisCellCount: 3,
+                    child: Tile(index: 6),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 50),
+            // BlogList()
           ],
         ),
       ),
+    );
+  }
+}
+
+class Tile extends StatelessWidget {
+  const Tile({Key? key, this.index}) : super(key: key);
+  final int? index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3),
+        color: Colors.grey[300],
+      ),
+      child: Center(child: Text(index.toString())),
     );
   }
 }

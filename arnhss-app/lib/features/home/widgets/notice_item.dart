@@ -13,7 +13,7 @@ class NoticeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 0, left: 24),
+      margin: const EdgeInsets.only(right: 0, left: 10),
       child: InkWell(
         onTap: () {
           showDialog(
