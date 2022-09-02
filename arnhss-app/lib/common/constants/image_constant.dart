@@ -11,4 +11,5 @@ class Images {
       "assets/images/icons/woman-answering-phone.png.webp";
   static const loginIcon = "assets/images/pngs/login 1.png";
   static const homeImages = [""];
+  static const drawerHeader = "assets/images/icons/hero.png.webp";
 }
