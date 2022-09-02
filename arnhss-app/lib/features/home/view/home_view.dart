@@ -63,11 +63,9 @@ class _HomeViewState extends State<HomeView> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: const [
-            // const SizedBox(height: 20),
             NoticeList(),
             HomeGrid(),
             SizedBox(height: 50),
-            // BlogList()
           ],
         ),
       ),
