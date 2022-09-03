@@ -34,6 +34,7 @@ class HomeGrid extends StatelessWidget {
               image:
                   "assets/images/icons/oc-taking-note-removebg-preview (1).png",
               label: "Task",
+              count: 3,
             ),
           ),
           StaggeredGridTile.count(
@@ -62,9 +63,11 @@ class HomeGrid extends StatelessWidget {
             crossAxisCellCount: 2,
             mainAxisCellCount: 2,
             child: Tile(
-                index: 3,
-                image: "assets/images/icons/oc-plane-removebg-preview.png",
-                label: "Notifications"),
+              index: 3,
+              image: "assets/images/icons/oc-plane-removebg-preview.png",
+              count: 2,
+              label: "Notifications",
+            ),
           ),
           const StaggeredGridTile.count(
             crossAxisCellCount: 2,
