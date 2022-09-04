@@ -29,7 +29,7 @@ class HomeView extends StatelessWidget {
           children: const [
             NoticeList(),
             HomeGrid(),
-            SizedBox(height: 10),
+            SizedBox(height: 0),
           ],
         ),
       ),

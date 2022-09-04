@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/features/attendance/view/attendance_view.dart';
 import 'package:arnhss/features/home/widgets/tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -17,13 +18,16 @@ class HomeGrid extends StatelessWidget {
         mainAxisSpacing: 10,
         crossAxisSpacing: 8,
         children: [
-          const StaggeredGridTile.count(
+          StaggeredGridTile.count(
             crossAxisCellCount: 3,
             mainAxisCellCount: 3.8,
             child: Tile(
               index: 0,
               image: "assets/images/icons/nt-to-do-list-removebg-preview.png",
               label: "Attendance",
+              onTap: () {
+                Navigator.pushNamed(context, AttendanceView.routeName);
+              },
             ),
           ),
           const StaggeredGridTile.count(

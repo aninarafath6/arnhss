@@ -28,6 +28,10 @@ dependencies:
   flashy_tab_bar2: ^0.0.4
   rounded_tabbar_widget: ^0.0.2
   flutter_staggered_grid_view: ^0.6.2
+  table_calendar: ^3.0.6
+  
+  intl: ^0.17.0
+  cached_network_image: ^3.2.1
 
 dev_dependencies:
   flutter_test:

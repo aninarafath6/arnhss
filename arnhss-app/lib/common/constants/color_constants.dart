@@ -6,4 +6,5 @@ class CustomColors {
   static const white = Colors.white;
   static const light = Colors.grey;
   static Color lightBgOverlay = Colors.grey.shade300.withOpacity(.3);
+  static Color bgOverlay = Colors.grey.shade300.withOpacity(.5);
 }

@@ -24,7 +24,7 @@ class NoticeItem extends StatelessWidget {
           height: 180,
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
-            color: CustomColors.lightBgOverlay,
+            color: CustomColors.bgOverlay,
             borderRadius: BorderRadius.circular(5),
           ),
           child: Stack(
