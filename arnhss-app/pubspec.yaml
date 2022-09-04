@@ -32,6 +32,7 @@ dependencies:
   
   intl: ^0.17.0
   cached_network_image: ^3.2.1
+  pie_chart: ^5.3.2
 
 dev_dependencies:
   flutter_test:
