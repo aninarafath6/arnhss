@@ -1,14 +1,17 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/utils/dimensions.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:remixicon/remixicon.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({
-    Key? key,
-  }) : super(key: key);
+  const AppDrawer(
+      {Key? key,
+      this.image = "assets/images/icons/home-and-living-badge.png.webp"})
+      : super(key: key);
 
+  final String? image;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -21,6 +24,7 @@ class AppDrawer extends StatelessWidget {
               children: [
                 DrawerHeader(
                   padding: const EdgeInsets.all(15.0),
+                  curve: Curves.easeInOutBack,
                   decoration: BoxDecoration(
                     color: CustomColors.light.withOpacity(.1),
                   ),
@@ -32,18 +36,19 @@ class AppDrawer extends StatelessWidget {
                         left: 190,
                         bottom: -30,
                         // alignment: Alignment.bottomRight,
-                        child: Image.asset(
-                            "assets/images/icons/home-and-living-badge.png.webp"),
+                        child: Image.asset(image!),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const CircleAvatar(
-                            radius: 35,
-                            backgroundImage: NetworkImage(
-                                "https://aninarafath.me/images/about-1.jpeg"),
-                          ),
+                          // const CircleAvatar(
+                          //   radius: 35,
+                          //   backgroundImage:
+
+                          //    NetworkImage(
+                          //       "https://ichef.bbci.co.uk/news/976/cpsprodpb/14B1D/production/_125556748_gettyimages-1240422158.jpg"),
+                          // ),
                           const SizedBox(width: 10),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

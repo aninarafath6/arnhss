@@ -9,16 +9,18 @@ class Tile extends StatelessWidget {
     this.label = "label",
     this.isSmall = true,
     this.count = 0,
+    this.onTap,
   }) : super(key: key);
   final int? index;
   final String? image;
   final String? label;
   final bool? isSmall;
   final int? count;
+  final Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Stack(
         children: [
           Container(

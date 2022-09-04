@@ -1,3 +1,4 @@
+import 'package:arnhss/features/attendance/view/attendance_view.dart';
 import 'package:arnhss/features/authentication/account/view/select_account.dart';
 import 'package:arnhss/features/authentication/login/view/login.dart';
 import 'package:arnhss/features/authentication/login/widgets/country_select.dart';
@@ -31,7 +32,7 @@ class AppRoutes {
       case SelectAccount.routeName:
         return MaterialPageRoute(builder: (_) => const SelectAccount());
       case HomeView.routeName:
-        return MaterialPageRoute(builder: (_) => HomeView());
+        return MaterialPageRoute(builder: (_) => const HomeView());
       case NoticeView.routeName:
         final NoticeModel args = settings.arguments as NoticeModel;
         return MaterialPageRoute(
@@ -39,6 +40,8 @@ class AppRoutes {
             notice: args,
           ),
         );
+      case AttendanceView.routeName:
+        return MaterialPageRoute(builder: (_) => AttendanceView());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }
