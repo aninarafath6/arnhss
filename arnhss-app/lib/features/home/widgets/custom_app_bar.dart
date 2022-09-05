@@ -21,7 +21,7 @@ AppBar customHomeAppBar(BuildContext context) {
                 .scaffoldKey
                 .currentState!
                 .openDrawer();
-            print("opend");
+            // print("opend");
           },
           icon: const Icon(Remix.command_fill, color: Colors.black, size: 30),
         ),
@@ -31,7 +31,9 @@ AppBar customHomeAppBar(BuildContext context) {
           children: const [
             Text("Hey, Anin Arafath",
                 style: TextStyle(
-                    color: CustomColors.dark, fontWeight: FontWeight.bold)),
+                  color: CustomColors.dark,
+                  fontWeight: FontWeight.bold,
+                )),
             SizedBox(height: 5),
             Text(
               "Monday, 4 march ",

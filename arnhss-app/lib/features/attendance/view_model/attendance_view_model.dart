@@ -15,12 +15,18 @@ class AttendanceViewModel extends ChangeNotifier {
     'November',
     'December'
   ];
-  late String selectedPage =
+  late String initialPage =
       _months[DateTime.now().month - 1] + " " + DateTime.now().year.toString();
+  late String selectedPage = initialPage;
 
   set onPageChanged(DateTime date) {
     selectedPage = _months[date.month - 1] + " " + date.year.toString();
     notifyListeners();
     print(selectedPage);
+  }
+
+  void resetPage() {
+    selectedPage = initialPage;
+    notifyListeners();
   }
 }

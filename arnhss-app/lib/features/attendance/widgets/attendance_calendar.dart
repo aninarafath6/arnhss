@@ -22,6 +22,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
         firstDay: DateTime.utc(2010, 10, 16),
         lastDay: DateTime.utc(DateTime.now().year, DateTime.now().month, 30),
         focusedDay: DateTime.now(),
+        weekendDays: const [DateTime.saturday, DateTime.sunday],
         calendarStyle: CalendarStyle(
           weekendTextStyle: TextStyle(
             color: Colors.redAccent.withOpacity(.6),
@@ -30,23 +31,6 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
         ),
         daysOfWeekStyle: DaysOfWeekStyle(
             weekendStyle: TextStyle(color: Colors.redAccent.withOpacity(1))),
-        // headerStyle: HeaderStyle(
-        //   leftChevronVisible: false,
-        //   titleCentered: true,
-        //   rightChevronVisible: false,
-        //   formatButtonVisible: false,
-        //   headerPadding: const EdgeInsets.only(bottom: 10),
-        //   headerMargin: const EdgeInsets.only(bottom: 20),
-        //   titleTextStyle: const TextStyle(color: Colors.black),
-        //   decoration: BoxDecoration(
-        //     color: CustomColors.lightBgOverlay,
-        //     // borderRadius: BorderRadius.circular(5),
-        //     borderRadius: BorderRadius.only(
-        //       bottomRight: Radius.circular(10),
-        //       bottomLeft: Radius.circular(10),
-        //     ),
-        //   ),
-        // ),
         onPageChanged: (date) =>
             context.read<AttendanceViewModel>().onPageChanged = date,
         daysOfWeekHeight: 50,
