@@ -19,6 +19,7 @@ _Description here_
 3. [Provider](https://pub.dev/packages/provider/) for state management
 4. [Http](https://pub.dev/packages/http) for making http request
 5. [Lottie](https://pub.dev/packages/lottie) for animations
+6. [remixicon](https://pub.dev/packages/flutter_remix) icon pack
 
 ### Tools used
 
