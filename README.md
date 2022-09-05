@@ -17,6 +17,7 @@ _Description here_
 1. [Flutter](https://flutter.dev/)
 2. [dart](https://dart.dev/) basic language
 3. [Provider](https://pub.dev/packages/provider/) for state management
+4. [Http](https://pub.dev/packages/http) for making http request
 
 ### Tools used
 
