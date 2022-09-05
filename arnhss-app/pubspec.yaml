@@ -37,7 +37,7 @@ dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/ic_launcher-2/1024.png"
+  image_path: "assets/images/ic_launcher/1024.png"
 
 dev_dependencies:
   flutter_test:
@@ -53,5 +53,5 @@ flutter:
     - assets/data/
     - assets/lottie/
     - assets/images/icons/
-    - assets/images/ic_launcher-2/1024.png
+    - assets/images/ic_launcher/1024.png
 
