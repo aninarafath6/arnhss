@@ -101,6 +101,7 @@ class HomeGrid extends StatelessWidget {
                   "assets/images/icons/nt-people-holding-cards-removebg-preview.png",
               label: "Activity",
               isSmall: false,
+              count: 10,
             ),
           ),
         ],
