@@ -23,6 +23,7 @@ class AttendanceCalendar extends StatelessWidget {
     DateTime(2022, 9, 7),
     DateTime(2022, 9, 8),
     DateTime(2022, 9, 21),
+    DateTime(2022, 9, 21),
   ];
 
   static Widget _presentIcon(String day) => Stack(
@@ -62,10 +63,9 @@ class AttendanceCalendar extends StatelessWidget {
     events: {},
   );
 
-  late var len = min(absentDates.length, halfPresent.length);
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < halfPresent.length; i++) {
       _markedDateMap.add(
         halfPresent[i],
         Event(
@@ -78,7 +78,7 @@ class AttendanceCalendar extends StatelessWidget {
       );
     }
 
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < absentDates.length; i++) {
       _markedDateMap.add(
         absentDates[i],
         Event(
@@ -89,8 +89,8 @@ class AttendanceCalendar extends StatelessWidget {
         ),
       );
     }
+
     return Container(
-      // height: context.getHeight(40),
       margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
       child: CalendarCarousel<Event>(
@@ -98,6 +98,7 @@ class AttendanceCalendar extends StatelessWidget {
         weekendTextStyle: const TextStyle(
           color: Colors.black,
         ),
+        disableDayPressed: true,
         weekDayMargin: const EdgeInsets.only(bottom: 14.0),
         weekdayTextStyle: const TextStyle(color: Colors.black),
         showHeader: false,

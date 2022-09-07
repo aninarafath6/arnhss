@@ -47,9 +47,12 @@ class AttendancePerformance extends StatelessWidget {
               CustomColors.absentColor,
             ],
             chartValuesOptions: const ChartValuesOptions(
+              // chartValueStyle: TextStyle(fontSize: 10, color: Colors.black),
+              showChartValuesOutside: true,
+              showChartValues: false,
               showChartValueBackground: false,
               showChartValuesInPercentage: true,
-              showChartValues: false,
+              // showChartValues: false,
             ),
           ),
           const SizedBox(

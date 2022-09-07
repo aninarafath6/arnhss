@@ -23,7 +23,7 @@ class AppDrawer extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             curve: Curves.easeInOutBack,
             decoration: BoxDecoration(
-              color: CustomColors.light.withOpacity(.1),
+              color: Colors.grey.withOpacity(.1),
             ),
             child: Stack(
               clipBehavior: Clip.none,
@@ -39,13 +39,11 @@ class AppDrawer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // const CircleAvatar(
-                    //   radius: 35,
-                    //   backgroundImage:
-
-                    //    NetworkImage(
-                    //       "https://ichef.bbci.co.uk/news/976/cpsprodpb/14B1D/production/_125556748_gettyimages-1240422158.jpg"),
-                    // ),
+                    const CircleAvatar(
+                      radius: 35,
+                      backgroundImage: NetworkImage(
+                          "https://ichef.bbci.co.uk/news/976/cpsprodpb/14B1D/production/_125556748_gettyimages-1240422158.jpg"),
+                    ),
                     const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
