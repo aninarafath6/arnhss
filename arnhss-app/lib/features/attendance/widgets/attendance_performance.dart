@@ -11,8 +11,8 @@ class AttendancePerformance extends StatelessWidget {
   }) : super(key: key);
 
   Map<String, double> dataMap = {
-    "Present": 5,
-    "Late": 2,
+    "Full Present": 5,
+    "Half Present": 2,
     "Absent": 1,
   };
   @override
@@ -42,9 +42,9 @@ class AttendancePerformance extends StatelessWidget {
             chartRadius: 120,
             centerText: "60.5%\npresent",
             colorList: [
-              Colors.green.withOpacity(.6),
-              Colors.orange.withOpacity(.6),
-              Colors.red.withOpacity(.6),
+              CustomColors.presentColor,
+              CustomColors.halfColor,
+              CustomColors.absentColor,
             ],
             chartValuesOptions: const ChartValuesOptions(
               showChartValueBackground: false,

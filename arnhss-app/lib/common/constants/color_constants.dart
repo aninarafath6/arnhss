@@ -7,4 +7,7 @@ class CustomColors {
   static const light = Colors.grey;
   static Color lightBgOverlay = Colors.grey.shade300.withOpacity(.3);
   static Color bgOverlay = Colors.grey.shade300.withOpacity(.5);
+  static Color presentColor = Colors.green.withOpacity(.6);
+  static Color absentColor = Colors.red.withOpacity(.6);
+  static Color halfColor = Colors.orange.withOpacity(.6);
 }
