@@ -6,7 +6,6 @@ import 'package:arnhss/features/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/home/widgets/custom_app_bar.dart';
 import 'package:arnhss/features/home/widgets/home_grid.dart';
 import 'package:arnhss/features/home/widgets/notice_list.dart';
-import 'package:remixicon/remixicon.dart';
 
 class HomeView extends StatelessWidget {
   static const routeName = "/home";

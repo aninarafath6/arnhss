@@ -23,7 +23,7 @@ class AttendanceCalendar extends StatelessWidget {
     DateTime(2022, 9, 7),
     DateTime(2022, 9, 8),
     DateTime(2022, 9, 21),
-    DateTime(2022, 9, 21),
+    DateTime(2022, 9, 26),
   ];
 
   static Widget _presentIcon(String day) => Stack(
@@ -91,7 +91,7 @@ class AttendanceCalendar extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
       child: CalendarCarousel<Event>(
         height: context.getHeight(33),

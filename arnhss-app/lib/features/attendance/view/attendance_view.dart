@@ -14,6 +14,7 @@ class AttendanceView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(top: 0, right: 24, left: 24),
         child: ListView(
+          padding: EdgeInsets.zero,
           physics: const BouncingScrollPhysics(),
           children: [
             AttendanceCalendar(),
