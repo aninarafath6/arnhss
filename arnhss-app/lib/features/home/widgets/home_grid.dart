@@ -1,6 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/attendance/view/attendance_view.dart';
 import 'package:arnhss/features/home/widgets/tile.dart';
+import 'package:arnhss/features/tasks/view/task_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -12,7 +13,7 @@ class HomeGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 24.0, right: 24, top: 24),
+      padding: const EdgeInsets.only(left: 24.0, right: 24, top: 20),
       child: StaggeredGrid.count(
         crossAxisCount: 6,
         mainAxisSpacing: 10,
@@ -25,12 +26,11 @@ class HomeGrid extends StatelessWidget {
               index: 0,
               image: "assets/images/icons/nt-to-do-list-removebg-preview.png",
               label: "Attendance",
-              onTap: () {
-                Navigator.pushNamed(context, AttendanceView.routeName);
-              },
+              onTap: () =>
+                  Navigator.pushNamed(context, AttendanceView.routeName),
             ),
           ),
-          const StaggeredGridTile.count(
+          StaggeredGridTile.count(
             crossAxisCellCount: 3,
             mainAxisCellCount: 3,
             child: Tile(
@@ -39,6 +39,7 @@ class HomeGrid extends StatelessWidget {
                   "assets/images/icons/oc-taking-note-removebg-preview (1).png",
               label: "Task",
               count: 3,
+              onTap: () => Navigator.pushNamed(context, TaskView.routeName),
             ),
           ),
           StaggeredGridTile.count(

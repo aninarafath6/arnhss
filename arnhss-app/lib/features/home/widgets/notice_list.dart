@@ -11,34 +11,34 @@ class NoticeList extends StatelessWidget {
     return SizedBox(
       width: 200,
       height: 180,
-      child: ListView.builder(
+      child: PageView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: context.read<HomeViewModel>().noticeList.length + 1,
+        itemCount: context.read<HomeViewModel>().noticeList.length,
         itemBuilder: (BuildContext context, index) {
-          if (context.read<HomeViewModel>().noticeList.length != index) {
-            if (index == 0) {
-              return Row(
-                children: [
-                  const SizedBox(width: 14),
-                  context.read<HomeViewModel>().noticeList[index],
-                ],
-              );
-            } else {
-              return context.read<HomeViewModel>().noticeList[index];
-            }
-          } else {
-            return Row(
-              children: [
-                const SizedBox(width: 24),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_forward_outlined),
-                ),
-                const SizedBox(width: 24),
-              ],
-            );
-          }
+          // if (context.read<HomeViewModel>().noticeList.length != index) {
+          // if (index == 0) {
+          return Row(
+            children: [
+              const SizedBox(width: 14),
+              context.read<HomeViewModel>().noticeList[index],
+            ],
+          );
+          // } else {
+          //   return context.read<HomeViewModel>().noticeList[index];
+          // }
+          // } else {
+          //   return Row(
+          //     children: [
+          //       const SizedBox(width: 24),
+          //       IconButton(
+          //         onPressed: () {},
+          //         icon: const Icon(Icons.arrow_forward_outlined),
+          //       ),
+          //       const SizedBox(width: 24),
+          //     ],
+          //   );
+          // }
         },
       ),
     );

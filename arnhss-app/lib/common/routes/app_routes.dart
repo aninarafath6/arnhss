@@ -9,6 +9,7 @@ import 'package:arnhss/features/home/view/home_view.dart';
 import 'package:arnhss/features/home/view/notice_veiw.dart';
 import 'package:arnhss/features/onboarding/view/onboarding_view.dart';
 import 'package:arnhss/features/splash/views/splash_view.dart';
+import 'package:arnhss/features/tasks/view/task_view.dart';
 import 'package:arnhss/features/users/students/authentication/view/student_authentication.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,9 @@ class AppRoutes {
           ),
         );
       case AttendanceView.routeName:
-        return MaterialPageRoute(builder: (_) => AttendanceView());
+        return MaterialPageRoute(builder: (_) => const AttendanceView());
+      case TaskView.routeName:
+        return MaterialPageRoute(builder: (_) => const TaskView());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

@@ -20,7 +20,7 @@ class NoticeItem extends StatelessWidget {
           Navigator.pushNamed(context, NoticeView.routeName, arguments: notice);
         },
         child: Container(
-          width: 200,
+          width: context.getWidth(88),
           height: 180,
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
