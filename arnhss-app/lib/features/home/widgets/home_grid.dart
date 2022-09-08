@@ -37,7 +37,7 @@ class HomeGrid extends StatelessWidget {
               index: 1,
               image:
                   "assets/images/icons/oc-taking-note-removebg-preview (1).png",
-              label: "Task",
+              label: "Planner",
               count: 3,
               onTap: () => Navigator.pushNamed(context, TaskView.routeName),
             ),
@@ -56,7 +56,7 @@ class HomeGrid extends StatelessWidget {
               onPressed: () {},
               child: const Center(
                 child: Text(
-                  "Add Task",
+                  "Add Plan",
                   style: TextStyle(
                     color: Colors.white,
                   ),
