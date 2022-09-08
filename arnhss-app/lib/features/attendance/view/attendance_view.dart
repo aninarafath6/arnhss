@@ -12,7 +12,7 @@ class AttendanceView extends StatelessWidget {
     return Scaffold(
       appBar: attendanceAppBar(context),
       body: Padding(
-        padding: const EdgeInsets.only(top: 0, right: 24, left: 24),
+        padding: const EdgeInsets.only(top: 0, right: 21, left: 21),
         child: ListView(
           padding: EdgeInsets.zero,
           physics: const BouncingScrollPhysics(),

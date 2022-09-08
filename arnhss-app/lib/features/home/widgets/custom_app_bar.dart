@@ -21,7 +21,6 @@ AppBar customHomeAppBar(BuildContext context) {
                 .scaffoldKey
                 .currentState!
                 .openDrawer();
-            // print("opend");
           },
           icon: const Icon(Remix.command_fill, color: Colors.black, size: 30),
         ),

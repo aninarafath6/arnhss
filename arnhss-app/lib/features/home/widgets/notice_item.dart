@@ -13,51 +13,48 @@ class NoticeItem extends StatelessWidget {
   final NoticeModel notice;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // margin: const EdgeInsets.only(right: 0, left: 10),
-      child: InkWell(
-        onTap: () {
-          Navigator.pushNamed(context, NoticeView.routeName, arguments: notice);
-        },
-        child: Container(
-          width: context.getWidth(89),
-          height: 180,
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: CustomColors.bgOverlay,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 6),
-                  Icon(notice.icon),
-                  const Spacer(),
-                  Text(
-                    notice.title ?? "",
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, NoticeView.routeName, arguments: notice);
+      },
+      child: Container(
+        width: context.getWidth(89),
+        height: 180,
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          color: CustomColors.bgOverlay,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6),
+                Icon(notice.icon),
+                const Spacer(),
+                Text(
+                  notice.title ?? "",
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
                   ),
-                  const Spacer(),
-                  Text(
-                    notice.date ?? "",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.italic,
-                    ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const Spacer(),
+                Text(
+                  notice.date ?? "",
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.italic,
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
