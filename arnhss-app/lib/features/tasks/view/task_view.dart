@@ -16,7 +16,10 @@ class TaskView extends StatelessWidget {
           splashRadius: 28,
           icon: const Icon(Icons.arrow_back_ios, color: CustomColors.dark),
         ),
-        title: const Text("Planner"),
+        title: const Text(
+          "Planner",
+          style: TextStyle(color: CustomColors.dark),
+        ),
       ),
       body: SizedBox(
         width: double.infinity,
@@ -24,13 +27,13 @@ class TaskView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/images/pngs/under-dev-removebg-preview.png",
-              width: 200,
-            ),
-            const SizedBox(height: 20),
-            const Text("Under Development"),
-            const SizedBox(height: 100),
+            // Image.asset(
+            //   "assets/images/pngs/under-dev-removebg-preview.png",
+            //   width: 200,
+            // ),
+            // const SizedBox(height: 20),
+            // const Text("Under Development"),
+            // const SizedBox(height: 100),
           ],
         ),
       ),

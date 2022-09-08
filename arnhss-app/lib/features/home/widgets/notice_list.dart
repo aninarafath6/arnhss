@@ -8,7 +8,7 @@ class NoticeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: 200,
       height: 180,
       child: PageView.builder(
@@ -20,7 +20,7 @@ class NoticeList extends StatelessWidget {
           // if (index == 0) {
           return Row(
             children: [
-              const SizedBox(width: 14),
+              const SizedBox(width: 21),
               context.read<HomeViewModel>().noticeList[index],
             ],
           );

@@ -10,7 +10,7 @@ AppBar customHomeAppBar(BuildContext context) {
     systemOverlayStyle: SystemUiOverlayStyle.dark, // 1
     backgroundColor: Colors.transparent,
     automaticallyImplyLeading: false, // Don't show the leading button
-    toolbarHeight: 80,
+    toolbarHeight: 100,
     title: Row(
       children: [
         IconButton(

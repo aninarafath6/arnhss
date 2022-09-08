@@ -21,14 +21,14 @@ class HomeView extends StatelessWidget {
       appBar: customHomeAppBar(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 0.0,
-        ),
+            // horizontal: 21.0,
+            ),
         child: ListView(
+          padding: EdgeInsets.zero,
           physics: const BouncingScrollPhysics(),
           children: const [
             NoticeList(),
             HomeGrid(),
-            SizedBox(height: 0),
           ],
         ),
       ),

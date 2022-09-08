@@ -40,7 +40,7 @@ class AppDrawer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const CircleAvatar(
-                      radius: 35,
+                      radius: 28,
                       backgroundImage: NetworkImage(
                           "https://ichef.bbci.co.uk/news/976/cpsprodpb/14B1D/production/_125556748_gettyimages-1240422158.jpg"),
                     ),

@@ -13,7 +13,7 @@ class HomeGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 24.0, right: 24, top: 20),
+      padding: const EdgeInsets.only(top: 10, left: 21, right: 21),
       child: StaggeredGrid.count(
         crossAxisCount: 6,
         mainAxisSpacing: 10,

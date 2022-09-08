@@ -12,7 +12,7 @@ class BlogList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.all(21.0),
       child: Column(
         children: List.generate(
           context.read<HomeViewModel>().blogList.length + 1,
