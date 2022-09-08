@@ -94,7 +94,7 @@ class AttendanceCalendar extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
       child: CalendarCarousel<Event>(
-        height: context.getHeight(33),
+        height: context.getHeight(34) < 280 ? 280 : context.getHeight(34),
         weekendTextStyle: const TextStyle(
           color: Colors.black,
         ),
