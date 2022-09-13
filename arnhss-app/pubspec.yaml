@@ -26,7 +26,6 @@ dependencies:
   google_fonts: ^3.0.1
   remixicon: ^1.0.0
   flashy_tab_bar2: ^0.0.4
-  rounded_tabbar_widget: ^0.0.2
   flutter_staggered_grid_view: ^0.6.2
   table_calendar: ^3.0.6
   intl: ^0.17.0
@@ -36,9 +35,6 @@ dependencies:
   flutter_native_splash: ^2.2.8
   flutter_calendar_carousel: ^2.4.0
   skeletons: ^0.0.3
-  horizontal_calendar: ^1.0.1
-  calendar_timeline: ^1.0.5
-  time_planner: ^0.1.1
   date_picker_timeline: ^1.2.3
 
 
