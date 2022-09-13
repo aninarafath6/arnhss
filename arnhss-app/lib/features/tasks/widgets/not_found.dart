@@ -25,12 +25,12 @@ class NotFound extends StatelessWidget {
             "No plans for this day",
             style: CustomTextTheme(context: context).paragraph(),
           ),
-          const SizedBox(height: 10),
-          // Text(
-          //   "looks like you haven't made your plans yet",
-          //   style: CustomTextTheme(context: context).paragraph(),
-          //   textAlign: TextAlign.center,
-          // ),
+          const SizedBox(height: 3),
+          Text(
+            "Add new plans to make your day productive",
+            style: CustomTextTheme(context: context).paragraph(),
+            textAlign: TextAlign.center,
+          ),
           const Spacer(flex: 3),
         ],
       ),

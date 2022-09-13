@@ -22,7 +22,6 @@ class TaskView extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 DateTimeline(),
                 NotFound(),
