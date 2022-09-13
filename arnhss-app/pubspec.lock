@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  calendar_timeline:
+    dependency: "direct main"
+    description:
+      name: calendar_timeline
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.5"
   characters:
     dependency: transitive
     description:
@@ -113,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  date_picker_timeline:
+    dependency: "direct main"
+    description:
+      name: date_picker_timeline
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
   dio:
     dependency: "direct main"
     description:
@@ -534,6 +548,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.5"
+  scrollable_positioned_list:
+    dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.4"
   simple_gesture_detector:
     dependency: transitive
     description:
@@ -623,6 +644,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+  time_planner:
+    dependency: "direct main"
+    description:
+      name: time_planner
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   typed_data:
     dependency: transitive
     description:

@@ -1,5 +1,3 @@
-import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/view_models/home_view_mdoel.dart';
 import 'package:arnhss/features/home/widgets/app_drawer.dart';

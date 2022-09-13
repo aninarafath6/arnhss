@@ -37,6 +37,9 @@ dependencies:
   flutter_calendar_carousel: ^2.4.0
   skeletons: ^0.0.3
   horizontal_calendar: ^1.0.1
+  calendar_timeline: ^1.0.5
+  time_planner: ^0.1.1
+  date_picker_timeline: ^1.2.3
 
 
 flutter_icons:
