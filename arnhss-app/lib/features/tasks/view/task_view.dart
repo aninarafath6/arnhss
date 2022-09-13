@@ -1,6 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/tasks/view_model/task_view_model.dart';
 import 'package:arnhss/features/tasks/widgets/date_timline.dart';
+import 'package:arnhss/features/tasks/widgets/floating_button.dart';
 import 'package:arnhss/features/tasks/widgets/not_found.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,21 +54,7 @@ class TaskView extends StatelessWidget {
                 NotFound(),
               ],
             ),
-            Positioned(
-              bottom: 20,
-              right: 20,
-              child: TextButton(
-                onPressed: () {},
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: CustomColors.dark,
-                  ),
-                  child: const Icon(Remix.add_fill, color: Colors.white),
-                ),
-              ),
-            )
+            const FloatingButton()
           ],
         ),
       ),

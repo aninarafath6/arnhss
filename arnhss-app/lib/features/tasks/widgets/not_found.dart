@@ -15,8 +15,6 @@ class NotFound extends StatelessWidget {
         children: [
           const Spacer(flex: 2),
           Container(
-            // height: 350,
-            // width: 250,
             padding: const EdgeInsets.symmetric(horizontal: 48.0),
             child: Center(
               child: Image.asset(Images.notFound),
