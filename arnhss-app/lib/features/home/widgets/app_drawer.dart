@@ -42,7 +42,7 @@ class AppDrawer extends StatelessWidget {
                     const CircleAvatar(
                       radius: 28,
                       backgroundImage: NetworkImage(
-                          "https://ichef.bbci.co.uk/news/976/cpsprodpb/14B1D/production/_125556748_gettyimages-1240422158.jpg"),
+                          "https://aninarafath.me/images/about-1.jpeg"),
                     ),
                     const SizedBox(width: 10),
                     Column(

@@ -36,6 +36,7 @@ dependencies:
   flutter_native_splash: ^2.2.8
   flutter_calendar_carousel: ^2.4.0
   skeletons: ^0.0.3
+  horizontal_calendar: ^1.0.1
 
 
 flutter_icons:

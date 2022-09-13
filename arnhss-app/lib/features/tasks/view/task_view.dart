@@ -1,5 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:horizontal_calendar/horizontal_calendar.dart';
 
 class TaskView extends StatelessWidget {
   const TaskView({Key? key}) : super(key: key);
@@ -23,17 +24,44 @@ class TaskView extends StatelessWidget {
       ),
       body: SizedBox(
         width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            // Image.asset(
-            //   "assets/images/pngs/under-dev-removebg-preview.png",
-            //   width: 200,
-            // ),
-            // const SizedBox(height: 20),
-            // const Text("Under Development"),
-            // const SizedBox(height: 100),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [],
+                ),
+                Container(
+                  height: 60,
+                  child: HorizontalCalendar(
+                    date: DateTime.now(),
+                    textColor: Colors.black45,
+                    backgroundColor: Colors.green,
+                    selectedColor: CustomColors.dark,
+                    onDateSelected: (date) => print(
+                      date.toString(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: TextButton(
+                onPressed: () {},
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: CustomColors.dark,
+                  ),
+                  child: const Icon(Icons.add, color: Colors.white),
+                ),
+              ),
+            )
           ],
         ),
       ),

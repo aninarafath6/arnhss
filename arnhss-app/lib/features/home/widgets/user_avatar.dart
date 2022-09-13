@@ -33,7 +33,7 @@ class UserAvatar extends StatelessWidget {
                     CircleAvatar(
                       radius: 20,
                       backgroundImage: NetworkImage(
-                          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_%2839074799225%29_%28cropped%29.jpg/440px-Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_%2839074799225%29_%28cropped%29.jpg"),
+                          "https://aninarafath.me/images/about-1.jpeg"),
                     ),
                   ],
                 ),
