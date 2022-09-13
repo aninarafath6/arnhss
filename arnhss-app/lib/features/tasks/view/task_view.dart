@@ -2,6 +2,7 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/tasks/view_model/task_view_model.dart';
+import 'package:arnhss/features/tasks/widgets/date_timline.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,36 +50,9 @@ class TaskView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const DateTimeline(),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Spacer(flex: 2),
-                      Container(
-                        // height: 350,
-                        width: 250,
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Image.asset(Images.notFound),
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-                      Text(
-                        "No plans for this day",
-                        style: CustomTextTheme(context: context).headLine2(),
-                      ),
-                      const SizedBox(height: 10),
-                      // Text(
-                      //   "looks like you haven't made your plans yet",
-                      //   style: CustomTextTheme(context: context).paragraph(),
-                      //   textAlign: TextAlign.center,
-                      // ),
-                      const Spacer(flex: 3),
-                    ],
-                  ),
-                ),
+              children: const [
+                DateTimeline(),
+                NotFound(),
               ],
             ),
             Positioned(
@@ -103,22 +77,39 @@ class TaskView extends StatelessWidget {
   }
 }
 
-class DateTimeline extends StatelessWidget {
-  const DateTimeline({Key? key}) : super(key: key);
+class NotFound extends StatelessWidget {
+  const NotFound({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 21.0),
-      child: DatePicker(
-        DateTime.now(),
-        controller: context.read<TaskViewModel>().dateController,
-        initialSelectedDate: context.watch<TaskViewModel>().selectedDate,
-        selectionColor: CustomColors.dark,
-        selectedTextColor: Colors.white,
-        onDateChange: (date) {
-          context.read<TaskViewModel>().setSelectedDate = date;
-        },
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Spacer(flex: 2),
+          Container(
+            // height: 350,
+            width: 250,
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Image.asset(Images.notFound),
+            ),
+          ),
+          const SizedBox(height: 25),
+          Text(
+            "No plans for this day",
+            style: CustomTextTheme(context: context).headLine2(),
+          ),
+          const SizedBox(height: 10),
+          // Text(
+          //   "looks like you haven't made your plans yet",
+          //   style: CustomTextTheme(context: context).paragraph(),
+          //   textAlign: TextAlign.center,
+          // ),
+          const Spacer(flex: 3),
+        ],
       ),
     );
   }
