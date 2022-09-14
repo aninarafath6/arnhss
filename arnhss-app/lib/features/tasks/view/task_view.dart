@@ -6,7 +6,6 @@ import 'package:arnhss/features/tasks/widgets/floating_button.dart';
 import 'package:arnhss/features/tasks/widgets/not_found.dart';
 import 'package:arnhss/features/tasks/widgets/task_app_bar.dart';
 import 'package:arnhss/features/tasks/widgets/task_tile/task_tile.dart';
-import 'package:flutter/material.dart';
 import 'package:skeletons/skeletons.dart';
 
 class TaskView extends StatelessWidget {
@@ -29,18 +28,12 @@ class TaskView extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(21.0),
-                    // child: Column(
-                    //     //         children: const [
-                    //     //           TaskTile(),
-                    //     //         ],
-
-                    //     ),
                     child: FutureBuilder<List<TaskModel>>(
                       builder: ((context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                              Shimmer(child: child, shimmer: shimmer)
-                            }
+                          return CircularProgressIndicator.adaptive();
+                        }
                         if (!snapshot.hasData) {
                           return const NotFound();
                         }
