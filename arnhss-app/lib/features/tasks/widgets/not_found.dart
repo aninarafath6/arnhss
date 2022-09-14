@@ -14,7 +14,7 @@ class NotFound extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Spacer(flex: 2),
-          Container(
+          SizedBox(
             // padding: const EdgeInsets.symmetric(horizontal: 68.0),
             width: 200,
             child: Center(
