@@ -1,8 +1,13 @@
+import 'package:arnhss/features/authentication/login/view/index.dart';
+import 'package:arnhss/features/tasks/models/task_model.dart';
+import 'package:arnhss/features/tasks/view_model/task_view_model.dart';
 import 'package:arnhss/features/tasks/widgets/date_timline.dart';
 import 'package:arnhss/features/tasks/widgets/floating_button.dart';
+import 'package:arnhss/features/tasks/widgets/not_found.dart';
 import 'package:arnhss/features/tasks/widgets/task_app_bar.dart';
 import 'package:arnhss/features/tasks/widgets/task_tile/task_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletons/skeletons.dart';
 
 class TaskView extends StatelessWidget {
   const TaskView({Key? key}) : super(key: key);
@@ -24,10 +29,29 @@ class TaskView extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(21.0),
-                    child: Column(
-                      children: const [
-                        TaskTile(),
-                      ],
+                    // child: Column(
+                    //     //         children: const [
+                    //     //           TaskTile(),
+                    //     //         ],
+
+                    //     ),
+                    child: FutureBuilder<List<TaskModel>>(
+                      builder: ((context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                              Shimmer(child: child, shimmer: shimmer)
+                            }
+                        if (!snapshot.hasData) {
+                          return const NotFound();
+                        }
+                        return ListView.builder(
+                          itemBuilder: ((context, index) => const TaskTile()),
+                          itemCount: snapshot.data!.length,
+                        );
+                      }),
+                      future: context
+                          .read<TaskViewModel>()
+                          .getTasksOfTheDay(DateTime.now()),
                     ),
                   ),
                 )
