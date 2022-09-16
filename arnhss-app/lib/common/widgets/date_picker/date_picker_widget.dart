@@ -223,22 +223,26 @@ class _DatePickerState extends State<DatePicker> {
 class DatePickerController {
   _DatePickerState? _datePickerState;
 
-  void change(DateTime date, Curve curve, Duration duration) {
+  void change(DateTime date, Curve curve, Duration duration, oldC) {
+    print({oldC.toString(), date.day.toString()});
     _datePickerState!.setState(() {
       _datePickerState!._currentDate = date;
     });
-    double ld = 270;
 
     print(_calculateDateOffset(date) % 10);
 
-    if (_calculateDateOffset(date) % 10 == 4.0) {
+    if (_calculateDateOffset(date) % 10 == 4.0 && date.day > oldC) {
       _datePickerState!._controller.animateTo(
         _calculateDateOffset(_datePickerState!._currentDate!),
         duration: duration,
         curve: curve,
       );
 
-      // print("done");
+      print("done");
+    } else if (date.day < oldC) {
+      print(_calculateDateOffset(date) % 10);
+      animateToSelection();
+      print("uff");
     }
   }
 
