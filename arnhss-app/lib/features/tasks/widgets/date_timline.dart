@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/widgets/date_picker/date_picker_widget.dart';
 import 'package:arnhss/features/tasks/view_model/task_view_model.dart';
-import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +20,7 @@ class DateTimeline extends StatelessWidget {
         onDateChange: (date) {
           context.read<TaskViewModel>().setSelectedDate = date;
         },
+        select: context.watch<TaskViewModel>().selectedDate,
       ),
     );
   }

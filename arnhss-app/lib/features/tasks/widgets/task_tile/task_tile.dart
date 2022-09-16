@@ -10,6 +10,7 @@ class TaskTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(21),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
           color: CustomColors.lightBgOverlay,
           borderRadius: BorderRadius.circular(5)),
@@ -17,33 +18,33 @@ class TaskTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            children: !isSkelton
-                ? [
-                    const _TaskTime(time: "12:10 AM"),
-                    const SizedBox(height: 5),
-                    const _TaskTime(time: "02:12 PM"),
-                    const SizedBox(height: 5),
-                    CircleAvatar(
-                      backgroundColor: CustomColors.bgOverlay,
-                      child: const Icon(Remix.time_line,
-                          color: CustomColors.light),
-                    ),
-                  ]
-                : [
-                    Container(width: 50, height: 10, color: Colors.green),
-                    const SizedBox(height: 5),
-                    Container(width: 50, height: 10, color: Colors.green),
-                    const SizedBox(height: 5),
-                    CircleAvatar(
-                      backgroundColor: CustomColors.bgOverlay,
-                      child: const Icon(Remix.time_line,
-                          color: CustomColors.light),
-                    )
-                  ],
-          ),
-          const SizedBox(width: 15),
+          // Column(
+          //   // mainAxisAlignment: MainAxisAlignment.start,
+          //   children: !isSkelton
+          //       ? [
+          //           const _TaskTime(time: "12:10 AM"),
+          //           const SizedBox(height: 5),
+          //           const _TaskTime(time: "02:12 PM"),
+          //           const SizedBox(height: 5),
+          //           CircleAvatar(
+          //             backgroundColor: CustomColors.bgOverlay,
+          //             child: const Icon(Remix.checkbox_blank_circle_line,
+          //                 color: CustomColors.light),
+          //           ),
+          //         ]
+          //       : [
+          //           Container(width: 50, height: 10, color: Colors.green),
+          //           const SizedBox(height: 5),
+          //           Container(width: 50, height: 10, color: Colors.green),
+          //           const SizedBox(height: 5),
+          //           CircleAvatar(
+          //             backgroundColor: CustomColors.bgOverlay,
+          //             child: const Icon(Remix.time_line,
+          //                 color: CustomColors.light),
+          //           )
+          //         ],
+          // ),
+          const SizedBox(width: 5),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

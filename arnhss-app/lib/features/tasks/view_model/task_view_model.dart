@@ -1,11 +1,14 @@
+import 'package:arnhss/common/widgets/date_picker/date_picker_timeline.dart';
+import 'package:arnhss/common/widgets/date_picker/date_picker_widget.dart';
 import 'package:arnhss/features/tasks/models/task_model.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 
 class TaskViewModel extends ChangeNotifier {
   final DatePickerController _timelineController = DatePickerController();
   DateTime _selectedDate = DateTime.now();
   bool _loading = false;
+  final PageController _pageController =
+      PageController(initialPage: DateTime.now().day);
 
   List<TaskModel> takList = [
     TaskModel(
@@ -19,21 +22,33 @@ class TaskViewModel extends ChangeNotifier {
   DatePickerController get dateController => _timelineController;
   DateTime get selectedDate => _selectedDate;
   bool get loading => _loading;
+  PageController get pageController => _pageController;
 
   set setSelectedDate(DateTime date) {
     _selectedDate = date;
+    _pageController.jumpToPage(
+      date.day,
+      // curve: Curves.easeInOut,
+      // duration: Duration(seconds: 1),
+    );
     notifyListeners();
   }
 
   void toToday() {
     _timelineController.animateToSelection(curve: Curves.easeInOutCubic);
-    _selectedDate = DateTime.now();
-    notifyListeners();
   }
 
   Future<List<TaskModel>> getTasksOfTheDay(DateTime date) async {
     _loading = true;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(milliseconds: 800));
     return takList;
+  }
+
+  void swipePage(int day) {
+    _timelineController.change(
+        DateTime(_selectedDate.year, _selectedDate.month, day),
+        Curves.easeInOut,
+        Duration(seconds: 1));
+    // _timelineController.animateToSelection();
   }
 }
