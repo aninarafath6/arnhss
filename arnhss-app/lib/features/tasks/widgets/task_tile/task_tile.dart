@@ -3,10 +3,9 @@ import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:remixicon/remixicon.dart';
 
 class TaskTile extends StatelessWidget {
-  const TaskTile({
-    Key? key,
-  }) : super(key: key);
+  const TaskTile({Key? key, this.isSkelton = false}) : super(key: key);
 
+  final bool isSkelton;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,16 +19,29 @@ class TaskTile extends StatelessWidget {
         children: [
           Column(
             // mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const _TaskTime(time: "12:10 AM"),
-              const SizedBox(height: 5),
-              const _TaskTime(time: "02:12 PM"),
-              const SizedBox(height: 5),
-              CircleAvatar(
-                backgroundColor: CustomColors.bgOverlay,
-                child: const Icon(Remix.time_line, color: CustomColors.light),
-              )
-            ],
+            children: !isSkelton
+                ? [
+                    const _TaskTime(time: "12:10 AM"),
+                    const SizedBox(height: 5),
+                    const _TaskTime(time: "02:12 PM"),
+                    const SizedBox(height: 5),
+                    CircleAvatar(
+                      backgroundColor: CustomColors.bgOverlay,
+                      child: const Icon(Remix.time_line,
+                          color: CustomColors.light),
+                    ),
+                  ]
+                : [
+                    Container(width: 50, height: 10, color: Colors.green),
+                    const SizedBox(height: 5),
+                    Container(width: 50, height: 10, color: Colors.green),
+                    const SizedBox(height: 5),
+                    CircleAvatar(
+                      backgroundColor: CustomColors.bgOverlay,
+                      child: const Icon(Remix.time_line,
+                          color: CustomColors.light),
+                    )
+                  ],
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -37,22 +49,26 @@ class TaskTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Home works on maths",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
+                isSkelton
+                    ? Container(width: 180, height: 15, color: Colors.green)
+                    : const Text(
+                        "Home works on maths",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
                 const SizedBox(height: 5),
-                Text(
-                  "Lorem ipsume text is used for desgining purpose",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 13,
-                      overflow: TextOverflow.ellipsis,
-                      color: CustomColors.dark.withOpacity(.6)),
-                ),
+                isSkelton
+                    ? Container(width: 200, height: 10, color: Colors.green)
+                    : Text(
+                        "Lorem ipsume text is used for desgining purpose",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            overflow: TextOverflow.ellipsis,
+                            color: CustomColors.dark.withOpacity(.6)),
+                      ),
                 Row(
                   children: [
                     Chip(

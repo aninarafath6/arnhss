@@ -33,7 +33,7 @@ class TaskViewModel extends ChangeNotifier {
 
   Future<List<TaskModel>> getTasksOfTheDay(DateTime date) async {
     _loading = true;
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 3));
     return takList;
   }
 }

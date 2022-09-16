@@ -1,3 +1,4 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/tasks/models/task_model.dart';
 import 'package:arnhss/features/tasks/view_model/task_view_model.dart';
@@ -6,7 +7,8 @@ import 'package:arnhss/features/tasks/widgets/floating_button.dart';
 import 'package:arnhss/features/tasks/widgets/not_found.dart';
 import 'package:arnhss/features/tasks/widgets/task_app_bar.dart';
 import 'package:arnhss/features/tasks/widgets/task_tile/task_tile.dart';
-import 'package:skeletons/skeletons.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TaskView extends StatelessWidget {
   const TaskView({Key? key}) : super(key: key);
@@ -32,7 +34,17 @@ class TaskView extends StatelessWidget {
                       builder: ((context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return CircularProgressIndicator.adaptive();
+                          return Column(
+                            children: [
+                              Shimmer.fromColors(
+                                baseColor: CustomColors.bgOverlay,
+                                highlightColor:
+                                    CustomColors.light.withOpacity(.4),
+                                child: const TaskTile(isSkelton: true),
+                              ),
+                            ],
+                          );
+                          // return CupertinoActivityIndicator();
                         }
                         if (!snapshot.hasData) {
                           return const NotFound();
