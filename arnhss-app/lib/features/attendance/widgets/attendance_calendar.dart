@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/attendance/view_model/attendance_view_model.dart';
 import 'package:arnhss/utils/dimensions.dart';
@@ -37,7 +35,7 @@ class AttendanceCalendar extends StatelessWidget {
             child: Text(
               day,
               style: const TextStyle(
-                color: Colors.black,
+                color: CustomColors.dark,
               ),
             ),
           ),
@@ -53,7 +51,7 @@ class AttendanceCalendar extends StatelessWidget {
             child: Text(
               day,
               style: const TextStyle(
-                color: Colors.black,
+                color: CustomColors.dark,
               ),
             ),
           ),
@@ -97,14 +95,14 @@ class AttendanceCalendar extends StatelessWidget {
       child: CalendarCarousel<Event>(
         height: context.getHeight(34) < 280 ? 280 : context.getHeight(34),
         weekendTextStyle: const TextStyle(
-          color: Colors.black,
+          color: CustomColors.dark,
         ),
         disableDayPressed: true,
         weekDayMargin: const EdgeInsets.only(bottom: 14.0),
-        weekdayTextStyle: const TextStyle(color: Colors.black),
+        weekdayTextStyle: const TextStyle(color: CustomColors.dark),
         showHeader: false,
         todayButtonColor: Colors.transparent,
-        todayTextStyle: const TextStyle(color: Colors.black),
+        todayTextStyle: const TextStyle(color: CustomColors.dark),
         markedDatesMap: _markedDateMap,
         markedDateShowIcon: true,
         markedDateIconMaxShown: 1,
