@@ -28,7 +28,7 @@ class TaskViewModel extends ChangeNotifier {
     _pageController.animateToPage(
       date.day,
       curve: Curves.easeInOut,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 800),
     );
     notifyListeners();
   }

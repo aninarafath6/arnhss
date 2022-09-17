@@ -30,6 +30,7 @@ class TaskView extends StatelessWidget {
                 // NotFound(),
                 Expanded(
                   child: PageView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: context.read<TaskViewModel>().pageController,
                     itemBuilder: (context, index) {
                       return Padding(
@@ -68,7 +69,6 @@ class TaskView extends StatelessWidget {
                       );
                     },
                     onPageChanged: (day) {
-                      print(day);
                       context.read<TaskViewModel>().swipePage(day);
                     },
                   ),
