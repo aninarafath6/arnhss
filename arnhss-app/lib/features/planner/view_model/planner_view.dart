@@ -2,7 +2,7 @@ import 'package:arnhss/common/widgets/date_picker/date_picker_widget.dart';
 import 'package:arnhss/features/planner/models/planner_model.dart';
 import 'package:flutter/material.dart';
 
-class TaskViewModel extends ChangeNotifier {
+class PlannerViewModel extends ChangeNotifier {
   final DatePickerController _timelineController = DatePickerController();
   DateTime _selectedDate = DateTime.now();
   bool _loading = false;

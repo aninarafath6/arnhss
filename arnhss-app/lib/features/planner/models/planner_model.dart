@@ -1,4 +1,4 @@
-class TaskModel {
+class PlannerModel {
   final String? title;
   final String? subTitle;
   final DateTime? startTime;
@@ -9,7 +9,7 @@ class TaskModel {
   final String? type;
   final bool? isCompleted;
 
-  TaskModel({
+  PlannerModel({
     this.title,
     this.subTitle,
     this.startTime,

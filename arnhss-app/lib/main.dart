@@ -6,7 +6,7 @@ import 'package:arnhss/features/authentication/login/view_model/login_view_model
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/features/home/view/home_view.dart';
 import 'package:arnhss/features/home/view_models/home_view_mdoel.dart';
-import 'package:arnhss/features/tasks/view_model/task_view_model.dart';
+import 'package:arnhss/features/planner/view_model/planner_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => VerifyOtpViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => AttendanceViewModel()),
-        ChangeNotifierProvider(create: (_) => TaskViewModel())
+        ChangeNotifierProvider(create: (_) => PlannerViewModel())
       ],
       child: GetMaterialApp(
         title: 'arnhss',

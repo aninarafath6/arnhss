@@ -6,7 +6,9 @@ import '../../authentication/otp_verification/view/index.dart';
 class FloatingButton extends StatelessWidget {
   const FloatingButton({
     Key? key,
+    this.onTap,
   }) : super(key: key);
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class FloatingButton extends StatelessWidget {
       bottom: 20,
       right: 20,
       child: TextButton(
-        onPressed: () {},
+        onPressed: onTap,
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(

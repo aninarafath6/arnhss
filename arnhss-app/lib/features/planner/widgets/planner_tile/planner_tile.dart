@@ -2,8 +2,8 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 // import 'package:remixicon/remixicon.dart';
 
-class TaskTile extends StatelessWidget {
-  const TaskTile({Key? key, this.isSkelton = false}) : super(key: key);
+class PlannerTile extends StatelessWidget {
+  const PlannerTile({Key? key, this.isSkelton = false}) : super(key: key);
 
   final bool isSkelton;
   @override

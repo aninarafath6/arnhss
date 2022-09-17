@@ -8,7 +8,7 @@ export 'package:arnhss/features/home/model/notice_model.dart';
 export 'package:arnhss/features/home/view/home_view.dart';
 export 'package:arnhss/features/home/view/notice_veiw.dart';
 export 'package:arnhss/features/onboarding/view/onboarding_view.dart';
-export 'package:arnhss/features/planner/view/task_view.dart';
+export 'package:arnhss/features/planner/view/planner_view.dart';
 export 'package:arnhss/features/splash/views/splash_view.dart';
 export 'package:arnhss/features/users/students/authentication/view/student_authentication.dart';
 export 'package:flutter/material.dart';

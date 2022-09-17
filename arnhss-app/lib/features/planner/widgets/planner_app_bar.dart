@@ -1,10 +1,10 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/planner/view_model/task_view_model.dart';
+import 'package:arnhss/features/planner/view_model/planner_view.dart';
 import 'package:flutter/services.dart';
 import 'package:remixicon/remixicon.dart';
 
-AppBar taskAppBar(BuildContext context) {
+AppBar plannerAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.transparent,
     systemOverlayStyle: SystemUiOverlayStyle.dark, // 1
@@ -23,7 +23,7 @@ AppBar taskAppBar(BuildContext context) {
         splashRadius: 20,
         tooltip: 'selected day',
         onPressed: () {
-          context.read<TaskViewModel>().toToday();
+          context.read<PlannerViewModel>().toToday();
         },
         icon: Icon(
           Remix.focus_2_line,

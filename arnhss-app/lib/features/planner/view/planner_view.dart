@@ -2,11 +2,12 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/planner/models/planner_model.dart';
 import 'package:arnhss/features/planner/view_model/planner_view.dart';
+import 'package:arnhss/features/planner/widgets/add_plan_bottm_form.dart';
 import 'package:arnhss/features/planner/widgets/date_timline.dart';
 import 'package:arnhss/features/planner/widgets/floating_button.dart';
 import 'package:arnhss/features/planner/widgets/not_found.dart';
 import 'package:arnhss/features/planner/widgets/planner_app_bar.dart';
-import 'package:arnhss/features/planner/widgets/task_tile/task_tile.dart';
+import 'package:arnhss/features/planner/widgets/planner_tile/planner_tile.dart';
 
 import 'package:shimmer/shimmer.dart';
 
@@ -19,6 +20,7 @@ class PlannerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       appBar: plannerAppBar(context),
       body: SizedBox(
         width: double.infinity,
@@ -48,7 +50,7 @@ class PlannerView extends StatelessWidget {
                                       baseColor: CustomColors.bgOverlay,
                                       highlightColor:
                                           CustomColors.light.withOpacity(.4),
-                                      child: const TaskTile(isSkelton: true),
+                                      child: const PlannerTile(isSkelton: true),
                                     ),
                                   ),
                                 ),
@@ -59,7 +61,7 @@ class PlannerView extends StatelessWidget {
                             }
                             return ListView.builder(
                               itemBuilder: ((context, index) =>
-                                  const TaskTile()),
+                                  const PlannerTile()),
                               itemCount: snapshot.data!.length,
                             );
                           }),
@@ -76,7 +78,9 @@ class PlannerView extends StatelessWidget {
                 )
               ],
             ),
-            const FloatingButton()
+            FloatingButton(
+              onTap: () => showAddPlanForm(context),
+            )
           ],
         ),
       ),
