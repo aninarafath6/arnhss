@@ -8,6 +8,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class AttendanceCalendar extends StatelessWidget {
   AttendanceCalendar({
     Key? key,
@@ -112,7 +113,7 @@ class AttendanceCalendar extends StatelessWidget {
         markedDateIconBuilder: (event) {
           return event.icon;
         },
-        pageSnapping: true,
+        pageSnapping: false,
         pageScrollPhysics: const BouncingScrollPhysics(),
         shouldShowTransform: false,
       ),

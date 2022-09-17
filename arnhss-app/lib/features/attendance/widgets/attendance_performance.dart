@@ -28,13 +28,13 @@ class AttendancePerformance extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Attendance performance",
-            style: CustomTextTheme(context: context)
-                .headLine2()
-                .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
-          const SizedBox(height: 20),
+          // Text(
+          //   "Attendance performance",
+          //   style: CustomTextTheme(context: context)
+          //       .headLine2()
+          //       .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+          // ),
+          // const SizedBox(height: 20),
           PieChart(
             dataMap: dataMap,
             chartType: ChartType.ring,
