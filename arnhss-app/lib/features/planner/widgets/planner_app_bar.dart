@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/tasks/view_model/task_view_model.dart';
+import 'package:arnhss/features/planner/view_model/task_view_model.dart';
 import 'package:flutter/services.dart';
 import 'package:remixicon/remixicon.dart';
 

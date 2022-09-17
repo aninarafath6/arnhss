@@ -1,17 +1,4 @@
-import 'package:arnhss/features/attendance/view/attendance_view.dart';
-import 'package:arnhss/features/authentication/account/view/select_account.dart';
-import 'package:arnhss/features/authentication/login/view/login.dart';
-import 'package:arnhss/features/authentication/login/widgets/country_select.dart';
-import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
-import 'package:arnhss/features/authentication/user_role/views/user_role.dart';
-import 'package:arnhss/features/home/model/notice_model.dart';
-import 'package:arnhss/features/home/view/home_view.dart';
-import 'package:arnhss/features/home/view/notice_veiw.dart';
-import 'package:arnhss/features/onboarding/view/onboarding_view.dart';
-import 'package:arnhss/features/splash/views/splash_view.dart';
-import 'package:arnhss/features/tasks/view/task_view.dart';
-import 'package:arnhss/features/users/students/authentication/view/student_authentication.dart';
-import 'package:flutter/material.dart';
+import 'package:arnhss/common/routes/index_routes.dart';
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {

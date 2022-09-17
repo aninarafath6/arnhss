@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:remixicon/remixicon.dart';
+// import 'package:remixicon/remixicon.dart';
 
 class TaskTile extends StatelessWidget {
   const TaskTile({Key? key, this.isSkelton = false}) : super(key: key);
@@ -18,32 +18,6 @@ class TaskTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Column(
-          //   // mainAxisAlignment: MainAxisAlignment.start,
-          //   children: !isSkelton
-          //       ? [
-          //           const _TaskTime(time: "12:10 AM"),
-          //           const SizedBox(height: 5),
-          //           const _TaskTime(time: "02:12 PM"),
-          //           const SizedBox(height: 5),
-          //           CircleAvatar(
-          //             backgroundColor: CustomColors.bgOverlay,
-          //             child: const Icon(Remix.checkbox_blank_circle_line,
-          //                 color: CustomColors.light),
-          //           ),
-          //         ]
-          //       : [
-          //           Container(width: 50, height: 10, color: Colors.green),
-          //           const SizedBox(height: 5),
-          //           Container(width: 50, height: 10, color: Colors.green),
-          //           const SizedBox(height: 5),
-          //           CircleAvatar(
-          //             backgroundColor: CustomColors.bgOverlay,
-          //             child: const Icon(Remix.time_line,
-          //                 color: CustomColors.light),
-          //           )
-          //         ],
-          // ),
           const SizedBox(width: 5),
           Expanded(
             child: Column(
@@ -99,22 +73,22 @@ class TaskTile extends StatelessWidget {
   }
 }
 
-class _TaskTime extends StatelessWidget {
-  const _TaskTime({
-    Key? key,
-    required this.time,
-  }) : super(key: key);
-  final String time;
+// class _TaskTime extends StatelessWidget {
+//   const _TaskTime({
+//     Key? key,
+//     required this.time,
+//   }) : super(key: key);
+//   final String time;
 
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      time,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 13,
-        color: CustomColors.dark.withOpacity(.6),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Text(
+//       time,
+//       style: TextStyle(
+//         fontWeight: FontWeight.bold,
+//         fontSize: 13,
+//         color: CustomColors.dark.withOpacity(.6),
+//       ),
+//     );
+//   }
+// }
