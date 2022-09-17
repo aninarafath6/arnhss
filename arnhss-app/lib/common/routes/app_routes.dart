@@ -30,8 +30,8 @@ class AppRoutes {
         );
       case AttendanceView.routeName:
         return MaterialPageRoute(builder: (_) => const AttendanceView());
-      case TaskView.routeName:
-        return MaterialPageRoute(builder: (_) => const TaskView());
+      case PlannerView.routeName:
+        return MaterialPageRoute(builder: (_) => const PlannerView());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

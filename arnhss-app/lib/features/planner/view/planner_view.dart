@@ -1,24 +1,25 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/tasks/models/task_model.dart';
-import 'package:arnhss/features/tasks/view_model/task_view_model.dart';
-import 'package:arnhss/features/tasks/widgets/date_timline.dart';
-import 'package:arnhss/features/tasks/widgets/floating_button.dart';
-import 'package:arnhss/features/tasks/widgets/not_found.dart';
-import 'package:arnhss/features/tasks/widgets/task_app_bar.dart';
-import 'package:arnhss/features/tasks/widgets/task_tile/task_tile.dart';
+import 'package:arnhss/features/planner/models/planner_model.dart';
+import 'package:arnhss/features/planner/view_model/planner_view.dart';
+import 'package:arnhss/features/planner/widgets/date_timline.dart';
+import 'package:arnhss/features/planner/widgets/floating_button.dart';
+import 'package:arnhss/features/planner/widgets/not_found.dart';
+import 'package:arnhss/features/planner/widgets/planner_app_bar.dart';
+import 'package:arnhss/features/planner/widgets/task_tile/task_tile.dart';
+
 import 'package:shimmer/shimmer.dart';
 
-class TaskView extends StatelessWidget {
-  const TaskView({Key? key}) : super(key: key);
+class PlannerView extends StatelessWidget {
+  const PlannerView({Key? key}) : super(key: key);
   static const routeName = '/task_view';
-  static final PageController _controller =
-      PageController(initialPage: DateTime.now().day);
+  // static final PageController _controller =
+  //     PageController(initialPage: DateTime.now().day);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: taskAppBar(context),
+      appBar: plannerAppBar(context),
       body: SizedBox(
         width: double.infinity,
         child: Stack(
@@ -31,11 +32,11 @@ class TaskView extends StatelessWidget {
                 Expanded(
                   child: PageView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    controller: context.read<TaskViewModel>().pageController,
+                    controller: context.read<PlannerViewModel>().pageController,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(21.0),
-                        child: FutureBuilder<List<TaskModel>>(
+                        child: FutureBuilder<List<PlannerModel>>(
                           builder: ((context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -63,13 +64,13 @@ class TaskView extends StatelessWidget {
                             );
                           }),
                           future: context
-                              .read<TaskViewModel>()
+                              .read<PlannerViewModel>()
                               .getTasksOfTheDay(DateTime.now()),
                         ),
                       );
                     },
                     onPageChanged: (day) {
-                      context.read<TaskViewModel>().swipePage(day);
+                      context.read<PlannerViewModel>().swipePage(day);
                     },
                   ),
                 )

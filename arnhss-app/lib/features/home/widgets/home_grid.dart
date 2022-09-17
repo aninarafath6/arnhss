@@ -1,7 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/attendance/view/attendance_view.dart';
 import 'package:arnhss/features/home/widgets/tile.dart';
-import 'package:arnhss/features/tasks/view/task_view.dart';
+import 'package:arnhss/features/planner/view/planner_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -39,7 +39,7 @@ class HomeGrid extends StatelessWidget {
                   "assets/images/icons/oc-taking-note-removebg-preview (1).png",
               label: "Planner",
               count: 3,
-              onTap: () => Navigator.pushNamed(context, TaskView.routeName),
+              onTap: () => Navigator.pushNamed(context, PlannerView.routeName),
             ),
           ),
           StaggeredGridTile.count(
