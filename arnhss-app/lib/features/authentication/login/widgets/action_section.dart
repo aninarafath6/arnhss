@@ -4,6 +4,7 @@ import 'package:arnhss/features/authentication/login/view_model/login_view_model
 import 'package:arnhss/common/widgets/custom_button.dart';
 import 'package:arnhss/common/widgets/custom_modal.dart';
 import 'package:arnhss/common/widgets/custom_snack_bar.dart';
+import 'package:arnhss/features/authentication/login/widgets/input_box.dart';
 import 'package:arnhss/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,14 +19,7 @@ class ActionSection extends StatelessWidget {
     return Column(
       children: [
         context.spacing(height: 5),
-        Container(
-          width: context.getWidth(100),
-          height: 55,
-          decoration: BoxDecoration(
-              color: const Color(0xfff1f5f9),
-              borderRadius: BorderRadius.circular(8)),
-          child: const CustomInput(),
-        ),
+        const InputFelid(),
         const SizedBox(height: 25),
         CustomButton(
           label: "Get OTP",
