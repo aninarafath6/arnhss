@@ -23,7 +23,7 @@ void showAddPlanForm(BuildContext context) {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -58,9 +58,6 @@ void showAddPlanForm(BuildContext context) {
                   ),
                 ],
               ),
-              const CustomInput(),
-              // Spacer(),
-              const CustomButton(),
             ],
           ),
         ),
