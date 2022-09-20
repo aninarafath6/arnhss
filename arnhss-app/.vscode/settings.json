@@ -4,5 +4,6 @@
         "Arafath",
         "arnhss",
         "remixicon"
-    ]
+    ],
+    "cmake.sourceDirectory": "${workspaceFolder}/linux"
 }

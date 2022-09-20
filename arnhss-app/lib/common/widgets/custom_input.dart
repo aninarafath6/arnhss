@@ -22,6 +22,7 @@ class CustomInput extends StatelessWidget {
       ),
       child: TextField(
         maxLines: large! ? 5 : 1,
+        minLines: 1,
         cursorColor: CustomColors.dark,
         style: Theme.of(context).textTheme.subtitle1,
         decoration: InputDecoration(

@@ -36,6 +36,7 @@ dependencies:
   flutter_native_splash: ^2.2.8
   flutter_calendar_carousel: ^2.4.0
   shimmer: ^2.0.0
+  timeline_tile: ^2.0.0
 
 flutter_icons:
   android: "launcher_icon"
