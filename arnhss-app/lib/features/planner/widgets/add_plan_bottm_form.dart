@@ -3,9 +3,13 @@ import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/custom_selector.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/planner/view_model/new_plan_view_model.dart';
 import 'package:remixicon/remixicon.dart';
 
 void showAddPlanForm(BuildContext context) {
+  NewPlanViewModel _provider = context.read<NewPlanViewModel>();
+  // NewPlanViewModel _watcherProvider = context.watch<NewPlanViewModel>();
+
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -23,72 +27,146 @@ void showAddPlanForm(BuildContext context) {
               topRight: Radius.circular(15),
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 10),
-              const _FormHeader(),
-              const SizedBox(height: 5),
-              const Divider(thickness: 1.5),
-              // Text("Plan Type",
-              //     style: CustomTextTheme(context: context).headLine2()),
-              // const SizedBox(height: 5),
-
-              OptionChipList(
-                options: const ["#home-work", "#exam", "#p-plan"],
-                selectedBg: CustomColors.halfColor.withOpacity(.2),
-              ),
-              const SizedBox(height: 5),
-              Text("Title",
-                  style: CustomTextTheme(context: context).headLine2()),
-              const SizedBox(height: 5),
-
-              const CustomInput(hintText: " Task title"),
-              Text("Discretion",
-                  style: CustomTextTheme(context: context).headLine2()),
-              const SizedBox(height: 8),
-
-              const CustomInput(hintText: "Enter your note", large: true),
-              Text("Date & Time",
-                  style: CustomTextTheme(context: context).headLine2()),
-              const SizedBox(height: 8),
-
-              Row(
-                children: const [
-                  Expanded(
-                    child: CustomSelector(),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 100,
+                    height: 4,
+                    decoration: BoxDecoration(
+                        color: CustomColors.bgOverlay,
+                        borderRadius: BorderRadius.circular(14)),
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: CustomSelector(icon: Remix.time_line),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 15),
-              const SizedBox(height: 5),
+                ),
+                const SizedBox(height: 10),
 
-              Text("Subject",
-                  style: CustomTextTheme(context: context).headLine2()),
-              OptionChipList(
-                options: const [
-                  "#maths",
-                  "#physics",
-                  "#cs",
-                  "#english",
-                  "#malayalam",
-                  "#chemistry"
-                ],
-                selectedBg: CustomColors.presentColor.withOpacity(.2),
-              ),
+                const _FormHeader(),
+                const SizedBox(height: 10),
+                // const Divider(thickness: 1),
+                // const SizedBox(height: 5),
 
-              const SizedBox(height: 10),
-              // const SizedBox(height: 15),
-              const CustomButton(
-                label: "Add",
-              ),
-              const SizedBox(height: 20),
-            ],
+                // Text("Plan Type",
+                //     style: CustomTextTheme(context: context).headLine2()),
+                // const SizedBox(height: 5),
+
+                OptionChipList(
+                  options: const ["#home-work", "#exam", "#p-plan"],
+                  onSelect: (value) {
+                    _provider.planType = value;
+                  },
+                  selectedBg: CustomColors.halfColor.withOpacity(.2),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  "Title",
+                  style: CustomTextTheme(context: context).headLine2(),
+                ),
+                const SizedBox(height: 5),
+
+                CustomInput(
+                  hintText: "Task title",
+                  controller: _provider.titleController,
+                ),
+                Text("Note",
+                    style: CustomTextTheme(context: context).headLine2()),
+                const SizedBox(height: 8),
+
+                CustomInput(
+                  hintText: "Enter your note",
+                  large: true,
+                  controller: _provider.descriptionController,
+                ),
+                Text("Date & Time",
+                    style: CustomTextTheme(context: context).headLine2()),
+                const SizedBox(height: 8),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomSelector(
+                        onTap: () {
+                          showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.utc(DateTime.now().year),
+                                  lastDate:
+                                      DateTime.utc(DateTime.now().year + 2))
+                              .then(
+                            (value) {
+                              _provider.date = value;
+                            },
+                          );
+                        },
+                        date: context
+                                .watch<NewPlanViewModel>()
+                                .date
+                                .day
+                                .toString() +
+                            " " +
+                            monthName[
+                                context.watch<NewPlanViewModel>().date.month -
+                                    1] +
+                            " " +
+                            context
+                                .watch<NewPlanViewModel>()
+                                .date
+                                .year
+                                .toString(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: CustomSelector(
+                        date: context
+                            .watch<NewPlanViewModel>()
+                            .time
+                            .format(context),
+                        icon: Remix.time_line,
+                        onTap: () {
+                          showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now())
+                              .then((value) => _provider.setTime = value);
+                          // TimePickerDialog(initialTime: TimeOfDay.now());
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                const SizedBox(height: 5),
+
+                Text("Subject",
+                    style: CustomTextTheme(context: context).headLine2()),
+                OptionChipList(
+                  options: const [
+                    "#maths",
+                    "#physics",
+                    "#cs",
+                    "#english",
+                    "#malayalam",
+                    "#chemistry"
+                  ],
+                  selectedBg: CustomColors.halfColor.withOpacity(.2),
+                  onSelect: (value) {
+                    _provider.subject = value;
+                  },
+                ),
+
+                const SizedBox(height: 10),
+                // const SizedBox(height: 15),
+                CustomButton(
+                  label: "Save",
+                  onTap: _provider.savePlan,
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       );
@@ -113,7 +191,7 @@ class _FormHeader extends StatelessWidget {
               Navigator.pop(context);
             },
             child: const Text(
-              "Cancel",
+              "Cancel      ",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
@@ -129,7 +207,7 @@ class _FormHeader extends StatelessWidget {
               color: CustomColors.dark),
         ),
         const Text(
-          "Add Plan",
+          "New Plan",
           style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 18,
@@ -145,16 +223,18 @@ class OptionChipList extends StatefulWidget {
     Key? key,
     required this.options,
     required this.selectedBg,
+    this.onSelect,
   }) : super(key: key);
   final List<String> options;
   final Color selectedBg;
+  final Function(String)? onSelect;
 
   @override
   State<OptionChipList> createState() => _OptionChipListState();
 }
 
 class _OptionChipListState extends State<OptionChipList> {
-  int selected = -1;
+  int selected = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -169,9 +249,12 @@ class _OptionChipListState extends State<OptionChipList> {
             pressElevation: 0,
             backgroundColor: CustomColors.bgOverlay,
             onSelected: (_) {
-              setState(() {
-                selected = index;
-              });
+              setState(
+                () {
+                  selected = index;
+                },
+              );
+              widget.onSelect!(widget.options[index]);
             },
             label: Text(widget.options[index]),
             selectedColor: widget.selectedBg,

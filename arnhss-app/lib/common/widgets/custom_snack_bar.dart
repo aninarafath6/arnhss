@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void customSnackBar(
-    {String? content = "something went wrog!!🫡", bool white = false}) {
+    {String? content = "something went wrog!!🫡",
+    String? title = "Oops! 🥸",
+    bool white = false,
+    SnackPosition pos = SnackPosition.TOP}) {
   Get.snackbar(
-    'Ooooops!',
-    content ?? "something went wrog!!🫡",
-    snackPosition: SnackPosition.TOP,
+    title!,
+    content ?? "something went wrong!!",
+    snackPosition: pos,
     backgroundColor: white
         ? Colors.white.withOpacity(.5)
         : CustomColors.dark.withOpacity(.1),

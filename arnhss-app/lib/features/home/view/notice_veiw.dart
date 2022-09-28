@@ -43,12 +43,16 @@ class NoticeView extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 58.0, vertical: 15),
-                    child: Image.asset(
-                      "assets/images/icons/banner.png",
-                      width: 100,
+                  SizedBox(
+                    width: context.getWidth(50),
+                    height: context.getWidth(50),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 58.0, vertical: 15),
+                      child: Image.asset(
+                        "assets/images/icons/banner.png",
+                        width: 100,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),

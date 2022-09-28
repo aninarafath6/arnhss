@@ -9,20 +9,20 @@ class PlannerViewModel extends ChangeNotifier {
   final PageController _pageController =
       PageController(initialPage: DateTime.now().day);
 
-  List<PlannerModel> takList = [
-    PlannerModel(
-      title: "Maths home work",
-      note: "text dummy text for display ",
-      startTime: DateTime.now(),
-      endTime: DateTime.now().add(const Duration(minutes: 200)),
-    ),
-    PlannerModel(
-      title: "Maths home work",
-      note: "text dummy text for display ",
-      startTime: DateTime.now(),
-      endTime: DateTime.now().add(const Duration(minutes: 200)),
-    ),
-  ];
+  // List<PlannerModel> takList = [
+  //   PlannerModel(
+  //     title: "Maths home work",
+  //     note: "text dummy text for display ",
+  //     startTime: DateTime.now(),
+  //     endTime: DateTime.now().add(const Duration(minutes: 200)),
+  //   ),
+  //   PlannerModel(
+  //     title: "Maths home work",
+  //     note: "text dummy text for display ",
+  //     startTime: DateTime.now(),
+  //     endTime: DateTime.now().add(const Duration(minutes: 200)),
+  //   ),
+  // ];
 
   DatePickerController get dateController => _timelineController;
   DateTime get selectedDate => _selectedDate;
@@ -43,11 +43,11 @@ class PlannerViewModel extends ChangeNotifier {
     _timelineController.animateToSelection(curve: Curves.easeInOutCubic);
   }
 
-  Future<List<PlannerModel>> getTasksOfTheDay(DateTime date) async {
-    _loading = true;
-    await Future.delayed(const Duration(milliseconds: 800));
-    return takList;
-  }
+  // Future<List<PlannerModel>> getTasksOfTheDay(DateTime date) async {
+  //   _loading = true;
+  //   await Future.delayed(const Duration(milliseconds: 800));
+  //   return ;
+  // }
 
   void swipePage(int day) {
     // DateTime newDate = DateTime(_selectedDate.year, _selectedDate.month, day);

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/theme/text_theme.dart';
+// import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/attendance/widgets/indication_tile.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class AttendancePerformance extends StatelessWidget {
-  AttendancePerformance({
+  const AttendancePerformance({
     Key? key,
   }) : super(key: key);
 
-  Map<String, double> dataMap = {
+  static Map<String, double> dataMap = {
     "Full Present": 5,
     "Half Present": 2,
     "Absent": 1,

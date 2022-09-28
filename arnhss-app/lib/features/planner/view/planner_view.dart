@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/planner/models/planner_model.dart';
-import 'package:arnhss/features/planner/view_model/planner_view.dart';
+import 'package:arnhss/features/planner/view_model/new_plan_view_model.dart';
+import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:arnhss/features/planner/widgets/add_plan_bottm_form.dart';
 import 'package:arnhss/features/planner/widgets/date_timline.dart';
 import 'package:arnhss/features/planner/widgets/floating_button.dart';
@@ -66,24 +67,26 @@ class PlannerView extends StatelessWidget {
                                       baseColor: CustomColors.bgOverlay,
                                       highlightColor:
                                           CustomColors.light.withOpacity(.4),
-                                      child: const PlannerTile(isSkelton: true),
+                                      child: const PlanSkelton(),
                                     ),
                                   ),
                                 ),
                               );
                             }
-                            if (!snapshot.hasData) {
+                            if (snapshot.data!.isEmpty) {
                               return const NotFound();
                             }
+
                             return ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: ((context, index) =>
-                                  const PlannerTile()),
-                              itemCount: snapshot.data!.length + 20,
+                              physics: const PageScrollPhysics(),
+                              itemBuilder: ((context, index) => PlannerTile(
+                                    plan: snapshot.data![index],
+                                  )),
+                              itemCount: snapshot.data!.length,
                             );
                           }),
                           future: context
-                              .read<PlannerViewModel>()
+                              .read<NewPlanViewModel>()
                               .getTasksOfTheDay(DateTime.now()),
                         ),
                       );

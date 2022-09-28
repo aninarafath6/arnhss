@@ -12,6 +12,8 @@ class HandleException {
       customSnackBar(content: "It's take longer to respond...");
     } else if (error is UnAuthorizedException) {
       customSnackBar(content: error.message);
+    } else if (error is InvalidException) {
+      customSnackBar(content: error.message, white: true);
     } else {
       customSnackBar();
     }
