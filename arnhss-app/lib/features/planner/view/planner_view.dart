@@ -1,5 +1,7 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-
+import 'package:arnhss/features/planner/models/planner_model.dart';
+import 'package:arnhss/features/planner/view_model/new_plan_view_model.dart';
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:arnhss/features/planner/widgets/add_plan_bottm_form.dart';
 import 'package:arnhss/features/planner/widgets/date_timline.dart';
@@ -16,7 +18,7 @@ class PlannerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _plans = context.read<PlannerViewModel>().plans;
+    var _plans = context.watch<PlannerViewModel>().plans;
 
     return Scaffold(
       // resizeToAvoidBottomInset: false,

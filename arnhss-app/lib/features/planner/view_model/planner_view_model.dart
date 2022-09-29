@@ -69,20 +69,26 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     _timelineController.animateToSelection(curve: Curves.easeInOutCubic);
   }
 
+  void setList(PlannerModel plan) {
+    _planList.add(plan);
+    notifyListeners();
+  }
+
   void savePlan() {
     bool status = validate();
 
     if (status) {
-      _planList.add(PlannerModel(
-        title: _titleTextController.text,
-        note: _descriptionTextController.text,
-        date: _date,
-        time: _timeController,
-        subject: _subject,
-        type: _planType,
-        isCompleted: false,
-      ));
-      notifyListeners();
+      setList(
+        PlannerModel(
+          title: _titleTextController.text,
+          note: _descriptionTextController.text,
+          date: _date,
+          time: _timeController,
+          subject: _subject,
+          type: _planType,
+          isCompleted: false,
+        ),
+      );
       Get.back();
 
       // reset
