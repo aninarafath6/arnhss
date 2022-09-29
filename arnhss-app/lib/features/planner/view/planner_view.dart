@@ -11,9 +11,7 @@ import 'package:arnhss/features/planner/widgets/floating_button.dart';
 import 'package:arnhss/features/planner/widgets/not_found.dart';
 import 'package:arnhss/features/planner/widgets/planner_app_bar.dart';
 import 'package:arnhss/features/planner/widgets/planner_tile/planner_tile.dart';
-
 import 'package:shimmer/shimmer.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
 class PlannerView extends StatelessWidget {
   const PlannerView({Key? key}) : super(key: key);
@@ -34,18 +32,6 @@ class PlannerView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const DateTimeline(),
-                // NotFound(),
-                // Expanded(
-                //   child: Column(
-                //     children: [
-                //       TimelineTile(),
-                //       TimelineTile(),
-                //       TimelineTile(
-                //         isLast: true,
-                //       ),
-                //     ],
-                //   ),
-                // ),
                 Expanded(
                   child: PageView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -87,7 +73,9 @@ class PlannerView extends StatelessWidget {
                           }),
                           future: context
                               .read<NewPlanViewModel>()
-                              .getTasksOfTheDay(DateTime.now()),
+                              .getTasksOfTheDay(context
+                                  .read<PlannerViewModel>()
+                                  .selectedDate),
                         ),
                       );
                     },

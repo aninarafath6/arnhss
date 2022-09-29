@@ -83,7 +83,12 @@ class NewPlanViewModel extends ChangeNotifier with HandleException {
   Future<List<PlannerModel>> getTasksOfTheDay(DateTime date) async {
     _loading = true;
     await Future.delayed(const Duration(milliseconds: 800));
-    return _planList;
+
+    return _planList
+        .where((e) =>
+            DateTime.utc(e.date!.year, e.date!.month, e.date!.day) ==
+            DateTime.utc(date.year, date.month, date.day))
+        .toList();
   }
 }
 
