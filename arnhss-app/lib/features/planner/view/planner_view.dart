@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/planner/models/planner_model.dart';

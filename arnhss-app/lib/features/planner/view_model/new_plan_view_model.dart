@@ -27,10 +27,17 @@ class NewPlanViewModel extends ChangeNotifier with HandleException {
   bool get loading => _loading;
 
   // setters
-  set date(value) => _date = value;
+  set date(value) {
+    value != null ? _date = value : _date = DateTime.now();
+    notifyListeners();
+  }
+
   set subject(value) => _subject = value;
   set planType(value) => _planType = value;
-  set setTime(value) => _timeController = value;
+  set setTime(value) {
+    _timeController = value;
+    notifyListeners();
+  }
 
   bool validate() {
     try {
