@@ -3,6 +3,7 @@
         "Anin",
         "Arafath",
         "arnhss",
+        "Constatns",
         "remixicon"
     ],
     "cmake.sourceDirectory": "${workspaceFolder}/linux"

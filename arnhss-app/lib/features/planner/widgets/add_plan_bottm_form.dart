@@ -4,11 +4,12 @@ import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/custom_selector.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/planner/view_model/new_plan_view_model.dart';
+import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:remixicon/remixicon.dart';
 
 void showAddPlanForm(BuildContext context) {
-  NewPlanViewModel _provider = context.read<NewPlanViewModel>();
-  // NewPlanViewModel _watcherProvider = context.watch<NewPlanViewModel>();
+  PlannerViewModel _provider = context.read<PlannerViewModel>();
+  // PlannerViewModel _watcherProvider = context.watch<PlannerViewModel>();
 
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
@@ -103,17 +104,17 @@ void showAddPlanForm(BuildContext context) {
                           );
                         },
                         date: context
-                                .watch<NewPlanViewModel>()
+                                .watch<PlannerViewModel>()
                                 .date
                                 .day
                                 .toString() +
                             " " +
                             monthName[
-                                context.watch<NewPlanViewModel>().date.month -
+                                context.watch<PlannerViewModel>().date.month -
                                     1] +
                             " " +
                             context
-                                .watch<NewPlanViewModel>()
+                                .watch<PlannerViewModel>()
                                 .date
                                 .year
                                 .toString(),
@@ -123,7 +124,7 @@ void showAddPlanForm(BuildContext context) {
                     Expanded(
                       child: CustomSelector(
                         date: context
-                            .watch<NewPlanViewModel>()
+                            .watch<PlannerViewModel>()
                             .time
                             .format(context),
                         icon: Remix.time_line,

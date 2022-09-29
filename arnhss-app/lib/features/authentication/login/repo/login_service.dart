@@ -16,7 +16,7 @@ class LoginService with HandleException {
         "countryCode": countryCode.toString(),
       },
     ).catchError(handleException);
-    print(response);
+    debugPrint(response);
     if (response["status"]) {
       return response;
     } else {

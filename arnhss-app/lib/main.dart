@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => AttendanceViewModel()),
         ChangeNotifierProvider(create: (_) => PlannerViewModel()),
-        ChangeNotifierProvider(create: (_) => NewPlanViewModel()),
       ],
       child: GetMaterialApp(
         title: 'arnhss',
