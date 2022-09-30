@@ -47,13 +47,6 @@ void showAddPlanForm(BuildContext context) {
 
                 const _FormHeader(),
                 const SizedBox(height: 10),
-                // const Divider(thickness: 1),
-                // const SizedBox(height: 5),
-
-                // Text("Plan Type",
-                //     style: CustomTextTheme(context: context).headLine2()),
-                // const SizedBox(height: 5),
-
                 OptionChipList(
                   options: const ["#home-work", "#exam", "#p-plan"],
                   onSelect: (value) {

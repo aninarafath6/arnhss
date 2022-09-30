@@ -1,11 +1,11 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
-import 'package:arnhss/features/planner/widgets/add_plan_bottm_form.dart';
-import 'package:arnhss/features/planner/widgets/date_timline.dart';
+import 'package:arnhss/features/planner/widgets/add_plan_bottom_form.dart';
+import 'package:arnhss/features/planner/widgets/date_timeline.dart';
 import 'package:arnhss/features/planner/widgets/floating_button.dart';
 import 'package:arnhss/features/planner/widgets/not_found.dart';
 import 'package:arnhss/features/planner/widgets/planner_app_bar.dart';
-import 'package:arnhss/features/planner/widgets/planner_tile/planner_tile.dart';
+import 'package:arnhss/features/planner/widgets/planner_tile.dart';
 
 class PlannerView extends StatelessWidget {
   const PlannerView({Key? key}) : super(key: key);

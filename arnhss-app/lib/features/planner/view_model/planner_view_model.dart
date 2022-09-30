@@ -4,9 +4,12 @@ import 'package:arnhss/features/planner/models/planner_model.dart';
 import 'package:arnhss/services/app_exceptions.dart';
 import 'package:arnhss/services/handle_exception.dart';
 import 'package:get/route_manager.dart';
+import 'package:uuid/uuid.dart';
 
 class PlannerViewModel extends ChangeNotifier with HandleException {
   final DatePickerController _timelineController = DatePickerController();
+  final Uuid uuid = const Uuid();
+
   DateTime _selectedDate = DateTime.now();
   bool _loading = false;
   final List<PlannerModel> _planList = [];
@@ -80,6 +83,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     if (status) {
       setList(
         PlannerModel(
+          id: uuid.v1(),
           title: _titleTextController.text,
           note: _descriptionTextController.text,
           date: _date,
@@ -119,6 +123,26 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
             DateTime.utc(e.date!.year, e.date!.month, e.date!.day) ==
             DateTime.utc(date.year, date.month, date.day))
         .toList();
+  }
+
+  void deletePlan(String id) {
+    _planList.removeWhere((element) {
+      if (element.id == id) {
+        customSnackBar(
+          title: "Deleted🪚",
+          content: element.title! + "is deleted",
+          pos: SnackPosition.BOTTOM,
+        );
+        return true;
+      } else {
+        customSnackBar(
+          pos: SnackPosition.BOTTOM,
+        );
+
+        return false;
+      }
+    });
+    notifyListeners();
   }
 }
 

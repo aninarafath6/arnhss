@@ -1,6 +1,7 @@
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 
 class PlannerModel {
+  final String? id;
   final String? title;
   // final String? subTitle;
   final TimeOfDay? time;
@@ -13,6 +14,7 @@ class PlannerModel {
 
   PlannerModel({
     this.title,
+    this.id,
     // this.subTitle,
     this.time,
     // this.endTime,
