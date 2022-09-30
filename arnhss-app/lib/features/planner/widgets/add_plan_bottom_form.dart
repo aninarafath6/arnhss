@@ -8,8 +8,8 @@ import 'package:remixicon/remixicon.dart';
 
 void showAddPlanForm(BuildContext context) {
   PlannerViewModel _provider = context.read<PlannerViewModel>();
-  // PlannerViewModel _watcherProvider = context.watch<PlannerViewModel>();
 
+  context.read<PlannerViewModel>().initialDateSelectedInFor();
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -85,8 +85,10 @@ void showAddPlanForm(BuildContext context) {
                         onTap: () {
                           showDatePicker(
                                   context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime.utc(DateTime.now().year),
+                                  initialDate: context
+                                      .read<PlannerViewModel>()
+                                      .selectedDate,
+                                  firstDate: DateTime.now(),
                                   lastDate:
                                       DateTime.utc(DateTime.now().year + 2))
                               .then(

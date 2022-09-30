@@ -10,7 +10,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   final DatePickerController _timelineController = DatePickerController();
   final Uuid uuid = const Uuid();
 
-  DateTime _selectedDate = DateTime.now();
+  late DateTime _selectedDate = DateTime.now();
   bool _loading = false;
   final List<PlannerModel> _planList = [];
 
@@ -142,6 +142,11 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
         return false;
       }
     });
+    notifyListeners();
+  }
+
+  void initialDateSelectedInFor() {
+    _date = _selectedDate;
     notifyListeners();
   }
 }
