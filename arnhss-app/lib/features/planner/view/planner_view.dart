@@ -1,7 +1,4 @@
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/planner/models/planner_model.dart';
-import 'package:arnhss/features/planner/view_model/new_plan_view_model.dart';
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:arnhss/features/planner/widgets/add_plan_bottm_form.dart';
 import 'package:arnhss/features/planner/widgets/date_timline.dart';
@@ -18,10 +15,11 @@ class PlannerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _plans = context.watch<PlannerViewModel>().plans;
+    var _plans = context
+        .watch<PlannerViewModel>()
+        .getTasksOfTheDay(context.watch<PlannerViewModel>().selectedDate);
 
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       appBar: plannerAppBar(context),
       body: SizedBox(
         width: double.infinity,
@@ -41,8 +39,14 @@ class PlannerView extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return PlannerTile(plan: _plans[index]);
                             },
-                            itemCount:
-                                context.watch<PlannerViewModel>().plans.length,
+                            itemCount: context
+                                .watch<PlannerViewModel>()
+                                .getTasksOfTheDay(
+                                  context
+                                      .watch<PlannerViewModel>()
+                                      .selectedDate,
+                                )
+                                .length,
                           ),
                   ),
                 ),

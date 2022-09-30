@@ -3,7 +3,6 @@ import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/custom_selector.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/planner/view_model/new_plan_view_model.dart';
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:remixicon/remixicon.dart';
 
