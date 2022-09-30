@@ -37,7 +37,16 @@ class PlannerView extends StatelessWidget {
                         ? const Center(child: NotFound())
                         : ListView.builder(
                             itemBuilder: (context, index) {
-                              return PlannerTile(plan: _plans[index]);
+                              return AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 300),
+                                layoutBuilder: (child, _) {
+                                  return child!;
+                                },
+                                child: PlannerTile(
+                                  plan: _plans[index],
+                                  key: ValueKey(_plans[index].date),
+                                ),
+                              );
                             },
                             itemCount: context
                                 .watch<PlannerViewModel>()
