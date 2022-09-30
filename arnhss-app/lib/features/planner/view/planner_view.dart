@@ -1,4 +1,5 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
+import 'package:arnhss/features/planner/models/planner_model.dart';
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:arnhss/features/planner/widgets/add_plan_bottom_form.dart';
 import 'package:arnhss/features/planner/widgets/date_timeline.dart';
@@ -13,9 +14,7 @@ class PlannerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _plans = context
-        .watch<PlannerViewModel>()
-        .getTasksOfTheDay(context.watch<PlannerViewModel>().selectedDate);
+    // var _plans = ;
 
     return Scaffold(
       appBar: plannerAppBar(context),
@@ -31,30 +30,42 @@ class PlannerView extends StatelessWidget {
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 21.0, right: 21, top: 21),
-                    child: _plans.isEmpty
-                        ? const Center(child: NotFound())
-                        : ListView.builder(
-                            itemBuilder: (context, index) {
-                              return AnimatedSwitcher(
-                                duration: const Duration(milliseconds: 300),
-                                layoutBuilder: (child, _) {
-                                  return child!;
-                                },
-                                child: PlannerTile(
-                                  plan: _plans[index],
-                                  key: ValueKey(_plans[index].date),
-                                ),
-                              );
-                            },
-                            itemCount: context
-                                .watch<PlannerViewModel>()
-                                .getTasksOfTheDay(
-                                  context
-                                      .watch<PlannerViewModel>()
-                                      .selectedDate,
-                                )
-                                .length,
-                          ),
+                    child: FutureBuilder<List<PlannerModel>>(
+                      future: context
+                          .watch<PlannerViewModel>()
+                          .getTasksOfTheDay(
+                              context.watch<PlannerViewModel>().selectedDate),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return SingleChildScrollView(
+                            child: Column(
+                              children: List.generate(
+                                  9, (index) => const PlanSkelton()),
+                            ),
+                          );
+                        }
+                        if (snapshot.data!.isEmpty) {
+                          return const Center(child: NotFound());
+                        }
+
+                        return ListView.builder(
+                          itemBuilder: (context, index) {
+                            return AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              layoutBuilder: (child, _) {
+                                return child!;
+                              },
+                              child: PlannerTile(
+                                plan: snapshot.data![index],
+                                key: ValueKey(snapshot.data![index].date),
+                              ),
+                            );
+                          },
+                          itemCount: snapshot.data!.length,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
