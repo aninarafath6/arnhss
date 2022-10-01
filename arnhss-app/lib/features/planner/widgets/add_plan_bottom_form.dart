@@ -82,6 +82,7 @@ void showAddPlanForm(BuildContext context) {
                   children: [
                     Expanded(
                       child: CustomSelector(
+                        label: 'Select Date',
                         onTap: () {
                           showDatePicker(
                                   context: context,
@@ -97,7 +98,7 @@ void showAddPlanForm(BuildContext context) {
                             },
                           );
                         },
-                        date: context
+                        content: context
                                 .watch<PlannerViewModel>()
                                 .date
                                 .day
@@ -117,17 +118,17 @@ void showAddPlanForm(BuildContext context) {
                     const SizedBox(width: 10),
                     Expanded(
                       child: CustomSelector(
-                        date: context
+                        label: 'Remind on',
+                        content: context
                             .watch<PlannerViewModel>()
                             .time
                             .format(context),
                         icon: Remix.time_line,
                         onTap: () {
                           showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.now())
-                              .then((value) => _provider.setTime = value);
-                          // TimePickerDialog(initialTime: TimeOfDay.now());
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                          ).then((value) => _provider.setTime = value);
                         },
                       ),
                     ),

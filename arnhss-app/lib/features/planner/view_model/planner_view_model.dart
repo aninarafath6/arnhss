@@ -90,7 +90,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
           title: _titleTextController.text,
           note: _descriptionTextController.text,
           date: _date,
-          time: _timeController,
+          remind: _timeController,
           subject: _subject,
           type: _planType,
           isCompleted: false,
