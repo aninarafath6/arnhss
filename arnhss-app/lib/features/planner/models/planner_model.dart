@@ -4,7 +4,7 @@ class PlannerModel {
   final String? id;
   final String? title;
 
-  final TimeOfDay? time;
+  final TimeOfDay? remind;
 
   final DateTime? date;
   final String? note;
@@ -15,7 +15,7 @@ class PlannerModel {
   PlannerModel({
     this.title,
     this.id,
-    this.time,
+    this.remind,
     this.date,
     this.note,
     this.subject,

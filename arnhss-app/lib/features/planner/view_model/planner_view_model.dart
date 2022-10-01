@@ -1,6 +1,7 @@
 import 'package:arnhss/common/widgets/date_picker/date_picker_widget.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/planner/models/planner_model.dart';
+
 import 'package:arnhss/services/app_exceptions.dart';
 import 'package:arnhss/services/handle_exception.dart';
 import 'package:get/route_manager.dart';
@@ -19,7 +20,8 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   final TextEditingController _descriptionTextController =
       TextEditingController();
   DateTime _date = DateTime.now();
-  TimeOfDay _timeController = TimeOfDay.now();
+  TimeOfDay _timeController =
+      TimeOfDay.fromDateTime(DateTime.now().add(const Duration(hours: 3)));
   String _planType = "#home-work";
   String _subject = "#maths";
 

@@ -67,7 +67,7 @@ class PlannerTile extends StatelessWidget {
                     // const SizedBox(height: 12),
                     Row(
                       children: [
-                        CustomChip(label: plan.time!.format(context)),
+                        CustomChip(label: plan.remind!.format(context)),
                         const SizedBox(width: 8),
                         CustomChip(
                           label: plan.type ?? "",

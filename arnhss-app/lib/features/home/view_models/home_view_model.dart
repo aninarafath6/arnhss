@@ -1,5 +1,5 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/home/model/blog_model.dart';
+
 import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/widgets/notice_item.dart';
 import 'package:remixicon/remixicon.dart';

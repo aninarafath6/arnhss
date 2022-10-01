@@ -7,12 +7,13 @@ class CustomSelector extends StatelessWidget {
     Key? key,
     this.icon = Remix.calendar_line,
     this.onTap,
-    this.date,
+    this.content,
+    required this.label,
   }) : super(key: key);
   final IconData? icon;
   final Function()? onTap;
-  final String? date;
-
+  final String? content;
+  final String? label;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -33,9 +34,9 @@ class CustomSelector extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Select Date',
-                    style: TextStyle(
+                  Text(
+                    label!,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: CustomColors.light,
                       fontSize: 13,
@@ -43,7 +44,7 @@ class CustomSelector extends StatelessWidget {
                   ),
                   // SizedBox(height: 2),
                   Text(
-                    date ?? "",
+                    content ?? "",
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: CustomColors.dark,
