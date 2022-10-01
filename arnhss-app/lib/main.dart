@@ -6,14 +6,15 @@ import 'package:arnhss/features/authentication/login/view_model/country_view_mod
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
-
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
+import 'package:arnhss/services/db_service.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DBService.initDB();
   initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 

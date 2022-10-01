@@ -5,9 +5,9 @@ import 'package:arnhss/features/authentication/otp_verification/view/index.dart'
 class Plan {
   final String? id;
   final String? title;
+  final String? note;
   final TimeOfDay? remind;
   final DateTime? date;
-  final String? note;
   final String? subject;
   final String? type;
   final bool? isCompleted;

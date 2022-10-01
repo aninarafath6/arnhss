@@ -1,14 +1,16 @@
 import 'package:arnhss/common/constants/database_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/features/planner/models/plan.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DBService with HandleException {
-  Database? _db;
+class DBService {
+  static Database? _db;
 
-  Future<void> initDB() async {
+  static Future<void> initDB() async {
     // ? if db is created then just return
     if (_db != null) {
+      debugPrint("db is already created");
       return;
     }
 
@@ -18,6 +20,8 @@ class DBService with HandleException {
         _path,
         version: DatabaseConstants.version,
         onCreate: (Database db, int version) {
+          debugPrint("creating a db");
+
           // * create a database with these columns
           return db.execute(
             "CREATE TABLE ${DatabaseConstants.planTableName}("
@@ -30,7 +34,13 @@ class DBService with HandleException {
     } catch (e) {
       // * handle error with handle exception
       debugPrint(e.toString());
-      handleException(e);
+      HandleException().handleException(e);
     }
+  }
+
+  Future<int> insert(Plan? plan) async {
+    debugPrint("insert new plan");
+    return await _db?.insert(DatabaseConstants.planTableName, plan!.toMap()) ??
+        1;
   }
 }
