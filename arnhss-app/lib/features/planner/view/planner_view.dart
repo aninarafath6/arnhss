@@ -14,8 +14,6 @@ class PlannerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var _plans = ;
-
     return Scaffold(
       appBar: plannerAppBar(context),
       body: SizedBox(
@@ -30,7 +28,7 @@ class PlannerView extends StatelessWidget {
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 21.0, right: 21, top: 21),
-                    child: FutureBuilder<List<PlannerModel>>(
+                    child: FutureBuilder<List<Plan>>(
                       future: context
                           .watch<PlannerViewModel>()
                           .getTasksOfTheDay(
