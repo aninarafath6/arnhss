@@ -14,7 +14,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   bool _loading = false;
   final List<PlannerModel> _planList = [];
 
-  // form controllers
+  // * form controllers
   final TextEditingController _titleTextController = TextEditingController();
   final TextEditingController _descriptionTextController =
       TextEditingController();
@@ -23,7 +23,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   String _planType = "#home-work";
   String _subject = "#maths";
 
-  // getters
+  //* getters
   TextEditingController get titleController => _titleTextController;
   TextEditingController get descriptionController => _descriptionTextController;
   DateTime get date => _date;
@@ -36,7 +36,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   DatePickerController get dateController => _timelineController;
   DateTime get selectedDate => _selectedDate;
 
-  // setters
+  // *setters
   set date(value) {
     value != null ? _date = value : _date = DateTime.now();
     notifyListeners();
@@ -54,6 +54,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
+// * validate the all inputs
   bool validate() {
     try {
       if (_titleTextController.text.isEmpty ||
@@ -68,6 +69,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     }
   }
 
+// * navigate to today
   void toToday() {
     _timelineController.animateToSelection(curve: Curves.easeInOutCubic);
   }
@@ -81,6 +83,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     bool status = validate();
 
     if (status) {
+      // TODO:set on plan on database
       setList(
         PlannerModel(
           id: uuid.v1(),
@@ -95,7 +98,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
       );
       Get.back();
 
-      // reset
+      // * clear all the input fields
       _titleTextController.text = "";
       _descriptionTextController.text = "";
       _date = DateTime.now();
@@ -103,6 +106,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
       _subject = "#maths";
       _planType = "#home-work";
 
+      // ?? show the bottom snackbar
       customSnackBar(
         title: "Done😉",
         content: "new plan added to you timeline🎉",
@@ -114,17 +118,22 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     }
   }
 
+// * get task of the day by using date
   Future<List<PlannerModel>> getTasksOfTheDay(DateTime date) async {
     _loading = true;
-    await Future.delayed(const Duration(milliseconds: 500));
 
+    // ! simulating time delay by using duration method (must be remove on production code)
+    await Future.delayed(const Duration(milliseconds: 500));
     return _planList
-        .where((e) =>
-            DateTime.utc(e.date!.year, e.date!.month, e.date!.day) ==
-            DateTime.utc(date.year, date.month, date.day))
+        .where(
+          (e) =>
+              DateTime.utc(e.date!.year, e.date!.month, e.date!.day) ==
+              DateTime.utc(date.year, date.month, date.day),
+        )
         .toList();
   }
 
+// * delete plan from local database
   void deletePlan(String id) {
     _planList.removeWhere((element) {
       if (element.id == id) {
@@ -165,18 +174,3 @@ const List<String> monthName = <String>[
   "Nov",
   "Dec"
 ];
-
-enum PlanType {
-  homeWork,
-  exam,
-  pPlan,
-}
-
-enum Subject {
-  maths,
-  physics,
-  cs,
-  english,
-  malayalam,
-  chemistry,
-}
