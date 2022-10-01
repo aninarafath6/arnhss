@@ -1,5 +1,5 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/home/view_models/home_view_mdoel.dart';
+import 'package:arnhss/features/home/view_models/home_view_model.dart';
 
 class NoticeList extends StatelessWidget {
   const NoticeList({

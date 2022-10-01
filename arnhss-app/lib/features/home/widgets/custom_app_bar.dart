@@ -1,5 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/features/home/view_models/home_view_mdoel.dart';
+import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
