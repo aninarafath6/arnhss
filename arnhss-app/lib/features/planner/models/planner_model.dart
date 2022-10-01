@@ -1,6 +1,6 @@
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 
-class PlannerModel {
+class Plan {
   final String? id;
   final String? title;
 
@@ -12,7 +12,7 @@ class PlannerModel {
   final String? type;
   final bool? isCompleted;
 
-  PlannerModel({
+  Plan({
     this.title,
     this.id,
     this.remind,
@@ -22,4 +22,6 @@ class PlannerModel {
     this.type,
     this.isCompleted,
   });
+
+// factory
 }
