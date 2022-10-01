@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/database_constants.dart';
+import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -17,6 +18,7 @@ class DBService with HandleException {
         _path,
         version: DatabaseConstants.version,
         onCreate: (Database db, int version) {
+          // * create a database with these columns
           return db.execute(
             "CREATE TABLE ${DatabaseConstants.planTableName}("
             "id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -26,6 +28,8 @@ class DBService with HandleException {
         },
       );
     } catch (e) {
+      // * handle error with handle exception
+      debugPrint(e.toString());
       handleException(e);
     }
   }
