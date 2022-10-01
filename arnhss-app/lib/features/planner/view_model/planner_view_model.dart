@@ -1,9 +1,9 @@
 import 'package:arnhss/common/widgets/date_picker/date_picker_widget.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/planner/models/planner_model.dart';
+import 'package:arnhss/features/planner/models/plan.dart';
 
-import 'package:arnhss/services/app_exceptions.dart';
-import 'package:arnhss/services/handle_exception.dart';
+import 'package:arnhss/services/base/exception/app_exceptions.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:get/route_manager.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,7 +13,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
 
   late DateTime _selectedDate = DateTime.now();
   bool _loading = false;
-  final List<PlannerModel> _planList = [];
+  final List<Plan> _planList = [];
 
   // * form controllers
   final TextEditingController _titleTextController = TextEditingController();
@@ -32,7 +32,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   TimeOfDay get time => _timeController;
   String get planType => _planType;
   String get subject => _subject;
-  List<PlannerModel> get plans => _planList;
+  List<Plan> get plans => _planList;
   bool get loading => _loading;
 
   DatePickerController get dateController => _timelineController;
@@ -76,7 +76,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     _timelineController.animateToSelection(curve: Curves.easeInOutCubic);
   }
 
-  void setList(PlannerModel plan) {
+  void setList(Plan plan) {
     _planList.add(plan);
     notifyListeners();
   }
@@ -87,7 +87,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     if (status) {
       // TODO:set on plan on database
       setList(
-        PlannerModel(
+        Plan(
           id: uuid.v1(),
           title: _titleTextController.text,
           note: _descriptionTextController.text,
@@ -121,7 +121,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   }
 
 // * get task of the day by using date
-  Future<List<PlannerModel>> getTasksOfTheDay(DateTime date) async {
+  Future<List<Plan>> getTasksOfTheDay(DateTime date) async {
     _loading = true;
 
     // ! simulating time delay by using duration method (must be remove on production code)

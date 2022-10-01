@@ -2,7 +2,7 @@ import 'package:arnhss/features/authentication/login/repo/login_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
-import 'package:arnhss/services/handle_exception.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

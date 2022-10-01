@@ -32,8 +32,8 @@ class FetchDataException extends NetworkException {
       : super(message, 'Unable to process', url);
 }
 
-class ApiNotRespodingException extends NetworkException {
-  ApiNotRespodingException([String? message, String? url])
+class ApiNotRespondingException extends NetworkException {
+  ApiNotRespondingException([String? message, String? url])
       : super(message, 'Api not responding', url);
 }
 

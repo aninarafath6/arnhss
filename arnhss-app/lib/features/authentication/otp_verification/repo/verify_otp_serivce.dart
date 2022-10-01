@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/api_constants.dart';
-import 'package:arnhss/services/base_client.dart';
-import 'package:arnhss/services/handle_exception.dart';
+import 'package:arnhss/services/base/base_client.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 
 class VerifyOtpService with HandleException {
   final BaseClient _baseClient = BaseClient();

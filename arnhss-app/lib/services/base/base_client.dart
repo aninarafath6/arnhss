@@ -2,18 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:arnhss/services/app_exceptions.dart';
+import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:http/http.dart' as http;
 
 class BaseClient {
-  static const int TIME_OUT_DURATION = 30;
+  static const int timeOutDuration = 30;
   //  GET
   Future<dynamic> get(String baseUrl, String api) async {
     final Uri uri = Uri.parse(baseUrl + api);
 
     try {
       var response = await http.get(uri).timeout(
-            const Duration(seconds: TIME_OUT_DURATION),
+            const Duration(seconds: timeOutDuration),
           );
       return _processResponse(response);
     } on SocketException {
@@ -22,7 +22,7 @@ class BaseClient {
         uri.toString(),
       );
     } on TimeoutException {
-      throw ApiNotRespodingException(
+      throw ApiNotRespondingException(
         "API not responded in time ",
         uri.toString(),
       );
@@ -33,10 +33,10 @@ class BaseClient {
 
   //  POST
   Future<dynamic> post(
-      String baseUrl, String api, Map<String, String> paylodObj) async {
+      String baseUrl, String api, Map<String, String> payloadObj) async {
     final Uri uri = Uri.parse(baseUrl + api);
-    final paylod = json.encode(paylodObj);
-    print(paylod);
+    final paylod = json.encode(payloadObj);
+    // print(paylod);
 
     try {
       var response = await http.post(
@@ -46,7 +46,7 @@ class BaseClient {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       ).timeout(
-        const Duration(seconds: TIME_OUT_DURATION),
+        const Duration(seconds: timeOutDuration),
       );
       // print(response.statusCode);
       return _processResponse(response);
@@ -56,7 +56,7 @@ class BaseClient {
         uri.toString(),
       );
     } on TimeoutException {
-      throw ApiNotRespodingException(
+      throw ApiNotRespondingException(
         "API not responded in time ",
         uri.toString(),
       );

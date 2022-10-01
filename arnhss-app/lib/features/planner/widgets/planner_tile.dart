@@ -1,7 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/widgets/custom_chip.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/planner/models/planner_model.dart';
+import 'package:arnhss/features/planner/models/plan.dart';
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:shimmer/shimmer.dart';
@@ -9,7 +9,7 @@ import 'package:shimmer/shimmer.dart';
 class PlannerTile extends StatelessWidget {
   const PlannerTile({Key? key, this.isSkelton = false, required this.plan})
       : super(key: key);
-  final PlannerModel plan;
+  final Plan plan;
   final bool isSkelton;
   @override
   Widget build(BuildContext context) {
