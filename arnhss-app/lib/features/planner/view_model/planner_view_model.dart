@@ -1,6 +1,7 @@
 import 'package:arnhss/common/widgets/date_picker/date_picker_widget.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/planner/models/plan.dart';
+import 'package:arnhss/features/planner/repo/plan_db_service.dart';
 
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
@@ -10,6 +11,7 @@ import 'package:uuid/uuid.dart';
 
 class PlannerViewModel extends ChangeNotifier with HandleException {
   final DatePickerController _timelineController = DatePickerController();
+  final PlanDBService _planDBService = PlanDBService();
   final Uuid uuid = const Uuid();
   final DBService _dbService = DBService();
 
@@ -78,46 +80,55 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     _timelineController.animateToSelection(curve: Curves.easeInOutCubic);
   }
 
-  void setList(Plan plan) {
-    _planList.add(plan);
-    notifyListeners();
-  }
+  // void setList(Plan plan) {
+  //   _planList.add(plan);
+  //   notifyListeners();
+  // }
 
-  void savePlan(BuildContext context) {
+  void savePlan(BuildContext context) async {
+    // * validate the all text field is filled
     bool status = validate();
 
+    // * if status is okay ,then save the plan to local database
     if (status) {
-      _dbService.insert(
-          Plan(
-            id: uuid.v1(),
-            title: _titleTextController.text,
-            note: _descriptionTextController.text,
-            date: _date,
-            remind: _timeController,
-            subject: _subject,
-            type: _planType,
-            isCompleted: false,
-          ),
-          context);
+      int res = await _planDBService.newPlan(
+        Plan(
+          id: uuid.v1(),
+          title: _titleTextController.text,
+          note: _descriptionTextController.text,
+          date: _date,
+          remind: _timeController,
+          subject: _subject,
+          type: _planType,
+          isCompleted: false,
+        ),
+        context,
+      );
+
+      // ?? go back to prev screen after press save button
       Get.back();
 
-      // * clear all the input fields
-      _titleTextController.text = "";
-      _descriptionTextController.text = "";
-      _date = DateTime.now();
-      _timeController = TimeOfDay.now();
-      _subject = "#maths";
-      _planType = "#home-work";
+/**
+ * * if res  is greater than zero then we can understand 
+ * * the plan is added to database successfully
+ */
+      if (res > 0) {
+        // * clear all the input fields
+        _titleTextController.text = "";
+        _descriptionTextController.text = "";
+        _date = DateTime.now();
+        _timeController = TimeOfDay.now();
+        _subject = "#maths";
+        _planType = "#home-work";
 
-      // ?? show the bottom snackbar
-      customSnackBar(
-        title: "Done😉",
-        content: "new plan added to you timeline🎉",
-        white: false,
-        pos: SnackPosition.BOTTOM,
-      );
-    } else {
-      debugPrint("validation false");
+        // ?? show the bottom snackbar
+        customSnackBar(
+          title: "Done😉",
+          content: "new plan added to you timeline🎉",
+          white: false,
+          pos: SnackPosition.BOTTOM,
+        );
+      }
     }
   }
 
@@ -157,6 +168,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
+//* initial data selected in for
   void initialDateSelectedInFor() {
     _date = _selectedDate;
     notifyListeners();

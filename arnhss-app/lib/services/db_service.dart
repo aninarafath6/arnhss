@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/database_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/features/planner/models/plan.dart';
+
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -40,13 +40,16 @@ class DBService {
     }
   }
 
-  Future<int> insert(Plan? plan, BuildContext context) async {
+// * insert data to local sqlite database
+  Future<int> insert(dynamic paylod, BuildContext context) async {
     debugPrint("insert new plan");
     // var res =
     //     await _db?.insert(DatabaseConstants.planTableName, plan!.toMap()) ?? 1;
-    debugPrint(await _db
-        ?.insert(DatabaseConstants.planTableName, plan!.toMap(context))
-        .toString());
-    return 1;
+    return await _db?.insert(
+            DatabaseConstants.planTableName, plan!.toMap(context)) ??
+        1;
   }
+
+  // * get all data
+  // Future<List<Plan>> getAll() {}
 }
