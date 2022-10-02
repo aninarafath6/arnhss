@@ -12,35 +12,41 @@ class DBService {
     if (_db != null) {
       debugPrint("db is already created");
       return;
-    }
-
-    try {
-      String _path = await getDatabasesPath() + "plan.db";
-      _db = await openDatabase(
-        _path,
-        version: DatabaseConstants.version,
-        onCreate: (Database db, int version) {
-          debugPrint("creating a db");
-
-          // * create a database with these columns
-          return db.execute(
-            "CREATE TABLE ${DatabaseConstants.planTableName}("
-            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-            "title STRING, note TEXT, date  STRING,"
-            "remind  STRING,subject STRING,isCompleted INTEGER)",
-          );
-        },
-      );
-    } catch (e) {
-      // * handle error with handle exception
-      debugPrint(e.toString());
-      HandleException().handleException(e);
+    } else {
+      try {
+        String _path =
+            await getDatabasesPath() + "${DatabaseConstants.planTableName}.db";
+        // * open database with given columns
+        _db = await openDatabase(
+          _path,
+          version: DatabaseConstants.version,
+          onCreate: (Database db, int version) {
+            debugPrint("creating a db");
+            // * create a database with these columns
+            return db.execute(
+              "CREATE TABLE ${DatabaseConstants.planTableName}("
+              "id STRING,"
+              "title STRING, note STRING, date  STRING,type STRING,"
+              "remind  STRING,subject STRING,isComplete STRING)",
+            );
+          },
+        );
+        // debugPrint(_db.toString());
+      } catch (e) {
+        // * handle error with handle exception
+        debugPrint(e.toString());
+        HandleException().handleException(e);
+      }
     }
   }
 
-  Future<int> insert(Plan? plan) async {
+  Future<int> insert(Plan? plan, BuildContext context) async {
     debugPrint("insert new plan");
-    return await _db?.insert(DatabaseConstants.planTableName, plan!.toMap()) ??
-        1;
+    // var res =
+    //     await _db?.insert(DatabaseConstants.planTableName, plan!.toMap()) ?? 1;
+    debugPrint(await _db
+        ?.insert(DatabaseConstants.planTableName, plan!.toMap(context))
+        .toString());
+    return 1;
   }
 }

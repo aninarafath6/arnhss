@@ -158,7 +158,7 @@ void showAddPlanForm(BuildContext context) {
                 // const SizedBox(height: 15),
                 CustomButton(
                   label: "Save",
-                  onTap: _provider.savePlan,
+                  onTap: () => _provider.savePlan(context),
                 ),
                 const SizedBox(height: 20),
               ],

@@ -4,12 +4,14 @@ import 'package:arnhss/features/planner/models/plan.dart';
 
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:arnhss/services/db_service.dart';
 import 'package:get/route_manager.dart';
 import 'package:uuid/uuid.dart';
 
 class PlannerViewModel extends ChangeNotifier with HandleException {
   final DatePickerController _timelineController = DatePickerController();
   final Uuid uuid = const Uuid();
+  final DBService _dbService = DBService();
 
   late DateTime _selectedDate = DateTime.now();
   bool _loading = false;
@@ -81,23 +83,22 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
-  void savePlan() {
+  void savePlan(BuildContext context) {
     bool status = validate();
 
     if (status) {
-      // TODO:set on plan on database
-      setList(
-        Plan(
-          id: uuid.v1(),
-          title: _titleTextController.text,
-          note: _descriptionTextController.text,
-          date: _date,
-          remind: _timeController,
-          subject: _subject,
-          type: _planType,
-          isCompleted: false,
-        ),
-      );
+      _dbService.insert(
+          Plan(
+            id: uuid.v1(),
+            title: _titleTextController.text,
+            note: _descriptionTextController.text,
+            date: _date,
+            remind: _timeController,
+            subject: _subject,
+            type: _planType,
+            isCompleted: false,
+          ),
+          context);
       Get.back();
 
       // * clear all the input fields

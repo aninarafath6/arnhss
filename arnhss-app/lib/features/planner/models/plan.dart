@@ -24,7 +24,7 @@ class Plan {
   });
 
   factory Plan.fromJson(String str) => Plan.fromMap(jsonDecode(str));
-  String toJson() => jsonEncode(toMap());
+  // String toJson() => jsonEncode(toMap());
 
   factory Plan.fromMap(Map<String, dynamic> json) {
     return Plan(
@@ -39,14 +39,16 @@ class Plan {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "title": title,
-        "remind": remind,
-        "date": date,
-        "note": note,
-        "type": type,
-        "subject": subject,
-        "isComplete": isCompleted,
-      };
+  Map<String, String> toMap(BuildContext context) {
+    return {
+      "id": id.toString(),
+      "title": title.toString(),
+      "remind": remind!.format(context).toString(),
+      "date": date.toString(),
+      "note": note.toString(),
+      "type": type.toString(),
+      "subject": subject.toString(),
+      "isComplete": isCompleted.toString(),
+    };
+  }
 }
