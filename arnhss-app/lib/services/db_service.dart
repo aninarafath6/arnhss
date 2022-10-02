@@ -1,10 +1,10 @@
 import 'package:arnhss/common/constants/database_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
-
+import 'package:arnhss/features/planner/models/plan.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DBService {
+class DBService with HandleException {
   static Database? _db;
 
   static Future<void> initDB() async {
@@ -43,13 +43,30 @@ class DBService {
 // * insert data to local sqlite database
   Future<int> insert(dynamic paylod, BuildContext context) async {
     debugPrint("insert new plan");
-    // var res =
-    //     await _db?.insert(DatabaseConstants.planTableName, plan!.toMap()) ?? 1;
+
     return await _db?.insert(
-            DatabaseConstants.planTableName, plan!.toMap(context)) ??
+            DatabaseConstants.planTableName, paylod!.toRawMap(context)) ??
         1;
   }
 
   // * get all data
-  // Future<List<Plan>> getAll() {}
+  Future<List<Plan>> getAll() async {
+    late final List<Plan>? result;
+    try {
+      result = await _db
+          ?.rawQuery("SELECT * FROM ${DatabaseConstants.planTableName}")
+          .then(
+        (value) {
+          return value.map((e) {
+            return Plan.fromRawJson(e);
+          }).toList();
+        },
+      );
+    } catch (e) {
+      handleException(e);
+    }
+
+    // debugPrint(result.toString());
+    return result!;
+  }
 }

@@ -1,54 +1,65 @@
 import 'dart:convert';
 
-import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/utils/bool_parse.dart';
 
 class Plan {
+  Plan({
+    this.id,
+    this.title,
+    this.note,
+    this.date,
+    this.type,
+    this.remind,
+    this.subject,
+    this.isComplete,
+  });
+
   final String? id;
   final String? title;
   final String? note;
-  final TimeOfDay? remind;
   final DateTime? date;
-  final String? subject;
   final String? type;
-  final bool? isCompleted;
+  final TimeOfDay? remind;
+  final String? subject;
+  final bool? isComplete;
 
-  Plan({
-    this.title,
-    this.id,
-    this.remind,
-    this.date,
-    this.note,
-    this.subject,
-    this.type,
-    this.isCompleted,
-  });
+  factory Plan.fromRawJson(Map<String, dynamic> map) => Plan.fromJson((map));
 
-  factory Plan.fromJson(String str) => Plan.fromMap(jsonDecode(str));
-  // String toJson() => jsonEncode(toMap());
+  Map<String, dynamic> toRawMap(context) => toJson((context));
 
-  factory Plan.fromMap(Map<String, dynamic> json) {
+  factory Plan.fromJson(Map<String, dynamic> json) {
+    DateTime date = DateTime.parse(json["date"]);
+    var time = json["remind"].toString().split(":");
+
     return Plan(
       id: json["id"],
       title: json["title"],
-      remind: json["remind"],
-      date: json["date"],
       note: json["note"],
+      date: date,
       type: json["type"],
+      remind: TimeOfDay.fromDateTime(
+        DateTime.utc(
+          date.year,
+          date.month,
+          date.day,
+          int.parse(time[0]),
+          int.parse(time[1].split(" ")[0]),
+        ),
+      ),
       subject: json["subject"],
-      isCompleted: json["isCompleted"],
+      isComplete: json["isComplete"].toString().parseBool(),
     );
   }
 
-  Map<String, String> toMap(BuildContext context) {
-    return {
-      "id": id.toString(),
-      "title": title.toString(),
-      "remind": remind!.format(context).toString(),
-      "date": date.toString(),
-      "note": note.toString(),
-      "type": type.toString(),
-      "subject": subject.toString(),
-      "isComplete": isCompleted.toString(),
-    };
-  }
+  Map<String, dynamic> toJson(context) => {
+        "id": id,
+        "title": title,
+        "note": note,
+        "date": date!.toIso8601String(),
+        "type": type,
+        "remind": remind?.format(context),
+        "subject": subject,
+        "isComplete": isComplete.toString()
+      };
 }

@@ -5,7 +5,6 @@ import 'package:arnhss/features/planner/repo/plan_db_service.dart';
 
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
-import 'package:arnhss/services/db_service.dart';
 import 'package:get/route_manager.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,7 +12,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   final DatePickerController _timelineController = DatePickerController();
   final PlanDBService _planDBService = PlanDBService();
   final Uuid uuid = const Uuid();
-  final DBService _dbService = DBService();
+  final PlanDBService _dbService = PlanDBService();
 
   late DateTime _selectedDate = DateTime.now();
   bool _loading = false;
@@ -100,7 +99,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
           remind: _timeController,
           subject: _subject,
           type: _planType,
-          isCompleted: false,
+          isComplete: false,
         ),
         context,
       );
@@ -108,9 +107,9 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
       // ?? go back to prev screen after press save button
       Get.back();
 
-/**
- * * if res  is greater than zero then we can understand 
- * * the plan is added to database successfully
+/*
+  * if res  is greater than zero then we can understand 
+  * the plan is added to database successfully
  */
       if (res > 0) {
         // * clear all the input fields
@@ -137,14 +136,15 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     _loading = true;
 
     // ! simulating time delay by using duration method (must be remove on production code)
-    await Future.delayed(const Duration(milliseconds: 500));
-    return _planList
-        .where(
-          (e) =>
-              DateTime.utc(e.date!.year, e.date!.month, e.date!.day) ==
-              DateTime.utc(date.year, date.month, date.day),
-        )
-        .toList();
+    var plans = await _dbService.getAllPlans();
+    return plans;
+    // return _planList
+    //     .where(
+    //       (e) =>
+    //           DateTime.utc(e.date!.year, e.date!.month, e.date!.day) ==
+    //           DateTime.utc(date.year, date.month, date.day),
+    //     )
+    //     .toList();
   }
 
 // * delete plan from local database
