@@ -1,4 +1,5 @@
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/features/notifications/view/notification_view.dart';
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -32,6 +33,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const AttendanceView());
       case PlannerView.routeName:
         return MaterialPageRoute(builder: (_) => const PlannerView());
+      case NotificationView.routeName:
+        return MaterialPageRoute(builder: (_) => const NotificationView());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

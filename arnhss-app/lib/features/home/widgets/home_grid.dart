@@ -1,6 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/attendance/view/attendance_view.dart';
 import 'package:arnhss/features/home/widgets/tile.dart';
+import 'package:arnhss/features/notifications/view/notification_view.dart';
 import 'package:arnhss/features/planner/view/planner_view.dart';
 import 'package:arnhss/features/planner/widgets/add_plan_bottom_form.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class HomeGrid extends StatelessWidget {
               ),
             ),
           ),
-          const StaggeredGridTile.count(
+          StaggeredGridTile.count(
             crossAxisCellCount: 2,
             mainAxisCellCount: 2,
             child: Tile(
@@ -75,6 +76,8 @@ class HomeGrid extends StatelessWidget {
               image: "assets/images/icons/oc-plane-removebg-preview.png",
               count: 2,
               label: "Notifications",
+              onTap: () =>
+                  Navigator.pushNamed(context, NotificationView.routeName),
             ),
           ),
           const StaggeredGridTile.count(
