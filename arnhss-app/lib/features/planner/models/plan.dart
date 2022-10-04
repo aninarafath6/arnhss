@@ -38,15 +38,8 @@ class Plan {
       note: json["note"],
       date: date,
       type: json["type"],
-      remind: TimeOfDay.fromDateTime(
-        DateTime.utc(
-          date.year,
-          date.month,
-          date.day,
-          int.parse(time[0]),
-          int.parse(time[1].split(" ")[0]),
-        ),
-      ),
+      remind: TimeOfDay(
+          hour: int.parse(time[0]), minute: int.parse(time[1].split(" ")[0])),
       subject: json["subject"],
       isComplete: json["isComplete"].toString().parseBool(),
     );
@@ -56,7 +49,7 @@ class Plan {
         "id": id,
         "title": title,
         "note": note,
-        "date": date!.toIso8601String(),
+        "date": DateTime.utc(date!.year, date!.month, date!.day).toString(),
         "type": type,
         "remind": remind?.format(context),
         "subject": subject,

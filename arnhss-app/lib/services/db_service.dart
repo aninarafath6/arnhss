@@ -58,6 +58,7 @@ class DBService with HandleException {
           .then(
         (value) {
           return value.map((e) {
+            // print(e);
             return Plan.fromRawJson(e);
           }).toList();
         },
@@ -66,7 +67,27 @@ class DBService with HandleException {
       handleException(e);
     }
 
-    // debugPrint(result.toString());
+    return result!;
+  }
+
+  Future<List<Plan>> getTaskOfTheDay(String date) async {
+    print(date);
+    late final List<Plan>? result;
+
+    try {
+      result = await _db?.query(DatabaseConstants.planTableName,
+          where: "date=?", whereArgs: [date]).then(
+        (value) {
+          return value.map((e) {
+            // print(e);
+            return Plan.fromRawJson(e);
+          }).toList();
+        },
+      );
+    } catch (e) {
+      handleException(e);
+    }
+
     return result!;
   }
 }

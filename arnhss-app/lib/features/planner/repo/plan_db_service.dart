@@ -12,9 +12,8 @@ class PlanDBService {
   }
 
 // * get all plans
-  Future<List<Plan>> getAllPlans() async {
-    // print(_db.getAll().toString());
-    (_db.getAll().then((value) => print(value)));
-    return await _db.getAll();
+  Future<List<Plan>> getTaskOfTheDay(DateTime date) async {
+    return await _db.getTaskOfTheDay(date.toString());
+    // return await _db.getAll();
   }
 }

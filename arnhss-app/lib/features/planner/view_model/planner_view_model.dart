@@ -15,7 +15,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   final PlanDBService _dbService = PlanDBService();
 
   late DateTime _selectedDate = DateTime.now();
-  bool _loading = false;
+
   final List<Plan> _planList = [];
 
   // * form controllers
@@ -36,7 +36,6 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   String get planType => _planType;
   String get subject => _subject;
   List<Plan> get plans => _planList;
-  bool get loading => _loading;
 
   DatePickerController get dateController => _timelineController;
   DateTime get selectedDate => _selectedDate;
@@ -133,10 +132,8 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
 
 // * get task of the day by using date
   Future<List<Plan>> getTasksOfTheDay(DateTime date) async {
-    _loading = true;
-
-    // ! simulating time delay by using duration method (must be remove on production code)
-    var plans = await _dbService.getAllPlans();
+    var plans = await _dbService
+        .getTaskOfTheDay(DateTime.utc(date.year, date.month, date.day));
     return plans;
     // return _planList
     //     .where(
