@@ -71,7 +71,6 @@ class DBService with HandleException {
   }
 
   Future<List<Plan>> getTaskOfTheDay(String date) async {
-    print(date);
     late final List<Plan>? result;
 
     try {
@@ -89,5 +88,13 @@ class DBService with HandleException {
     }
 
     return result!;
+  }
+
+  Future<void> removeAll() async {
+    try {
+      await _db?.rawDelete("DELETE  FROM ${DatabaseConstants.planTableName}");
+    } catch (e) {
+      handleException(e);
+    }
   }
 }

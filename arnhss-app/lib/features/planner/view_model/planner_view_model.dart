@@ -55,6 +55,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
 
   set setSelectedDate(DateTime date) {
     _selectedDate = date;
+    getTasksOfTheDay(date);
     notifyListeners();
   }
 
@@ -78,28 +79,24 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     _timelineController.animateToSelection(curve: Curves.easeInOutCubic);
   }
 
-  // void setList(Plan plan) {
-  //   _planList.add(plan);
-  //   notifyListeners();
-  // }
-
   void savePlan(BuildContext context) async {
     // * validate the all text field is filled
     bool status = validate();
+    Plan newPlan = Plan(
+      id: uuid.v1(),
+      title: _titleTextController.text,
+      note: _descriptionTextController.text,
+      date: _date,
+      remind: _timeController,
+      subject: _subject,
+      type: _planType,
+      isComplete: false,
+    );
 
     // * if status is okay ,then save the plan to local database
     if (status) {
       int res = await _planDBService.newPlan(
-        Plan(
-          id: uuid.v1(),
-          title: _titleTextController.text,
-          note: _descriptionTextController.text,
-          date: _date,
-          remind: _timeController,
-          subject: _subject,
-          type: _planType,
-          isComplete: false,
-        ),
+        newPlan,
         context,
       );
 
@@ -111,6 +108,8 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   * the plan is added to database successfully
  */
       if (res > 0) {
+        _planList.add(newPlan);
+        notifyListeners();
         // * clear all the input fields
         _titleTextController.text = "";
         _descriptionTextController.text = "";
@@ -131,17 +130,12 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   }
 
 // * get task of the day by using date
-  Future<List<Plan>> getTasksOfTheDay(DateTime date) async {
+  Future<void> getTasksOfTheDay(DateTime date) async {
     var plans = await _dbService
         .getTaskOfTheDay(DateTime.utc(date.year, date.month, date.day));
-    return plans;
-    // return _planList
-    //     .where(
-    //       (e) =>
-    //           DateTime.utc(e.date!.year, e.date!.month, e.date!.day) ==
-    //           DateTime.utc(date.year, date.month, date.day),
-    //     )
-    //     .toList();
+    _planList.clear();
+    _planList.addAll(plans);
+    notifyListeners();
   }
 
 // * delete plan from local database
@@ -166,7 +160,8 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   }
 
 //* initial data selected in for
-  void initialDateSelectedInFor() {
+  void initialDateSelectedInFor() async {
+    _dbService.removeAll();
     _date = _selectedDate;
     notifyListeners();
   }

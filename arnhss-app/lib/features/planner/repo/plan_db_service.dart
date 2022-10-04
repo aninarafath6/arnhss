@@ -16,4 +16,9 @@ class PlanDBService {
     return await _db.getTaskOfTheDay(date.toString());
     // return await _db.getAll();
   }
+
+// * remove all plans
+  Future<void> removeAll() async {
+    _db.removeAll();
+  }
 }
