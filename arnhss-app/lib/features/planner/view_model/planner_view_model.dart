@@ -16,14 +16,15 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
 
   late DateTime _selectedDate = DateTime.now();
   final List<Plan> _planList = [];
+  static final TimeOfDay initialRemind =
+      TimeOfDay.fromDateTime(DateTime.now().add(const Duration(hours: 3)));
 
   // * form controllers
   final TextEditingController _titleTextController = TextEditingController();
   final TextEditingController _descriptionTextController =
       TextEditingController();
   DateTime _date = DateTime.now();
-  TimeOfDay _timeController =
-      TimeOfDay.fromDateTime(DateTime.now().add(const Duration(hours: 3)));
+  TimeOfDay _timeController = initialRemind;
   String _planType = "#home-work";
   String _subject = "#maths";
 
@@ -125,7 +126,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
         _titleTextController.text = "";
         _descriptionTextController.text = "";
         _date = DateTime.now();
-        _timeController = TimeOfDay.now();
+        _timeController = initialRemind;
         _subject = "#maths";
         _planType = "#home-work";
 
