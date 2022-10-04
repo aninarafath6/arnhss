@@ -6,5 +6,10 @@ class NotificationModel {
   final String? subTitle;
   final bool? isReade;
 
-  NotificationModel({this.icon, this.title, this.subTitle, this.isReade});
+  NotificationModel({
+    this.icon,
+    this.title,
+    this.subTitle,
+    this.isReade,
+  });
 }

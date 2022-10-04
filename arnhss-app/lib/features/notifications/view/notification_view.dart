@@ -1,5 +1,6 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/notifications/view_model/notification_view_model.dart';
 import 'package:arnhss/features/notifications/widgets/notification_app_bar.dart';
 import 'package:arnhss/features/notifications/widgets/notification_tile.dart';
 
@@ -13,14 +14,15 @@ class NotificationView extends StatelessWidget {
       appBar: notificationsAppBar(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: AppSizes.default_padding - 15),
-        child: ListView(
-          children: const [
-            NotificationTile(),
-            NotificationTile(),
-            NotificationTile(),
-            NotificationTile(),
-          ],
+            horizontal: AppSizes.default_padding - 15, vertical: 10),
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return NotificationTile(
+              notification:
+                  context.read<NotificationViewModel>().notifications[index],
+            );
+          },
+          itemCount: context.read<NotificationViewModel>().notifications.length,
         ),
       ),
     );
