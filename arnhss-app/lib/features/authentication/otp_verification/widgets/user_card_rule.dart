@@ -16,7 +16,7 @@ class UserRuleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(
-        vertical: AppSizes.defualt_padding - 15,
+        vertical: AppSizes.default_padding - 15,
       ),
       height: context.getHeight(7),
       width: double.infinity,

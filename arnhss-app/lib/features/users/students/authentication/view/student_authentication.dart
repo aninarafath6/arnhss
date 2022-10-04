@@ -12,7 +12,7 @@ class StudentAuthentication extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(context, title: "Student"),
       body: Padding(
-        padding: const EdgeInsets.all(AppSizes.defualt_padding),
+        padding: const EdgeInsets.all(AppSizes.default_padding),
         child: Column(
           children: [
             const Spacer(),

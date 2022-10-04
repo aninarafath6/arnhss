@@ -13,7 +13,7 @@ class UserCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(AppSizes.defualt_padding + 2),
+      padding: const EdgeInsets.all(AppSizes.default_padding + 2),
       height: context.getHeight(40),
       decoration: const BoxDecoration(
         color: Colors.white,
