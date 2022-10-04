@@ -53,14 +53,17 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
+// ? setter of selectedState
   set setSelectedDate(DateTime date) {
     _selectedDate = date;
+    // * when change selected date then call getTaskOfTheDay which will give the selected day's plans
     getTasksOfTheDay(date);
     notifyListeners();
   }
 
 // * validate the all inputs
   bool validate() {
+    // * if anything throw error then it cath and handle exception with handleException function.
     try {
       if (_titleTextController.text.isEmpty ||
           _descriptionTextController.text.isEmpty) {
@@ -82,6 +85,8 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   void savePlan(BuildContext context) async {
     // * validate the all text field is filled
     bool status = validate();
+
+    // * new plan with given values
     Plan newPlan = Plan(
       id: uuid.v1(),
       title: _titleTextController.text,
@@ -108,6 +113,10 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   * the plan is added to database successfully
  */
       if (res > 0) {
+        /* 
+        * if selected date is new Plan's date then add this plan to plan list
+        * other wise continue
+      */
         if (_selectedDate == _date) {
           _planList.add(newPlan);
           notifyListeners();
@@ -135,8 +144,11 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   Future<void> getTasksOfTheDay(DateTime date) async {
     var plans = await _dbService
         .getTaskOfTheDay(DateTime.utc(date.year, date.month, date.day));
+
+    // * clear plan list and add task which got from getTAsk of the day function from local database
     _planList.clear();
     _planList.addAll(plans);
+    // ?? notify all the listeners
     notifyListeners();
   }
 
