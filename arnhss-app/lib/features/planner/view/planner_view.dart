@@ -18,6 +18,7 @@ class PlannerView extends StatefulWidget {
 class _PlannerViewState extends State<PlannerView> {
   @override
   void initState() {
+    // * get task of the day when widget's first build
     context
         .read<PlannerViewModel>()
         .getTasksOfTheDay(context.read<PlannerViewModel>().selectedDate);

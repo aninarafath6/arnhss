@@ -31,7 +31,6 @@ class DBService with HandleException {
             );
           },
         );
-        // debugPrint(_db.toString());
       } catch (e) {
         // * handle error with handle exception
         debugPrint(e.toString());
@@ -41,11 +40,11 @@ class DBService with HandleException {
   }
 
 // * insert data to local sqlite database
-  Future<int> insert(dynamic paylod, BuildContext context) async {
+  Future<int> insert(dynamic payload, BuildContext context) async {
     debugPrint("insert new plan");
-
+    // * add a plan and return row Index
     return await _db?.insert(
-            DatabaseConstants.planTableName, paylod!.toRawMap(context)) ??
+            DatabaseConstants.planTableName, payload!.toRawMap(context)) ??
         1;
   }
 
@@ -53,16 +52,12 @@ class DBService with HandleException {
   Future<List<Plan>> getAll() async {
     late final List<Plan>? result;
     try {
+      // * get all plans from sqlite database
       result = await _db
           ?.rawQuery("SELECT * FROM ${DatabaseConstants.planTableName}")
           .then(
-        (value) {
-          return value.map((e) {
-            // print(e);
-            return Plan.fromRawJson(e);
-          }).toList();
-        },
-      );
+            (value) => Plan.listFromJson(value),
+          );
     } catch (e) {
       handleException(e);
     }
@@ -70,20 +65,18 @@ class DBService with HandleException {
     return result!;
   }
 
+// * get task of the day
   Future<List<Plan>> getTaskOfTheDay(String date) async {
     late final List<Plan>? result;
 
     try {
+      // * fetching plans from db by using date
       result = await _db?.query(DatabaseConstants.planTableName,
           where: "date=?", whereArgs: [date]).then(
-        (value) {
-          return value.map((e) {
-            // print(e);
-            return Plan.fromRawJson(e);
-          }).toList();
-        },
+        (value) => Plan.listFromJson(value),
       );
     } catch (e) {
+      // ? if there is any exception if will handle handle exception
       handleException(e);
     }
 

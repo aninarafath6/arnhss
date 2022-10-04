@@ -23,8 +23,12 @@ class Plan {
   final bool? isComplete;
 
   factory Plan.fromRawJson(Map<String, dynamic> map) => Plan.fromJson((map));
-
   Map<String, dynamic> toRawMap(context) => toJson((context));
+  static List<Plan> listFromJson(List<Map<String, Object?>> data) {
+    return data.map((e) {
+      return Plan.fromRawJson(e);
+    }).toList();
+  }
 
   factory Plan.fromJson(Map<String, dynamic> json) {
     DateTime date = DateTime.parse(json["date"]);
