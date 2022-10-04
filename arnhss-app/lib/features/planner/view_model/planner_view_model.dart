@@ -15,7 +15,6 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   final PlanDBService _dbService = PlanDBService();
 
   late DateTime _selectedDate = DateTime.now();
-
   final List<Plan> _planList = [];
 
   // * form controllers
@@ -36,6 +35,7 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   String get planType => _planType;
   String get subject => _subject;
   List<Plan> get plans => _planList;
+  int get planCount => _planList.length;
 
   DatePickerController get dateController => _timelineController;
   DateTime get selectedDate => _selectedDate;
@@ -108,8 +108,10 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   * the plan is added to database successfully
  */
       if (res > 0) {
-        _planList.add(newPlan);
-        notifyListeners();
+        if (_selectedDate == _date) {
+          _planList.add(newPlan);
+          notifyListeners();
+        }
         // * clear all the input fields
         _titleTextController.text = "";
         _descriptionTextController.text = "";
@@ -161,7 +163,6 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
 
 //* initial data selected in for
   void initialDateSelectedInFor() async {
-    _dbService.removeAll();
     _date = _selectedDate;
     notifyListeners();
   }

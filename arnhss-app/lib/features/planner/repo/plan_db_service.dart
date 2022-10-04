@@ -14,7 +14,6 @@ class PlanDBService {
 // * get all plans
   Future<List<Plan>> getTaskOfTheDay(DateTime date) async {
     return await _db.getTaskOfTheDay(date.toString());
-    // return await _db.getAll();
   }
 
 // * remove all plans
