@@ -17,12 +17,19 @@ class NotificationView extends StatelessWidget {
             horizontal: AppSizes.default_padding - 15, vertical: 10),
         child: ListView.builder(
           itemBuilder: (context, index) {
+            var _notification =
+                context.watch<NotificationViewModel>().notifications[index];
             return NotificationTile(
-              notification:
-                  context.read<NotificationViewModel>().notifications[index],
+              notification: _notification,
+              onDismiss: (_) {
+                return context
+                    .read<NotificationViewModel>()
+                    .dismissNotification(_notification.id!);
+              },
             );
           },
-          itemCount: context.read<NotificationViewModel>().notifications.length,
+          itemCount:
+              context.watch<NotificationViewModel>().notifications.length,
         ),
       ),
     );

@@ -7,13 +7,16 @@ class NotificationTile extends StatelessWidget {
   const NotificationTile({
     Key? key,
     this.notification,
+    this.onDismiss,
   }) : super(key: key);
   final NotificationModel? notification;
+  final Function(DismissDirection)? onDismiss;
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: const ValueKey(1),
+      key: Key(notification?.id! ?? ""),
+      onDismissed: onDismiss!,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15.0),
         child: ListTile(
