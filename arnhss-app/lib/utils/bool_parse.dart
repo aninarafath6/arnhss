@@ -3,3 +3,4 @@ extension BoolParsing on String {
     return toLowerCase() == 'true';
   }
 }
+
