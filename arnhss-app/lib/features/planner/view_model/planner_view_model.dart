@@ -155,23 +155,8 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
 
 // * delete plan from local database
   void deletePlan(String id) {
-    _planList.removeWhere((element) {
-      if (element.id == id) {
-        customSnackBar(
-          title: "Deleted🪚",
-          content: element.title! + "is deleted",
-          pos: SnackPosition.BOTTOM,
-        );
-        return true;
-      } else {
-        customSnackBar(
-          pos: SnackPosition.BOTTOM,
-        );
-
-        return false;
-      }
-    });
-    notifyListeners();
+    _dbService.removePlan(id);
+    getTasksOfTheDay(_selectedDate);
   }
 
 //* initial data selected in for

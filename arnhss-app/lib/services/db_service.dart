@@ -83,6 +83,15 @@ class DBService with HandleException {
     return result!;
   }
 
+  Future<void> removePlan(String id) async {
+    try {
+      await _db?.delete(DatabaseConstants.planTableName,
+          where: "id=?", whereArgs: [id]);
+    } catch (e) {
+      handleException(e);
+    }
+  }
+
   Future<void> removeAll() async {
     try {
       await _db?.rawDelete("DELETE  FROM ${DatabaseConstants.planTableName}");

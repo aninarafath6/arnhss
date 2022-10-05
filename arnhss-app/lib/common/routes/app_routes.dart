@@ -1,4 +1,5 @@
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/features/notes/view/notes_view.dart';
 import 'package:arnhss/features/notifications/view/notification_view.dart';
 
 class AppRoutes {
@@ -35,6 +36,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const PlannerView());
       case NotificationView.routeName:
         return MaterialPageRoute(builder: (_) => const NotificationView());
+      case NotesView.routeName:
+        return MaterialPageRoute(builder: (_) => const NotesView());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }
