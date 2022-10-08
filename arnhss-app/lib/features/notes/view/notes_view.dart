@@ -3,12 +3,10 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/widgets/tile.dart';
-import 'package:arnhss/features/notifications/view/notification_view.dart';
-import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
-import 'package:arnhss/features/planner/widgets/add_plan_bottom_form.dart';
+import 'package:arnhss/features/notes/view_model/notes_view_model.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:remixicon/remixicon.dart';
+import 'dart:math' as math;
 
 class NotesView extends StatelessWidget {
   const NotesView({Key? key}) : super(key: key);
@@ -16,6 +14,7 @@ class NotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _readProvider = context.read<NotesViewModel>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -31,69 +30,32 @@ class NotesView extends StatelessWidget {
           style: TextStyle(color: CustomColors.dark),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(AppSizes.default_padding),
-        child: StaggeredGrid.count(
-          crossAxisCount: 6,
-          mainAxisSpacing: 15,
-          crossAxisSpacing: 15,
-          children: const [
-            StaggeredGridTile.count(
-              crossAxisCellCount: 3,
-              mainAxisCellCount: 3,
-              child: Tile(
-                index: 0,
-                image: "assets/images/pngs/notes/data-science.png",
-                label: "Computer Science",
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: AppSizes.default_padding,
+            right: AppSizes.default_padding,
+            top: AppSizes.default_padding,
+            bottom: 30,
+          ),
+          child: StaggeredGrid.count(
+            crossAxisCount: 6,
+            mainAxisSpacing: 15,
+            crossAxisSpacing: 15,
+            children: List.generate(
+              _readProvider.selectedDepartment.subjects!.length,
+              (index) => StaggeredGridTile.count(
+                crossAxisCellCount: 3,
+                mainAxisCellCount: 3,
+                child: Tile(
+                  index: 0,
+                  image: _readProvider
+                      .selectedDepartment.subjects![index].imageURL,
+                  label: _readProvider.selectedDepartment.subjects![index].name,
+                ),
               ),
             ),
-            StaggeredGridTile.count(
-              crossAxisCellCount: 3,
-              mainAxisCellCount: 3,
-              child: Tile(
-                index: 0,
-                image: "assets/images/pngs/notes/math.png",
-                label: "Maths",
-              ),
-            ),
-            StaggeredGridTile.count(
-              crossAxisCellCount: 3,
-              mainAxisCellCount: 3,
-              child: Tile(
-                index: 0,
-                image: "assets/images/pngs/notes/physics.png",
-                label: "Physics",
-              ),
-            ),
-            StaggeredGridTile.count(
-              crossAxisCellCount: 3,
-              mainAxisCellCount: 3,
-              child: Tile(
-                index: 0,
-                image: "assets/images/pngs/notes/chemistry.png",
-                label: "Chemistry",
-              ),
-            ),
-            StaggeredGridTile.count(
-              crossAxisCellCount: 3,
-              mainAxisCellCount: 3,
-              child: Tile(
-                index: 2,
-                image: "assets/images/pngs/notes/understanding.png",
-                label: "English",
-                count: 3,
-              ),
-            ),
-            StaggeredGridTile.count(
-              crossAxisCellCount: 3,
-              mainAxisCellCount: 3,
-              child: Tile(
-                index: 0,
-                image: "assets/images/pngs/notes/language.png",
-                label: "Language",
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
