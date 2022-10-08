@@ -122,9 +122,17 @@ class NotesViewModel with ChangeNotifier {
   };
 
   late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
+  bool _isSearching = false;
 
   // * getters
   DepartmentModel get selectedDepartment => _selectedDepartment;
+  bool get isSearching => _isSearching;
+
+  void toggleSearching() {
+    _isSearching = !_isSearching;
+    notifyListeners();
+    print("hereadfaf");
+  }
 }
 
 enum Department {

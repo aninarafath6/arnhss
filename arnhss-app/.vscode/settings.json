@@ -5,7 +5,8 @@
         "arnhss",
         "Constatns",
         "remixicon",
-        "sqflite"
+        "sqflite",
+        "unfocus"
     ],
     "cmake.sourceDirectory": "${workspaceFolder}/linux"
 }

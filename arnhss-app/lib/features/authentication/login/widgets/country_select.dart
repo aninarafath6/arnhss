@@ -1,6 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/common/widgets/search_app_bar.dart';
 import 'package:arnhss/features/authentication/login/models/country_dropdown_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:flutter/material.dart';
@@ -14,49 +15,26 @@ class CountrySelect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: CustomColors.dark,
-        toolbarHeight: 80,
-        leading: IconButton(
-          splashRadius: 26,
-          icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () {
-            if (context.read<CountryViewModel>().isSearching) {
-              focusNode.unfocus();
-              context.read<CountryViewModel>().toggleSearching();
-            } else {
-              Navigator.pop(context);
-            }
-          },
-        ),
-        title: context.watch<CountryViewModel>().isSearching
-            ? TextField(
-                focusNode: focusNode,
-                onChanged: context.read<CountryViewModel>().searchCountry,
-                cursorColor: Colors.white,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                    hintText: "Search you country code...",
-                    hintStyle: TextStyle(color: CustomColors.light)),
-              )
-            : const Text("Choose your country"),
-        centerTitle: false,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              onPressed: () {
-                context.read<CountryViewModel>().toggleSearching();
+      appBar: searchAppBar(
+        context,
+        type: Brightness.dark,
+        onTap: () {
+          if (context.read<CountryViewModel>().isSearching) {
+            focusNode.unfocus();
+            context.read<CountryViewModel>().toggleSearching();
+          } else {
+            Navigator.pop(context);
+          }
+        },
+        searching: context.watch<CountryViewModel>().isSearching,
+        focusNode: focusNode,
+        onSearchTap: () {
+          context.read<CountryViewModel>().toggleSearching();
 
-                if (context.read<CountryViewModel>().isSearching) {
-                  focusNode.requestFocus();
-                }
-              },
-              icon: const Icon(Icons.search_rounded),
-              splashRadius: 26,
-            ),
-          )
-        ],
+          if (context.read<CountryViewModel>().isSearching) {
+            focusNode.requestFocus();
+          }
+        },
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
