@@ -121,8 +121,7 @@ class NotesViewModel with ChangeNotifier {
     ),
   };
 
-  late final DepartmentModel _selectedDepartment =
-      subjectList[Department.science]!;
+  late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
 
   // * getters
   DepartmentModel get selectedDepartment => _selectedDepartment;
