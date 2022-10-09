@@ -33,7 +33,7 @@ class NotesView extends StatelessWidget {
               _readProvider.selectedDepartment.subjects!.length,
               (index) => StaggeredGridTile.count(
                 crossAxisCellCount: 3,
-                mainAxisCellCount: 3,
+                mainAxisCellCount: index % 2 == 0 ? 4.4 : 3.2,
                 child: Tile(
                   index: 0,
                   image: _readProvider
