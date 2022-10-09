@@ -95,27 +95,27 @@ class NotesViewModel with ChangeNotifier {
     Department.humanities: DepartmentModel(
       subjects: [
         Subject(
-          name: "Sub 1",
-          imageURL: "assets/images/pngs/notes/accounting.png",
+          name: "History",
+          imageURL: "assets/images/pngs/notes/history.png",
         ),
         Subject(
-          name: "Sub 2",
+          name: "Economics",
           imageURL: "assets/images/pngs/notes/economic.png",
         ),
         Subject(
-          name: "Sub 3",
-          imageURL: "assets/images/pngs/notes/data-science.png",
+          name: "Political Science",
+          imageURL: "assets/images/pngs/notes/political-science.png",
         ),
         Subject(
-          name: "Sub 4",
-          imageURL: "assets/images/pngs/notes/case-study.png",
+          name: "Sociology",
+          imageURL: "assets/images/pngs/notes/network.png",
         ),
         Subject(
-          name: "Sub 5",
+          name: "English",
           imageURL: "assets/images/pngs/notes/understanding.png",
         ),
         Subject(
-          name: "Sub 6",
+          name: "Language",
           imageURL: "assets/images/pngs/notes/language.png",
         ),
       ],
@@ -123,7 +123,7 @@ class NotesViewModel with ChangeNotifier {
   };
 
   late final DepartmentModel _selectedDepartment =
-      subjectList[Department.science]!;
+      subjectList[Department.humanities]!;
   bool _isSearching = false;
 
   // * getters
