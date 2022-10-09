@@ -2,6 +2,7 @@ import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/common/widgets/not_found.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/notifications/view_model/notification_view_model.dart';
 import 'package:arnhss/features/notifications/widgets/notification_app_bar.dart';
@@ -25,7 +26,12 @@ class NotificationView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
               horizontal: AppSizes.default_padding - 15, vertical: 10),
           child: _notificationCount == 0
-              ? const NotificationNotFound()
+              ? const NotFound(
+                  title: "You're all caught up",
+                  subTitle:
+                      "This is where you'all see notifications about your\narnhss account",
+                  imageURL: Images.notificationNotFound,
+                )
               : const NotificationList(),
         ),
       ),
@@ -56,46 +62,6 @@ class NotificationList extends StatelessWidget {
         );
       },
       itemCount: _notificationCount,
-    );
-  }
-}
-
-class NotificationNotFound extends StatelessWidget {
-  const NotificationNotFound({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Spacer(),
-        Center(
-          child: Image.asset(
-            Images.notificationNotFound,
-            width: 200,
-          ),
-        ),
-        const SizedBox(height: 18),
-        Text(
-          "You're all caught up",
-          style: CustomTextTheme(context: context)
-              .paragraph()
-              .copyWith(color: CustomColors.dark.withOpacity(.8)),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 3),
-        Text(
-          "This is where you'all see notifications about your\narnhss account",
-          style: CustomTextTheme(context: context)
-              .paragraph()
-              .copyWith(fontSize: 13),
-          textAlign: TextAlign.center,
-        ),
-        const Spacer(flex: 2),
-      ],
     );
   }
 }

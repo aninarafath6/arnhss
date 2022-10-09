@@ -122,8 +122,7 @@ class NotesViewModel with ChangeNotifier {
     ),
   };
 
-  late final DepartmentModel _selectedDepartment =
-      subjectList[Department.humanities]!;
+  late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
   bool _isSearching = false;
 
   // * getters
@@ -140,7 +139,7 @@ class NotesViewModel with ChangeNotifier {
 // * get notes functions
   Future<List<String>>? getNotes() async {
     await Future.delayed(const Duration(seconds: 2));
-    _notes.add(_selectedDepartment.toString());
+    // _notes.add(_selectedDepartment.toString());
     return _notes;
     // ignore: todo
     // TODO: get note from api and add to notes list;

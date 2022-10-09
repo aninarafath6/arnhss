@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 class NotFound extends StatelessWidget {
   const NotFound({
     Key? key,
+    this.imageURL,
+    this.title,
   }) : super(key: key);
+  final String? imageURL;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -14,17 +18,12 @@ class NotFound extends StatelessWidget {
       children: [
         const Spacer(flex: 2),
         SizedBox(
-          // padding: const EdgeInsets.symmetric(horizontal: 68.0),
           width: 200,
           child: Center(
             child: Image.asset(Images.notFound),
           ),
         ),
         const SizedBox(height: 15),
-        // Text(
-        //   "No plans for this day",
-        //   style: CustomTextTheme(context: context).paragraph(),
-        // ),
         const SizedBox(height: 3),
         Text(
           "No plans for this date",

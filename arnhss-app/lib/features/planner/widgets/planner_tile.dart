@@ -24,7 +24,7 @@ class PlannerTile extends StatelessWidget {
               onPressed: (_) =>
                   context.read<PlannerViewModel>().deletePlan(plan.id!),
               backgroundColor: Colors.transparent,
-              foregroundColor: CustomColors.absentColor,
+              foregroundColor: CustomColors.dark,
               icon: Icons.delete,
               label: 'Delete',
             ),
