@@ -11,6 +11,7 @@ class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    debugPrint("Home build");
     return Scaffold(
       key: context.read<HomeViewModel>().scaffoldKey,
       extendBodyBehindAppBar: false,

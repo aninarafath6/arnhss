@@ -22,7 +22,6 @@ class AttendanceViewModel extends ChangeNotifier {
   set onPageChanged(DateTime date) {
     selectedPage = _months[date.month - 1] + " " + date.year.toString();
     notifyListeners();
-    print(selectedPage);
   }
 
   void resetPage() {

@@ -27,6 +27,8 @@ class _PlannerViewState extends State<PlannerView> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Planner build");
+
     return Scaffold(
       appBar: plannerAppBar(context),
       body: SizedBox(

@@ -12,6 +12,8 @@ class SelectedNoteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Individual note view build build");
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, 75),

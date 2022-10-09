@@ -122,7 +122,8 @@ class NotesViewModel with ChangeNotifier {
     ),
   };
 
-  late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
+  late final DepartmentModel _selectedDepartment =
+      subjectList[Department.science]!;
   bool _isSearching = false;
 
   // * getters

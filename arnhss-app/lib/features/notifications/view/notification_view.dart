@@ -13,6 +13,8 @@ class NotificationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Notification build");
+
     int _notificationCount =
         context.watch<NotificationViewModel>().notificationCount;
     return Scaffold(

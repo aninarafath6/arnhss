@@ -89,32 +89,33 @@ class AttendanceCalendar extends StatelessWidget {
       );
     }
 
-    return Container(
-      margin: const EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
-      child: CalendarCarousel<Event>(
-        height: context.getHeight(34) < 280 ? 280 : context.getHeight(34),
-        weekendTextStyle: const TextStyle(
-          color: CustomColors.dark,
+    return Consumer<AttendanceViewModel>(builder: (context, value, child) {
+      return Container(
+        margin: const EdgeInsets.only(top: 10),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+        child: CalendarCarousel<Event>(
+          height: context.getHeight(34) < 280 ? 280 : context.getHeight(34),
+          weekendTextStyle: const TextStyle(
+            color: CustomColors.dark,
+          ),
+          disableDayPressed: true,
+          weekDayMargin: const EdgeInsets.only(bottom: 14.0),
+          weekdayTextStyle: const TextStyle(color: CustomColors.dark),
+          showHeader: false,
+          todayButtonColor: Colors.transparent,
+          todayTextStyle: const TextStyle(color: CustomColors.dark),
+          markedDatesMap: _markedDateMap,
+          markedDateShowIcon: true,
+          markedDateIconMaxShown: 1,
+          onCalendarChanged: (date) => value.onPageChanged = date,
+          markedDateIconBuilder: (event) {
+            return event.icon;
+          },
+          pageSnapping: false,
+          pageScrollPhysics: const BouncingScrollPhysics(),
+          shouldShowTransform: false,
         ),
-        disableDayPressed: true,
-        weekDayMargin: const EdgeInsets.only(bottom: 14.0),
-        weekdayTextStyle: const TextStyle(color: CustomColors.dark),
-        showHeader: false,
-        todayButtonColor: Colors.transparent,
-        todayTextStyle: const TextStyle(color: CustomColors.dark),
-        markedDatesMap: _markedDateMap,
-        markedDateShowIcon: true,
-        markedDateIconMaxShown: 1,
-        onCalendarChanged: (date) =>
-            context.read<AttendanceViewModel>().onPageChanged = date,
-        markedDateIconBuilder: (event) {
-          return event.icon;
-        },
-        pageSnapping: false,
-        pageScrollPhysics: const BouncingScrollPhysics(),
-        shouldShowTransform: false,
-      ),
-    );
+      );
+    });
   }
 }

@@ -9,6 +9,8 @@ class AttendanceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Attendance build");
+
     return Scaffold(
       appBar: attendanceAppBar(context),
       body: Padding(
@@ -19,7 +21,7 @@ class AttendanceView extends StatelessWidget {
           children: [
             AttendanceCalendar(),
             const SizedBox(height: 20),
-            AttendancePerformance(),
+            const AttendancePerformance(),
             const SizedBox(
               height: 30,
             ),

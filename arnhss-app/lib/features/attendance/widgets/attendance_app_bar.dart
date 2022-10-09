@@ -23,14 +23,16 @@ AppBar attendanceAppBar(BuildContext context) {
     ),
     actions: [
       Center(
-        child: Text(
-          context.watch<AttendanceViewModel>().selectedPage,
-          style: const TextStyle(
-            color: CustomColors.light,
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+        child: Consumer<AttendanceViewModel>(builder: (context, value, child) {
+          return Text(
+            value.selectedPage,
+            style: const TextStyle(
+              color: CustomColors.light,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+            ),
+          );
+        }),
       ),
       const SizedBox(width: 20),
     ],

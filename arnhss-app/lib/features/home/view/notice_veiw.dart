@@ -10,6 +10,8 @@ class NoticeView extends StatelessWidget {
   final NoticeModel notice;
   @override
   Widget build(BuildContext context) {
+    debugPrint("Notice view build");
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Notice", style: TextStyle(color: CustomColors.dark)),
