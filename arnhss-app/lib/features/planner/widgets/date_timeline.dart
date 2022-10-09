@@ -11,16 +11,20 @@ class DateTimeline extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 21.0),
-      child: DatePicker(
-        DateTime.now(),
-        controller: context.read<PlannerViewModel>().dateController,
-        initialSelectedDate: context.watch<PlannerViewModel>().selectedDate,
-        selectionColor: CustomColors.dark,
-        selectedTextColor: Colors.white,
-        onDateChange: (date) {
-          context.read<PlannerViewModel>().setSelectedDate = date;
+      child: Consumer<PlannerViewModel>(
+        builder: (context, value, child) {
+          return DatePicker(
+            DateTime.now(),
+            controller: value.dateController,
+            initialSelectedDate: value.selectedDate,
+            selectionColor: CustomColors.dark,
+            selectedTextColor: Colors.white,
+            onDateChange: (date) {
+              value.setSelectedDate = date;
+            },
+            select: value.selectedDate,
+          );
         },
-        select: context.watch<PlannerViewModel>().selectedDate,
       ),
     );
   }

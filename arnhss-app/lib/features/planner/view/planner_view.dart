@@ -40,33 +40,30 @@ class _PlannerViewState extends State<PlannerView> {
               children: [
                 const DateTimeline(),
                 Expanded(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 21.0, right: 21, top: 21),
-                    child: context.watch<PlannerViewModel>().planCount == 0
-                        ? const Center(child: NotFound())
-                        : ListView.builder(
-                            itemBuilder: (context, index) {
-                              return AnimatedSwitcher(
-                                duration: const Duration(milliseconds: 300),
-                                layoutBuilder: (child, _) {
-                                  return child!;
-                                },
-                                child: PlannerTile(
-                                  plan: context
-                                      .watch<PlannerViewModel>()
-                                      .plans[index],
-                                  key: ValueKey(context
-                                      .watch<PlannerViewModel>()
-                                      .plans[index]
-                                      .id),
-                                ),
-                              );
-                            },
-                            itemCount:
-                                context.watch<PlannerViewModel>().planCount,
-                          ),
-                  ),
+                  child: Consumer<PlannerViewModel>(
+                      builder: (context, value, child) {
+                    return Padding(
+                      padding:
+                          const EdgeInsets.only(left: 21.0, right: 21, top: 21),
+                      child: value.planCount == 0
+                          ? const Center(child: NotFound())
+                          : ListView.builder(
+                              itemBuilder: (context, index) {
+                                return AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 300),
+                                  layoutBuilder: (child, _) {
+                                    return child!;
+                                  },
+                                  child: PlannerTile(
+                                    plan: value.plans[index],
+                                    key: ValueKey(value.plans[index].id),
+                                  ),
+                                );
+                              },
+                              itemCount: value.planCount,
+                            ),
+                    );
+                  }),
                 ),
               ],
             ),

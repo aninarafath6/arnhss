@@ -19,7 +19,6 @@ class PlannerTile extends StatelessWidget {
         key: ValueKey(key),
         startActionPane: ActionPane(
           motion: const ScrollMotion(),
-          // dismissible: DismissiblePane(onDismissed: () {}),
           children: [
             SlidableAction(
               onPressed: (_) =>

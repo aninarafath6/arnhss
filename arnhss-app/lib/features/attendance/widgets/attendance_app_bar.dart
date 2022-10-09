@@ -1,7 +1,6 @@
 import 'package:arnhss/features/attendance/view_model/attendance_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../common/constants/color_constants.dart';
 
 AppBar attendanceAppBar(BuildContext context) {
