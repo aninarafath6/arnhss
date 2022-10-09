@@ -13,29 +13,56 @@ class SelectedNoteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: searchAppBar(context,
-          type: Brightness.light,
-          onTap: () {
-            if (context.read<NotesViewModel>().isSearching) {
-              focusNode.unfocus();
-              context.read<NotesViewModel>().toggleSearching();
-            } else {
-              Navigator.pop(context);
-            }
+      appBar: PreferredSize(
+        preferredSize: const Size(double.infinity, 75),
+        child: Consumer<NotesViewModel>(
+          builder: (context, value, child) {
+            return searchAppBar(context,
+                type: Brightness.light,
+                onTap: () {
+                  if (value.isSearching) {
+                    focusNode.unfocus();
+                    value.toggleSearching();
+                  } else {
+                    Navigator.pop(context);
+                  }
+                },
+                center: true,
+                searching: value.isSearching,
+                focusNode: focusNode,
+                onSearchTap: () {
+                  value.toggleSearching();
+                  if (value.isSearching) {
+                    focusNode.requestFocus();
+                  }
+                },
+                hintText: "Search notes...",
+                title: subject?.name ?? "");
           },
-          center: true,
-          searching: context.watch<NotesViewModel>().isSearching,
-          focusNode: focusNode,
-          onSearchTap: () {
-            context.read<NotesViewModel>().toggleSearching();
-            if (context.read<NotesViewModel>().isSearching) {
-              focusNode.requestFocus();
-            }
-          },
-          hintText: "Search notes...",
-          title: subject?.name ?? ""),
-      body: Center(
-        child: Text(" This is " + subject!.name! + " Page"),
+        ),
+      ),
+      body: FutureBuilder<List<String>>(
+        future: context.read<NotesViewModel>().getNotes(),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: Text(" waiting"),
+            );
+          }
+          if (!snapshot.hasData) {
+            return const Center(
+              child: Text(" not data found"),
+            );
+          }
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return Center(
+                child: Text(snapshot.data![index]),
+              );
+            },
+            itemCount: snapshot.data?.length,
+          );
+        }),
       ),
     );
   }

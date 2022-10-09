@@ -4,7 +4,7 @@ import 'package:arnhss/features/authentication/otp_verification/view/index.dart'
 import 'package:arnhss/features/home/widgets/tile.dart';
 import 'package:arnhss/features/notes/view/selected_note_view.dart';
 import 'package:arnhss/features/notes/view_model/notes_view_model.dart';
-import 'package:arnhss/features/notes/widgets/note_appBar.dart';
+import 'package:arnhss/features/notes/widgets/note_app_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 

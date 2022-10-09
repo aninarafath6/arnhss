@@ -2,6 +2,7 @@ import 'package:arnhss/features/notes/model/department_mode.dart';
 import 'package:flutter/material.dart';
 
 class NotesViewModel with ChangeNotifier {
+  final List<String> _notes = [];
   Map<Department, DepartmentModel> subjectList = {
     Department.cs: DepartmentModel(
       subjects: [
@@ -121,17 +122,28 @@ class NotesViewModel with ChangeNotifier {
     ),
   };
 
-  late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
+  late final DepartmentModel _selectedDepartment =
+      subjectList[Department.science]!;
   bool _isSearching = false;
 
   // * getters
   DepartmentModel get selectedDepartment => _selectedDepartment;
   bool get isSearching => _isSearching;
+  List<String> get notes => _notes;
+  int get notCount => _notes.length;
 
   void toggleSearching() {
     _isSearching = !_isSearching;
     notifyListeners();
-    print("hereadfaf");
+  }
+
+// * get notes functions
+  Future<List<String>>? getNotes() async {
+    await Future.delayed(const Duration(seconds: 2));
+    _notes.add(_selectedDepartment.toString());
+    return _notes;
+    // ignore: todo
+    // TODO: get note from api and add to notes list;
   }
 }
 

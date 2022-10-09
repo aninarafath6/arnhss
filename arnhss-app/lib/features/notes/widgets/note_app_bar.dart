@@ -1,6 +1,6 @@
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:arnhss/common/constants/color_constants.dart';
 
 AppBar notesAppBar(BuildContext context, String title) {
   return AppBar(
