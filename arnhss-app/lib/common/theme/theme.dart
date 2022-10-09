@@ -8,31 +8,34 @@ class Theming {
 
   ThemeData theme() {
     return ThemeData(
-        primarySwatch: generateMaterialColor(CustomColors.dark),
-        scaffoldBackgroundColor: CustomColors.white,
-        chipTheme: ChipThemeData(
-          backgroundColor: Colors.orange.withOpacity(.2),
-        )
+      primarySwatch: generateMaterialColor(CustomColors.dark),
+      scaffoldBackgroundColor: CustomColors.white,
+      chipTheme: ChipThemeData(
+        backgroundColor: Colors.orange.withOpacity(.2),
+      ),
+      appBarTheme: const AppBarTheme(
+        centerTitle: true,
+      ),
 
-        // colorScheme: ColorScheme(
-        //     brightness: brightness,
-        //     primary: primary,
-        //     onPrimary: onPrimary,
-        //     secondary: secondary,
-        //     onSecondary: onSecondary,
-        //     error: error,
-        //     onError: onError,
-        //     background: background,
-        //     onBackground: CustomColors.dark,
-        //     surface: surface,
-        //     onSurface: onSurface)
+      // colorScheme: ColorScheme(
+      //     brightness: brightness,
+      //     primary: primary,
+      //     onPrimary: onPrimary,
+      //     secondary: secondary,
+      //     onSecondary: onSecondary,
+      //     error: error,
+      //     onError: onError,
+      //     background: background,
+      //     onBackground: CustomColors.dark,
+      //     surface: surface,
+      //     onSurface: onSurface)
 
-        // textTheme: TextTheme(
-        //   headline1: CustomTextTheme.headLine(context),
-        //   headline2: CustomTextTheme.headLine2(context),
-        //   subtitle1: CustomTextTheme.paragraph(),
-        //   subtitle2: CustomTextTheme.paragraph2(),
-        // ),
-        );
+      // textTheme: TextTheme(
+      //   headline1: CustomTextTheme.headLine(context),
+      //   headline2: CustomTextTheme.headLine2(context),
+      //   subtitle1: CustomTextTheme.paragraph(),
+      //   subtitle2: CustomTextTheme.paragraph2(),
+      // ),
+    );
   }
 }
