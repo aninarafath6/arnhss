@@ -1,5 +1,5 @@
 import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/utils/bool_parse.dart';
+import 'package:arnhss/extensions/bool_extension.dart';
 
 class Plan {
   Plan({

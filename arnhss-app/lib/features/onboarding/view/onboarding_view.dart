@@ -1,6 +1,6 @@
 import 'package:arnhss/features/onboarding/view/onboard_background.dart';
 import 'package:arnhss/features/onboarding/view/onboarding_content.dart';
-import 'package:arnhss/utils/dimensions.dart';
+import 'package:arnhss/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingView extends StatelessWidget {

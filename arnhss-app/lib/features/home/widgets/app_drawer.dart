@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
-import 'package:arnhss/utils/dimensions.dart';
+import 'package:arnhss/extensions/context_extension.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:remixicon/remixicon.dart';

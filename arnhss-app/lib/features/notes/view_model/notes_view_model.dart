@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:arnhss/features/notes/model/department_mode.dart';
+import 'package:arnhss/features/notes/model/note_model.dart';
+import 'package:arnhss/features/notes/repo/pdf_view.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:flutter/material.dart';
 
-class NotesViewModel with ChangeNotifier {
-  final List<String> _notes = [];
+class NotesViewModel extends ChangeNotifier with HandleException {
+  final PdfService _pdfService = PdfService();
+  final List<Note> _notes = [];
   Map<Department, DepartmentModel> subjectList = {
     Department.cs: DepartmentModel(
       subjects: [
@@ -124,11 +130,12 @@ class NotesViewModel with ChangeNotifier {
 
   late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
   bool _isSearching = false;
+  String _path = "";
 
   // * getters
   DepartmentModel get selectedDepartment => _selectedDepartment;
   bool get isSearching => _isSearching;
-  List<String> get notes => _notes;
+  List<Note> get notes => _notes;
   int get notCount => _notes.length;
 
   void toggleSearching() {
@@ -137,12 +144,33 @@ class NotesViewModel with ChangeNotifier {
   }
 
 // * get notes functions
-  Future<List<String>>? getNotes() async {
-    await Future.delayed(const Duration(seconds: 2));
-    // _notes.add(_selectedDepartment.toString());
+  String get file => _path;
+  Future<List<Note>>? getNotes() async {
+    // await Future.delayed(const Duration(seconds: 2));
+    _notes.add(
+      Note(
+        name: "web designing",
+        fileURL: "http://www.africau.edu/images/default/sample.pdf",
+      ),
+    );
     return _notes;
     // ignore: todo
     // TODO: get note from api and add to notes list;
+  }
+
+// * setters
+  set setFilePath(String path) {
+    _path = path;
+  }
+
+  Future<File?> openPdfNote(Note note) async {
+    return await _pdfService
+        .getPdfFromNetwork(
+      note.fileURL!,
+    )
+        .catchError((e) {
+      HandleException().handleException(e);
+    });
   }
 }
 

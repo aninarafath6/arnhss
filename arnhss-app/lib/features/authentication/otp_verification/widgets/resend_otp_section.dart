@@ -4,7 +4,7 @@ import 'package:arnhss/features/authentication/login/view_model/login_view_model
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/common/widgets/custom_button.dart';
 import 'package:arnhss/common/widgets/custom_snack_bar.dart';
-import 'package:arnhss/utils/dimensions.dart';
+import 'package:arnhss/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

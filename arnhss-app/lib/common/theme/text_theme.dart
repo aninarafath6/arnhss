@@ -1,4 +1,4 @@
-import 'package:arnhss/utils/dimensions.dart';
+import 'package:arnhss/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';

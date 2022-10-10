@@ -86,8 +86,7 @@ class HomeGrid extends StatelessWidget {
             mainAxisCellCount: 2,
             child: Tile(
               index: 4,
-              image:
-                  "assets/images/icons/oc-hand-holding-papers-removebg-preview.png",
+              image: "assets/images/icons/growing-books.png.webp",
               label: "Notes",
               onTap: () => Navigator.pushNamed(context, NotesView.routeName),
             ),

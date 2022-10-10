@@ -5,6 +5,6 @@ export 'package:arnhss/features/authentication/otp_verification/view_model/verif
 export 'package:arnhss/common/widgets/custom_app_bar.dart';
 export 'package:arnhss/common/widgets/custom_button.dart';
 export 'package:arnhss/common/widgets/custom_snack_bar.dart';
-export 'package:arnhss/utils/dimensions.dart';
+export 'package:arnhss/extensions/context_extension.dart';
 export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';

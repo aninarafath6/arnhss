@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/attendance/view_model/attendance_view_model.dart';
-import 'package:arnhss/utils/dimensions.dart';
+import 'package:arnhss/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
