@@ -8,7 +8,48 @@ import 'package:flutter/material.dart';
 
 class NotesViewModel extends ChangeNotifier with HandleException {
   final PdfService _pdfService = PdfService();
-  final List<Note> _notes = [];
+  final List<Note> _notes = [
+    Note(
+      name: "Relations and Functions",
+      sub: "Chapter 1 / 28-12-2022",
+      fileURL: "http://www.africau.edu/images/default/sample.pdf",
+    ),
+    Note(
+      name: "Inverse Trigonometric Functions",
+      sub: "Chapter 2 / 29-12-2022",
+      fileURL: "http://www.africau.edu/images/default/sample.pdf",
+    ),
+    Note(
+      name: "Matrices",
+      sub: "Chapter 3 / 30-12-2022",
+      fileURL: "http://www.africau.edu/images/default/sample.pdf",
+    ),
+    Note(
+      name: "Determinants",
+      sub: "Chapter 4 / 1-1-2023",
+      fileURL: "http://www.africau.edu/images/default/sample.pdf",
+    ),
+    Note(
+      name: "Continuity and Differentiability",
+      sub: "Chapter 5 / 2-1-2023",
+      fileURL: "http://www.africau.edu/images/default/sample.pdf",
+    ),
+    Note(
+      name: "Application of Derivatives",
+      sub: "Chapter 6 / 3-1-2023",
+      fileURL: "http://www.africau.edu/images/default/sample.pdf",
+    ),
+    Note(
+      name: "Integrals",
+      sub: "Chapter 7 / 4-1-2023",
+      fileURL: "http://www.africau.edu/images/default/sample.pdf",
+    ),
+    Note(
+      name: "Application of Integrals",
+      sub: "Chapter 8 / 5-1-2023",
+      fileURL: "http://www.africau.edu/images/default/sample.pdf",
+    ),
+  ];
   Map<Department, DepartmentModel> subjectList = {
     Department.cs: DepartmentModel(
       subjects: [
@@ -147,12 +188,9 @@ class NotesViewModel extends ChangeNotifier with HandleException {
   String get file => _path;
   Future<List<Note>>? getNotes() async {
     // await Future.delayed(const Duration(seconds: 2));
-    _notes.add(
-      Note(
-        name: "web designing",
-        fileURL: "http://www.africau.edu/images/default/sample.pdf",
-      ),
-    );
+    // _notes.add(
+
+    // );
     return _notes;
     // ignore: todo
     // TODO: get note from api and add to notes list;

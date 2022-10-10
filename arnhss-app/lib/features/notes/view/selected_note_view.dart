@@ -81,8 +81,8 @@ class SelectedNoteView extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 2.0),
                     child: ListTile(
-                      title: "web designing".toText(),
-                      subtitle: "also sample and this is also".toText(),
+                      title: snapshot.data![index].name?.toText(),
+                      subtitle: snapshot.data![index].sub?.toText(),
                       leading: Image.asset(
                         "assets/images/icons/pdf.png",
                         width: 50,
