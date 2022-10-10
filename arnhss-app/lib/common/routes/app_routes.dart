@@ -17,10 +17,10 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const OtpVerificationView());
       case CountrySelect.routeName:
         return MaterialPageRoute(builder: (_) => CountrySelect());
-      case UserRole.routeName:
-        return MaterialPageRoute(builder: (_) => const UserRole());
-      case StudentAuthentication.routeName:
-        return MaterialPageRoute(builder: (_) => const StudentAuthentication());
+      // case UserRole.routeName:
+      //   return MaterialPageRoute(builder: (_) => const UserRole());
+      // case StudentAuthentication.routeName:
+      //   return MaterialPageRoute(builder: (_) => const StudentAuthentication());
       case SelectAccount.routeName:
         return MaterialPageRoute(builder: (_) => const SelectAccount());
       case HomeView.routeName:

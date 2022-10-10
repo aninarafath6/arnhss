@@ -19,7 +19,7 @@ class InputFelid extends StatelessWidget {
       width: context.getWidth(100),
       height: 55,
       decoration: BoxDecoration(
-          color: const Color(0xfff1f5f9),
+          color: CustomColors.lightBgOverlay,
           borderRadius: BorderRadius.circular(8)),
       child: const CustomInput(),
     );

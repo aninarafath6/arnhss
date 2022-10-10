@@ -37,7 +37,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateLoading() {
+  void toggleLoading() {
     _isLoading = !_isLoading;
     notifyListeners();
   }
@@ -60,18 +60,18 @@ class VerifyOtpViewModel extends ChangeNotifier {
     if (_otp!.length == 6 && num.tryParse(_otp!) != null) {
       debugPrint("verifying otp");
 
-      updateLoading();
+      toggleLoading();
       // implimentation of api call
       // try {} catch (e) {}
-      var response = await _verifyOtpService.verifyOtp(
-          otp: _otp!,
-          phone: context.read<LoginViewModel>().mobileNumberController.text,
-          countryCode:
-              context.read<CountryViewModel>().selectedCountry.dialCode);
+      // var response = await _verifyOtpService.verifyOtp(
+      //     otp: _otp!,
+      //     phone: context.read<LoginViewModel>().mobileNumberController.text,
+      //     countryCode:
+      //         context.read<CountryViewModel>().selectedCountry.dialCode);
       // loading just for ui test
       // await Future.delayed(const Duration(seconds: 3));
-      print(response);
-      updateLoading();
+      // print(response);
+      toggleLoading();
       return true;
     } else {
       debugPrint("invalid otp");

@@ -1,3 +1,4 @@
+import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/account/view/select_account.dart';
 
 import './index.dart';
@@ -55,7 +56,7 @@ class _VerifyOtpActionButton extends StatelessWidget {
         bool isOtpValid =
             await context.read<VerifyOtpViewModel>().verifyOtp(context);
         if (isOtpValid) {
-          Navigator.pushNamed(context, SelectAccount.routeName);
+          Navigator.pushReplacementNamed(context, SelectAccount.routeName);
         }
         // return context.read<VerifyOtpViewModel>().verifyOtp(context);
       },

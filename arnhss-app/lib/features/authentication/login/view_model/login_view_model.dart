@@ -2,6 +2,7 @@ import 'package:arnhss/features/authentication/login/repo/login_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
+import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,19 +20,35 @@ class LoginViewModel extends ChangeNotifier with HandleException {
   FocusNode get myFocusNode => _myFocusNode;
 
 // a popup for validate mobile number
-  bool otpDialog() {
-    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    RegExp regExp = RegExp(pattern);
 
-    if (regExp.hasMatch(_mobileNumberController.text)) {
-      return true;
-    } else {
+//* validate
+  bool validate() {
+    // * mobile number regular expression pattern
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    //* regExp
+    RegExp regExp = RegExp(pattern);
+    //* handling errors
+    try {
+      // * if mobile number is empty then throw a invalid exception
+      if (_mobileNumberController.text.isEmpty) {
+        throw InvalidException("Please enter your mobile number! ", false);
+      } else {
+        if (regExp.hasMatch(_mobileNumberController.text)) {
+          return true;
+        } else {
+          throw InvalidException("Please enter valid mobile number!", false);
+        }
+      }
+    } catch (e) {
+      handleException(e);
       return false;
     }
   }
 
+  // bool otpDialog() {}
+
+//* toggle loading
   void toggleLoading() {
-    // print(loading);
     loading = !loading;
     notifyListeners();
   }
@@ -47,16 +64,15 @@ class LoginViewModel extends ChangeNotifier with HandleException {
 
     if (provider.isFirstReq || provider.resendAvailable) {
       toggleLoading();
-      var status = await _loginService.getOtp(
-        phone: mobileNumberController.text,
-        countryCode: context.read<CountryViewModel>().selectedCountry.dialCode,
-      );
-      toggleLoading();
+      await Future.delayed(const Duration(milliseconds: 800));
+      var status = true;
+      // TODO: login service implimentaition needed
 
-      if (status != null && !reGet) {
+      if (status && !reGet) {
         Navigator.pop(context);
         Navigator.of(context).pushNamed(OtpVerificationView.routeName);
       }
+      toggleLoading();
     }
 
     await provider.startTimer();
@@ -65,6 +81,9 @@ class LoginViewModel extends ChangeNotifier with HandleException {
       provider.resetTimer();
     }
     provider.isFirstReq = false;
+    // Navigator.pop(context);
+    // Navigator.of(context).pushNamed(OtpVerificationView.routeName);
+
     debugPrint("start timer");
   }
 }
