@@ -2,10 +2,13 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:remixicon/remixicon.dart';
 
 AppBar customHomeAppBar(BuildContext context) {
+  final DateFormat formatter = DateFormat('EEEE ,dd MMMM');
+
   return AppBar(
     systemOverlayStyle: SystemUiOverlayStyle.dark, // 1
     backgroundColor: Colors.transparent,
@@ -27,16 +30,16 @@ AppBar customHomeAppBar(BuildContext context) {
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text("Hey, Anin Arafath",
+          children: [
+            const Text("Hey, Anin Arafath",
                 style: TextStyle(
                   color: CustomColors.dark,
                   fontWeight: FontWeight.bold,
                 )),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
-              "Monday, 4 march ",
-              style: TextStyle(
+              formatter.format(DateTime.now()).toString(),
+              style: const TextStyle(
                 color: CustomColors.light,
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
