@@ -9,7 +9,9 @@ import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/notes/view_model/notes_view_model.dart';
 import 'package:arnhss/features/notifications/view_model/notification_view_model.dart';
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
+import 'package:arnhss/firebase_options.dart';
 import 'package:arnhss/services/db_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -18,7 +20,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DBService.initDB();
 
-  initializeDateFormatting().then((_) => runApp(const MyApp()));
+  initializeDateFormatting().then((_) async {
+    await Firebase.initializeApp(
+      name: 'arnhss',
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {

@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "1051720302845",
-    "project_id": "arnhss",
-    "storage_bucket": "arnhss.appspot.com"
+    "project_number": "724320524720",
+    "project_id": "arnhss-backend",
+    "storage_bucket": "arnhss-backend.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1051720302845:android:d35de5dc7051a581293e94",
+        "mobilesdk_app_id": "1:724320524720:android:48f02a29ef2ceb9e91de75",
         "android_client_info": {
           "package_name": "com.example.arnhss"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1051720302845-3fen943qkqjguch6ca2ealrv7m8ej3fh.apps.googleusercontent.com",
+          "client_id": "724320524720-1r9rrguq1a5d1ep7cckad5bl2s9te7tp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB15lL2kFRkTEC9PeqYxe8_-MFARfxvkv4"
+          "current_key": "AIzaSyD40xF0ybbBczDcEpkRPdu9UzkX_l2bIFM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1051720302845-3fen943qkqjguch6ca2ealrv7m8ej3fh.apps.googleusercontent.com",
+              "client_id": "724320524720-1r9rrguq1a5d1ep7cckad5bl2s9te7tp.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1051720302845-bdhfe4ek8jeskpe8shio4sv2u316bl46.apps.googleusercontent.com",
+              "client_id": "724320524720-9nfsp28ovgacouh8bcem7a2drt1hd1q0.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.arnhssgvghhgfgh"

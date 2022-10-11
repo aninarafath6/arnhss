@@ -1,6 +1,4 @@
-import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:arnhss/common/constants/app_sizes.dart';
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/widgets/not_found.dart';
@@ -12,7 +10,6 @@ import 'package:arnhss/features/notes/repo/pdf_view.dart';
 import 'package:arnhss/features/notes/view/pdf_view.dart';
 import 'package:arnhss/features/notes/view_model/notes_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:remixicon/remixicon.dart';
 
 class SelectedNoteView extends StatelessWidget {
   SelectedNoteView({Key? key, this.subject}) : super(key: key);

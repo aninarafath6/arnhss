@@ -5,8 +5,10 @@
         "Arafath",
         "arnhss",
         "Constatns",
+        "pdfview",
         "remixicon",
         "sqflite",
+        "tabbar",
         "unfocus"
     ],
     "cmake.sourceDirectory": "${workspaceFolder}/linux"
