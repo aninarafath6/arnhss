@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:arnhss/features/authentication/login/repo/login_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
@@ -55,19 +57,21 @@ class LoginViewModel extends ChangeNotifier with HandleException {
 
 // get otp functionality
   void getOtp(BuildContext context, {bool reGet = false}) async {
-    final String phoneNumber =
-        CountryViewModel().selectedCountry.dialCode.toString() +
-            mobileNumberController.text.toString();
+    final String phoneNumber = mobileNumberController.text.toString();
 
     debugPrint(phoneNumber);
     final provider = context.read<VerifyOtpViewModel>();
 
     if (provider.isFirstReq || provider.resendAvailable) {
       toggleLoading();
-      await Future.delayed(const Duration(milliseconds: 800));
       var status = true;
-      // TODO: login service implimentaition needed
-
+      await _loginService
+          .getOtp(
+              phone: phoneNumber,
+              countryCode: CountryViewModel().selectedCountry.dialCode)
+          .catchError((error) {
+        return handleException(error);
+      });
       if (status && !reGet) {
         Navigator.pop(context);
         Navigator.of(context).pushNamed(OtpVerificationView.routeName);

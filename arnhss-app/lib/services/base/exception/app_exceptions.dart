@@ -6,7 +6,7 @@ abstract class NetworkException implements Exception {
   NetworkException([this.message, this.prefix, this.url]);
 }
 
-class AppException implements Exception {
+abstract class AppException implements Exception {
   final String? message;
   final String? prefix;
   final bool? status;
@@ -14,30 +14,32 @@ class AppException implements Exception {
   AppException([this.message, this.prefix, this.status]);
 }
 
-// app exception
-
 class InvalidException extends AppException {
   InvalidException(String? message, bool? status)
       : super(message, "Invalid", status);
 }
 
-//network
 class BadRequestException extends NetworkException {
-  BadRequestException([String? message, String? url])
-      : super(message, 'bad request', url);
-}
-
-class FetchDataException extends NetworkException {
-  FetchDataException([String? message, String? url])
-      : super(message, 'Unable to process', url);
+  BadRequestException(String? message, String? url)
+      : super(message, "Bad Request", url);
 }
 
 class ApiNotRespondingException extends NetworkException {
-  ApiNotRespondingException([String? message, String? url])
-      : super(message, 'Api not responding', url);
+  ApiNotRespondingException(String? message, String? url)
+      : super(message, "Api not responding", url);
+}
+
+class FetchDataException extends NetworkException {
+  FetchDataException(String? message, String? url)
+      : super(message, "unable to process", url);
 }
 
 class UnAuthorizedException extends NetworkException {
-  UnAuthorizedException([String? message, String? url])
-      : super(message, 'un authorized', url);
+  UnAuthorizedException(String? message, String? url)
+      : super(message, "un authorized exception", url);
+}
+
+class InternalServerException extends NetworkException {
+  InternalServerException(String? message, String? url)
+      : super(message, "internal server exception", url);
 }
