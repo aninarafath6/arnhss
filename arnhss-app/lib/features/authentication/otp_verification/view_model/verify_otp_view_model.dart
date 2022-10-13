@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:arnhss/features/authentication/account/view/select_account.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/common/widgets/custom_snack_bar.dart';
 import 'package:arnhss/features/authentication/repo/login_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/route_manager.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
   // * instances
@@ -62,9 +65,16 @@ class VerifyOtpViewModel extends ChangeNotifier {
   Future<bool> verifyOtp(BuildContext context) async {
     if (_otp!.length == 6 && num.tryParse(_otp!) != null) {
       debugPrint("verifying otp");
-      print(_otp);
       toggleLoading();
-      _loginService.verifyOtp(vi: context.read<LoginViewModel>().vi, otp: _otp);
+
+      // * verify otp with firebase credential
+      UserCredential? _userCredential = await _loginService.verifyOtp(
+          vi: context.read<LoginViewModel>().vi, otp: _otp);
+
+      if (_userCredential != null) {
+        toggleLoading();
+        return true;
+      }
 
       // implementation of api call
       // try {} catch (e) {}

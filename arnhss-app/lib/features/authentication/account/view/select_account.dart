@@ -1,10 +1,13 @@
+
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/widgets/custom_banner.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/authentication/repo/login_service.dart';
 import 'package:arnhss/features/home/view/home_view.dart';
+import 'package:arnhss/models/user.model.dart';
 
 class SelectAccount extends StatelessWidget {
   const SelectAccount({Key? key}) : super(key: key);
@@ -19,31 +22,31 @@ class SelectAccount extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // const Spacer(),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: CustomBanner(
-                image:
-                    "assets/images/icons/team-features-illustration.png.webp",
-                title: "Find Your Profile",
-                subtitle: "Choose an account to be proceed",
-                isSmall: true,
+                  image:
+                      "assets/images/icons/team-features-illustration.png.webp",
+                  title: "Find Your Profile",
+                  subtitle: "Choose an account to be proceed",
+                  isSmall: true),
+            ),
+            const SizedBox(height: 30),
+            Expanded(
+              child: FutureBuilder<List<UserModel>?>(
+                future: LoginService().getListUsers(),
+                builder: (context, snapshot) {
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      return AccountTile(
+                        user: snapshot.data?[index],
+                      );
+                    },
+                    itemCount: snapshot.data?.length,
+                  );
+                },
               ),
             ),
-            const SizedBox(height: 30),
-            // CustomDropDown(
-            //   title: "Select Your Profile",
-            //   leadingIcon: Icons.keyboard_arrow_down_rounded,
-            //   onTap: () {},
-            // ),
-            const AccountTile(
-              name: "Anin Arafath",
-              role: Role.student,
-            ),
-            const AccountTile(name: "Jho Danial", role: Role.parent),
-            const AccountTile(name: "Jeff Bezos", role: Role.teacher),
-
-            const SizedBox(height: 30),
 
             CustomButton(
               label: "Continue",
@@ -51,7 +54,7 @@ class SelectAccount extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, HomeView.routeName),
             ),
             const SizedBox(height: 30),
-            const Spacer(flex: 2),
+            // const Spacer(flex: 2),
 //
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -76,13 +79,8 @@ class SelectAccount extends StatelessWidget {
 }
 
 class AccountTile extends StatelessWidget {
-  const AccountTile({
-    Key? key,
-    this.name,
-    this.role = Role.student,
-  }) : super(key: key);
-  final String? name;
-  final Role? role;
+  const AccountTile({Key? key, this.user}) : super(key: key);
+  final UserModel? user;
 
   @override
   Widget build(BuildContext context) {
@@ -106,14 +104,14 @@ class AccountTile extends StatelessWidget {
             ),
           ),
         ),
-        title: name?.toText(),
-        subtitle: "Computer Science".toText(),
+        title: user?.name?.toText(),
+        subtitle: user?.department?.toText(),
         trailing: Container(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           decoration: BoxDecoration(
-              color: getOverlayColor(role),
+              color: getOverlayColor(user?.role),
               borderRadius: BorderRadius.circular(2)),
-          child: getRoleString(role).toText(),
+          child: getRoleString(user?.role).toText(),
         ),
       ),
     );
