@@ -20,13 +20,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DBService.initDB();
 
-  initializeDateFormatting().then((_) async {
-    await Firebase.initializeApp(
-      name: 'arnhss',
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    runApp(const MyApp());
-  });
+  initializeDateFormatting().then(
+    (_) async {
+      await Firebase.initializeApp(
+        name: 'arnhss',
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      runApp(const MyApp());
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {

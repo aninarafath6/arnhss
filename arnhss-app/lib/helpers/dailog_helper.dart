@@ -3,15 +3,13 @@ import 'package:get/get.dart';
 
 class DialogHelper {
   // error snackbar
-  static void showErrorDialog({
-    String? title = "Oops 🤔",
-    String? description,
-  }) {
+  static void showErrorDialog(
+      {String? title = "Oops 🤔", String? description, bool top = false}) {
     Get.snackbar(
       title!,
       description ?? "something went wrong",
       margin: const EdgeInsets.all(20),
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: top ? SnackPosition.TOP : SnackPosition.BOTTOM,
     );
   }
 
