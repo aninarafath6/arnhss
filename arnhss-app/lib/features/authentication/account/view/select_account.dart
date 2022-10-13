@@ -1,13 +1,15 @@
-
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/widgets/custom_banner.dart';
+import 'package:arnhss/common/widgets/not_found.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/authentication/repo/login_service.dart';
 import 'package:arnhss/features/home/view/home_view.dart';
 import 'package:arnhss/models/user.model.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/route_manager.dart';
 
 class SelectAccount extends StatelessWidget {
   const SelectAccount({Key? key}) : super(key: key);
@@ -36,14 +38,22 @@ class SelectAccount extends StatelessWidget {
               child: FutureBuilder<List<UserModel>?>(
                 future: LoginService().getListUsers(),
                 builder: (context, snapshot) {
-                  return ListView.builder(
-                    itemBuilder: (context, index) {
-                      return AccountTile(
-                        user: snapshot.data?[index],
-                      );
-                    },
-                    itemCount: snapshot.data?.length,
-                  );
+                  if (snapshot.data!.isEmpty) {
+                    return const NotFound();
+                  } else if (snapshot.data!.isNotEmpty) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return AccountTile(
+                          user: snapshot.data?[index],
+                        );
+                      },
+                      itemCount: snapshot.data?.length,
+                    );
+                  } else {
+                    return const CupertinoActivityIndicator(
+                      color: CustomColors.white,
+                    );
+                  }
                 },
               ),
             ),
@@ -54,7 +64,6 @@ class SelectAccount extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, HomeView.routeName),
             ),
             const SizedBox(height: 30),
-            // const Spacer(flex: 2),
 //
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -135,6 +144,19 @@ class AccountTile extends StatelessWidget {
     } else {
       return "Teacher";
     }
+  }
+}
+
+class NotExist extends StatelessWidget {
+  const NotExist({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text("error"),
+      ),
+    );
   }
 }
 
