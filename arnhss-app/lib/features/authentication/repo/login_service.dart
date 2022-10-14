@@ -23,19 +23,21 @@ class LoginService with HandleException {
             //* phone number
             phoneNumber: '$countryCode $phone',
             // * verification complete callback
-            verificationCompleted: (PhoneAuthCredential credential) {
-              // debugPrint("credential");
-              // debugPrint(credential.toString());
+            verificationCompleted: (PhoneAuthCredential credential) async {
+              var user = await _firebaseAuth.currentUser!;
+              print("complted");
+              print(credential);
             },
             // * handle verification failed state
             verificationFailed: (FirebaseAuthException e) {
-              // handleException(InvalidException(e.message, false));
+              handleException(InvalidException(e.message, false));
+              // Get.back();
             },
             // * handle call back when the code sent
             codeSent: codeSent,
-            forceResendingToken: resentToken,
+            // forceResendingToken: resentToken,
             codeAutoRetrievalTimeout: (String verificationId) {
-              // debugPrint("verification $verificationId");
+              debugPrint("verification $verificationId");
             },
             timeout: Duration(seconds: timeout),
           )
@@ -54,31 +56,41 @@ class LoginService with HandleException {
 // * verify otp
   Future<UserCredential?> verifyOtp({String? vi, String? otp}) async {
     //* verify otp with phone auth provider
-    AuthCredential _credential =
-        PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
+    AuthCredential? _credential;
+    try {
+      _credential =
+          PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
+      print(_credential.toString() + " this is credential");
+    } catch (e) {
+      print("ablah ablah  ");
+      print(e);
+    }
     UserCredential? _userCredential;
     debugPrint("verification id is $vi");
 
-    try {
-      // * user credential
-      _userCredential = await _firebaseAuth
-          .signInWithCredential(_credential)
-          .catchError((error) {
-        debugPrint("throwing error from here");
-        throw error;
-      }).then(
-        ((value) {
-          // debugPrint("user credential is $value");
-          return value;
-        }),
-      );
-      //* handle firebase exception
-    } on FirebaseAuthException catch (e) {
-      debugPrint(e.code);
-      handleException(InvalidException(e.code, false), top: true);
-    } catch (e) {
-      debugPrint("here $e");
-      handleException(e);
+    if (_credential != null) {
+      print("dumm");
+      try {
+        // * user credential
+        _userCredential = await _firebaseAuth
+            .signInWithCredential(_credential)
+            .catchError((error) {
+          debugPrint("throwing error from here");
+          throw error;
+        }).then(
+          ((value) {
+            print("here here here here");
+            return value;
+          }),
+        );
+        //* handle firebase exception
+      } on FirebaseAuthException catch (e) {
+        debugPrint(e.code);
+        handleException(InvalidException(e.code, false), top: true);
+      } catch (e) {
+        debugPrint("here $e");
+        handleException(e);
+      }
     }
     //* return the user credential
     return _userCredential;

@@ -38,9 +38,10 @@ class SelectAccount extends StatelessWidget {
               child: FutureBuilder<List<UserModel>?>(
                 future: LoginService().getListUsers(),
                 builder: (context, snapshot) {
-                  if (snapshot.data!.isEmpty) {
-                    return const NotFound();
-                  } else if (snapshot.data!.isNotEmpty) {
+                  if (snapshot.data == null || snapshot.data?.length == 0) {
+                    Get.to(const NotExist());
+                    return const SizedBox();
+                  } else if (snapshot.data?.length != 0) {
                     return ListView.builder(
                       itemBuilder: (context, index) {
                         return AccountTile(
