@@ -25,8 +25,8 @@ class LoginService with HandleException {
             // * verification complete callback
             verificationCompleted: (PhoneAuthCredential credential) async {
               // var user = await _firebaseAuth.currentUser!;
-              print("complted");
-              print(credential);
+              // print("complted");
+              // print(credential);
             },
             // * handle verification failed state
             verificationFailed: (FirebaseAuthException e) {
@@ -60,16 +60,17 @@ class LoginService with HandleException {
     try {
       _credential =
           PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
-      print(_credential.toString() + " this is credential");
+      // print(_credential.toString() + " this is credential");
     } catch (e) {
-      print("ablah ablah  ");
-      print(e);
+      // print("ablah ablah  ");
+      // print(e);
+      handleException(e);
     }
     UserCredential? _userCredential;
     debugPrint("verification id is $vi");
 
     if (_credential != null) {
-      print("dumm");
+      // print("dumm");
       try {
         // * user credential
         _userCredential = await _firebaseAuth
@@ -79,7 +80,7 @@ class LoginService with HandleException {
           throw error;
         }).then(
           ((value) {
-            print("here here here here");
+            // print("here here here here");
             return value;
           }),
         );
@@ -101,15 +102,18 @@ class LoginService with HandleException {
   Future<List<UserModel>?> getListUsers() async {
     // * get users who have the same number
     QuerySnapshot? querySnapshot;
-
-    try {
-      // * fetch the document which have same phone number
-      await Future.delayed(const Duration(seconds: 1));
-      querySnapshot = await users
-          .where("phone", isEqualTo: _firebaseAuth.currentUser?.phoneNumber)
-          .get();
-    } catch (e) {
-      handleException(e);
+    if (_firebaseAuth.currentUser != null) {
+      try {
+        // * fetch the document which have same phone number
+        await Future.delayed(const Duration(seconds: 1));
+        querySnapshot = await users
+            .where("phone", isEqualTo: _firebaseAuth.currentUser?.phoneNumber)
+            .get();
+      } catch (e) {
+        handleException(e);
+      }
+    } else {
+      handleException(InvalidException("Log credential is not exist", false));
     }
 
     if (querySnapshot != null) {

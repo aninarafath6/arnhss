@@ -1,7 +1,4 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/constants/image_constant.dart';
-import 'package:arnhss/extensions/string_extension.dart';
-import 'package:arnhss/models/user.model.dart';
 import 'package:flutter/material.dart';
 
 import '../view/select_account.dart';
