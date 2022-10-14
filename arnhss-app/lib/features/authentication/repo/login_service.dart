@@ -24,7 +24,7 @@ class LoginService with HandleException {
             phoneNumber: '$countryCode $phone',
             // * verification complete callback
             verificationCompleted: (PhoneAuthCredential credential) async {
-              var user = await _firebaseAuth.currentUser!;
+              // var user = await _firebaseAuth.currentUser!;
               print("complted");
               print(credential);
             },
