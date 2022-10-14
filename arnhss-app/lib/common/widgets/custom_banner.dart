@@ -16,25 +16,32 @@ class CustomBanner extends StatelessWidget {
   final bool isSmall;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        SizedBox(
-          height: context.getHeight(isSmall ? 20 : 32),
-          child: Image.asset(image),
-        ),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: CustomTextTheme(context: context).headLine(),
-        ),
-        SizedBox(height: isSmall ? 5 : 15),
-        Text(
-          subtitle ?? "",
-          textAlign: TextAlign.center,
-          style: CustomTextTheme(context: context).paragraph(),
-        ),
-      ],
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 800),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          SizedBox(
+            height: context.getHeight(isSmall ? 20 : 32),
+            key: ValueKey(image.toString()),
+            child: Image.asset(
+              image,
+            ),
+          ),
+          Text(
+            title,
+            key: ValueKey(title.toString()),
+            textAlign: TextAlign.center,
+            style: CustomTextTheme(context: context).headLine(),
+          ),
+          SizedBox(height: isSmall ? 5 : 15),
+          Text(
+            subtitle ?? "",
+            textAlign: TextAlign.center,
+            style: CustomTextTheme(context: context).paragraph(),
+          ),
+        ],
+      ),
     );
   }
 }

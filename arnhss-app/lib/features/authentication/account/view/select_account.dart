@@ -94,7 +94,6 @@ class SelectAccount extends StatelessWidget {
   }
 }
 
-
 class NotExist extends StatelessWidget {
   const NotExist({Key? key}) : super(key: key);
 
