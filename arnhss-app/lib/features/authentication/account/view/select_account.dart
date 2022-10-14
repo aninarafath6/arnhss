@@ -4,6 +4,7 @@ import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/widgets/custom_banner.dart';
 import 'package:arnhss/common/widgets/not_found.dart';
 import 'package:arnhss/extensions/string_extension.dart';
+import 'package:arnhss/features/authentication/account/widgets/account_tile_skeliton.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/authentication/repo/login_service.dart';
 import 'package:arnhss/features/home/view/home_view.dart';
@@ -18,7 +19,7 @@ class SelectAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, title: "Student"),
+      appBar: customAppBar(context, title: "Account"),
       body: Padding(
         padding: const EdgeInsets.all(AppSizes.default_padding),
         child: Column(
@@ -38,10 +39,15 @@ class SelectAccount extends StatelessWidget {
               child: FutureBuilder<List<UserModel>?>(
                 future: LoginService().getListUsers(),
                 builder: (context, snapshot) {
-                  if (snapshot.data == null || snapshot.data?.length == 0) {
-                    Get.to(const NotExist());
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CupertinoActivityIndicator(
+                      color: CustomColors.dark,
+                    );
+                  }
+                  if (snapshot.data == null || snapshot.data!.isEmpty) {
+                    // Get.to(const NotExist());
                     return const SizedBox();
-                  } else if (snapshot.data?.length != 0) {
+                  } else if (snapshot.data!.isNotEmpty) {
                     return ListView.builder(
                       itemBuilder: (context, index) {
                         return AccountTile(
@@ -52,7 +58,7 @@ class SelectAccount extends StatelessWidget {
                     );
                   } else {
                     return const CupertinoActivityIndicator(
-                      color: CustomColors.white,
+                      color: CustomColors.dark,
                     );
                   }
                 },
@@ -88,65 +94,6 @@ class SelectAccount extends StatelessWidget {
   }
 }
 
-class AccountTile extends StatelessWidget {
-  const AccountTile({Key? key, this.user}) : super(key: key);
-  final UserModel? user;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 15),
-      child: ListTile(
-        tileColor: CustomColors.lightBgOverlay,
-        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-        shape: const RoundedRectangleBorder(),
-        leading: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: CustomColors.lightBgOverlay,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Image.asset(Images.studentRoleIcon),
-            ),
-          ),
-        ),
-        title: user?.name?.toText(),
-        subtitle: user?.department?.toText(),
-        trailing: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-          decoration: BoxDecoration(
-              color: getOverlayColor(user?.role),
-              borderRadius: BorderRadius.circular(2)),
-          child: getRoleString(user?.role).toText(),
-        ),
-      ),
-    );
-  }
-
-  Color getOverlayColor(Role? role) {
-    if (role == Role.student) {
-      return CustomColors.presentColor.withOpacity(.1);
-    } else if (role == Role.parent) {
-      return CustomColors.absentColor.withOpacity(.1);
-    } else {
-      return CustomColors.halfColor.withOpacity(.1);
-    }
-  }
-
-  String getRoleString(Role? role) {
-    if (role == Role.student) {
-      return "Student";
-    } else if (role == Role.parent) {
-      return "Parent";
-    } else {
-      return "Teacher";
-    }
-  }
-}
 
 class NotExist extends StatelessWidget {
   const NotExist({Key? key}) : super(key: key);

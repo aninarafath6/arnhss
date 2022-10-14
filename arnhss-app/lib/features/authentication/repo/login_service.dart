@@ -104,6 +104,7 @@ class LoginService with HandleException {
 
     try {
       // * fetch the document which have same phone number
+      await Future.delayed(const Duration(seconds: 1));
       querySnapshot = await users
           .where("phone", isEqualTo: _firebaseAuth.currentUser?.phoneNumber)
           .get();
