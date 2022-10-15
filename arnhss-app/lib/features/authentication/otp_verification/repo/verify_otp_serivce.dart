@@ -9,10 +9,10 @@ class VerifyOtpService with HandleException {
       {required String phone,
       required String otp,
       required String countryCode}) async {
-    await _baseClient.post(ApiConstatns.BASE_URL, ApiConstatns.VERIFY_OTP, {
-      "phone": phone,
-      "otp": otp,
-      "countryCode": countryCode,
-    }).catchError(handleException);
+    // await _baseClient.post(ApiConstatns.BASE_URL, ApiConstatns.VERIFY_OTP, {
+    //   "phone": phone,
+    //   "otp": otp,
+    //   "countryCode": countryCode,
+    // }).catchError(handleException);
   }
 }

@@ -1,58 +1,111 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/widgets/custom_banner.dart';
-import 'package:arnhss/extensions/string_extension.dart';
+import 'package:arnhss/features/authentication/account/view_model/select_account_view_modl.dart';
+import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
+import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/view/home_view.dart';
+import 'package:shimmer/shimmer.dart';
 
-class SelectAccount extends StatelessWidget {
+class SelectAccount extends StatefulWidget {
   const SelectAccount({Key? key}) : super(key: key);
   static const routeName = "/selectAccount";
 
   @override
+  State<SelectAccount> createState() => _SelectAccountState();
+}
+
+class _SelectAccountState extends State<SelectAccount> {
+  int selectedIndex = 0;
+
+  @override
+  void initState() {
+    // SelectAccountViewModel().getProfiles();
+    context.read<SelectAccountViewModel>().getProfiles();
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    bool isEmpty = context.watch<SelectAccountViewModel>().isEmpty;
+    bool isLoading = context.watch<SelectAccountViewModel>().loading;
+
     return Scaffold(
-      appBar: customAppBar(context, title: "Student"),
+      appBar: customAppBar(context, title: "Account"),
       body: Padding(
         padding: const EdgeInsets.all(AppSizes.default_padding),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment:
+              isEmpty ? MainAxisAlignment.center : MainAxisAlignment.start,
           children: [
-            // const Spacer(),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
+            isEmpty ? const Spacer() : const SizedBox(),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: CustomBanner(
-                image:
-                    "assets/images/icons/team-features-illustration.png.webp",
-                title: "Find Your Profile",
-                subtitle: "Choose an account to be proceed",
+                image: isEmpty
+                    ? "assets/images/icons/not_exist.png"
+                    : "assets/images/icons/team-features-illustration.png.webp",
+                title: isEmpty ? "Can't Find Profile" : "Get Your Profile",
+                subtitle: isEmpty
+                    ? "Your profile has not been found. Please contact your class teacher for assistance"
+                    : "Choose an account to be proceed",
                 isSmall: true,
               ),
             ),
             const SizedBox(height: 30),
-            // CustomDropDown(
-            //   title: "Select Your Profile",
-            //   leadingIcon: Icons.keyboard_arrow_down_rounded,
-            //   onTap: () {},
-            // ),
-            const AccountTile(
-              name: "Anin Arafath",
-              role: Role.student,
-            ),
-            const AccountTile(name: "Jho Danial", role: Role.parent),
-            const AccountTile(name: "Jeff Bezos", role: Role.teacher),
+            isEmpty
+                ? const SizedBox()
+                : Expanded(
+                    child: isLoading
+                        ? Center(
+                            child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: ((context, index) =>
+                                  Shimmer.fromColors(
+                                    baseColor: CustomColors.bgOverlay,
+                                    highlightColor:
+                                        CustomColors.light.withOpacity(.4),
+                                    child: const AccountTileSkelton(),
+                                  )),
+                              itemCount: 3,
+                            ),
+                          )
+                        : ListView.builder(
+                            itemBuilder: (context, index) {
+                              return AccountTile(
+                                user: context
+                                    .watch<SelectAccountViewModel>()
+                                    .profilesList[index],
+                                isSelected: context
+                                        .watch<SelectAccountViewModel>()
+                                        .selectedIndex ==
+                                    index,
+                                onTap: () {
+                                  context
+                                      .read<SelectAccountViewModel>()
+                                      .setSelectedIndex = index;
+                                },
+                              );
+                            },
+                            itemCount: context
+                                .watch<SelectAccountViewModel>()
+                                .profilesList
+                                .length,
+                          ),
+                  ),
 
+            isEmpty
+                ? const SizedBox()
+                : CustomButton(
+                    label: "Continue",
+                    onTap: () => Navigator.pushReplacementNamed(
+                        context, HomeView.routeName),
+                  ),
             const SizedBox(height: 30),
-
-            CustomButton(
-              label: "Continue",
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, HomeView.routeName),
-            ),
-            const SizedBox(height: 30),
-            const Spacer(flex: 2),
-//
+            isEmpty ? const Spacer() : const SizedBox(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
@@ -73,75 +126,4 @@ class SelectAccount extends StatelessWidget {
       ),
     );
   }
-}
-
-class AccountTile extends StatelessWidget {
-  const AccountTile({
-    Key? key,
-    this.name,
-    this.role = Role.student,
-  }) : super(key: key);
-  final String? name;
-  final Role? role;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 15),
-      child: ListTile(
-        tileColor: CustomColors.lightBgOverlay,
-        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-        shape: const RoundedRectangleBorder(),
-        leading: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: CustomColors.lightBgOverlay,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Image.asset(Images.studentRoleIcon),
-            ),
-          ),
-        ),
-        title: name?.toText(),
-        subtitle: "Computer Science".toText(),
-        trailing: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-          decoration: BoxDecoration(
-              color: getOverlayColor(role),
-              borderRadius: BorderRadius.circular(2)),
-          child: getRoleString(role).toText(),
-        ),
-      ),
-    );
-  }
-
-  Color getOverlayColor(Role? role) {
-    if (role == Role.student) {
-      return CustomColors.presentColor.withOpacity(.1);
-    } else if (role == Role.parent) {
-      return CustomColors.absentColor.withOpacity(.1);
-    } else {
-      return CustomColors.halfColor.withOpacity(.1);
-    }
-  }
-
-  String getRoleString(Role? role) {
-    if (role == Role.student) {
-      return "Student";
-    } else if (role == Role.parent) {
-      return "Parent";
-    } else {
-      return "Teacher";
-    }
-  }
-}
-
-enum Role {
-  student,
-  teacher,
-  parent,
 }

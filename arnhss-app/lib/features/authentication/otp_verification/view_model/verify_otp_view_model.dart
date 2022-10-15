@@ -1,12 +1,17 @@
 import 'dart:async';
 
+import 'package:arnhss/features/authentication/account/view/select_account.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/common/widgets/custom_snack_bar.dart';
-import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
-import 'package:arnhss/features/authentication/otp_verification/repo/verify_otp_serivce.dart';
+import 'package:arnhss/features/authentication/repo/login_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/route_manager.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
-  final _verifyOtpService = VerifyOtpService();
+  // * instances
+  final LoginService _loginService = LoginService();
+  // final _verifyOtpService = VerifyOtpService();
+  int duration = 30;
   int _balanceTime = 30;
   bool _isFirstReq = true;
   final ScrollController _otpScrollController = ScrollController();
@@ -32,6 +37,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
   // functions
 // reset the timer
   void resetTimer() {
+    duration = 60;
     _balanceTime = 60;
     _isFirstReq = false;
     notifyListeners();
@@ -59,9 +65,18 @@ class VerifyOtpViewModel extends ChangeNotifier {
   Future<bool> verifyOtp(BuildContext context) async {
     if (_otp!.length == 6 && num.tryParse(_otp!) != null) {
       debugPrint("verifying otp");
-
       toggleLoading();
-      // implimentation of api call
+
+      // * verify otp with firebase credential
+      UserCredential? _userCredential = await _loginService.verifyOtp(
+          vi: context.read<LoginViewModel>().vi, otp: _otp);
+
+      if (_userCredential != null) {
+        toggleLoading();
+        return true;
+      }
+
+      // implementation of api call
       // try {} catch (e) {}
       // var response = await _verifyOtpService.verifyOtp(
       //     otp: _otp!,
@@ -72,7 +87,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
       // await Future.delayed(const Duration(seconds: 3));
       // print(response);
       toggleLoading();
-      return true;
+      return false;
     } else {
       debugPrint("invalid otp");
       customSnackBar(content: "sorry 😞, Please enter valid OTP");

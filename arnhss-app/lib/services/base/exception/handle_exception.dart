@@ -1,22 +1,31 @@
-import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/common/widgets/custom_snack_bar.dart';
+import 'package:arnhss/helpers/dailog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HandleException {
-  void handleException(error) {
-    debugPrint("handle exception");
+  void handleException(error, {bool top = false}) {
+    // print(error);
     if (error is BadRequestException) {
-      customSnackBar(content: error.message);
+      var message = error.message;
+
+      // print(error);
+      DialogHelper.showErrorDialog(description: message, top: top);
     } else if (error is FetchDataException) {
-      customSnackBar(content: error.message);
+      var message = error.message;
+      DialogHelper.showErrorDialog(description: message, top: top);
     } else if (error is ApiNotRespondingException) {
-      customSnackBar(content: "It's take longer to respond...");
-    } else if (error is UnAuthorizedException) {
-      customSnackBar(content: error.message);
+      // var message = error.message;
+      DialogHelper.showErrorDialog(
+          description: "It took longer to respond.", top: top);
+    } else if (error is FirebaseAuthException) {
+      DialogHelper.showErrorDialog(
+          description: error.message, title: "Oops 🥸", top: top);
     } else if (error is InvalidException) {
-      customSnackBar(content: error.message, white: true);
+      DialogHelper.showErrorDialog(
+          description: error.message, title: "Oops 🥸", top: top);
     } else {
-      customSnackBar();
+      DialogHelper.showErrorDialog(
+          description: "Something went wrong!", title: "Oops 🥸", top: top);
     }
   }
 }

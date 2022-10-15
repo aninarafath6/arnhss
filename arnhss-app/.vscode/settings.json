@@ -5,8 +5,11 @@
         "Arafath",
         "arnhss",
         "Constatns",
+        "Firestore",
+        "pdfview",
         "remixicon",
         "sqflite",
+        "tabbar",
         "unfocus"
     ],
     "cmake.sourceDirectory": "${workspaceFolder}/linux"
