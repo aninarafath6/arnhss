@@ -1,7 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:flutter/material.dart';
-
-import '../view/select_account.dart';
 
 class AccountTileSkelton extends StatelessWidget {
   const AccountTileSkelton({

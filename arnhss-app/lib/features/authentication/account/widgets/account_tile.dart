@@ -1,11 +1,10 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:flutter/material.dart';
-
-import '../view/select_account.dart';
 
 class AccountTile extends StatelessWidget {
   const AccountTile({Key? key, this.user, this.isSelected = true, this.onTap})
@@ -16,6 +15,7 @@ class AccountTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(user?.gender);
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       child: Container(
@@ -42,7 +42,11 @@ class AccountTile extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
-                child: Image.asset(Images.studentRoleIcon),
+                child: Image.asset(
+                  user?.gender == Gender.male
+                      ? Images.maleStudentRoleIcon
+                      : Images.femaleStudentRoleIcon,
+                ),
               ),
             ),
           ),
@@ -51,8 +55,9 @@ class AccountTile extends StatelessWidget {
           trailing: Container(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             decoration: BoxDecoration(
-                color: getOverlayColor(user?.role),
-                borderRadius: BorderRadius.circular(2)),
+              color: getOverlayColor(user?.role),
+              borderRadius: BorderRadius.circular(2),
+            ),
             child: getRoleString(user?.role).toText(),
           ),
         ),
@@ -60,6 +65,7 @@ class AccountTile extends StatelessWidget {
     );
   }
 
+// * get overlay color with respect to role
   Color getOverlayColor(Role? role) {
     if (role == Role.student) {
       return CustomColors.presentColor.withOpacity(.1);

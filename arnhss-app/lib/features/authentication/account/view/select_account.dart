@@ -4,9 +4,7 @@ import 'package:arnhss/common/widgets/custom_banner.dart';
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_modl.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
-import 'package:arnhss/features/authentication/login/view/login.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/authentication/repo/login_service.dart';
 import 'package:arnhss/features/home/view/home_view.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -97,51 +95,6 @@ class _SelectAccountState extends State<SelectAccount> {
                                 .profilesList
                                 .length,
                           ),
-                    // child: FutureBuilder<List<UserModel>?>(
-                    //   future: LoginService().getListUsers(),
-                    //   builder: (context, snapshot) {
-                    //     if (snapshot.connectionState ==
-                    //         ConnectionState.waiting) {
-                    //       return ListView.builder(
-                    //         physics: const NeverScrollableScrollPhysics(),
-                    //         itemBuilder: ((context, index) =>
-                    //             Shimmer.fromColors(
-                    //               baseColor: CustomColors.bgOverlay,
-                    //               highlightColor:
-                    //                   CustomColors.light.withOpacity(.4),
-                    //               child: const AccountTileSkelton(),
-                    //             )),
-                    //         itemCount: 3,
-                    //       );
-                    //     }
-                    //     if (snapshot.data == null || snapshot.data!.isEmpty) {
-                    //       return const Center(
-                    //         child: Text("error"),
-                    //       );
-                    //     } else if (snapshot.data!.isNotEmpty) {
-                    //       return ListView.builder(
-                    //         physics: const BouncingScrollPhysics(),
-                    //         itemBuilder: (context, index) {
-                    //           return AccountTile(
-                    //             user: snapshot.data?[index],
-                    //             isSelected: context
-                    //                     .watch<SelectAccountViewModel>()
-                    //                     .selectedIndex ==
-                    //                 index,
-                    //             onTap: () {
-                    //               context
-                    //                   .read<SelectAccountViewModel>()
-                    //                   .selectedIndex = index;
-                    //             },
-                    //           );
-                    //         },
-                    //         itemCount: snapshot.data?.length,
-                    //       );
-                    //     } else {
-                    //       return const SizedBox();
-                    //     }
-                    //   },
-                    // ),
                   ),
 
             isEmpty
@@ -173,23 +126,4 @@ class _SelectAccountState extends State<SelectAccount> {
       ),
     );
   }
-}
-
-class NotExist extends StatelessWidget {
-  const NotExist({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("error"),
-      ),
-    );
-  }
-}
-
-enum Role {
-  student,
-  teacher,
-  parent,
 }

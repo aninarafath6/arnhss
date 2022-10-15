@@ -1,10 +1,8 @@
-// To parse this JSON data, do
-//
-//     final user = userFromJson(jsonString);
+
 
 import 'dart:convert';
 
-import 'package:arnhss/features/authentication/account/view/select_account.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
@@ -17,6 +15,7 @@ class UserModel {
     this.admissionNo,
     this.department,
     this.name,
+    this.gender,
   });
 
   final String? phone;
@@ -27,6 +26,7 @@ class UserModel {
   final int? admissionNo;
   final String? department;
   final String? name;
+  final Gender? gender;
 
   factory UserModel.fromRawJson(String str) =>
       UserModel.fromJson(json.decode(str));
@@ -48,6 +48,7 @@ class UserModel {
         admissionNo: json["admission-no"],
         department: json["department"],
         name: json["name"],
+        gender: toGender(json["gender"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,6 +60,7 @@ class UserModel {
         "admission-no": admissionNo,
         "department": department,
         "name": name,
+        "gender": fromGender(gender!),
       };
 
   static Role? fromStringRole(String role) {
@@ -84,6 +86,28 @@ class UserModel {
         return "teacher";
       default:
         return "student";
+    }
+  }
+
+  static Gender toGender(String str) {
+    switch (str) {
+      case "male":
+        return Gender.male;
+      case "female":
+        return Gender.female;
+      default:
+        return Gender.other;
+    }
+  }
+
+  static String fromGender(Gender gender) {
+    switch (gender) {
+      case Gender.male:
+        return "male";
+      case Gender.female:
+        return "female";
+      default:
+        return "other";
     }
   }
 }

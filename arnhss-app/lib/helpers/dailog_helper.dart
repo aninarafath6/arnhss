@@ -6,7 +6,7 @@ class DialogHelper {
   static void showErrorDialog(
       {String? title = "Oops 🤔", String? description, bool top = false}) {
     Get.snackbar(
-      title!,
+      title ?? "",
       description ?? "something went wrong",
       margin: const EdgeInsets.all(20),
       snackPosition: top ? SnackPosition.TOP : SnackPosition.BOTTOM,
@@ -18,7 +18,7 @@ class DialogHelper {
       String? description,
       Duration? duration = const Duration(seconds: 3)}) {
     Get.snackbar(
-      title!,
+      title ?? "",
       description ?? "something went wrong",
       margin: const EdgeInsets.all(20),
       snackPosition: SnackPosition.BOTTOM,
