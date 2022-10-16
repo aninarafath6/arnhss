@@ -62,10 +62,10 @@ class _VerifyOtpActionButton extends StatelessWidget {
             await context.read<VerifyOtpViewModel>().verifyOtp(context);
         if (isOtpValid) {
           Navigator.pushReplacementNamed(context, SelectAccount.routeName);
+
+          // * dispose the old otp variable and other things
           context.read<VerifyOtpViewModel>().disp();
         }
-
-        // return context.read<VerifyOtpViewModel>().verifyOtp(context);
       },
     );
   }

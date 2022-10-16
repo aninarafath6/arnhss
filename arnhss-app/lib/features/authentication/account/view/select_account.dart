@@ -123,7 +123,8 @@ class _SelectAccountState extends State<SelectAccount> {
                           () async {
                             _buildSuccess(context);
                             await Future.delayed(const Duration(seconds: 3));
-                            Get.toNamed(HomeView.routeName);
+                            Get.offNamedUntil(
+                                HomeView.routeName, ((route) => false));
                           },
                         );
                       },
@@ -154,37 +155,38 @@ class _SelectAccountState extends State<SelectAccount> {
 
   Future<dynamic> _buildSuccess(BuildContext context) {
     return showDialog(
-        barrierColor: CustomColors.dark.withOpacity(.8),
-        barrierDismissible: false,
-        useRootNavigator: false,
-        context: context,
-        builder: (context) {
-          return Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Lottie.asset(
-                    Images.successBgLottie,
-                    repeat: false,
-                    width: 300,
-                  ),
+      barrierColor: CustomColors.dark.withOpacity(.8),
+      barrierDismissible: false,
+      useRootNavigator: false,
+      context: context,
+      builder: (context) {
+        return Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Lottie.asset(
+                  Images.successBgLottie,
+                  repeat: false,
+                  width: 300,
                 ),
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Lottie.asset(
-                    Images.profileSuccess,
-                    repeat: false,
-                    width: 300,
-                  ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Lottie.asset(
+                  Images.profileSuccess,
+                  repeat: false,
+                  width: 300,
                 ),
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 }

@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/extensions/context_extension.dart';
+import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class SplashView extends StatefulWidget {
   static const routeName = "/splash";
@@ -13,11 +15,16 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  final SharedPrefService _sharedPrefService = SharedPrefService();
+
   @override
   void initState() {
     Timer(
       const Duration(seconds: 3),
-      () => Navigator.pushReplacementNamed(context, "/onboarding"),
+      () async {
+        String routeName = await _sharedPrefService.start();
+        Get.offNamedUntil(routeName, (_) => false);
+      },
     );
     super.initState();
   }
