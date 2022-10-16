@@ -10,3 +10,9 @@ enum Gender {
   other,
 }
 
+enum Department {
+  cs,
+  humanities,
+  commerce,
+  science,
+}

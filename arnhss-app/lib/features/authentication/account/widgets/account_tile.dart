@@ -50,7 +50,9 @@ class AccountTile extends StatelessWidget {
             ),
           ),
           title: user?.name?.toText(),
-          subtitle: user?.department?.toText(),
+          subtitle: UserModel.fromDepartment(
+            user?.department ?? Department.cs,
+          ).toText(),
           trailing: Container(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             decoration: BoxDecoration(

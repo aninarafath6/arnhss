@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/features/notes/model/department_mode.dart';
 import 'package:arnhss/features/notes/model/note_model.dart';
 import 'package:arnhss/features/notes/repo/pdf_view.dart';
+import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:flutter/material.dart';
 
@@ -169,7 +171,8 @@ class NotesViewModel extends ChangeNotifier with HandleException {
     ),
   };
 
-  late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
+  late final DepartmentModel _selectedDepartment =
+      subjectList[UserModel.fromDepartment(Department.cs)]!;
   bool _isSearching = false;
   String _path = "";
 
@@ -210,11 +213,4 @@ class NotesViewModel extends ChangeNotifier with HandleException {
       HandleException().handleException(e);
     });
   }
-}
-
-enum Department {
-  cs,
-  humanities,
-  commerce,
-  science,
 }
