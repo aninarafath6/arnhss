@@ -16,6 +16,12 @@ class VerifyOtpViewModel extends ChangeNotifier {
   String? _otp;
   bool _isLoading = false;
 
+  @override
+  void dispose() {
+    _otpScrollController.dispose();
+    super.dispose();
+  }
+
   //* getters
   int get balanceTime => _balanceTime;
   bool get resendAvailable => _balanceTime == 0 ? true : false;

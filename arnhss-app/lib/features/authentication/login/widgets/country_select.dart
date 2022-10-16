@@ -46,6 +46,7 @@ class CountrySelect extends StatelessWidget {
               return const SizedBox();
             }
             return ListView.separated(
+              physics: const PageScrollPhysics(),
               itemBuilder: (context, index) {
                 // bool status =
                 //     context.read<CountryViewModel>().selectedCountry.code ==
@@ -66,11 +67,11 @@ class CountrySelect extends StatelessWidget {
                   ),
                   title: Text(snapshot.data![index].name),
                   leading: Image.network(
-                    "${NetworkConstants.baseFlagURL}${context.watch<CountryViewModel>().selectedCountry.code.toLowerCase()}.png",
-                    width: 25,
+                    "${NetworkConstants.baseFlagURL}${snapshot.data?[index].code.toLowerCase()}.png",
                     errorBuilder: ((context, error, stackTrace) {
                       return Text(snapshot.data?[index].code ?? "");
                     }),
+                    width: 25,
                   ),
                 );
               },

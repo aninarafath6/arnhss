@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         title: 'arnhss',
         initialRoute: SplashView.routeName,
         theme: Theming(context: context).theme(),
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         onGenerateRoute: AppRoutes.generateRoute,
       ),
     );

@@ -9,7 +9,7 @@ class OnboardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("=====login screen=====");
+    debugPrint("=====onboarding screen=====");
 
     return Scaffold(
       body: SafeArea(

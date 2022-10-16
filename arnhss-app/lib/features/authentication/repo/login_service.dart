@@ -14,39 +14,37 @@ class LoginService with HandleException {
     required String countryCode,
     required int timeout,
     required Function(String, int?) codeSent,
+    required Function(FirebaseAuthException) verificationFailed,
     int? resentToken,
   }) async {
     debugPrint("phone no is ${countryCode + phone}");
     try {
       await _firebaseAuth
           .verifyPhoneNumber(
-            //* phone number
-            phoneNumber: '$countryCode $phone',
-            // * verification complete callback
-            verificationCompleted: (PhoneAuthCredential credential) async {
-              // var user = await _firebaseAuth.currentUser!;
-              // print("complted");
-              // print(credential);
-            },
-            // * handle verification failed state
-            verificationFailed: (FirebaseAuthException e) {
-              handleException(InvalidException(e.message, false));
-              // Get.back();
-            },
-            // * handle call back when the code sent
-            codeSent: codeSent,
-            // forceResendingToken: resentToken,
-            codeAutoRetrievalTimeout: (String verificationId) {
-              debugPrint("verification $verificationId");
-            },
-            timeout: Duration(seconds: timeout),
-          )
+        //* phone number
+        phoneNumber: '$countryCode $phone',
+        // * verification complete callback
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          // var user = await _firebaseAuth.currentUser!;
+          // print("complted");
+          // print(credential);
+        },
+        // * handle verification failed state
+        verificationFailed: verificationFailed,
+        // * handle call back when the code sent
+        codeSent: codeSent,
+        // forceResendingToken: resentToken,
+        codeAutoRetrievalTimeout: (String verificationId) {
+          debugPrint("verification $verificationId");
+        },
+        timeout: Duration(seconds: timeout),
+      )
           .catchError(
-            //* handle error
-            (e) => handleException(
-              Exception("something went wrong!"),
-            ),
-          );
+        //* handle error
+        (e) {
+          throw e;
+        },
+      );
     } catch (e) {
       //* handle exception.
       handleException(e);
@@ -68,7 +66,8 @@ class LoginService with HandleException {
     UserCredential? _userCredential;
     debugPrint("verification id is $vi");
 
-    if (_credential != null) {      try {
+    if (_credential != null) {
+      try {
         // * user credential
         _userCredential = await _firebaseAuth
             .signInWithCredential(_credential)
