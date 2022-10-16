@@ -1,7 +1,7 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/widgets/custom_banner.dart';
-import 'package:arnhss/features/authentication/account/view_model/select_account_view_modl.dart';
+import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
@@ -21,7 +21,6 @@ class _SelectAccountState extends State<SelectAccount> {
 
   @override
   void initState() {
-    // SelectAccountViewModel().getProfiles();
     context.read<SelectAccountViewModel>().getProfiles();
 
     super.initState();
@@ -102,7 +101,9 @@ class _SelectAccountState extends State<SelectAccount> {
                 : CustomButton(
                     label: "Continue",
                     onTap: () => Navigator.pushReplacementNamed(
-                        context, HomeView.routeName),
+                      context,
+                      HomeView.routeName,
+                    ),
                   ),
             const SizedBox(height: 30),
             isEmpty ? const Spacer() : const SizedBox(),

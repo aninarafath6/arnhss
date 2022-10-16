@@ -1,22 +1,20 @@
-
-
 import 'dart:convert';
 
 import 'package:arnhss/common/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  UserModel({
-    this.phone,
-    this.rollNumber,
-    this.dob,
-    this.role,
-    this.localRole,
-    this.admissionNo,
-    this.department,
-    this.name,
-    this.gender,
-  });
+  UserModel(
+      {this.phone,
+      this.rollNumber,
+      this.dob,
+      this.role,
+      this.localRole,
+      this.admissionNo,
+      this.department,
+      this.name,
+      this.gender,
+      this.dpURL});
 
   final String? phone;
   final int? rollNumber;
@@ -26,6 +24,7 @@ class UserModel {
   final int? admissionNo;
   final String? department;
   final String? name;
+  final String? dpURL;
   final Gender? gender;
 
   factory UserModel.fromRawJson(String str) =>
@@ -48,6 +47,7 @@ class UserModel {
         admissionNo: json["admission-no"],
         department: json["department"],
         name: json["name"],
+        dpURL: json["profileImageURL"],
         gender: toGender(json["gender"]),
       );
 
@@ -60,6 +60,7 @@ class UserModel {
         "admission-no": admissionNo,
         "department": department,
         "name": name,
+        "profileImageURL": dpURL,
         "gender": fromGender(gender!),
       };
 

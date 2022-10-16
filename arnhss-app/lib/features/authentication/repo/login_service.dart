@@ -62,16 +62,13 @@ class LoginService with HandleException {
           PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
       // print(_credential.toString() + " this is credential");
     } catch (e) {
-      // print("ablah ablah  ");
       // print(e);
       handleException(e);
     }
     UserCredential? _userCredential;
     debugPrint("verification id is $vi");
 
-    if (_credential != null) {
-      // print("dumm");
-      try {
+    if (_credential != null) {      try {
         // * user credential
         _userCredential = await _firebaseAuth
             .signInWithCredential(_credential)

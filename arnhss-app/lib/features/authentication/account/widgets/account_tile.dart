@@ -15,7 +15,6 @@ class AccountTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(user?.gender);
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       child: Container(
@@ -32,21 +31,21 @@ class AccountTile extends StatelessWidget {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           shape: const RoundedRectangleBorder(),
-          leading: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: CustomColors.lightBgOverlay,
-              borderRadius: BorderRadius.circular(25),
-            ),
+          leading: CircleAvatar(
+            radius: 25,
+            backgroundColor: CustomColors.bgOverlay,
+            backgroundImage:
+                user?.dpURL != null ? NetworkImage(user!.dpURL!) : null,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
-                child: Image.asset(
-                  user?.gender == Gender.male
-                      ? Images.maleStudentRoleIcon
-                      : Images.femaleStudentRoleIcon,
-                ),
+                child: user?.dpURL == null
+                    ? Image.asset(
+                        user?.gender == Gender.male
+                            ? Images.maleStudentRoleIcon
+                            : Images.femaleStudentRoleIcon,
+                      )
+                    : null,
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 class NetworkConstants {
   // base url
   static const String baseURL = "https://stghribe.karmaalab.com/";
+  static const String baseFlagURL = "https://flagcdn.com/48x36/";
 
   // endpoints
   static const String registerAPI = "auth/user/register";
