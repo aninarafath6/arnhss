@@ -1,11 +1,16 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/widgets/custom_banner.dart';
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/view/home_view.dart';
+import 'package:arnhss/services/shared_pref_service.dart';
+import 'package:get/route_manager.dart';
+import 'package:lottie/lottie.dart';
+
 import 'package:shimmer/shimmer.dart';
 
 class SelectAccount extends StatefulWidget {
@@ -98,13 +103,34 @@ class _SelectAccountState extends State<SelectAccount> {
 
             isEmpty
                 ? const SizedBox()
-                : CustomButton(
-                    label: "Continue",
-                    onTap: () => Navigator.pushReplacementNamed(
-                      context,
-                      HomeView.routeName,
-                    ),
-                  ),
+                : Consumer<SelectAccountViewModel>(
+                    builder: (context, value, child) {
+                    return CustomButton(
+                      label: "Continue",
+                      onTap: () {
+                        // return Navigator.pushReplacementNamed(
+                        //   context,
+                        //   HomeView.routeName,
+                        // );
+                        // _shredPrefService.setUser(
+                        //   context.read<SelectAccountViewModel>().profilesList[
+                        //       context
+                        //           .read<SelectAccountViewModel>()
+                        //           .selectedIndex],
+                        // );
+
+                        value.selectedAccount(
+                          value.profilesList[value.selectedIndex],
+                          () async {
+                            _buildSuccess(context);
+                            await Future.delayed(const Duration(seconds: 3));
+                            Get.offNamedUntil(
+                                HomeView.routeName, (route) => false);
+                          },
+                        );
+                      },
+                    );
+                  }),
             const SizedBox(height: 30),
             isEmpty ? const Spacer() : const SizedBox(),
             Row(
@@ -126,5 +152,40 @@ class _SelectAccountState extends State<SelectAccount> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> _buildSuccess(BuildContext context) {
+    return showDialog(
+        barrierColor: CustomColors.dark.withOpacity(.9),
+        barrierDismissible: true,
+        context: context,
+        builder: (context) {
+          return Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Lottie.asset(
+                    Images.successBgLottie,
+                    repeat: false,
+                    width: 300,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Lottie.asset(
+                    Images.profileSuccess,
+                    repeat: false,
+                    width: 300,
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

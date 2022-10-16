@@ -171,8 +171,7 @@ class NotesViewModel extends ChangeNotifier with HandleException {
     ),
   };
 
-  late final DepartmentModel _selectedDepartment =
-      subjectList[UserModel.fromDepartment(Department.cs)]!;
+  late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
   bool _isSearching = false;
   String _path = "";
 

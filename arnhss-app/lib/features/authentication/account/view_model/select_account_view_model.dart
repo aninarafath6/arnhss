@@ -1,10 +1,13 @@
 import 'package:arnhss/features/authentication/repo/login_service.dart';
 import 'package:arnhss/models/user.model.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
-class SelectAccountViewModel extends ChangeNotifier {
+class SelectAccountViewModel extends ChangeNotifier with HandleException {
   final LoginService _loginService = LoginService();
-
+  final SharedPrefService _sharedPrefService = SharedPrefService();
 //* states
   int _selectedIndex = 0;
   final List<UserModel> _profileList = [];
@@ -32,5 +35,14 @@ class SelectAccountViewModel extends ChangeNotifier {
     _profileList.addAll(_profiles!);
     _isEmpty = _profiles.isEmpty;
     notifyListeners();
+  }
+
+  void selectedAccount(UserModel user, Callback success) async {
+    try {
+      await _sharedPrefService.setUser(user);
+      success();
+    } catch (e) {
+      handleException(e);
+    }
   }
 }

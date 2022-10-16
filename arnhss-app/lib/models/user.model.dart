@@ -48,7 +48,7 @@ class UserModel {
         role: fromStringRole(json["role"]),
         localRole: json["local-role"],
         admissionNo: json["admission-no"],
-        department: json["department"],
+        department: toDepartment(json["department"]),
         name: json["name"],
         dpURL: json["profileImageURL"],
         gender: toGender(json["gender"]),
@@ -62,7 +62,7 @@ class UserModel {
         "role": toRole(role!),
         "local-role": localRole,
         "admission-no": admissionNo,
-        "department": department,
+        "department": fromDepartment(department!),
         "name": name,
         "profileImageURL": dpURL,
         "gender": fromGender(gender!),
@@ -94,6 +94,19 @@ class UserModel {
     }
   }
 
+  static String fromRole(Role gender) {
+    switch (gender) {
+      case Role.student:
+        return "student";
+      case Role.teacher:
+        return "teacher";
+      case Role.parent:
+        return "parent";
+      default:
+        return "admin";
+    }
+  }
+
   static Gender toGender(String str) {
     switch (str) {
       case "male":
@@ -120,7 +133,7 @@ class UserModel {
     switch (str) {
       case "commerce":
         return Department.commerce;
-      case "cs":
+      case "computer science":
         return Department.cs;
       case "science":
         return Department.science;
@@ -134,7 +147,7 @@ class UserModel {
       case Department.commerce:
         return "commerce";
       case Department.cs:
-        return "cs";
+        return "computer science";
       case Department.science:
         return "science";
       default:

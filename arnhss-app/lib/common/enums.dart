@@ -2,6 +2,7 @@ enum Role {
   student,
   teacher,
   parent,
+  admin,
 }
 
 enum Gender {

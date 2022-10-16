@@ -18,4 +18,8 @@ class Images {
   static const notFound = 'assets/images/pngs/not-found.jpeg';
   static const notificationNotFound = "assets/images/pngs/notification.png";
   static const noteNotFound = "assets/images/icons/design-badge .png";
+
+  // * lottie files
+  static const profileSuccess = "assets/lottie/lf30_editor_tsoh2riw.json";
+  static const successBgLottie = "assets/lottie/85744-success.json";
 }

@@ -1,13 +1,16 @@
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefService {
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  setUser(UserModel user) async {
+  Future<void> setUser(UserModel user) async {
     SharedPreferences pref = await _prefs;
     pref.setBool("login", true);
-    pref.setString("id", user.id?? "");
-    // pref.setString("department", user.department!)
+    pref.setString("id", user.id ?? "");
+    pref.setString("department", UserModel.fromDepartment(user.department!));
+    pref.setString("role", UserModel.fromRole(user.role ?? Role.student));
+    pref.setString("name", user.name ?? "");
   }
 }
