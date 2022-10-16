@@ -1,5 +1,3 @@
-import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/constants/network_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/search_app_bar.dart';
@@ -67,11 +65,13 @@ class CountrySelect extends StatelessWidget {
                   ),
                   title: Text(snapshot.data![index].name),
                   leading: Image.network(
-                    "${NetworkConstants.baseFlagURL}${snapshot.data?[index].code.toLowerCase()}.png",
+                    "${NetworkConstants.baseFlagURL}${snapshot.data![index].code.toLowerCase()}.png",
                     errorBuilder: ((context, error, stackTrace) {
-                      return Text(snapshot.data?[index].code ?? "");
+                      return Text(
+                        snapshot.data?[index].code ?? "",
+                      );
                     }),
-                    width: 25,
+                    width: 15,
                   ),
                 );
               },
