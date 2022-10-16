@@ -7,7 +7,6 @@ import 'package:arnhss/features/authentication/account/widgets/account_tile_skel
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/view/home_view.dart';
-import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
 
@@ -124,8 +123,7 @@ class _SelectAccountState extends State<SelectAccount> {
                           () async {
                             _buildSuccess(context);
                             await Future.delayed(const Duration(seconds: 3));
-                            Get.offNamedUntil(
-                                HomeView.routeName, (route) => false);
+                            Get.toNamed(HomeView.routeName);
                           },
                         );
                       },
@@ -156,8 +154,9 @@ class _SelectAccountState extends State<SelectAccount> {
 
   Future<dynamic> _buildSuccess(BuildContext context) {
     return showDialog(
-        barrierColor: CustomColors.dark.withOpacity(.9),
-        barrierDismissible: true,
+        barrierColor: CustomColors.dark.withOpacity(.8),
+        barrierDismissible: false,
+        useRootNavigator: false,
         context: context,
         builder: (context) {
           return Stack(

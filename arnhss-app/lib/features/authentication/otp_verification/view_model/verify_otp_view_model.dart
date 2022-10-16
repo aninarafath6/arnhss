@@ -15,11 +15,12 @@ class VerifyOtpViewModel extends ChangeNotifier {
   final ScrollController _otpScrollController = ScrollController();
   String? _otp;
   bool _isLoading = false;
+  Timer? timer;
 
-  @override
-  void dispose() {
-    _otpScrollController.dispose();
-    super.dispose();
+  void disp() {
+    _otp = null;
+    timer?.cancel();
+    notifyListeners();
   }
 
   //* getters
@@ -55,7 +56,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
 // * the time for resend the otp
   Future<void> startTimer() async {
     const Duration lim = Duration(seconds: 1);
-    Timer.periodic(lim, (timer) {
+    timer = Timer.periodic(lim, (timer) {
       if (_balanceTime == 0) {
         timer.cancel();
       } else {

@@ -1,11 +1,17 @@
 import 'package:arnhss/common/routes/index_routes.dart';
+// import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 
 import './index.dart';
 
-class OtpVerificationView extends StatelessWidget {
+class OtpVerificationView extends StatefulWidget {
   const OtpVerificationView({Key? key}) : super(key: key);
   static const routeName = "/verifyOtp";
 
+  @override
+  State<OtpVerificationView> createState() => _OtpVerificationViewState();
+}
+
+class _OtpVerificationViewState extends State<OtpVerificationView> {
   @override
   Widget build(BuildContext context) {
     debugPrint("=====OTP screen=====");
@@ -56,7 +62,9 @@ class _VerifyOtpActionButton extends StatelessWidget {
             await context.read<VerifyOtpViewModel>().verifyOtp(context);
         if (isOtpValid) {
           Navigator.pushReplacementNamed(context, SelectAccount.routeName);
+          context.read<VerifyOtpViewModel>().disp();
         }
+
         // return context.read<VerifyOtpViewModel>().verifyOtp(context);
       },
     );

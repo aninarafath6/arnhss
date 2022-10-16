@@ -27,7 +27,7 @@ class _LoginViewState extends State<LoginView> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: ListView(
             // physics: NeverScrollableScrollPhysics(),
-            controller: context.read<LoginViewModel>().scrollController,
+            controller: context.watch<LoginViewModel>().scrollController,
             addAutomaticKeepAlives: true,
             children: [
               context.spacing(height: 10),
