@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/common/widgets/custom_snack_bar.dart';
-import 'package:arnhss/features/authentication/repo/login_service.dart';
+import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
   // * instances
-  final LoginService _loginService = LoginService();
+  final AuthService _authService = AuthService();
 
   int duration = 30;
   int _balanceTime = 30;
@@ -73,8 +73,10 @@ class VerifyOtpViewModel extends ChangeNotifier {
       toggleLoading();
 
       // * verify otp with firebase credential
-      UserCredential? _userCredential = await _loginService.verifyOtp(
+      UserCredential? _userCredential = await _authService.verifyOtp(
           vi: context.read<LoginViewModel>().vi, otp: _otp);
+
+      // print(_userCredential?.user);
 
       if (_userCredential != null) {
         toggleLoading();

@@ -1,12 +1,12 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
+import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/widgets/custom_banner.dart';
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/home/view/home_view.dart';
 import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
 
@@ -106,25 +106,20 @@ class _SelectAccountState extends State<SelectAccount> {
                     builder: (context, value, child) {
                     return CustomButton(
                       label: "Continue",
+                      loading: value.buttonLoading,
                       onTap: () {
-                        // return Navigator.pushReplacementNamed(
-                        //   context,
-                        //   HomeView.routeName,
-                        // );
-                        // _shredPrefService.setUser(
-                        //   context.read<SelectAccountViewModel>().profilesList[
-                        //       context
-                        //           .read<SelectAccountViewModel>()
-                        //           .selectedIndex],
-                        // );
-
                         value.selectedAccount(
                           value.profilesList[value.selectedIndex],
                           () async {
+                            value.toggleButtonLoading();
+                            await Future.delayed(const Duration(seconds: 1));
+                            value.toggleButtonLoading();
                             _buildSuccess(context);
                             await Future.delayed(const Duration(seconds: 3));
                             Get.offNamedUntil(
-                                HomeView.routeName, ((route) => false));
+                              HomeView.routeName,
+                              ((route) => false),
+                            );
                           },
                         );
                       },

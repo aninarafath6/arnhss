@@ -1,6 +1,8 @@
+import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/extensions/context_extension.dart';
-import 'package:flutter/material.dart';
+import 'package:arnhss/features/authentication/repo/auth_service.dart';
+import 'package:get/route_manager.dart';
 import 'package:remixicon/remixicon.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -142,7 +144,7 @@ class AppDrawer extends StatelessWidget {
                 title: const Text(
                   'Get Help',
                 ),
-                leading: Icon(Remix.chat_voice_line),
+                leading: const Icon(Remix.chat_voice_line),
                 onTap: () {
                   // Update the state of the app.
                   // ...
@@ -155,8 +157,8 @@ class AppDrawer extends StatelessWidget {
                 ),
                 leading: const Icon(Remix.logout_circle_r_line),
                 onTap: () {
-                  // Update the state of the app.
-                  // ...
+                  AuthService().logout();
+                  Get.offNamedUntil(LoginView.routeName, (_) => false);
                 },
               ),
               // const SizedBox(height: 40),

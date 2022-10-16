@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/extensions/context_extension.dart';
 import 'package:arnhss/services/shared_pref_service.dart';

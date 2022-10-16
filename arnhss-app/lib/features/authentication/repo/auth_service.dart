@@ -1,13 +1,22 @@
+import 'dart:async';
+
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginService with HandleException {
+class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final SharedPrefService _prefService = SharedPrefService();
+
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  Stream<User?>? get user {
+    return _firebaseAuth.authStateChanges();
+  }
 
   Future<void> getOtp({
     required String phone,
@@ -24,16 +33,12 @@ class LoginService with HandleException {
         //* phone number
         phoneNumber: '$countryCode $phone',
         // * verification complete callback
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          // var user = await _firebaseAuth.currentUser!;
-          // print("complted");
-          // print(credential);
-        },
+        verificationCompleted: (PhoneAuthCredential credential) async {},
         // * handle verification failed state
         verificationFailed: verificationFailed,
         // * handle call back when the code sent
         codeSent: codeSent,
-        // forceResendingToken: resentToken,
+        forceResendingToken: resentToken,
         codeAutoRetrievalTimeout: (String verificationId) {
           debugPrint("verification $verificationId");
         },
@@ -58,9 +63,7 @@ class LoginService with HandleException {
     try {
       _credential =
           PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
-      // print(_credential.toString() + " this is credential");
     } catch (e) {
-      // print(e);
       handleException(e);
     }
     UserCredential? _userCredential;
@@ -76,7 +79,6 @@ class LoginService with HandleException {
           throw error;
         }).then(
           ((value) {
-            // print("here here here here");
             return value;
           }),
         );
@@ -93,7 +95,15 @@ class LoginService with HandleException {
     return _userCredential;
   }
 
-  // Future<
+  void updateUserProfile(UserModel user) async {
+    try {
+      var _user = _firebaseAuth.currentUser;
+      await _user?.updateDisplayName(user.name);
+      await _user?.updatePhotoURL(user.dpURL);
+    } catch (e) {
+      handleException(InvalidException("User Profile is not updated", false));
+    }
+  }
 
   Future<List<UserModel>?> getListUsers() async {
     // * get users who have the same number
@@ -109,13 +119,25 @@ class LoginService with HandleException {
         handleException(e);
       }
     } else {
+      // * handle error cases
       handleException(InvalidException("Log credential is not exist", false));
     }
 
+// * if query snapshot has data then return data other wise return null
     if (querySnapshot != null) {
       return UserModel.listFromJson(querySnapshot);
     } else {
       return null;
+    }
+  }
+
+// * sign out user
+  Future<void> logout() async {
+    try {
+      await _firebaseAuth.signOut();
+      _prefService.clear();
+    } catch (e) {
+      handleException(e);
     }
   }
 }

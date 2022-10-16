@@ -1,4 +1,4 @@
-import 'package:arnhss/features/authentication/repo/login_service.dart';
+import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class LoginViewModel extends ChangeNotifier with HandleException {
   // * instances
-  final LoginService _loginService = LoginService();
+  final AuthService _authService = AuthService();
   // final VerifyOtpViewModel _verifyOtpViewModel = VerifyOtpViewModel();
 
   // * controllers
@@ -79,7 +79,7 @@ class LoginViewModel extends ChangeNotifier with HandleException {
       // * start loading
       toggleLoading();
       var status = true;
-      await _loginService
+      await _authService
           .getOtp(
             // * phone number
             phone: phoneNumber,
