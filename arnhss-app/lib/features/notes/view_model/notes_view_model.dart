@@ -4,7 +4,6 @@ import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/features/notes/model/department_mode.dart';
 import 'package:arnhss/features/notes/model/note_model.dart';
 import 'package:arnhss/features/notes/repo/pdf_view.dart';
-import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:flutter/material.dart';
 

@@ -25,6 +25,7 @@ class LoginViewModel extends ChangeNotifier with HandleException {
 
   //* getters
   TextEditingController get mobileNumberController => _mobileNumberController;
+
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
   bool get loading => _loading;
@@ -38,6 +39,9 @@ class LoginViewModel extends ChangeNotifier with HandleException {
     RegExp regExp = RegExp(pattern);
     //* handling errors
     try {
+      _mobileNumberController.text = _mobileNumberController.text.trim();
+      // _mobileNumberController.text = _mobileNumberController.text.trim();
+
       // * if mobile number is empty then throw a invalid exception
       if (_mobileNumberController.text.isEmpty) {
         throw InvalidException("Please enter your mobile number! ", false);
