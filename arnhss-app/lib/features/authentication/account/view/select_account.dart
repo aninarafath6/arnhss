@@ -6,6 +6,7 @@ import 'package:arnhss/common/widgets/custom_banner.dart';
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
+import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
@@ -108,7 +109,8 @@ class _SelectAccountState extends State<SelectAccount> {
                       label: "Continue",
                       loading: value.buttonLoading,
                       onTap: () {
-                        value.selectedAccount(
+                        value.signIn(
+                          context.read<VerifyOtpViewModel>().authCredential,
                           value.profilesList[value.selectedIndex],
                           () async {
                             value.toggleButtonLoading();

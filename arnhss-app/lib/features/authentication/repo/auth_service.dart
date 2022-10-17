@@ -57,7 +57,7 @@ class AuthService with HandleException {
   }
 
 // * verify otp
-  Future<UserCredential?> verifyOtp({String? vi, String? otp}) async {
+  Future<AuthCredential?> verifyOtp({String? vi, String? otp}) async {
     //* verify otp with phone auth provider
     AuthCredential? _credential;
     try {
@@ -66,33 +66,39 @@ class AuthService with HandleException {
     } catch (e) {
       handleException(e);
     }
-    UserCredential? _userCredential;
-    debugPrint("verification id is $vi");
+    return _credential;
+  }
 
-    if (_credential != null) {
-      try {
-        // * user credential
-        _userCredential = await _firebaseAuth
-            .signInWithCredential(_credential)
-            .catchError((error) {
-          debugPrint("throwing error from here");
-          throw error;
-        }).then(
-          ((value) {
-            return value;
+  Future<void> signIn(AuthCredential? credential, UserModel user) async {
+    // UserCredential? _userCredential;
+
+    try {
+      // * user credential
+      if (credential != null) {
+        await _firebaseAuth.signInWithCredential(credential).catchError(
+          (error) {
+            debugPrint("throwing error from here");
+            throw error;
+          },
+        ).then(
+          ((value) async {
+            updateUserProfile(user);
           }),
         );
-        //* handle firebase exception
-      } on FirebaseAuthException catch (e) {
-        debugPrint(e.code);
-        handleException(InvalidException(e.code, false), top: true);
-      } catch (e) {
-        debugPrint("here $e");
-        handleException(e);
+      } else {
+        throw InvalidException("Something went wrong!!", false);
       }
+      //* handle firebase exception
+    } on FirebaseAuthException catch (e) {
+      debugPrint(e.code);
+      handleException(InvalidException(e.code, false), top: true);
+    } catch (e) {
+      debugPrint("here $e");
+      handleException(e);
     }
+
     //* return the user credential
-    return _userCredential;
+    // return _userCredential;
   }
 
   void updateUserProfile(UserModel user) async {
@@ -101,7 +107,7 @@ class AuthService with HandleException {
       await _user?.updateDisplayName(user.name);
       await _user?.updatePhotoURL(user.dpURL);
     } catch (e) {
-      handleException(InvalidException("User Profile is not updated", false));
+      handleException(InvalidException("User Profile is not updated!!", false));
     }
   }
 
