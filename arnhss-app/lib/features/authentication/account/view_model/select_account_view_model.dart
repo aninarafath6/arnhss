@@ -35,14 +35,14 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
   }
 
 //* get profile of logged user
-  Future<void> getProfiles() async {
-    _loading = true;
-    var _profiles = await _authService.getListUsers();
-    _loading = false;
-    _profileList.clear();
-    _profileList.addAll(_profiles!);
-    _isEmpty = _profiles.isEmpty;
-    notifyListeners();
+  Future<List<UserModel>?> getProfiles() async {
+    // _loading = true;
+    return _authService.getListUsers();
+    // _loading = false;
+    // _profileList.clear();
+    // _profileList.addAll(_profiles!);
+    // _isEmpty = _profileList.isEmpty;
+    // notifyListeners();
   }
 
   void signIn(
