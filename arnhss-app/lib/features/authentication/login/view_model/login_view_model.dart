@@ -123,7 +123,7 @@ class LoginViewModel extends ChangeNotifier with HandleException {
   @override
   void dispose() {
     // print("login dispose method");
-    _mobileNumberController.dispose();
+    _mobileNumberController.text = "";
     _scrollController.dispose();
     _myFocusNode.dispose();
     super.dispose();
