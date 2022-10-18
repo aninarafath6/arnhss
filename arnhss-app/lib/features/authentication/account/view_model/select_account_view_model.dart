@@ -46,14 +46,17 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
   }
 
   void signIn(
-      AuthCredential? authCredential, UserModel user, Callback success) async {
-    _authService.signIn(authCredential, user);
-
-    try {
-      await _sharedPrefService.setUser(user);
-      success();
-    } catch (e) {
-      handleException(e);
-    }
+    AuthCredential? authCredential,
+    UserModel user,
+    Callback success,
+  ) async {
+    await _authService.signIn(authCredential, user).then((value) async {
+      try {
+        await _sharedPrefService.setUser(user);
+        success();
+      } catch (e) {
+        handleException(e);
+      }
+    });
   }
 }

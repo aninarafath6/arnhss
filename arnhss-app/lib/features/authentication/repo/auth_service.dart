@@ -7,6 +7,7 @@ import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
 class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
