@@ -13,7 +13,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   void dispose() {
-    LoginViewModel().dispose();
+    // LoginViewModel().dispose();
     super.dispose();
   }
 

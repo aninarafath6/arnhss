@@ -112,22 +112,17 @@ class AuthService with HandleException {
     }
   }
 
-  Future<List<UserModel>?> getListUsers() async {
+  Future<List<UserModel>?> getListUsers(String phone) async {
     // * get users who have the same number
     QuerySnapshot? querySnapshot;
-    if (_firebaseAuth.currentUser != null) {
-      try {
-        // * fetch the document which have same phone number
-        await Future.delayed(const Duration(seconds: 1));
-        querySnapshot = await users
-            .where("phone", isEqualTo: _firebaseAuth.currentUser?.phoneNumber)
-            .get();
-      } catch (e) {
-        handleException(e);
-      }
-    } else {
-      // * handle error cases
-      handleException(InvalidException("Log credential is not exist", false));
+    print(phone);
+
+    try {
+      // * fetch the document which have same phone number
+      await Future.delayed(const Duration(seconds: 1));
+      querySnapshot = await users.where("phone", isEqualTo: phone).get();
+    } catch (e) {
+      handleException(e);
     }
 
 // * if query snapshot has data then return data other wise return null
