@@ -2,6 +2,7 @@ import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
@@ -44,13 +45,18 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
-  void selectedAccount(UserModel user, Callback success) async {
-    _authService.updateUserProfile(user);
-    try {
-      await _sharedPrefService.setUser(user);
-      success();
-    } catch (e) {
-      handleException(e);
-    }
+  void signIn(
+    AuthCredential? authCredential,
+    UserModel user,
+    Callback success,
+  ) async {
+    await _authService.signIn(authCredential, user).then((value) async {
+      try {
+        await _sharedPrefService.setUser(user);
+        success();
+      } catch (e) {
+        handleException(e);
+      }
+    });
   }
 }

@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class VerifyOtpViewModel extends ChangeNotifier {
   // * instances
   final AuthService _authService = AuthService();
+  AuthCredential? _authCredential;
 
   int duration = 30;
   int _balanceTime = 30;
@@ -30,6 +31,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
   ScrollController get otpScrollController => _otpScrollController;
   String? get otp => _otp;
   bool get isLoading => _isLoading;
+  AuthCredential? get authCredential => _authCredential;
 
 //* setters
   void setOtp(String? otp) {
@@ -73,16 +75,13 @@ class VerifyOtpViewModel extends ChangeNotifier {
       toggleLoading();
 
       // * verify otp with firebase credential
-      UserCredential? _userCredential = await _authService.verifyOtp(
+      _authCredential = await _authService.verifyOtp(
           vi: context.read<LoginViewModel>().vi, otp: _otp);
 
-      // print(_userCredential?.user);
-
-      if (_userCredential != null) {
+      if (_authCredential != null) {
         toggleLoading();
         return true;
       }
-
       toggleLoading();
       return false;
     } else {
