@@ -152,6 +152,16 @@ class AppDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: const Text(
+                  'Developer Contact',
+                ),
+                leading: const Icon(Remix.code_s_slash_line),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+              ListTile(
+                title: const Text(
                   'Logout',
                   style: TextStyle(color: Colors.redAccent),
                 ),
