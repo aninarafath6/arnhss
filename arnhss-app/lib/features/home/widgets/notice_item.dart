@@ -20,6 +20,7 @@ class NoticeItem extends StatelessWidget {
       child: Container(
         width: context.getWidth(55),
         height: 180,
+        margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
           color: CustomColors.lightBgOverlay,

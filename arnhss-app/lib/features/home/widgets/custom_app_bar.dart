@@ -31,8 +31,9 @@ AppBar customHomeAppBar(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Hey, Anin Arafath",
-                style: TextStyle(
+            Text(
+                "Hey, ${Provider.of<HomeViewModel>(context).user?.name ?? "Unknown user"}",
+                style: const TextStyle(
                   color: CustomColors.dark,
                   fontWeight: FontWeight.bold,
                 )),
