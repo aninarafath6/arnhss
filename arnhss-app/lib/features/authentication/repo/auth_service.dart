@@ -12,7 +12,8 @@ class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final SharedPrefService _prefService = SharedPrefService();
 
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference _usersCollection =
+      FirebaseFirestore.instance.collection('users');
 
   Stream<User?>? get user {
     return _firebaseAuth.authStateChanges();
@@ -115,12 +116,12 @@ class AuthService with HandleException {
   Future<List<UserModel>?> getListUsers(String phone) async {
     // * get users who have the same number
     QuerySnapshot? querySnapshot;
-    print(phone);
 
     try {
       // * fetch the document which have same phone number
       await Future.delayed(const Duration(seconds: 1));
-      querySnapshot = await users.where("phone", isEqualTo: phone).get();
+      querySnapshot =
+          await _usersCollection.where("phone", isEqualTo: phone).get();
     } catch (e) {
       handleException(e);
     }
