@@ -6,6 +6,8 @@ class CountryViewModel with ChangeNotifier {
       countryModelFromJson(getJson());
   Future<List<CountryModel>>? _result = countryModelFromJson(getJson());
 
+  
+
   // used to keyboard overlap
   bool _isDropDownOpen = false;
   bool _isSearching = false;

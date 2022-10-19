@@ -1,8 +1,12 @@
-import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/common/widgets/user_avatar.dart';
 import 'package:arnhss/extensions/context_extension.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/authentication/repo/auth_service.dart';
+import 'package:arnhss/features/home/view_models/home_view_model.dart';
+import 'package:arnhss/features/home/widgets/user_avatar.dart';
+import 'package:get/route_manager.dart';
 import 'package:remixicon/remixicon.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -16,163 +20,189 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       width: context.getWidth(80),
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Stack(
         children: [
-          DrawerHeader(
-            padding: const EdgeInsets.all(15.0),
-            curve: Curves.easeInOutBack,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(.1),
-            ),
-            child: Stack(
-              clipBehavior: Clip.none,
+          Consumer<HomeViewModel>(builder: (context, value, _) {
+            return ListView(
+              padding: EdgeInsets.zero,
               children: [
-                Positioned(
-                  right: 0,
-                  left: 190,
-                  bottom: -30,
-                  // alignment: Alignment.bottomRight,
-                  child: Image.asset(image!),
+                DrawerHeader(
+                  padding: const EdgeInsets.all(15.0),
+                  curve: Curves.easeInOutBack,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(.1),
+                  ),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned(
+                        right: 0,
+                        left: 190,
+                        bottom: -30,
+                        // alignment: Alignment.bottomRight,
+                        child: Image.asset(image!),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          UserAvatar(
+                            user: value.user,
+                            radius: 28,
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(value.user?.name ?? "Unknown User",
+                                  style: CustomTextTheme(context: context)
+                                      .headLine2()
+                                      .copyWith(fontSize: 17)),
+                              Text(
+                                value.user?.phone ?? "+91 XXXXXXXXXX",
+                                style: CustomTextTheme(context: context)
+                                    .paragraph()
+                                    .copyWith(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const CircleAvatar(
-                      radius: 28,
-                      backgroundImage: NetworkImage(
-                          "https://aninarafath.me/images/about-1.jpeg"),
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Anin Arafath",
-                            style: CustomTextTheme(context: context)
-                                .headLine2()
-                                .copyWith(fontSize: 17)),
-                        Text(
-                          "+91 6282062527",
-                          style: CustomTextTheme(context: context)
-                              .paragraph()
-                              .copyWith(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ],
+                // const SizedBox(height: 50),
+                ListTile(
+                  title: const Text('My Profile'),
+                  leading: const Icon(Remix.user_6_line),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
                 ),
-              ],
-            ),
-          ),
-          // const SizedBox(height: 50),
-          ListTile(
-            title: const Text('My Profile'),
-            leading: const Icon(Remix.user_6_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            title: const Text('Notifications'),
-            leading: Icon(Remix.notification_2_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            title: const Text('Notice Board'),
-            leading: Icon(Remix.alarm_warning_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            title: const Text('Attendance'),
-            leading: Icon(Remix.shield_check_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            title: const Text('Todo Tasks'),
-            leading: Icon(Remix.file_list_2_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
+                ListTile(
+                  title: const Text('Notifications'),
+                  leading: Icon(Remix.notification_2_line),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: const Text('Notice Board'),
+                  leading: Icon(Remix.alarm_warning_line),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: const Text('Attendance'),
+                  leading: Icon(Remix.shield_check_line),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                // ListTile(
+                //   title: const Text('Todo Tasks'),
+                //   leading: Icon(Remix.file_list_2_line),
+                //   onTap: () {
+                //     // Update the state of the app.
+                //     // ...
+                //   },
+                // ),
 
-          ListTile(
-            title: const Text('Notes'),
-            leading: Icon(Remix.booklet_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            title: const Text('TimeTable'),
-            leading: Icon(Remix.timer_2_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            title: const Text('Events'),
-            leading: Icon(Remix.calendar_event_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18.0),
-            child: Divider(
-              thickness: 1.2,
-            ),
-          ),
-          ListTile(
-            title: const Text(
-              'Get Help',
-            ),
-            leading: Icon(Remix.chat_voice_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            title: const Text(
-              'Logout',
-              style: TextStyle(color: Colors.redAccent),
-            ),
-            leading: const Icon(Remix.logout_circle_r_line),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          const SizedBox(height: 40),
-          const Padding(
-            padding: EdgeInsets.all(5.0),
-            child: Text("Made with ❤️ by CS2 2021-23",
-                textAlign: TextAlign.center, style: TextStyle(fontSize: 13)),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(
-              "version 0.001 (alpha)",
-              textAlign: TextAlign.center,
-              style: CustomTextTheme(context: context)
-                  .paragraph()
-                  .copyWith(fontSize: 12),
+                // ListTile(
+                //   title: const Text('Notes'),
+                //   leading: Icon(Remix.booklet_line),
+                //   onTap: () {
+                //     // Update the state of the app.
+                //     // ...
+                //   },
+                // ),
+                // ListTile(
+                //   title: const Text('TimeTable'),
+                //   leading: Icon(Remix.timer_2_line),
+                //   onTap: () {
+                //     // Update the state of the app.
+                //     // ...
+                //   },
+                // ),
+                // ListTile(
+                //   title: const Text('Events'),
+                //   leading: Icon(Remix.calendar_event_line),
+                //   onTap: () {
+                //     // Update the state of the app.
+                //     // ...
+                //   },
+                // ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 18.0),
+                  child: Divider(
+                    thickness: 1.2,
+                  ),
+                ),
+                ListTile(
+                  title: const Text(
+                    'Get Help',
+                  ),
+                  leading: const Icon(Remix.chat_voice_line),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: const Text(
+                    'Developer Contact',
+                  ),
+                  leading: const Icon(Remix.code_s_slash_line),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: const Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
+                  leading: const Icon(Remix.logout_circle_r_line),
+                  onTap: () {
+                    AuthService().logout();
+                    Get.offNamedUntil(LoginView.routeName, (_) => false);
+                  },
+                ),
+                // const SizedBox(height: 40),
+                // Spacer(),
+              ],
+            );
+          }),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text("Made with ❤️ by CS2 2021-23",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 13)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    "version 0.001 (alpha)",
+                    textAlign: TextAlign.center,
+                    style: CustomTextTheme(context: context)
+                        .paragraph()
+                        .copyWith(fontSize: 12),
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
             ),
           )
         ],

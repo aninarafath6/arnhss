@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/constants/network_constants.dart';
 import 'package:arnhss/features/authentication/login/widgets/country_select.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/login/widgets/input_box.dart';
@@ -35,7 +36,12 @@ class CustomInput extends StatelessWidget {
                 ),
                 const SizedBox(width: 5),
                 Image.network(
-                  "https://flagcdn.com/48x36/${context.watch<CountryViewModel>().selectedCountry.code.toLowerCase()}.png",
+                  "${NetworkConstants.baseFlagURL}${context.watch<CountryViewModel>().selectedCountry.code.toLowerCase()}.png",
+                  errorBuilder: ((context, error, stackTrace) {
+                    return Text(
+                      context.watch<CountryViewModel>().selectedCountry.code,
+                    );
+                  }),
                   width: 15,
                 ),
                 const Icon(Icons.arrow_drop_down, color: CustomColors.dark)

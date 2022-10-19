@@ -2,10 +2,14 @@ import 'package:arnhss/features/authentication/login/view/index.dart';
 
 import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/widgets/notice_item.dart';
+import 'package:arnhss/models/user.model.dart';
+import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:remixicon/remixicon.dart';
 
 class HomeViewModel with ChangeNotifier {
   var scaffoldKey = GlobalKey<ScaffoldState>();
+  final SharedPrefService _prefService = SharedPrefService();
+  UserModel? _user;
 
   final List<NoticeItem> noticeList = [
     NoticeItem(
@@ -39,4 +43,12 @@ class HomeViewModel with ChangeNotifier {
               " Examination fees for children taking the 1st Year Higher Secondary Improvement Examination are also due tomorrow (1/9/22, 2/9/22) at school. Documents to be submitted to the school 1. Application Form 2.+1 Marklist Copy fee Paper 1 N 175 + 40 A child can write maximum 3 papers"),
     ),
   ];
+
+  //* getters
+  UserModel? get user => _user;
+
+  // * get user
+  void getUser() async {
+    _user = await _prefService.getUser();
+  }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/features/notes/model/department_mode.dart';
 import 'package:arnhss/features/notes/model/note_model.dart';
 import 'package:arnhss/features/notes/repo/pdf_view.dart';
@@ -210,11 +211,4 @@ class NotesViewModel extends ChangeNotifier with HandleException {
       HandleException().handleException(e);
     });
   }
-}
-
-enum Department {
-  cs,
-  humanities,
-  commerce,
-  science,
 }

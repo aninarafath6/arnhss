@@ -1,31 +1,32 @@
-
-
 import 'dart:convert';
 
 import 'package:arnhss/common/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  UserModel({
-    this.phone,
-    this.rollNumber,
-    this.dob,
-    this.role,
-    this.localRole,
-    this.admissionNo,
-    this.department,
-    this.name,
-    this.gender,
-  });
+  UserModel(
+      {this.phone,
+      this.id,
+      this.rollNumber,
+      this.dob,
+      this.role,
+      this.localRole,
+      this.admissionNo,
+      this.department,
+      this.name,
+      this.gender,
+      this.dpURL});
 
+  final String? id;
   final String? phone;
   final int? rollNumber;
   final String? dob;
   final Role? role;
   final String? localRole;
   final int? admissionNo;
-  final String? department;
+  final Department? department;
   final String? name;
+  final String? dpURL;
   final Gender? gender;
 
   factory UserModel.fromRawJson(String str) =>
@@ -40,26 +41,30 @@ class UserModel {
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        id: json["id"],
         phone: json["phone"],
         rollNumber: json["rollNumber"],
         dob: json["dob"],
         role: fromStringRole(json["role"]),
         localRole: json["local-role"],
         admissionNo: json["admission-no"],
-        department: json["department"],
+        department: toDepartment(json["department"]),
         name: json["name"],
+        dpURL: json["profileImageURL"],
         gender: toGender(json["gender"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "phone": phone,
         "rollNumber": rollNumber,
         "dob": dob,
         "role": toRole(role!),
         "local-role": localRole,
         "admission-no": admissionNo,
-        "department": department,
+        "department": fromDepartment(department!),
         "name": name,
+        "profileImageURL": dpURL,
         "gender": fromGender(gender!),
       };
 
@@ -89,6 +94,19 @@ class UserModel {
     }
   }
 
+  static String fromRole(Role gender) {
+    switch (gender) {
+      case Role.student:
+        return "student";
+      case Role.teacher:
+        return "teacher";
+      case Role.parent:
+        return "parent";
+      default:
+        return "admin";
+    }
+  }
+
   static Gender toGender(String str) {
     switch (str) {
       case "male":
@@ -108,6 +126,32 @@ class UserModel {
         return "female";
       default:
         return "other";
+    }
+  }
+
+  static Department toDepartment(String str) {
+    switch (str) {
+      case "commerce":
+        return Department.commerce;
+      case "computer science":
+        return Department.cs;
+      case "science":
+        return Department.science;
+      default:
+        return Department.humanities;
+    }
+  }
+
+  static String fromDepartment(Department department) {
+    switch (department) {
+      case Department.commerce:
+        return "commerce";
+      case Department.cs:
+        return "computer science";
+      case Department.science:
+        return "science";
+      default:
+        return "humanities";
     }
   }
 }

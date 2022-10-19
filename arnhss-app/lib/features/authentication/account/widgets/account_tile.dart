@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/common/widgets/user_avatar.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/models/user.model.dart';
@@ -15,7 +15,6 @@ class AccountTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(user?.gender);
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       child: Container(
@@ -32,26 +31,11 @@ class AccountTile extends StatelessWidget {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           shape: const RoundedRectangleBorder(),
-          leading: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: CustomColors.lightBgOverlay,
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Image.asset(
-                  user?.gender == Gender.male
-                      ? Images.maleStudentRoleIcon
-                      : Images.femaleStudentRoleIcon,
-                ),
-              ),
-            ),
-          ),
+          leading: UserAvatar(user: user),
           title: user?.name?.toText(),
-          subtitle: user?.department?.toText(),
+          subtitle: UserModel.fromDepartment(
+            user?.department ?? Department.cs,
+          ).toText(),
           trailing: Container(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             decoration: BoxDecoration(

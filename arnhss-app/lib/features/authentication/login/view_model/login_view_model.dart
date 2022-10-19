@@ -1,16 +1,17 @@
-import 'package:arnhss/features/authentication/repo/login_service.dart';
+import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 
 class LoginViewModel extends ChangeNotifier with HandleException {
   // * instances
-  final LoginService _loginService = LoginService();
+  final AuthService _authService = AuthService();
   // final VerifyOtpViewModel _verifyOtpViewModel = VerifyOtpViewModel();
 
   // * controllers
@@ -24,6 +25,7 @@ class LoginViewModel extends ChangeNotifier with HandleException {
 
   //* getters
   TextEditingController get mobileNumberController => _mobileNumberController;
+
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
   bool get loading => _loading;
@@ -37,6 +39,9 @@ class LoginViewModel extends ChangeNotifier with HandleException {
     RegExp regExp = RegExp(pattern);
     //* handling errors
     try {
+      _mobileNumberController.text = _mobileNumberController.text.trim();
+      // _mobileNumberController.text = _mobileNumberController.text.trim();
+
       // * if mobile number is empty then throw a invalid exception
       if (_mobileNumberController.text.isEmpty) {
         throw InvalidException("Please enter your mobile number! ", false);
@@ -74,31 +79,35 @@ class LoginViewModel extends ChangeNotifier with HandleException {
       // * start loading
       toggleLoading();
       var status = true;
-      await _loginService
+      await _authService
           .getOtp(
-        // * phone number
-        phone: phoneNumber,
-        // * country code
-        countryCode: context.read<CountryViewModel>().selectedCountry.dialCode,
-        codeSent: (String vi, int? token) {
-          _verificationId = vi;
-          resentToken = token;
-          // * navigate to otp screen when the otp sent
-          if (status && !reGet) {
-            Get.back();
-            Get.toNamed(OtpVerificationView.routeName);
-          }
-          // * stop loading actions indicator
-          toggleLoading();
-        },
-        // * time out handler
-        timeout: provider.duration,
-        resentToken: resentToken,
-      )
+            // * phone number
+            phone: phoneNumber,
+            // * country code
+            countryCode:
+                context.read<CountryViewModel>().selectedCountry.dialCode,
+            codeSent: (String vi, int? token) {
+              _verificationId = vi;
+              resentToken = token;
+              // * navigate to otp screen when the otp sent
+              if (status && !reGet) {
+                Get.back();
+                Get.toNamed(OtpVerificationView.routeName);
+              }
+              // * stop loading actions indicator
+              toggleLoading();
+            },
+            verificationFailed: (FirebaseAuthException error) {
+              _loading = false;
+              Get.back();
+              handleException(InvalidException(error.message, false));
+            },
+            // * time out handler
+            timeout: provider.duration,
+            resentToken: resentToken,
+          )
           // * handle error
-          .catchError((value) {
-        handleException(value);
-      });
+          .catchError((value) => handleException(value));
     }
 
     // * restart the timer
@@ -109,5 +118,13 @@ class LoginViewModel extends ChangeNotifier with HandleException {
     }
     // * set the first req into false
     provider.isFirstReq = false;
+  }
+
+  void disposeLogin() {
+    // print("login dispose method");
+    _mobileNumberController.text = "";
+    _scrollController.dispose();
+    _myFocusNode.dispose();
+    super.dispose();
   }
 }

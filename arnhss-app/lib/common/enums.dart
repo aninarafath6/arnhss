@@ -2,6 +2,7 @@ enum Role {
   student,
   teacher,
   parent,
+  admin,
 }
 
 enum Gender {
@@ -10,3 +11,9 @@ enum Gender {
   other,
 }
 
+enum Department {
+  cs,
+  humanities,
+  commerce,
+  science,
+}

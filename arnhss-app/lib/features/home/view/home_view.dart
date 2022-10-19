@@ -5,10 +5,22 @@ import 'package:arnhss/features/home/widgets/custom_app_bar.dart';
 import 'package:arnhss/features/home/widgets/home_grid.dart';
 import 'package:arnhss/features/home/widgets/notice_list.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   static const routeName = "/home";
 
   const HomeView({Key? key}) : super(key: key);
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    context.read<HomeViewModel>().getUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     debugPrint("Home build");

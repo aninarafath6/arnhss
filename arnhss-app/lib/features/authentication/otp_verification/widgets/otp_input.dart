@@ -49,6 +49,7 @@ class _OtpInputState extends State<OtpInput> {
       autoFocus: false,
       clearText: true,
       onSubmit: (otp) => context.read<VerifyOtpViewModel>().setOtp(otp),
+
     );
   }
 }

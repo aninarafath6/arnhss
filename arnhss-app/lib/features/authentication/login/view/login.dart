@@ -2,9 +2,20 @@ import 'package:arnhss/common/constants/image_constant.dart';
 
 import './index.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
   static const routeName = "/login";
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  @override
+  void dispose() {
+    // LoginViewModel().dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,23 +25,22 @@ class LoginView extends StatelessWidget {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Consumer<LoginViewModel>(
-            builder: ((context, value, child) => ListView(
-                  // physics: NeverScrollableScrollPhysics(),
-                  controller: value.scrollController,
-                  addAutomaticKeepAlives: true,
-                  children: [
-                    context.spacing(height: 10),
-                    const CustomBanner(
-                        title: "Login With Mobile Number",
-                        subtitle: "Enter your mobile number to Continue",
-                        image: Images.loginIcon),
-                    SizedBox(
-                      height: context.getHeight(35),
-                      child: const ActionSection(),
-                    ),
-                  ],
-                )),
+          child: ListView(
+            // physics: NeverScrollableScrollPhysics(),
+            controller: context.watch<LoginViewModel>().scrollController,
+            addAutomaticKeepAlives: true,
+            children: [
+              context.spacing(height: 10),
+              const CustomBanner(
+                title: "Login With Mobile Number",
+                subtitle: "Enter your mobile number to Continue",
+                image: Images.loginIcon,
+              ),
+              SizedBox(
+                height: context.getHeight(35),
+                child: const ActionSection(),
+              ),
+            ],
           ),
         ),
       ),
