@@ -120,8 +120,7 @@ class LoginViewModel extends ChangeNotifier with HandleException {
     provider.isFirstReq = false;
   }
 
-  @override
-  void dispose() {
+  void disposeLogin() {
     // print("login dispose method");
     _mobileNumberController.text = "";
     _scrollController.dispose();

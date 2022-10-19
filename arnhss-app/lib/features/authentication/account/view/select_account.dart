@@ -125,6 +125,7 @@ class _SelectAccountState extends State<SelectAccount> {
                               HomeView.routeName,
                               ((route) => false),
                             );
+                            context.read<LoginViewModel>().disposeLogin();
                           },
                         );
                       },

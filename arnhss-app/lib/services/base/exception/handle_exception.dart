@@ -19,7 +19,7 @@ class HandleException {
           description: "It took longer to respond.", top: top);
     } else if (error is FirebaseAuthException) {
       DialogHelper.showErrorDialog(
-          description: error.message, title: "Oops 🥸", top: top);
+          description: error.code, title: "Oops 🥸", top: top);
     } else if (error is InvalidException) {
       DialogHelper.showErrorDialog(
           description: error.message, title: "Oops 🥸", top: top);

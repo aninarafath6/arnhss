@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/common/widgets/user_avatar.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/models/user.model.dart';
@@ -31,24 +31,7 @@ class AccountTile extends StatelessWidget {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           shape: const RoundedRectangleBorder(),
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundColor: CustomColors.bgOverlay,
-            backgroundImage:
-                user?.dpURL != null ? NetworkImage(user!.dpURL!) : null,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: user?.dpURL == null
-                    ? Image.asset(
-                        user?.gender == Gender.male
-                            ? Images.maleStudentRoleIcon
-                            : Images.femaleStudentRoleIcon,
-                      )
-                    : null,
-              ),
-            ),
-          ),
+          leading: UserAvatar(user: user),
           title: user?.name?.toText(),
           subtitle: UserModel.fromDepartment(
             user?.department ?? Department.cs,
