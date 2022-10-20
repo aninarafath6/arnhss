@@ -2,6 +2,7 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/view/notice_veiw.dart';
+import 'package:remixicon/remixicon.dart';
 
 class NoticeItem extends StatelessWidget {
   const NoticeItem({
@@ -18,7 +19,7 @@ class NoticeItem extends StatelessWidget {
         Navigator.pushNamed(context, NoticeView.routeName, arguments: notice);
       },
       child: Container(
-        width: context.getWidth(55),
+        width: context.getWidth(100) - 41,
         height: 180,
         margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.all(18),
@@ -33,7 +34,7 @@ class NoticeItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 6),
-                Icon(notice.icon),
+                Icon(Remix.notification_2_line),
                 const Spacer(),
                 Text(
                   notice.title ?? "",

@@ -1,5 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/attendance/view/attendance_view.dart';
+import 'package:arnhss/features/home/widgets/qout_0f_the_day.dart';
 import 'package:arnhss/features/home/widgets/tile.dart';
 import 'package:arnhss/features/notes/view/notes_view.dart';
 import 'package:arnhss/features/notifications/view/notification_view.dart';
@@ -102,15 +103,8 @@ class HomeGrid extends StatelessWidget {
           ),
           const StaggeredGridTile.count(
             crossAxisCellCount: 6,
-            mainAxisCellCount: 3,
-            child: Tile(
-              index: 6,
-              image:
-                  "assets/images/icons/nt-people-holding-cards-removebg-preview.png",
-              label: "Activity",
-              isSmall: false,
-              count: 10,
-            ),
+            mainAxisCellCount: 3.4,
+            child: QoutOfTheDay(),
           ),
         ],
       ),

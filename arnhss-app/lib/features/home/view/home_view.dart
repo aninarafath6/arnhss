@@ -4,6 +4,7 @@ import 'package:arnhss/features/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/home/widgets/custom_app_bar.dart';
 import 'package:arnhss/features/home/widgets/home_grid.dart';
 import 'package:arnhss/features/home/widgets/notice_list.dart';
+import 'package:arnhss/features/home/widgets/qout_0f_the_day.dart';
 import 'package:arnhss/services/firebase_database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
