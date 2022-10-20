@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:arnhss/common/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:remixicon/remixicon.dart';
+
 
 class NoticeModel {
   final String? id;
@@ -29,7 +29,7 @@ class NoticeModel {
   factory NoticeModel.fromRawJson(String str) =>
       NoticeModel.fromJson(json.decode(str));
 
-  static List<NoticeModel> listFromJson(QuerySnapshot? data) {
+  static List<NoticeModel>? listFromJson(QuerySnapshot? data) {
     return data?.docs.map((e) {
           return NoticeModel.fromRawJson(jsonEncode(e.data()));
         }).toList() ??
