@@ -27,12 +27,14 @@ class NoticeView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
             child: Center(
-              child: Text(notice.date ?? "",
-                  textAlign: TextAlign.right,
-                  style: CustomTextTheme(context: context).paragraph().copyWith(
-                        fontStyle: FontStyle.italic,
-                        fontSize: 13,
-                      )),
+              child: Text(
+                notice.date ?? "",
+                textAlign: TextAlign.right,
+                style: CustomTextTheme(context: context).paragraph().copyWith(
+                      fontStyle: FontStyle.italic,
+                      fontSize: 13,
+                    ),
+              ),
             ),
           ),
         ],
@@ -59,7 +61,7 @@ class NoticeView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    notice.title!,
+                    notice.title ?? '',
                     style: CustomTextTheme(context: context).headLine2(),
                     textAlign: TextAlign.center,
                   ),

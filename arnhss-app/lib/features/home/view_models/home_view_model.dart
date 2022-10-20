@@ -1,10 +1,7 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
 
-import 'package:arnhss/features/home/model/notice_model.dart';
-import 'package:arnhss/features/home/widgets/notice_item.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
-import 'package:remixicon/remixicon.dart';
 
 class HomeViewModel with ChangeNotifier {
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -50,5 +47,6 @@ class HomeViewModel with ChangeNotifier {
   // * get user
   void getUser() async {
     _user = await _prefService.getUser();
+    notifyListeners();
   }
 }

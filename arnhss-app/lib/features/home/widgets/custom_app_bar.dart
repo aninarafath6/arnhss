@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:remixicon/remixicon.dart';
 
 AppBar customHomeAppBar(BuildContext context) {
+  print(context.watch<HomeViewModel>().user?.name.toString() ?? "this is");
   final DateFormat formatter = DateFormat('EEEE ,dd MMMM');
 
   return AppBar(
@@ -32,7 +33,7 @@ AppBar customHomeAppBar(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                "Hey, ${Provider.of<HomeViewModel>(context).user?.name ?? "Unknown user"}",
+                "Hey, ${context.watch<HomeViewModel>().user?.name ?? "Unknown user"}",
                 style: const TextStyle(
                   color: CustomColors.dark,
                   fontWeight: FontWeight.bold,
