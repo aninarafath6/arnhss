@@ -170,15 +170,20 @@ class NotesViewModel extends ChangeNotifier with HandleException {
     ),
   };
 
-  late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
+  // late final DepartmentModel _selectedDepartment = subjectList[Department.cs]!;
   bool _isSearching = false;
   String _path = "";
 
   // * getters
-  DepartmentModel get selectedDepartment => _selectedDepartment;
+  // DepartmentModel get selectedDepartment => _selectedDepartment;
   bool get isSearching => _isSearching;
   List<Note> get notes => _notes;
   int get notCount => _notes.length;
+
+  DepartmentModel getSubjects(Department? dep) {
+    print(dep);
+    return subjectList[dep ?? Department.cs]!;
+  }
 
   void toggleSearching() {
     _isSearching = !_isSearching;

@@ -7,13 +7,14 @@ import 'package:provider/provider.dart';
 import 'package:remixicon/remixicon.dart';
 
 AppBar customHomeAppBar(BuildContext context) {
-  final DateFormat formatter = DateFormat('EEEE ,dd MMMM');
+  print(context.watch<HomeViewModel>().user?.name.toString() ?? "this is");
+  final DateFormat formatter = DateFormat('EEEE, dd MMMM');
 
   return AppBar(
     systemOverlayStyle: SystemUiOverlayStyle.dark, // 1
     backgroundColor: Colors.transparent,
     automaticallyImplyLeading: false, // Don't show the leading button
-    toolbarHeight: 100,
+    toolbarHeight: 80,
     title: Row(
       children: [
         IconButton(
@@ -31,8 +32,9 @@ AppBar customHomeAppBar(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Hey, Anin Arafath",
-                style: TextStyle(
+            Text(
+                "Hey, ${context.watch<HomeViewModel>().user?.name ?? "Unknown user"}",
+                style: const TextStyle(
                   color: CustomColors.dark,
                   fontWeight: FontWeight.bold,
                 )),

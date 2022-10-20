@@ -59,7 +59,7 @@ class UserModel {
         "phone": phone,
         "rollNumber": rollNumber,
         "dob": dob,
-        "role": toRole(role!),
+        "role": fromRole(role!),
         "local-role": localRole,
         "admission-no": admissionNo,
         "department": fromDepartment(department!),
@@ -76,34 +76,41 @@ class UserModel {
         return Role.parent;
       case "teacher":
         return Role.teacher;
+      case "principle":
+        return Role.principle;
       default:
         return Role.student;
     }
   }
 
-  static String toRole(Role role) {
+  // static String toRole(Role role) {
+  //   switch (role) {
+  //     case Role.student:
+  //       return "student";
+  //     case Role.parent:
+  //       return "parent";
+  //     case Role.teacher:
+  //       return "teacher";
+  //     case Role.principle:
+  //       return "principle";
+  //     default:
+  //       return "student";
+  //   }
+  // }
+
+  static String fromRole(Role role) {
     switch (role) {
       case Role.student:
         return "student";
-      case Role.parent:
-        return "parent";
       case Role.teacher:
         return "teacher";
-      default:
-        return "student";
-    }
-  }
+      case Role.parent:
+        return "parent";
+      case Role.principle:
+        return "principle";
 
-  static String fromRole(Role gender) {
-    switch (gender) {
-      case Role.student:
-        return "student";
-      case Role.teacher:
-        return "teacher";
-      case Role.parent:
-        return "parent";
       default:
-        return "admin";
+        return "student";
     }
   }
 

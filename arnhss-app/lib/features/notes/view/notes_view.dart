@@ -1,5 +1,6 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/home/widgets/tile.dart';
 import 'package:arnhss/features/notes/view/selected_note_view.dart';
 import 'package:arnhss/features/notes/view_model/notes_view_model.dart';
@@ -15,6 +16,9 @@ class NotesView extends StatelessWidget {
     debugPrint("Notes view build");
 
     var _readProvider = context.read<NotesViewModel>();
+    var sub = _readProvider
+        .getSubjects(context.read<HomeViewModel>().user?.department)
+        .subjects!;
     return Scaffold(
       appBar: notesAppBar(context, "Notes"),
       body: SingleChildScrollView(
@@ -30,26 +34,24 @@ class NotesView extends StatelessWidget {
             mainAxisSpacing: 15,
             crossAxisSpacing: 15,
             children: List.generate(
-              _readProvider.selectedDepartment.subjects!.length,
+              sub.length,
               (index) => StaggeredGridTile.count(
                 crossAxisCellCount: 3,
                 mainAxisCellCount: index % 2 == 0
-                    ? _readProvider.selectedDepartment.subjects!.length > 6
+                    ? sub.length > 6
                         ? 3
                         : 4.4
-                    : _readProvider.selectedDepartment.subjects!.length > 6
+                    : sub.length > 6
                         ? 4
                         : 3.4,
                 child: Tile(
                   index: 0,
-                  image: _readProvider
-                      .selectedDepartment.subjects![index].imageURL,
-                  label: _readProvider.selectedDepartment.subjects![index].name,
+                  image: sub[index].imageURL,
+                  label: sub[index].name,
                   onTap: () => Navigator.pushNamed(
                     context,
                     SelectedNoteView.routeName,
-                    arguments:
-                        _readProvider.selectedDepartment.subjects![index],
+                    arguments: sub[index],
                   ),
                 ),
               ),
