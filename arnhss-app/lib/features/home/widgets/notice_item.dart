@@ -37,7 +37,6 @@ class _NoticeItemState extends State<NoticeItem> {
         curve: const ElasticInCurve(1),
         width: context.getWidth(100) - 41,
         height: height,
-        margin: const EdgeInsets.symmetric(horizontal: 21),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
           color: CustomColors.lightBgOverlay,

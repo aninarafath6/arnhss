@@ -42,7 +42,10 @@ class _HomeViewState extends State<HomeView> {
             padding: EdgeInsets.zero,
             physics: const BouncingScrollPhysics(),
             children: const [
-              NoticeItem(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 21),
+                child: NoticeItem(),
+              ),
               // QoutOfTheDay(),x
               HomeGrid(),
               SizedBox(height: 10),
