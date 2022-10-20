@@ -1,20 +1,23 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
-import 'package:arnhss/features/home/view/notice_veiw.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:remixicon/remixicon.dart';
 
-class NoticeItem extends StatelessWidget {
+class NoticeItem extends StatefulWidget {
   const NoticeItem({
     Key? key,
     // required this.notice,
   }) : super(key: key);
-  // final IconData icon;
-  // final String text;
-  // final NoticeModel notice;
 
+  @override
+  State<NoticeItem> createState() => _NoticeItemState();
+}
+
+class _NoticeItemState extends State<NoticeItem> {
+  double height = 190;
+  // final IconData icon;
   @override
   Widget build(BuildContext context) {
     final _notices = Provider.of<QuerySnapshot?>(context);
@@ -24,11 +27,16 @@ class NoticeItem extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, NoticeView.routeName, arguments: notice);
+        // Navigator.pushNamed(context, NoticeView.routeName, arguments: notice);
+        setState(() {
+          height = height == 500 ? 190 : 500;
+        });
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 800),
+        curve: const ElasticInCurve(1),
         width: context.getWidth(100) - 41,
-        height: 180,
+        height: height,
         margin: const EdgeInsets.symmetric(horizontal: 21),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
@@ -73,7 +81,7 @@ class NoticeItem extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(
-                              notice?.title ?? "",
+                              notice.title ?? "",
                               style: GoogleFonts.rokkitt(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -86,11 +94,25 @@ class NoticeItem extends StatelessWidget {
                               children: [
                                 const Spacer(),
                                 Text(
-                                  notice?.date ?? "",
+                                  notice.date ?? "",
                                   style: GoogleFonts.breeSerif(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w300,
                                     fontSize: 12,
+                                    // fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Spacer(),
+                                Text(
+                                  '- ${NoticeModel.toRoleString(notice.role)}',
+                                  style: GoogleFonts.baloo2(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 10,
                                     // fontStyle: FontStyle.italic,
                                   ),
                                 ),

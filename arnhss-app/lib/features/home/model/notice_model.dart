@@ -4,7 +4,6 @@ import 'package:arnhss/common/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 class NoticeModel {
   final String? id;
   final String? title;
@@ -64,6 +63,8 @@ class NoticeModel {
         return Role.parent;
       case "teacher":
         return Role.teacher;
+      case "principle":
+        return Role.principle;
       default:
         return Role.student;
     }
@@ -73,10 +74,12 @@ class NoticeModel {
     switch (role) {
       case Role.student:
         return "student";
-      case Role.parent:
-        return "parent";
       case Role.teacher:
         return "teacher";
+      case Role.parent:
+        return "parent";
+      case Role.principle:
+        return "principle";
       default:
         return "student";
     }

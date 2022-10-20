@@ -8,7 +8,7 @@ import 'package:remixicon/remixicon.dart';
 
 AppBar customHomeAppBar(BuildContext context) {
   print(context.watch<HomeViewModel>().user?.name.toString() ?? "this is");
-  final DateFormat formatter = DateFormat('EEEE ,dd MMMM');
+  final DateFormat formatter = DateFormat('EEEE, dd MMMM');
 
   return AppBar(
     systemOverlayStyle: SystemUiOverlayStyle.dark, // 1
