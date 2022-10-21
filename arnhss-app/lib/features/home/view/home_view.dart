@@ -1,9 +1,11 @@
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/home/widgets/custom_app_bar.dart';
 import 'package:arnhss/features/home/widgets/home_grid.dart';
 import 'package:arnhss/features/home/widgets/notice_item.dart';
+// import 'package:arnhss/features/home/widgets/notice_item.dart';
 import 'package:arnhss/features/home/widgets/notice_list.dart';
 import 'package:arnhss/services/firebase_database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,8 +29,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     debugPrint("Home build");
-    return StreamProvider<QuerySnapshot?>.value(
-      value: FireBaseDatabaseService().notices,
+    return StreamProvider<NoticeModel?>.value(
+      value: FireBaseDatabaseService().notice,
       initialData: null,
       child: Scaffold(
         key: context.read<HomeViewModel>().scaffoldKey,
@@ -42,7 +44,10 @@ class _HomeViewState extends State<HomeView> {
             padding: EdgeInsets.zero,
             physics: const BouncingScrollPhysics(),
             children: const [
-              NoticeItem(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 21),
+                child: NoticeItem(),
+              ),
               // QoutOfTheDay(),x
               HomeGrid(),
               SizedBox(height: 10),
