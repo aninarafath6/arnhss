@@ -1,21 +1,24 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/user_avatar.dart';
+import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/notes/view/notes_view.dart';
 import 'package:arnhss/features/notifications/view/notification_view.dart';
+import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/firebase_database_service.dart';
 import 'package:get/route_manager.dart';
 import 'package:remixicon/remixicon.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer(
-      {Key? key,
-      this.image = "assets/images/icons/home-and-living-badge.png.webp"})
-      : super(key: key);
+  const AppDrawer({
+    Key? key,
+    this.image = "assets/images/icons/home-and-living-badge.png.webp",
+  }) : super(key: key);
 
   final String? image;
   @override
@@ -44,6 +47,31 @@ class AppDrawer extends StatelessWidget {
                         // alignment: Alignment.bottomRight,
                         child: Image.asset(image!),
                       ),
+                      Positioned(
+                        right: 0,
+                        // left: 0,
+                        top: 0,
+                        // alignment: Alignment.bottomRight,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: const AccountTile()
+                                  .getOverlayColor(value.user?.role),
+                              borderRadius: BorderRadius.circular(2)),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                            vertical: 2,
+                          ),
+                          child: Text(
+                            " ${UserModel.toStringRole(value.user?.role ?? Role.student)}",
+                            style: CustomTextTheme(context: context)
+                                .paragraph()
+                                .copyWith(
+                                  fontSize: 12,
+                                  color: CustomColors.dark,
+                                ),
+                          ),
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,16 +85,48 @@ class AppDrawer extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(value.user?.name ?? "Unknown User",
-                                  style: CustomTextTheme(context: context)
-                                      .headLine2()
-                                      .copyWith(fontSize: 17)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text("${value.user?.name ?? "Unknown User"} ",
+                                      style: CustomTextTheme(context: context)
+                                          .headLine2()
+                                          .copyWith(fontSize: 17)),
+                                  // Container(
+                                  //   decoration: BoxDecoration(
+                                  //       color: const AccountTile()
+                                  //           .getOverlayColor(value.user?.role),
+                                  //       borderRadius: BorderRadius.circular(2)),
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //     horizontal: 5,
+                                  //     vertical: 2,
+                                  //   ),
+                                  //   child: Text(
+                                  //     " ${UserModel.toStringRole(value.user?.role ?? Role.student)}",
+                                  //     style: CustomTextTheme(context: context)
+                                  //         .paragraph()
+                                  //         .copyWith(
+                                  //           fontSize: 12,
+                                  //           color: CustomColors.dark,
+                                  //         ),
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
                               Text(
                                 value.user?.phone ?? "+91 XXXXXXXXXX",
                                 style: CustomTextTheme(context: context)
                                     .paragraph()
                                     .copyWith(fontSize: 12),
                               ),
+                              // Text(
+                              //   UserModel.toStringRole(
+                              //       value.user?.role ?? Role.student),
+                              //   style: CustomTextTheme(context: context)
+                              //       .paragraph()
+                              //       .copyWith(fontSize: 12),
+                              // ),
                             ],
                           ),
                         ],
@@ -90,8 +150,8 @@ Dear Parents,
 Plus one A meeting of the parents of Plus Two students is being held on Thursday 01.09.2022 at 2 pm in the Higher Secondary  Auditorium in order to evaluate the result of the general examination and similarly  to evaluate the result of the unit test and to directly assess the learning progress of the teachers' children. Your presence is requested in the said meeting.
 
 Regards,
-Dr. C. Anas Principal
- 29.08.2022.""",
+Dr. C. Anas (Principal)
+29.08.2022.""",
                     ));
                     // ...
                   },
@@ -130,39 +190,6 @@ Dr. C. Anas Principal
                     // ...
                   },
                 ),
-                // ListTile(
-                //   title: const Text('Todo Tasks'),
-                //   leading: Icon(Remix.file_list_2_line),
-                //   onTap: () {
-                //     // Update the state of the app.
-                //     // ...
-                //   },
-                // ),
-
-                // ListTile(
-                //   title: const Text('Notes'),
-                //   leading: Icon(Remix.booklet_line),
-                //   onTap: () {
-                //     // Update the state of the app.
-                //     // ...
-                //   },
-                // ),
-                // ListTile(
-                //   title: const Text('TimeTable'),
-                //   leading: Icon(Remix.timer_2_line),
-                //   onTap: () {
-                //     // Update the state of the app.
-                //     // ...
-                //   },
-                // ),
-                // ListTile(
-                //   title: const Text('Events'),
-                //   leading: Icon(Remix.calendar_event_line),
-                //   onTap: () {
-                //     // Update the state of the app.
-                //     // ...
-                //   },
-                // ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.0),
                   child: Divider(
@@ -200,8 +227,6 @@ Dr. C. Anas Principal
                     Get.offNamedUntil(LoginView.routeName, (_) => false);
                   },
                 ),
-                // const SizedBox(height: 40),
-                // Spacer(),
               ],
             );
           }),
@@ -219,7 +244,7 @@ Dr. C. Anas Principal
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
-                    "version 0.001 (alpha)",
+                    "Developed by Anin Arafath (version 0.01)",
                     textAlign: TextAlign.center,
                     style: CustomTextTheme(context: context)
                         .paragraph()
