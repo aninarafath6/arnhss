@@ -1,6 +1,6 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
-import 'package:arnhss/features/home/widgets/notice_item.dart';
+// import 'package:arnhss/features/home/widgets/notice_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NoticeList extends StatelessWidget {
@@ -10,9 +10,7 @@ class NoticeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-
-    return NoticeItem();
+    return SizedBox();
 
     // return SizedBox(
     //   // width: 200,
