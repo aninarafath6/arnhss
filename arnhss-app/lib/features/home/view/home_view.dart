@@ -4,6 +4,7 @@ import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/home/widgets/custom_app_bar.dart';
 import 'package:arnhss/features/home/widgets/home_grid.dart';
+import 'package:arnhss/features/home/widgets/notice_item.dart';
 // import 'package:arnhss/features/home/widgets/notice_item.dart';
 import 'package:arnhss/features/home/widgets/notice_list.dart';
 import 'package:arnhss/services/firebase_database_service.dart';
@@ -45,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
             children: const [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 21),
-                // child: NoticeItem(),
+                child: NoticeItem(),
               ),
               // QoutOfTheDay(),x
               HomeGrid(),
