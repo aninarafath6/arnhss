@@ -10,7 +10,6 @@ class FireBaseDatabaseService with HandleException {
   //* collection reference
   final CollectionReference noticesCollection =
       FirebaseFirestore.instance.collection('notices');
-  // DatabaseReference ref = FirebaseDatabase.instance.ref("notices/");
 
 //* get stream
   Stream<QuerySnapshot?> get notices {
@@ -32,13 +31,10 @@ class FireBaseDatabaseService with HandleException {
   }
 
   void setNotice(NoticeModel newNotice) async {
-    print("here");
     DatabaseReference ref = FirebaseDatabase.instance.ref("notice");
     try {
-      // Only update the name, leave the age and address!
       await ref.update(newNotice.toJson());
     } catch (e) {
-      print(e);
       handleException(e);
     }
   }
