@@ -35,7 +35,7 @@ class NoticeDailog extends StatelessWidget {
                 children: [
                   const SizedBox(height: 30),
                   Text(
-                    notice.title ?? "",
+                    notice.subject ?? "",
                     textAlign: TextAlign.start,
                     style: CustomTextTheme(context: context)
                         .headLine()

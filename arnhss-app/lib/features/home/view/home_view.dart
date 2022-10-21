@@ -6,9 +6,8 @@ import 'package:arnhss/features/home/widgets/custom_app_bar.dart';
 import 'package:arnhss/features/home/widgets/home_grid.dart';
 import 'package:arnhss/features/home/widgets/notice_item.dart';
 // import 'package:arnhss/features/home/widgets/notice_item.dart';
-import 'package:arnhss/features/home/widgets/notice_list.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/firebase_database_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeView extends StatefulWidget {
   static const routeName = "/home";
@@ -31,6 +30,10 @@ class _HomeViewState extends State<HomeView> {
     debugPrint("Home build");
     return StreamProvider<NoticeModel?>.value(
       value: FireBaseDatabaseService().notice,
+      catchError: ((context, error) {
+        // HandleException().handleException(error);
+        return null;
+      }),
       initialData: null,
       child: Scaffold(
         key: context.read<HomeViewModel>().scaffoldKey,
