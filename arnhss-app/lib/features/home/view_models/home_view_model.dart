@@ -1,12 +1,19 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
+import 'package:arnhss/features/home/model/notice_model.dart';
 
 import 'package:arnhss/models/user.model.dart';
+import 'package:arnhss/services/firebase_database_service.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 
 class HomeViewModel with ChangeNotifier {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final SharedPrefService _prefService = SharedPrefService();
+  final FireBaseDatabaseService _fireBaseDatabaseService =
+      FireBaseDatabaseService();
+
   UserModel? _user;
+  NoticeModel? _notice;
+  // bool noticeIsEmpty = false;
 
   // final List<NoticeItem> noticeList = [
   //   NoticeItem(
@@ -43,10 +50,21 @@ class HomeViewModel with ChangeNotifier {
 
   //* getters
   UserModel? get user => _user;
+  NoticeModel? get notice => _notice;
+  bool get noticeIsEmpty => _notice == null;
 
   // * get user
   void getUser() async {
     _user = await _prefService.getUser();
+    notifyListeners();
+  }
+
+  void initNotice() {
+    // _fireBaseDatabaseService.watchNotice((notice) {
+    //   print("${notice?.title} from here here ");
+    //   _notice = notice;
+    //   notifyListeners();
+    // });
     notifyListeners();
   }
 }

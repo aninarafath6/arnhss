@@ -1,4 +1,5 @@
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/home/widgets/custom_app_bar.dart';
@@ -27,8 +28,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     debugPrint("Home build");
-    return StreamProvider<QuerySnapshot?>.value(
-      value: FireBaseDatabaseService().notices,
+    return StreamProvider<NoticeModel?>.value(
+      value: FireBaseDatabaseService().notice,
       initialData: null,
       child: Scaffold(
         key: context.read<HomeViewModel>().scaffoldKey,

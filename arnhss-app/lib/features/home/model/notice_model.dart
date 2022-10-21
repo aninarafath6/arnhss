@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class NoticeModel {
   final String? id;
-  final String? title;
+  final String? subject;
   final String? description;
   final String? subDescription;
   final String? date;
@@ -16,7 +16,7 @@ class NoticeModel {
 
   NoticeModel({
     this.id,
-    this.title,
+    this.subject,
     this.description,
     this.subDescription,
     this.date,
@@ -37,7 +37,7 @@ class NoticeModel {
 
   factory NoticeModel.fromJson(Map<String, dynamic> json) => NoticeModel(
         id: json["id"] ?? "",
-        title: json["title"] ?? "",
+        subject: json["subject"] ?? "",
         description: json["description"] ?? "",
         subDescription: json["subDescription"] ?? "",
         role: fromStringRole(json["role"] ?? ""),
@@ -47,7 +47,7 @@ class NoticeModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "title": title,
+        "subject": subject,
         "description": description,
         "subDescription": subDescription,
         "role": toRoleString(role),

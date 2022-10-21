@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,40 +49,23 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAQXRuDu7qmC0Sy_mQqtw6RnjjPYeW1gIo',
-    appId: '1:724320524720:web:4a028ae418b2c0e191de75',
-    messagingSenderId: '724320524720',
-    projectId: 'arnhss-backend',
-    authDomain: 'arnhss-backend.firebaseapp.com',
-    storageBucket: 'arnhss-backend.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD40xF0ybbBczDcEpkRPdu9UzkX_l2bIFM',
     appId: '1:724320524720:android:48f02a29ef2ceb9e91de75',
     messagingSenderId: '724320524720',
     projectId: 'arnhss-backend',
+    databaseURL: 'https://arnhss-backend-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'arnhss-backend.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDbJHfY6VL1KSjB260vVGCenlzKm7K5Y0c',
-    appId: '1:724320524720:ios:030562d9b4c936d491de75',
+    appId: '1:724320524720:ios:665922f23883908491de75',
     messagingSenderId: '724320524720',
     projectId: 'arnhss-backend',
+    databaseURL: 'https://arnhss-backend-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'arnhss-backend.appspot.com',
-    iosClientId: '724320524720-9nfsp28ovgacouh8bcem7a2drt1hd1q0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.arnhssgvghhgfgh',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDbJHfY6VL1KSjB260vVGCenlzKm7K5Y0c',
-    appId: '1:724320524720:ios:7f7d06287dcc719f91de75',
-    messagingSenderId: '724320524720',
-    projectId: 'arnhss-backend',
-    storageBucket: 'arnhss-backend.appspot.com',
-    iosClientId: '724320524720-mopifmdjostbgb4v3rds5l3ef8sk7gg0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.arnhss',
+    iosClientId: '724320524720-bb17fqrj0m06rdl4id6ioqg4gf84m997.apps.googleusercontent.com',
+    iosBundleId: 'sampl.a',
   );
 }

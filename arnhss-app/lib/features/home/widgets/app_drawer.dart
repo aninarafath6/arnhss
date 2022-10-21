@@ -6,6 +6,7 @@ import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/notes/view/notes_view.dart';
 import 'package:arnhss/features/notifications/view/notification_view.dart';
+import 'package:arnhss/services/firebase_database_service.dart';
 import 'package:get/route_manager.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -77,6 +78,7 @@ class AppDrawer extends StatelessWidget {
                   title: const Text('My Profile'),
                   leading: const Icon(Remix.user_6_line),
                   onTap: () {
+                    // print("hereadfaf");
                     // Update the state of the app.
                     // ...
                   },

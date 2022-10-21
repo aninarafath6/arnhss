@@ -3,8 +3,8 @@ import 'package:arnhss/features/home/model/notice_model.dart';
 
 import '../../authentication/otp_verification/view/index.dart';
 
-class NoticeDailog extends StatelessWidget {
-  const NoticeDailog({
+class NoticeDialog extends StatelessWidget {
+  const NoticeDialog({
     Key? key,
     required this.notice,
   }) : super(key: key);
@@ -35,7 +35,7 @@ class NoticeDailog extends StatelessWidget {
                 children: [
                   const SizedBox(height: 30),
                   Text(
-                    notice.title ?? "",
+                    notice.subject ?? "",
                     textAlign: TextAlign.start,
                     style: CustomTextTheme(context: context)
                         .headLine()

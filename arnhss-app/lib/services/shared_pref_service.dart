@@ -36,9 +36,13 @@ class SharedPrefService with HandleException {
   }
 
   Future<UserModel?> getUser() async {
+    // * get user from local storage
     try {
+      // * shared preference instance
       SharedPreferences pref = await _prefs;
+      // * getting user from storage
       String? rawUser = pref.getString("user");
+      // * if user is null then throw a error
       if (rawUser != null) {
         return UserModel.fromRawJson(rawUser);
       } else {

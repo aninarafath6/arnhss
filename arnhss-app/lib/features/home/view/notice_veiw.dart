@@ -61,7 +61,7 @@ class NoticeView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    notice.title ?? '',
+                    notice.subject ?? '',
                     style: CustomTextTheme(context: context).headLine2(),
                     textAlign: TextAlign.center,
                   ),

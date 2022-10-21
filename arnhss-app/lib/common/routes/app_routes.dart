@@ -3,6 +3,7 @@ import 'package:arnhss/features/notes/model/department_mode.dart';
 import 'package:arnhss/features/notes/view/notes_view.dart';
 import 'package:arnhss/features/notes/view/selected_note_view.dart';
 import 'package:arnhss/features/notifications/view/notification_view.dart';
+import 'package:arnhss/features/splash/views/wrapper.dart';
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -11,14 +12,15 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const OnboardingView());
       case SplashView.routeName:
         return MaterialPageRoute(builder: (_) => const SplashView());
+      case Wrapper.routeName:
+        return MaterialPageRoute(builder: (_) => const Wrapper());
       case LoginView.routeName:
         return MaterialPageRoute(builder: (_) => const LoginView());
       case OtpVerificationView.routeName:
         return MaterialPageRoute(builder: (_) => const OtpVerificationView());
       case CountrySelect.routeName:
         return MaterialPageRoute(builder: (_) => CountrySelect());
-      // case UserRole.routeName:
-      //   return MaterialPageRoute(builder: (_) => const UserRole());
+
       // case StudentAuthentication.routeName:
       //   return MaterialPageRoute(builder: (_) => const StudentAuthentication());
       case SelectAccount.routeName:

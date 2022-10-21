@@ -6,12 +6,14 @@ import 'package:arnhss/features/authentication/account/view_model/select_account
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
+import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/notes/view_model/notes_view_model.dart';
 import 'package:arnhss/features/notifications/view_model/notification_view_model.dart';
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:arnhss/firebase_options.dart';
 import 'package:arnhss/services/db_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +30,7 @@ void main() async {
         options: DefaultFirebaseOptions.currentPlatform,
       );
       runApp(const MyApp());
-    },    
+    },
   );
 }
 
@@ -48,12 +50,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NotesViewModel()),
         ChangeNotifierProvider(create: (_) => SelectAccountViewModel()),
       ],
-      child: GetMaterialApp(
-        title: 'arnhss',
-        initialRoute: SplashView.routeName,
-        theme: Theming(context: context).theme(),
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: AppRoutes.generateRoute,
+      child: StreamProvider<User?>.value(
+        initialData: null,
+        value: AuthService().user,
+        child: GetMaterialApp(
+          title: 'arnhss',
+          initialRoute: SplashView.routeName,
+          theme: Theming(context: context).theme(),
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: AppRoutes.generateRoute,
+        ),
       ),
     );
   }

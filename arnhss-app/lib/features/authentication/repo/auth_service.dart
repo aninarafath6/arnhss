@@ -12,10 +12,10 @@ class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final SharedPrefService _prefService = SharedPrefService();
 
-  CollectionReference _usersCollection =
+  final CollectionReference _usersCollection =
       FirebaseFirestore.instance.collection('users');
 
-  Stream<User?>? get user {
+  Stream<User?> get user {
     return _firebaseAuth.authStateChanges();
   }
 
@@ -108,6 +108,7 @@ class AuthService with HandleException {
       var _user = _firebaseAuth.currentUser;
       await _user?.updateDisplayName(user.name);
       await _user?.updatePhotoURL(user.dpURL);
+      print("updating...");
     } catch (e) {
       handleException(InvalidException("User Profile is not updated!!", false));
     }
