@@ -18,7 +18,7 @@ class NoticeItem extends StatefulWidget {
 
 class _NoticeItemState extends State<NoticeItem>
     with SingleTickerProviderStateMixin {
-  static const double _expandedHeight = 50;
+  static const double _expandedHeight = 450;
   static const double _initialHeight = 190;
   double height = _initialHeight;
   bool _isExpanded = false;
