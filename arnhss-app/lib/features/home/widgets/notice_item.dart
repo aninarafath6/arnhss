@@ -74,6 +74,7 @@ class _NoticeItemState extends State<NoticeItem>
           }
         });
       },
+<<<<<<< HEAD
       child: StreamProvider<NoticeModel?>.value(
         initialData: null,
         value: FireBaseDatabaseService().notice,
@@ -103,6 +104,38 @@ class _NoticeItemState extends State<NoticeItem>
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
+=======
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 800),
+        curve: const ElasticInCurve(1),
+        width: context.getWidth(100) - 41,
+        height: height,
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          color: CustomColors.lightBgOverlay,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Icon(Remix.alarm_warning_line),
+                    SizedBox(width: 5),
+                    Text(
+                      "Notice Board",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+>>>>>>> f0e8bef (developer branding on app draower)
                     ),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
