@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/services/firebase_database_service.dart';
@@ -47,6 +48,19 @@ class _NoticeItemState extends State<NoticeItem>
 
     return InkWell(
       onTap: () {
+//         FireBaseDatabaseService().setNotice(NoticeModel(
+//           date: "01 March 2022",
+//           role: Role.principle,
+//           subDescription:
+//               "(Write the answer letter given below and submit it to the class teacher with the signature of the parents)\n\nNotice of parent meeting to be held on 01.09.2022 has been received. He knows that he will come to the meeting.\nParent's Signature:\nName:\nStudent Name:\nClass studied:",
+//           subject: """
+// Dear Parents,
+// Plus one A meeting of the parents of Plus Two students is being held on Thursday 01.09.2022 at 2 pm in the Higher Secondary  Auditorium in order to evaluate the result of the general examination and similarly  to evaluate the result of the unit test and to directly assess the learning progress of the teachers' children. Your presence is requested in the said meeting.
+
+// Regards,
+// Dr. C. Anas Principal
+//  29.08.2022.""",
+//         ));
         setState(() {
           if (height == _expandedHeight) {
             updateStatus(false);
@@ -64,10 +78,11 @@ class _NoticeItemState extends State<NoticeItem>
         initialData: null,
         value: FireBaseDatabaseService().notice,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 800),
-          curve: const ElasticInCurve(1),
+          duration: const Duration(milliseconds: 1400),
+          curve: const ElasticInOutCurve(.8),
           width: context.getWidth(100) - 41,
-          height: height,
+          height:
+              notice?.subject == "" || notice == null ? _initialHeight : height,
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
             color: CustomColors.lightBgOverlay,
@@ -95,7 +110,7 @@ class _NoticeItemState extends State<NoticeItem>
                 ],
               ),
               const SizedBox(height: 20),
-              notice == null
+              notice?.subject == "" || notice == null
                   ? Center(
                       child: Image.asset(
                         "assets/images/icons/hero.png.webp",
