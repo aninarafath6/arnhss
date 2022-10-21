@@ -1,8 +1,5 @@
 import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/features/notes/model/department_mode.dart';
-import 'package:arnhss/features/notes/view/notes_view.dart';
-import 'package:arnhss/features/notes/view/selected_note_view.dart';
-import 'package:arnhss/features/notifications/view/notification_view.dart';
+import 'package:arnhss/features/profile/view/profile_view.dart';
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -40,6 +37,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const NotificationView());
       case NotesView.routeName:
         return MaterialPageRoute(builder: (_) => const NotesView());
+      case ProfileView.routeName:
+        return MaterialPageRoute(builder: (_) => const ProfileView());
       case SelectedNoteView.routeName:
         final Subject sub = settings.arguments as Subject;
         return MaterialPageRoute(
