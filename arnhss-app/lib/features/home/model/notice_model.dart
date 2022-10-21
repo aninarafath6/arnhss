@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/models/user.model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,7 @@ class NoticeModel {
         subject: json["subject"] ?? "",
         description: json["description"] ?? "",
         subDescription: json["subDescription"] ?? "",
-        role: fromStringRole(json["role"] ?? ""),
+        role: UserModel.fromStringRole(json["role"] ?? ""),
         date: json["date"] ?? "",
         // icon: jsonDecode(json["icon"]) ?? Remix.a24_hours_fill,
       );
@@ -50,38 +51,8 @@ class NoticeModel {
         "subject": subject,
         "description": description,
         "subDescription": subDescription,
-        "role": toRoleString(role),
+        "role": UserModel.toStringRole(role ?? Role.student),
         "date": date,
         "icon": icon,
       };
-
-  static Role? fromStringRole(String role) {
-    switch (role) {
-      case "student":
-        return Role.student;
-      case "parent":
-        return Role.parent;
-      case "teacher":
-        return Role.teacher;
-      case "principle":
-        return Role.principle;
-      default:
-        return Role.student;
-    }
-  }
-
-  static String toRoleString(Role? role) {
-    switch (role) {
-      case Role.student:
-        return "student";
-      case Role.teacher:
-        return "teacher";
-      case Role.parent:
-        return "parent";
-      case Role.principle:
-        return "principle";
-      default:
-        return "student";
-    }
-  }
 }

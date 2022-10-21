@@ -3,7 +3,7 @@ import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class UserAvatar extends StatefulWidget {
@@ -45,6 +45,7 @@ class _UserAvatarState extends State<UserAvatar> {
                         ),
                       ),
                     )),
+                cacheKey: widget.user?.id,
                 errorWidget: ((context, url, error) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),

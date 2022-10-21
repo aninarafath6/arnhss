@@ -1,38 +1,30 @@
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
-import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
-import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:flutter/cupertino.dart';
 
-Future<dynamic> customModal(BuildContext context) {
+Future<dynamic> customModal(
+  BuildContext context, {
+  required content,
+  Widget done = const Text("CONTINUE"),
+  String deny = "EDIT",
+  String? title,
+  VoidCallback? onDone,
+  VoidCallback? onDeny,
+  bool loading = false,
+  Widget? loadingWidget,
+}) {
   return showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text(context.read<CountryViewModel>().selectedCountry.dialCode +
-            " " +
-            context.read<LoginViewModel>().mobileNumberController.text),
+        title: Text(title ?? ""),
         content: Text(
-          'would you like to continue with  this phone number to OTP verification?',
+          content,
           style: CustomTextTheme(context: context).paragraph(),
         ),
         actions: [
+          TextButton(onPressed: onDeny, child: Text(deny)),
           TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text("EDIT")),
-          TextButton(
-            onPressed: () {
-              context.read<LoginViewModel>().getOtp(context);
-            },
-            child: context.watch<LoginViewModel>().loading
-                ? const CupertinoActivityIndicator(
-                    color: CustomColors.dark,
-                  )
-                : const Text("CONTINUE"),
-          ),
+              onPressed: onDone, child: loading ? loadingWidget ?? done : done),
         ],
         actionsAlignment: MainAxisAlignment.spaceBetween,
       );

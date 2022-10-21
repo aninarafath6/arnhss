@@ -12,3 +12,7 @@ export 'package:arnhss/features/planner/view/planner_view.dart';
 export 'package:arnhss/features/splash/views/splash_view.dart';
 // export 'package:arnhss/features/users/students/authentication/view/student_authentication.dart';
 export 'package:flutter/material.dart';
+export 'package:arnhss/features/notes/model/department_mode.dart';
+export 'package:arnhss/features/notes/view/notes_view.dart';
+export 'package:arnhss/features/notes/view/selected_note_view.dart';
+export 'package:arnhss/features/notifications/view/notification_view.dart';

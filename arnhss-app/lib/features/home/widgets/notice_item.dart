@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/firebase_database_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:remixicon/remixicon.dart';
@@ -149,7 +151,7 @@ class _NoticeItemState extends State<NoticeItem>
                                     ),
                                   ),
                                   Text(
-                                    '- ${NoticeModel.toRoleString(notice.role)}',
+                                    '- ${UserModel.toStringRole(notice.role ?? Role.teacher)}',
                                     style: GoogleFonts.baloo2(
                                       color: Colors.black,
                                       fontWeight: FontWeight.normal,

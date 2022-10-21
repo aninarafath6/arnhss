@@ -1,3 +1,4 @@
+import 'package:arnhss/common/widgets/custom_modal.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
@@ -51,7 +52,6 @@ class _HomeViewState extends State<HomeView> {
                 padding: EdgeInsets.symmetric(horizontal: 21),
                 child: NoticeItem(),
               ),
-              // QoutOfTheDay(),x
               HomeGrid(),
               SizedBox(height: 10),
             ],

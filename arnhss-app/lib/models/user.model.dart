@@ -69,7 +69,7 @@ class UserModel {
       };
 
   static Role? fromStringRole(String role) {
-    switch (role) {
+    switch (role.toLowerCase()) {
       case "student":
         return Role.student;
       case "parent":
@@ -86,36 +86,36 @@ class UserModel {
   static String toStringRole(Role role) {
     switch (role) {
       case Role.student:
-        return "student";
+        return "Student";
       case Role.parent:
-        return "parent";
+        return "Parent";
       case Role.teacher:
-        return "teacher";
+        return "Teacher";
       case Role.principle:
-        return "principle";
+        return "Principle";
       default:
-        return "student";
+        return "Student";
     }
   }
 
   static String fromRole(Role role) {
     switch (role) {
       case Role.student:
-        return "student";
+        return "Student";
       case Role.teacher:
-        return "teacher";
+        return "Teacher";
       case Role.parent:
-        return "parent";
+        return "Parent";
       case Role.principle:
-        return "principle";
+        return "Principle";
 
       default:
-        return "student";
+        return "Student";
     }
   }
 
   static Gender toGender(String str) {
-    switch (str) {
+    switch (str.toLowerCase()) {
       case "male":
         return Gender.male;
       case "female":
@@ -128,16 +128,16 @@ class UserModel {
   static String fromGender(Gender gender) {
     switch (gender) {
       case Gender.male:
-        return "male";
+        return "Male";
       case Gender.female:
-        return "female";
+        return "Female";
       default:
-        return "other";
+        return "Other";
     }
   }
 
   static Department toDepartment(String str) {
-    switch (str) {
+    switch (str.toLowerCase()) {
       case "commerce":
         return Department.commerce;
       case "computer science":
@@ -152,13 +152,13 @@ class UserModel {
   static String fromDepartment(Department department) {
     switch (department) {
       case Department.commerce:
-        return "commerce";
+        return "Commerce";
       case Department.cs:
-        return "computer science";
+        return "Computer science";
       case Department.science:
-        return "science";
+        return "Science";
       default:
-        return "humanities";
+        return "Humanities";
     }
   }
 }
