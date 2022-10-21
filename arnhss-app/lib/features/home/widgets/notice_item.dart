@@ -10,7 +10,6 @@ import 'package:remixicon/remixicon.dart';
 class NoticeItem extends StatefulWidget {
   const NoticeItem({
     Key? key,
-    // required this.notice,
   }) : super(key: key);
 
   @override
@@ -19,7 +18,7 @@ class NoticeItem extends StatefulWidget {
 
 class _NoticeItemState extends State<NoticeItem>
     with SingleTickerProviderStateMixin {
-  static const double _expandedHeight = 500;
+  static const double _expandedHeight = 50;
   static const double _initialHeight = 190;
   double height = _initialHeight;
   bool _isExpanded = false;
@@ -30,7 +29,9 @@ class _NoticeItemState extends State<NoticeItem>
   @override
   void initState() {
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2000));
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
     super.initState();
   }
 
@@ -94,7 +95,6 @@ class _NoticeItemState extends State<NoticeItem>
                 ],
               ),
               const SizedBox(height: 20),
-              // const Spacer(),
               notice == null
                   ? Center(
                       child: Image.asset(

@@ -30,4 +30,16 @@ class FireBaseDatabaseService with HandleException {
     }
     return null;
   }
+
+  void setNotice(NoticeModel newNotice) async {
+    print("here");
+    DatabaseReference ref = FirebaseDatabase.instance.ref("notice");
+    try {
+      // Only update the name, leave the age and address!
+      await ref.update(newNotice.toJson());
+    } catch (e) {
+      print(e);
+      handleException(e);
+    }
+  }
 }
