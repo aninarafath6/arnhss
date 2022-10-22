@@ -75,15 +75,30 @@ class VerifyOtpViewModel extends ChangeNotifier {
       toggleLoading();
 
       // * verify otp with firebase credential
-      _authCredential = await _authService.verifyOtp(
-          vi: context.read<LoginViewModel>().vi, otp: _otp);
+      return await _authService
+          .verifyOtp(
+              vi: context.read<LoginViewModel>().vi,
+              otp: _otp,
+              callback: () {
+                toggleLoading();
+              },
+               errorCallback: () {
+                toggleLoading();
+              },
+              )
+          .catchError(
+        (_) {
+          toggleLoading();
+        },
+      );
 
-      if (_authCredential != null) {
-        toggleLoading();
-        return true;
-      }
-      toggleLoading();
-      return false;
+      // if (_authCredential != null) {
+      //   print(_authCredential);
+      //   toggleLoading();
+      //   // return true;
+      // }
+      // toggleLoading();
+      // return false;
     } else {
       debugPrint("invalid otp");
       customSnackBar(content: "sorry 😞, Please enter valid OTP");

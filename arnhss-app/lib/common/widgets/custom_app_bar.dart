@@ -8,6 +8,7 @@ AppBar customAppBar(
   required String title,
   FocusNode? focus,
   Function()? onBack,
+  List<Widget>? actions
 }) {
   /// [context] must need to handile mediquorys and keybord focus changing so it's need to as required
   return AppBar(
@@ -29,6 +30,7 @@ AppBar customAppBar(
         color: CustomColors.dark,
       ),
     ),
+    actions: actions,
     title: Text(
       title,
       style: CustomTextTheme(context: context).headLine(),

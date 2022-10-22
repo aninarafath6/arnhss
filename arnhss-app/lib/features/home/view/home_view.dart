@@ -1,4 +1,3 @@
-import 'package:arnhss/common/widgets/custom_modal.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/home/model/notice_model.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
@@ -6,8 +5,6 @@ import 'package:arnhss/features/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/home/widgets/custom_app_bar.dart';
 import 'package:arnhss/features/home/widgets/home_grid.dart';
 import 'package:arnhss/features/home/widgets/notice_item.dart';
-// import 'package:arnhss/features/home/widgets/notice_item.dart';
-import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/firebase_database_service.dart';
 
 class HomeView extends StatefulWidget {
