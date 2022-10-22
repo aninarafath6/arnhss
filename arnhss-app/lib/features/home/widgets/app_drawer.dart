@@ -280,24 +280,26 @@ class _LogoutTileState extends State<_LogoutTile> {
       ),
       leading: const Icon(Remix.logout_circle_r_line),
       onTap: () {
-        customModal(context,
-            title: "Are you sure?",
-            content: "Could you please confirm that you wish to sign out now?",
-            deny: "DENY",
-            onDeny: () async {
-              Get.back();
-              await Future.delayed(const Duration(milliseconds: 300));
-              Get.back();
-            },
-            done: "SURE".toText(),
-            loading: !loading,
-            onDone: () async {
-              setState(() => loading = true);
-              await Future.delayed(const Duration(milliseconds: 800));
-              setState(() => loading = false);
-              AuthService().logout();
-              Get.offNamedUntil(LoginView.routeName, (_) => false);
-            });
+        customModal(
+          context,
+          title: "Are you sure?",
+          content: "Could you please confirm that you wish to sign out now?",
+          deny: "DENY",
+          onDeny: () async {
+            Get.back();
+            await Future.delayed(const Duration(milliseconds: 300));
+            Get.back();
+          },
+          done: "SURE".toText(style: const TextStyle(color: Colors.red)),
+          loading: !loading,
+          onDone: () async {
+            setState(() => loading = true);
+            await Future.delayed(const Duration(milliseconds: 800));
+            setState(() => loading = false);
+            AuthService().logout();
+            Get.offNamedUntil(LoginView.routeName, (_) => false);
+          },
+        );
       },
     );
   }

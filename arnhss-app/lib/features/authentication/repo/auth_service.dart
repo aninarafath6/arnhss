@@ -7,6 +7,7 @@ import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
 class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -59,45 +60,78 @@ class AuthService with HandleException {
   }
 
 // * verify otp
-  Future<AuthCredential?> verifyOtp({String? vi, String? otp}) async {
+  Future<bool> verifyOtp(
+      {String? vi,
+      String? otp,
+      Callback? callback,
+      Callback? errorCallback}) async {
+    // print(vi);
     //* verify otp with phone auth provider
-    AuthCredential? _credential;
+    AuthCredential credential =
+        PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
     try {
-      _credential =
-          PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
+      // * user credential
+      return await _firebaseAuth.signInWithCredential(credential).catchError(
+        (error) {
+          debugPrint("throwing error from here");
+          throw error;
+        },
+      ).then((value) {
+        callback!();
+        return true;
+      });
     } catch (e) {
+      //   print(e);()
+      errorCallback!();
       handleException(e);
+      return false;
     }
-    return _credential;
+//     //* handle firebase exception
+
+    // try {
+    //   // print(otp);
+
+    //   _firebaseAuth.signInWithCredential(_credential);
+    // } catch (e) {
+    //   print(e);
+    //   handleException(e);
+    // }
+    // return _credential;
   }
 
   Future<void> signIn(AuthCredential? credential, UserModel user) async {
     // UserCredential? _userCredential;
 
     try {
-      // * user credential
-      if (credential != null) {
-        await _firebaseAuth.signInWithCredential(credential).catchError(
-          (error) {
-            debugPrint("throwing error from here");
-            throw error;
-          },
-        ).then(
-          ((value) async {
-            updateUserProfile(user);
-          }),
-        );
-      } else {
-        throw InvalidException("Something went wrong!!", false);
-      }
-      //* handle firebase exception
-    } on FirebaseAuthException catch (e) {
-      debugPrint(e.code);
-      handleException(InvalidException(e.code, false), top: true);
+      updateUserProfile(user);
     } catch (e) {
-      debugPrint("here $e");
       handleException(e);
     }
+
+    // try {
+    //   // * user credential
+    //   if (credential != null) {
+    //     await _firebaseAuth.signInWithCredential(credential).catchError(
+    //       (error) {
+    //         debugPrint("throwing error from here");
+    //         throw error;
+    //       },
+    //     ).then(
+    //       ((value) async {
+    //         updateUserProfile(user);
+    //       }),
+    //     );
+    //   } else {
+    //     throw InvalidException("Something went wrong!!", false);
+    //   }
+    //   //* handle firebase exception
+    // } on FirebaseAuthException catch (e) {
+    //   debugPrint(e.code);
+    //   handleException(InvalidException(e.code, false), top: true);
+    // } catch (e) {
+    //   debugPrint("here $e");
+    //   handleException(e);
+    // }
 
     //* return the user credential
     // return _userCredential;
