@@ -1,6 +1,6 @@
 # screen shorts and work progress
 
- <img width='210' src="https://user-images.githubusercontent.com/65447144/183302437-8c846b5e-3f4b-4caa-8626-6e1eef4ac295.png"/>|<img width='210' src="https://user-images.githubusercontent.com/65447144/183710986-60f101db-12d2-45f0-bbfb-57913aea97d7.png" alt="onbaording"/>
+ <img width='210' src="https://user-images.githubusercontent.com/65447144/183302437-8c846b5e-3f4b-4caa-8626-6e1eef4ac295.png"/> | <img width='210' src="https://user-images.githubusercontent.com/65447144/183710986-60f101db-12d2-45f0-bbfb-57913aea97d7.png" alt="onbaording"/>
 
 
 <img width='400' src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/> <img width='400' src="https://user-images.githubusercontent.com/65447144/184449048-4d43402e-e6ac-406d-8b64-e6534568fdc7.jpeg"/> <img width='210'  src="https://user-images.githubusercontent.com/65447144/186739259-a21ae40f-465e-47ff-9020-90adf8dd2b5e.jpeg"/>
