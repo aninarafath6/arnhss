@@ -5,10 +5,11 @@
 
 
 
- <img align="left" alt="Splash Screen" src="https://user-images.githubusercontent.com/65447144/134811232-0d0896bc-86fc-478c-b648-ab56bf5a3aef.jpeg" width="250px" /> | <img align="left" alt="Welcome Screen" src="https://user-images.githubusercontent.com/65447144/134811243-353062b5-b179-473e-8a3f-8ffa66a79aba.jpeg" width="250px" /> | <img align="left" alt="Login Screen" src="https://user-images.githubusercontent.com/65447144/134811258-09934988-50b3-4d5c-b67b-5027c59b5ee5.jpeg" width="250px" /> | <img align="left" alt="Dashboard" src="https://user-images.githubusercontent.com/65447144/134811288-666ff458-27b5-4337-9808-5b1b7b4ace57.jpeg" width="250px" /> 
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ 
+
 
 <img width='400' src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/> <img width='400' src="https://user-images.githubusercontent.com/65447144/184449048-4d43402e-e6ac-406d-8b64-e6534568fdc7.jpeg"/> <img width='210'  src="https://user-images.githubusercontent.com/65447144/186739259-a21ae40f-465e-47ff-9020-90adf8dd2b5e.jpeg"/>
+
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- 
 
 [user flow chart ](https://www.figma.com/file/hqW9fdd2K8r4gRhCvAkCmG/user-flow-of-arnhss?node-id=0%3A1)
 
