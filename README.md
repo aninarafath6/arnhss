@@ -24,6 +24,8 @@ _Description here_
 5. [Lottie](https://pub.dev/packages/lottie) for animations
 6. [remixicon](https://pub.dev/packages/flutter_remix) icon pack
 7. [Firebase](https://pub.dev/packages/firebase_core) realtime DB/ Firestore/ Firebase Auth 
+8. [Sqflite](https://pub.dev/packages/sqflite) Local Storage
+
 
 ### Tools used
 
