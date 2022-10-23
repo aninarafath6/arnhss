@@ -8,7 +8,7 @@
 
 
 
-<img width='400' src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/> <img width='400' src="https://user-images.githubusercontent.com/65447144/184449048-4d43402e-e6ac-406d-8b64-e6534568fdc7.jpeg"/> <img width='210'  src="https://user-images.githubusercontent.com/65447144/186739259-a21ae40f-465e-47ff-9020-90adf8dd2b5e.jpeg"/>
+<img width='300' src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/> <img width='300' src="https://user-images.githubusercontent.com/65447144/184449048-4d43402e-e6ac-406d-8b64-e6534568fdc7.jpeg"/> <img width='210'  src="https://user-images.githubusercontent.com/65447144/186739259-a21ae40f-465e-47ff-9020-90adf8dd2b5e.jpeg"/>
 
 
 [user flow chart ](https://www.figma.com/file/hqW9fdd2K8r4gRhCvAkCmG/user-flow-of-arnhss?node-id=0%3A1)
