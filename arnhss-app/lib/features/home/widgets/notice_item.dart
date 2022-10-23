@@ -20,8 +20,8 @@ class NoticeItem extends StatefulWidget {
 
 class _NoticeItemState extends State<NoticeItem>
     with SingleTickerProviderStateMixin {
-  static const double _expandedHeight = 450;
   static const double _initialHeight = 190;
+  static const double _expandedHeight = 500;
   double height = _initialHeight;
   bool _isExpanded = false;
 
@@ -47,6 +47,10 @@ class _NoticeItemState extends State<NoticeItem>
       });
     }
 
+    if (notice == null) {
+      updateStatus(false);
+      height = _initialHeight;
+    }
     return InkWell(
       onTap: () {
         setState(() {
@@ -56,7 +60,9 @@ class _NoticeItemState extends State<NoticeItem>
             _animationController.duration = const Duration(milliseconds: 1000);
             _animationController.reverse();
           } else {
-            updateStatus(true);
+            if (notice != null) {
+              updateStatus(true);
+            }
             _animationController.forward();
             height = _expandedHeight;
           }
@@ -76,97 +82,101 @@ class _NoticeItemState extends State<NoticeItem>
             color: CustomColors.lightBgOverlay,
             borderRadius: BorderRadius.circular(5),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 6),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Icon(Remix.alarm_warning_line),
-                  SizedBox(width: 5),
-                  Text(
-                    "Notice Board",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              notice?.subject == "" || notice == null
-                  ? Center(
-                      child: Image.asset(
-                        "assets/images/icons/hero.png.webp",
-                        width: 250,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: Column(
+              key: ValueKey(notice?.id),
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Icon(Remix.alarm_warning_line),
+                    SizedBox(width: 5),
+                    Text(
+                      "Notice Board",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
                       ),
-                    )
-                  : Expanded(
-                      child: Stack(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: AnimatedBuilder(
-                                    animation: _animationController,
-                                    builder: (context, _) {
-                                      return Text(
-                                        notice.subject ?? "",
-                                        style: GoogleFonts.rokkitt(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        maxLines: lerpDouble(3, 20,
-                                                _animationController.value)!
-                                            .toInt(),
-                                        overflow: _isExpanded
-                                            ? TextOverflow.visible
-                                            : TextOverflow.ellipsis,
-                                      );
-                                    }),
-                              ),
-                              const Spacer(),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Spacer(),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    notice.date ?? "",
-                                    style: GoogleFonts.breeSerif(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 12,
-                                      // fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                  Text(
-                                    '- ${UserModel.toStringRole(notice.role ?? Role.teacher)}',
-                                    style: GoogleFonts.baloo2(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 10,
-                                      // fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 20),
+                notice?.subject == "" || notice == null
+                    ? Center(
+                        child: Image.asset(
+                          "assets/images/icons/hero.png.webp",
+                          width: 250,
+                        ),
+                      )
+                    : Expanded(
+                        child: Stack(
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: AnimatedBuilder(
+                                      animation: _animationController,
+                                      builder: (context, _) {
+                                        return Text(
+                                          notice.subject ?? "",
+                                          style: GoogleFonts.rokkitt(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          maxLines: lerpDouble(3, 20,
+                                                  _animationController.value)!
+                                              .toInt(),
+                                          overflow: _isExpanded
+                                              ? TextOverflow.visible
+                                              : TextOverflow.ellipsis,
+                                        );
+                                      }),
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Spacer(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      notice.date ?? "",
+                                      style: GoogleFonts.breeSerif(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 12,
+                                        // fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                    Text(
+                                      '- ${UserModel.toStringRole(notice.role ?? Role.teacher)}',
+                                      style: GoogleFonts.baloo2(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 10,
+                                        // fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+              ],
+            ),
           ),
         ),
       ),

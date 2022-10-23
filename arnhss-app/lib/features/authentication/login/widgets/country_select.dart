@@ -71,7 +71,7 @@ class CountrySelect extends StatelessWidget {
                         snapshot.data?[index].code ?? "",
                       );
                     }),
-                    width: 15,
+                    width: 25,
                   ),
                 );
               },
