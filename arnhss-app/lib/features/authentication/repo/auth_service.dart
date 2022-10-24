@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/models/user.model.dart';
@@ -12,9 +13,6 @@ import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final SharedPrefService _prefService = SharedPrefService();
-
-  final CollectionReference _usersCollection =
-      FirebaseFirestore.instance.collection('users');
 
   Stream<User?>? get user {
     return _firebaseAuth.authStateChanges();
@@ -49,7 +47,7 @@ class AuthService with HandleException {
           .catchError(
         //* handle error
         (e) {
-          print("from from from");
+          debugPrint("from from from");
           throw e;
         },
       );
@@ -65,7 +63,6 @@ class AuthService with HandleException {
       String? otp,
       Callback? callback,
       Callback? errorCallback}) async {
-    // print(vi);
     //* verify otp with phone auth provider
     AuthCredential credential =
         PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
@@ -86,17 +83,6 @@ class AuthService with HandleException {
       handleException(e);
       return false;
     }
-//     //* handle firebase exception
-
-    // try {
-    //   // print(otp);
-
-    //   _firebaseAuth.signInWithCredential(_credential);
-    // } catch (e) {
-    //   print(e);
-    //   handleException(e);
-    // }
-    // return _credential;
   }
 
   Future<void> signIn(AuthCredential? credential, UserModel user) async {
@@ -150,20 +136,51 @@ class AuthService with HandleException {
   Future<List<UserModel>?> getListUsers(String phone) async {
     // * get users who have the same number
     QuerySnapshot? querySnapshot;
+    QuerySnapshot? studentsSnapshot;
+    QuerySnapshot? teacherSnapshot;
+    List<UserModel>? docs;
+
+    final CollectionReference _usersCollection =
+        FirebaseFirestore.instance.collection('users');
+    final CollectionReference _studentsCollection =
+        FirebaseFirestore.instance.collection('students');
+    final CollectionReference _teachersCollection =
+        FirebaseFirestore.instance.collection('teachers');
+    // final CollectionReference _studentCollection =
+    //     FirebaseFirestore.instance.collection('users');
 
     try {
       // * fetch the document which have same phone number
       await Future.delayed(const Duration(seconds: 1));
+
       querySnapshot =
           await _usersCollection.where("phone", isEqualTo: phone).get();
+      studentsSnapshot =
+          await _studentsCollection.where("phone", isEqualTo: phone).get();
+      teacherSnapshot =
+          await _teachersCollection.where("phone", isEqualTo: phone).get();
+
+      docs = [
+        ...studentsSnapshot.docs
+            .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+            .toList(),
+        ...teacherSnapshot.docs
+            .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+            .toList(),
+        ...querySnapshot.docs
+            .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+            .toList()
+      ];
     } catch (e) {
+      debugPrint(e.toString());
       handleException(e);
     }
 
 // * if query snapshot has data then return data other wise return null
-    if (querySnapshot != null) {
-      return UserModel.listFromJson(querySnapshot);
+    if (docs != null) {
+      return docs;
     } else {
+      debugPrint("docs is null");
       return null;
     }
   }
