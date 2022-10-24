@@ -28,19 +28,19 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.1051720302845-bdhfe4ek8jeskpe8shio4sv2u316bl46</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>app-1-724320524720-ios-030562d9b4c936d491de75</string>
+				<string>com.googleusercontent.apps.724320524720-bb17fqrj0m06rdl4id6ioqg4gf84m997</string>
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleExecutable</key>
-			<string></string>
-			<key>CFBundleIdentifier</key>
-			<string></string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.googleusercontent.apps.1051720302845-bdhfe4ek8jeskpe8shio4sv2u316bl46</string>
+			<key>CFBundleURLSchemes</key>
+			<array/>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>

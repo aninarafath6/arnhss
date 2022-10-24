@@ -13,7 +13,7 @@ class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final SharedPrefService _prefService = SharedPrefService();
 
-  CollectionReference _usersCollection =
+  final CollectionReference _usersCollection =
       FirebaseFirestore.instance.collection('users');
 
   Stream<User?>? get user {
