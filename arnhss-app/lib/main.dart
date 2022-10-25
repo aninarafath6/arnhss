@@ -12,6 +12,7 @@ import 'package:arnhss/features/notifications/view_model/notification_view_model
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:arnhss/firebase_options.dart';
 import 'package:arnhss/services/db_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,7 @@ void main() async {
         name: 'arnhss',
         options: DefaultFirebaseOptions.currentPlatform,
       );
+
       runApp(const MyApp());
     },
   );
