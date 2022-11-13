@@ -134,6 +134,7 @@ class AuthService with HandleException {
   }
 
   Future<List<UserModel>?> getListUsers(String phone) async {
+    print(phone);
     // * get users who have the same number
     QuerySnapshot? querySnapshot;
     QuerySnapshot? studentsSnapshot;
@@ -155,29 +156,47 @@ class AuthService with HandleException {
 
       querySnapshot =
           await _usersCollection.where("phone", isEqualTo: phone).get();
+
       studentsSnapshot =
           await _studentsCollection.where("phone", isEqualTo: phone).get();
       teacherSnapshot =
           await _teachersCollection.where("phone", isEqualTo: phone).get();
 
+      // print();
+      // docs?.addAll();
+
       docs = [
-        ...studentsSnapshot.docs
-            .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-            .toList(),
-        ...teacherSnapshot.docs
-            .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-            .toList(),
         ...querySnapshot.docs
             .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-            .toList()
+            .toList(),
+
+        //! there is a conflict when convert student model to user model so there is need a check
+        // ...studentsSnapshot.docs
+        //     .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+        //     .toList(),
       ];
+
+      // querySnapshot.docs
+
+      // docs = [
+      //   ...studentsSnapshot.docs
+      //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+      //       .toList(),
+      //   ...teacherSnapshot.docs
+      //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+      //       .toList(),
+      //   ...querySnapshot.docs
+      //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+      //       .toList()
+      // ];
     } catch (e) {
       debugPrint(e.toString());
       handleException(e);
     }
 
-// * if query snapshot has data then return data other wise return null
+    // * if query snapshot has data then return data other wise return null
     if (docs != null) {
+      debugPrint("users found");
       return docs;
     } else {
       debugPrint("docs is null");

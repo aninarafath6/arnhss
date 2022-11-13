@@ -6,13 +6,13 @@ import 'package:arnhss/features/authentication/account/view_model/select_account
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
+import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/notes/view_model/notes_view_model.dart';
 import 'package:arnhss/features/notifications/view_model/notification_view_model.dart';
 import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:arnhss/firebase_options.dart';
 import 'package:arnhss/services/db_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +28,9 @@ void main() async {
         name: 'arnhss',
         options: DefaultFirebaseOptions.currentPlatform,
       );
+
+// ? just for checking functionality
+      // print(await AuthService().getListUsers("+917444555666"));
 
       runApp(const MyApp());
     },
