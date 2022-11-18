@@ -7,11 +7,11 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
     this.color = CustomColors.dark,
-    this.height = 5,
+    this.height = 80,
     this.textColor = CustomColors.white,
     this.width = double.infinity,
     this.onTap,
-    this.fontSize = 25,
+    this.fontSize = 15,
     this.label = "Get Started",
     this.fontWeight = FontWeight.w500,
     this.isDisabled = false,
@@ -37,6 +37,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
+      height: height,
       child: TextButton(
         style: ButtonStyle(
           overlayColor:
@@ -44,8 +45,8 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: isDisabled ? null : onTap,
         child: Container(
-          width: context.getWidth(30),
-          height: 80,
+          // width: width,
+          // height: height,
           decoration: BoxDecoration(
             color: isDisabled ? nonActiveColor : color,
             borderRadius: BorderRadius.circular(

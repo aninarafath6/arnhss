@@ -10,11 +10,16 @@ class Background extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: context.getHeight(30),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 30),
+      height: context.getHeight(100),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Image.asset(image),
+        padding: const EdgeInsets.symmetric(horizontal: 50.0),
+        child: Align(
+          child: Image.asset(image),
+          alignment:
+              context.isMobile ? Alignment.bottomCenter : Alignment.center,
+        ),
       ),
     );
   }
