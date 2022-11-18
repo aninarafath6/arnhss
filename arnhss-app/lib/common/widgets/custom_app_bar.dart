@@ -3,17 +3,14 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
-AppBar customAppBar(
-  BuildContext context, {
-  required String title,
-  FocusNode? focus,
-  Function()? onBack,
-  List<Widget>? actions
-}) {
-  /// [context] must need to handile mediquorys and keybord focus changing so it's need to as required
+AppBar customAppBar(BuildContext context,
+    {required String title,
+    FocusNode? focus,
+    Function()? onBack,
+    List<Widget>? actions}) {
   return AppBar(
     backgroundColor: Colors.transparent,
-    centerTitle: true,
+    centerTitle: context.isMobile,
     elevation: 0,
     leading: IconButton(
       splashRadius: 25,
@@ -33,7 +30,8 @@ AppBar customAppBar(
     actions: actions,
     title: Text(
       title,
-      style: CustomTextTheme(context: context).headLine(),
+      style:
+          CustomTextTheme(context: context).headLine().copyWith(fontSize: 20),
     ),
   );
 }

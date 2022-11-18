@@ -1,5 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/utils/generate_color.dart';
+import 'package:arnhss/utils/generate_color.util.dart';
 import 'package:flutter/material.dart';
 
 class Theming {

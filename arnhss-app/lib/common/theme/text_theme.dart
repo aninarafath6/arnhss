@@ -8,9 +8,9 @@ class CustomTextTheme {
   final BuildContext context;
 
   TextStyle headLine() {
-    return TextStyle(
+    return const TextStyle(
       color: CustomColors.dark,
-      fontSize: context.getHeight(2.6),
+      fontSize: 25,
       fontWeight: FontWeight.bold,
     );
   }

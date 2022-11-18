@@ -1,8 +1,9 @@
-import 'dart:async';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/extensions/context_extension.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:get/route_manager.dart';
 
 class SplashView extends StatefulWidget {
@@ -40,14 +41,19 @@ class _SplashViewState extends State<SplashView> {
           child: Column(
             children: [
               const Spacer(),
-              Image.asset(
-                Images.splash_logo,
-                width: context.getWidth(55),
+              Center(
+                child: Image.asset(
+                  Images.splash_logo,
+                  width: 200,
+                ),
               ),
               const Spacer(),
               Text(
                 "BY COMPUTER⚡SCIENCE 2021-23.",
                 style: TextStyle(
+                  fontSize: context.isMobile
+                      ? context.getHeight(1.5)
+                      : context.getWidth(1.5),
                   color: Colors.grey[400],
                 ),
               ),

@@ -1,13 +1,26 @@
+import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
 
 extension Dimensions on BuildContext {
   // taking the screen width and height
-  double getHeight(height) => (MediaQuery.of(this).size.height / 100) * height;
-  double getWidth(width) => (MediaQuery.of(this).size.width / 100) * width;
+
+  Size get mqS => MediaQuery.of(this).size;
+  EdgeInsets get mqVI => MediaQuery.of(this).viewInsets;
+
+  double getHeight(height) => (mqS.height / 100) * height;
+  double getWidth(width) => (mqS.width / 100) * width;
 
   // check keyboard is open or not
-  bool get isKeyboard => MediaQuery.of(this).viewInsets.bottom != 0;
-  double get bottomINset => MediaQuery.of(this).viewInsets.bottom;
+  bool get isKeyboard => mqVI.bottom != 0;
+  double get bottomINset => mqVI.bottom;
+
+// for responsive stuffs
+  bool get isMobile => mqS.width < AppSizes.kMobil;
+
+  bool get isTablet =>
+      mqS.width < AppSizes.kTablet && mqS.width >= AppSizes.kMobil;
+
+  bool isDesktop() => mqS.width >= AppSizes.kDesktop;
 
 // spacing widget
   SizedBox spacing({

@@ -1,5 +1,5 @@
 import 'package:arnhss/common/theme/text_theme.dart';
-import 'package:flutter/material.dart';
+import 'package:arnhss/features/authentication/login/view/index.dart';
 
 class Heading extends StatelessWidget {
   const Heading({
@@ -9,11 +9,14 @@ class Heading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28.0),
+      padding: EdgeInsets.symmetric(horizontal: context.isMobile ? 0 : 0),
       child: Text(
         "Ar Nagar Hss- A complete educational institute",
-        textAlign: TextAlign.center,
-        style: CustomTextTheme(context: context).headLine(),
+        textAlign: context.isMobile ? TextAlign.center : TextAlign.start,
+        style: // line aligner
+            CustomTextTheme(context: context)
+                .headLine()
+                .copyWith(fontSize: context.isMobile ? 25 : 25),
       ),
     );
   }

@@ -7,7 +7,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
     this.color = CustomColors.dark,
-    this.height = 5,
+    this.height = 80,
     this.textColor = CustomColors.white,
     this.width = double.infinity,
     this.onTap,
@@ -31,12 +31,13 @@ class CustomButton extends StatelessWidget {
   final Color nonActiveColor;
   final bool loading;
 
-  /// [color] is not required because there is defualt color , it  used to color of backouround
+  /// [color] is not required because there is default color , it  used to color of background
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
+      height: height,
       child: TextButton(
         style: ButtonStyle(
           overlayColor:
@@ -44,8 +45,8 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: isDisabled ? null : onTap,
         child: Container(
-          width: context.getWidth(width),
-          height: context.getHeight(height),
+          // width: width,
+          // height: height,
           decoration: BoxDecoration(
             color: isDisabled ? nonActiveColor : color,
             borderRadius: BorderRadius.circular(

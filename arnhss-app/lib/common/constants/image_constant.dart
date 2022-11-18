@@ -1,7 +1,7 @@
 class Images {
   static String splash_logo = "assets/images/pngs/logo-2.jpeg";
   static String onboarding_image =
-      "assets/images/pngs/Black-Scribble-Transparent.png.webp";
+      "assets/images/icons/home-page-hero-refreshed-v3.png.webp";
   static const otp_image =
       "assets/images/pngs/ab96085c6e789dcd46f381d8ddce48ce.png.webp";
   static const flag_base_url = "https://flagcdn.com/48x36/";
@@ -12,7 +12,7 @@ class Images {
   static const teacherRoleIcon = "assets/images/icons/teacher.png";
   static const parentRoleIcon =
       "assets/images/icons/woman-answering-phone.png.webp";
-  static const loginIcon = "assets/images/pngs/login 1.png";
+  static const loginIcon = "assets/images/icons/notes1.png";
   static const homeImages = [""];
   static const drawerHeader = "assets/images/icons/hero.png.webp";
   static const notFound = 'assets/images/pngs/not-found.jpeg';
