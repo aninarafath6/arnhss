@@ -1,3 +1,4 @@
+import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/features/onboarding/view/onboard_background.dart';
 import 'package:arnhss/features/onboarding/view/onboarding_content.dart';
 import 'package:arnhss/extensions/context_extension.dart';
@@ -16,9 +17,11 @@ class OnboardingView extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: context.getWidth(0)),
           child: Stack(
-            children: const [
-              Background(),
-              OnboardingContent(),
+            children: [
+              Background(
+                image: Images.onboarding_image,
+              ),
+              const OnboardingContent(),
             ],
           ),
         ),

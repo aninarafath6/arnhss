@@ -27,8 +27,8 @@ class OnboardingContent extends StatelessWidget {
           padding: const EdgeInsets.all(21.0),
           child: Column(
             children: [
-              // context.spacing(height: 2),
-              // const Spacer(flex: 1),
+              context.spacing(height: 2),
+              const Spacer(flex: 1),
               const Heading(),
               context.spacing(height: 2.5),
               const Content(),
@@ -38,7 +38,7 @@ class OnboardingContent extends StatelessWidget {
                   Navigator.pushNamed(context, LoginView.routeName),
                 },
               ),
-              // const Spacer(flex: 1),
+              const Spacer(flex: 1),
             ],
           ),
         ),

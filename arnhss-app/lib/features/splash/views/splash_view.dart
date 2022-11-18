@@ -1,9 +1,10 @@
-import 'dart:async';
-import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/extensions/context_extension.dart';
+import 'package:arnhss/features/onboarding/view/onboard_background.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:get/route_manager.dart';
 
 class SplashView extends StatefulWidget {
@@ -41,9 +42,8 @@ class _SplashViewState extends State<SplashView> {
           child: Column(
             children: [
               const Spacer(),
-              Image.asset(
-                Images.splash_logo,
-                width: AppSizes.splash_image_width,
+              Background(
+                image: Images.splash_logo,
               ),
               const Spacer(),
               Text(

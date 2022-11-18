@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
     this.textColor = CustomColors.white,
     this.width = double.infinity,
     this.onTap,
-    this.fontSize = 15,
+    this.fontSize = 25,
     this.label = "Get Started",
     this.fontWeight = FontWeight.w500,
     this.isDisabled = false,
@@ -31,7 +31,7 @@ class CustomButton extends StatelessWidget {
   final Color nonActiveColor;
   final bool loading;
 
-  /// [color] is not required because there is defualt color , it  used to color of backouround
+  /// [color] is not required because there is default color , it  used to color of background
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +44,8 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: isDisabled ? null : onTap,
         child: Container(
-          width: context.getWidth(width),
-          height: context.getHeight(height),
+          width: context.getWidth(30),
+          height: 80,
           decoration: BoxDecoration(
             color: isDisabled ? nonActiveColor : color,
             borderRadius: BorderRadius.circular(
