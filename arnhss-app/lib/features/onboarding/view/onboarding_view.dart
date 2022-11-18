@@ -18,9 +18,7 @@ class OnboardingView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: context.getWidth(0)),
           child: Stack(
             children: [
-              Background(
-                image: Images.onboarding_image,
-              ),
+              Background(image: Images.onboarding_image),
               const OnboardingContent(),
             ],
           ),

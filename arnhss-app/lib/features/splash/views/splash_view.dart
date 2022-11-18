@@ -49,6 +49,7 @@ class _SplashViewState extends State<SplashView> {
               Text(
                 "BY COMPUTER⚡SCIENCE 2021-23.",
                 style: TextStyle(
+                  fontSize: context.getHeight(1.5),
                   color: Colors.grey[400],
                 ),
               ),
