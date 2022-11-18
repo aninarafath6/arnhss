@@ -20,13 +20,13 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void initState() {
-    Timer(
-      const Duration(seconds: 3),
-      () async {
-        String routeName = await _sharedPrefService.start();
-        Get.offNamedUntil(routeName, (_) => false);
-      },
-    );
+    // Timer(
+    //   const Duration(seconds: 3),
+    //   () async {
+    //     String routeName = await _sharedPrefService.start();
+    //     Get.offNamedUntil(routeName, (_) => false);
+    //   },
+    // );
     super.initState();
   }
 
@@ -42,14 +42,19 @@ class _SplashViewState extends State<SplashView> {
           child: Column(
             children: [
               const Spacer(),
-              Background(
-                image: Images.splash_logo,
+              Center(
+                child: Image.asset(
+                  Images.splash_logo,
+                  width: 200,
+                ),
               ),
               const Spacer(),
               Text(
                 "BY COMPUTER⚡SCIENCE 2021-23.",
                 style: TextStyle(
-                  fontSize: context.getHeight(1.5),
+                  fontSize: context.isMobile
+                      ? context.getHeight(1.5)
+                      : context.getWidth(1.5),
                   color: Colors.grey[400],
                 ),
               ),
