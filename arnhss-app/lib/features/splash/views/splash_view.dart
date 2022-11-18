@@ -1,6 +1,5 @@
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/extensions/context_extension.dart';
-import 'package:arnhss/features/onboarding/view/onboard_background.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -20,13 +19,13 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void initState() {
-    // Timer(
-    //   const Duration(seconds: 3),
-    //   () async {
-    //     String routeName = await _sharedPrefService.start();
-    //     Get.offNamedUntil(routeName, (_) => false);
-    //   },
-    // );
+    Timer(
+      const Duration(seconds: 3),
+      () async {
+        String routeName = await _sharedPrefService.start();
+        Get.offNamedUntil(routeName, (_) => false);
+      },
+    );
     super.initState();
   }
 

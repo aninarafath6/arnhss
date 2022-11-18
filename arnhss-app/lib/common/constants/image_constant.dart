@@ -12,7 +12,7 @@ class Images {
   static const teacherRoleIcon = "assets/images/icons/teacher.png";
   static const parentRoleIcon =
       "assets/images/icons/woman-answering-phone.png.webp";
-  static const loginIcon = "assets/images/pngs/login 1.png";
+  static const loginIcon = "assets/images/icons/notes1.png";
   static const homeImages = [""];
   static const drawerHeader = "assets/images/icons/hero.png.webp";
   static const notFound = 'assets/images/pngs/not-found.jpeg';

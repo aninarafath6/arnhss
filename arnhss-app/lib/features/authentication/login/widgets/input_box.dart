@@ -17,7 +17,7 @@ class InputFelid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: context.getWidth(100),
-      height: 55,
+      height: context.isMobile ? 55 : 50,
       decoration: BoxDecoration(
           color: CustomColors.lightBgOverlay,
           borderRadius: BorderRadius.circular(8)),
@@ -73,7 +73,9 @@ class _InputBoxState extends State<InputBox> {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: "Enter your mobile number",
-            hintStyle: CustomTextTheme(context: context).paragraph(),
+            hintStyle: CustomTextTheme(context: context)
+                .paragraph()
+                .copyWith(fontSize: 12),
           ),
         ),
       ),

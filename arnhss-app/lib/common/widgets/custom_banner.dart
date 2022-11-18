@@ -28,18 +28,18 @@ class CustomBanner extends StatelessWidget {
               image,
             ),
           ),
-          Text(
-            title,
-            key: ValueKey(title.toString()),
-            textAlign: TextAlign.center,
-            style: CustomTextTheme(context: context).headLine(),
-          ),
-          SizedBox(height: isSmall ? 5 : 15),
-          Text(
-            subtitle ?? "",
-            textAlign: TextAlign.center,
-            style: CustomTextTheme(context: context).paragraph(),
-          ),
+          // Text(
+          //   title,
+          //   key: ValueKey(title.toString()),
+          //   textAlign: TextAlign.center,
+          //   style: CustomTextTheme(context: context).headLine(),
+          // ),
+          // SizedBox(height: isSmall ? 5 : 15),
+          // Text(
+          //   subtitle ?? "",
+          //   textAlign: TextAlign.center,
+          //   style: CustomTextTheme(context: context).paragraph(),
+          // ),
         ],
       ),
     );

@@ -47,7 +47,7 @@ class OnboardingContent extends StatelessWidget {
                   ? context.getWidth(100)
                   : context.getWidth(50),
               height: context.isMobile ? context.getHeight(8) : 60,
-              fontSize: context.isMobile ? 15 : 18,
+              fontSize: context.isMobile ? 15 : 15,
             ),
 
             // !context.isMobile ? const Spacer(flex: 1) : const SizedBox(),
