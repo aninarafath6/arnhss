@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/extensions/context_extension.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
@@ -42,7 +43,7 @@ class _SplashViewState extends State<SplashView> {
               const Spacer(),
               Image.asset(
                 Images.splash_logo,
-                width: context.getWidth(55),
+                width: AppSizes.splash_image_width,
               ),
               const Spacer(),
               Text(
