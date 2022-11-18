@@ -1,5 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/common/widgets/custom_drop_down.dart';
 import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/login/widgets/custom_footer.dart';
@@ -10,6 +11,7 @@ import 'package:arnhss/extensions/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remixicon/remixicon.dart';
 
 class ActionSection extends StatelessWidget {
   const ActionSection({
@@ -49,8 +51,12 @@ class ActionSection extends StatelessWidget {
         context.spacing(height: 5),
         const InputFelid(),
         const SizedBox(height: 10),
-        const InputFelid(),
-        const SizedBox(height: 15),
+        const CustomDropDown(
+          title: "Choose your role",
+          leadingIcon: Remix.arrow_down_s_line,
+          options: ["Student", "Teacher", "Principal", "Admin"],
+        ),
+        SizedBox(height: context.isMobile ? 25 : 15),
         CustomButton(
           label: "Get OTP",
           onTap: () {
@@ -87,8 +93,8 @@ class ActionSection extends StatelessWidget {
         //     // Navigator.pushNamed(context, OtpVerificationView.routeName);
         //   },
         // ),
-        context.isMobile ? context.spacing(height: 5) : const SizedBox(),
-        const TermsParagraph(),
+        // context.isMobile ? context.spacing(height: 3) : const SizedBox(),
+        // context.isMobile ? const TermsParagraph() : const SizedBox(),
       ],
     );
   }

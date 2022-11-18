@@ -71,11 +71,12 @@ class _InputBoxState extends State<InputBox> {
           cursorColor: CustomColors.dark,
           style: Theme.of(context).textTheme.subtitle1,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.zero,
             border: InputBorder.none,
             hintText: "Enter your mobile number",
             hintStyle: CustomTextTheme(context: context)
                 .paragraph()
-                .copyWith(fontSize: 12),
+                .copyWith(fontSize: 15),
           ),
         ),
       ),

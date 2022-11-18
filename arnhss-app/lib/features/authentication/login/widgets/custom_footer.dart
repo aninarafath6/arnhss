@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class TermsParagraph extends StatelessWidget {
   const TermsParagraph({
     Key? key,
+    this.size = 12,
   }) : super(key: key);
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class TermsParagraph extends StatelessWidget {
               text: 'By continuing, you agree to our Terms of ',
               style: CustomTextTheme(context: context)
                   .paragraph2()
-                  .copyWith(fontSize: 11),
+                  .copyWith(fontSize: size),
             ),
             TextSpan(
               text: 'Terms of Service ',
@@ -31,12 +33,12 @@ class TermsParagraph extends StatelessWidget {
               text: 'and',
               style: CustomTextTheme(context: context)
                   .paragraph2()
-                  .copyWith(fontSize: 11),
+                  .copyWith(fontSize: size),
             ),
             TextSpan(
               text: ' Privacy Policy',
               style: CustomTextTheme(context: context).paragraph2().copyWith(
-                  fontSize: 11,
+                  fontSize: size,
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
