@@ -78,7 +78,8 @@ class LoginViewModel extends ChangeNotifier with HandleException {
 // get otp functionality
   void getOtp(BuildContext context, {bool reGet = false}) async {
     // * phone number from mobile number input controller
-    final String phoneNumber = mobileNumberController.text.toString();
+    final String phoneNumber = mobileNumberController.text.trim().toString();
+    
     // * provider
     final provider = context.read<VerifyOtpViewModel>();
 
@@ -131,14 +132,7 @@ class LoginViewModel extends ChangeNotifier with HandleException {
     provider.isFirstReq = false;
   }
 
-  // @override
-  // void dispose() {
-  //   // print("login dispose method");
-  //   _mobileNumberController.text = "";
-  //   _scrollController.dispose();
-  //   _myFocusNode.dispose();
-  //   super.dispose();
-  // }
+ 
   void disposeLogin() {
     // print("login dispose method");
     _mobileNumberController.text = "";

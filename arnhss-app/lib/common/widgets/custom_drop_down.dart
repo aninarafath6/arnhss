@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:flutter/foundation.dart';
 
@@ -38,13 +39,13 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
         child: DropdownButton<T>(
             hint: Text(widget.title),
             isExpanded: true,
-            value: widget.value?? dropDownValue,
+            value: widget.value ?? dropDownValue,
             underline: const SizedBox(),
             enableFeedback: true,
             isDense: false,
             items: widget.options
                 .map((e) => DropdownMenuItem<T>(
-                      child: Text(describeEnum(e.toString())),
+                      child: Text(describeEnum(e.toString()).capitalize()),
                       value: e,
                     ))
                 .toList(),

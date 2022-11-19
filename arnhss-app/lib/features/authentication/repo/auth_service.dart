@@ -33,7 +33,9 @@ class AuthService with HandleException {
         //* phone number
         phoneNumber: '$countryCode $phone',
         // * verification complete callback
-        verificationCompleted: (PhoneAuthCredential credential) async {},
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          print("verification is completed");
+        },
         // * handle verification failed state
         verificationFailed: verificationFailed,
         // * handle call back when the code sent

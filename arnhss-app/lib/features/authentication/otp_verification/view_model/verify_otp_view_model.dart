@@ -57,6 +57,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
 
 // * the time for resend the otp
   Future<void> startTimer() async {
+    print("started");
     const Duration lim = Duration(seconds: 1);
     timer = Timer.periodic(lim, (timer) {
       if (_balanceTime == 0) {
@@ -77,15 +78,15 @@ class VerifyOtpViewModel extends ChangeNotifier {
       // * verify otp with firebase credential
       return await _authService
           .verifyOtp(
-              vi: context.read<LoginViewModel>().vi,
-              otp: _otp,
-              callback: () {
-                toggleLoading();
-              },
-               errorCallback: () {
-                toggleLoading();
-              },
-              )
+        vi: context.read<LoginViewModel>().vi,
+        otp: _otp,
+        callback: () {
+          toggleLoading();
+        },
+        errorCallback: () {
+          toggleLoading();
+        },
+      )
           .catchError(
         (_) {
           toggleLoading();
