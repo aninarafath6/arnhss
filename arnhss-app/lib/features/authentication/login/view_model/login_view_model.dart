@@ -48,16 +48,17 @@ class LoginViewModel extends ChangeNotifier with HandleException {
     try {
       _mobileNumberController.text = _mobileNumberController.text.trim();
       // _mobileNumberController.text = _mobileNumberController.text.trim();
-      if (_userRole == null) {
-        throw InvalidException("Please select your Role! ", false);
-      }
 
       // * if mobile number is empty then throw a invalid exception
       if (_mobileNumberController.text.isEmpty) {
         throw InvalidException("Please enter your mobile number! ", false);
       } else {
         if (regExp.hasMatch(_mobileNumberController.text)) {
-          return true;
+          if (_userRole == null) {
+            throw InvalidException("Please select your Role! ", false);
+          } else {
+            return true;
+          }
         } else {
           throw InvalidException("Please enter valid mobile number!", false);
         }
