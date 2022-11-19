@@ -4,7 +4,6 @@ import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/widgets/not_found.dart';
 import 'package:arnhss/common/widgets/search_app_bar.dart';
 import 'package:arnhss/extensions/string_extension.dart';
-import 'package:arnhss/features/notes/model/department_mode.dart';
 import 'package:arnhss/features/notes/model/note_model.dart';
 import 'package:arnhss/features/notes/repo/pdf_view.dart';
 import 'package:arnhss/features/notes/view/pdf_view.dart';

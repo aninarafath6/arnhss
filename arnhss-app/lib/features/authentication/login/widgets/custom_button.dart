@@ -38,6 +38,7 @@ class CustomInput extends StatelessWidget {
                 Image.network(
                   "${NetworkConstants.baseFlagURL}${context.watch<CountryViewModel>().selectedCountry.code.toLowerCase()}.png",
                   errorBuilder: ((context, error, stackTrace) {
+                    print("here error");
                     return Text(
                       context.watch<CountryViewModel>().selectedCountry.code,
                     );

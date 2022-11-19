@@ -1,9 +1,8 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/custom_drop_down.dart';
-import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
-import 'package:arnhss/features/authentication/login/widgets/custom_footer.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/common/widgets/custom_button.dart';
 import 'package:arnhss/features/authentication/login/widgets/input_box.dart';
@@ -29,12 +28,7 @@ class ActionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       controller: context.watch<LoginViewModel>().scrollController,
-
-      // crossAxisAlignment: context.isMobile
-      //     ? CrossAxisAlignment.center
-      //     : CrossAxisAlignment.start,
       shrinkWrap: true,
-      // primary: true,
       children: [
         Text(
           title ?? "",
@@ -51,11 +45,22 @@ class ActionSection extends StatelessWidget {
         context.spacing(height: 5),
         const InputFelid(),
         const SizedBox(height: 10),
-        const CustomDropDown(
-          title: "Choose your role",
-          leadingIcon: Remix.arrow_down_s_line,
-          options: ["Student", "Teacher", "Principal", "Admin"],
-        ),
+        Consumer<LoginViewModel>(builder: (context, provider, child) {
+          return CustomDropDown<Role>(
+            title: "Choose your role",
+            leadingIcon: Remix.arrow_down_s_line,
+            options: const [
+              Role.student,
+              Role.teacher,
+              Role.principle,
+              Role.admin
+            ],
+            value: provider.getUserRole,
+            changed: (role) {
+              provider.setUserRole = role;
+            },
+          );
+        }),
         SizedBox(height: context.isMobile ? 25 : 15),
         CustomButton(
           label: "Get OTP",
@@ -77,24 +82,6 @@ class ActionSection extends StatelessWidget {
           height: context.isMobile ? context.getHeight(8) : 60,
           fontSize: context.isMobile ? 15 : 15,
         ),
-        // CustomButton(
-        //   label: "Get OTP",
-        //   onTap: () {
-        //     if (context.read<LoginViewModel>().validate()) {
-        //       _customModal(context);
-        //     }
-        //     // if (context.read<LoginViewModel>().otpDialog()) {
-        //     //   customModal(context);
-        //     // } else {
-        //     //   customSnackBar(
-        //     //       content: "sorry 🙂, Please enter valid mobile number.");
-        //     // }
-
-        //     // Navigator.pushNamed(context, OtpVerificationView.routeName);
-        //   },
-        // ),
-        // context.isMobile ? context.spacing(height: 3) : const SizedBox(),
-        // context.isMobile ? const TermsParagraph() : const SizedBox(),
       ],
     );
   }
