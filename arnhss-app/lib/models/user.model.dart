@@ -6,32 +6,36 @@ class UserModel {
   UserModel({
     this.phone,
     this.id,
-    // this.rollNumber,
-    // this.dob,
+    this.rollNumber,
+    this.dob,
     this.role,
     // this.localRole,
-    // this.admissionNo,
+    this.admissionNo,
     this.department,
     this.name,
     this.gender,
     this.dpURL,
     this.email,
     this.lastLogin,
+    this.division,
+    this.batch,
   });
 
   final String? id;
   final String? phone;
   final String? email;
-  // final int? rollNumber;
-  // final String? dob;
+  final int? rollNumber;
+  final DateTime? dob;
   final Role? role;
   // final String? localRole;
-  // final int? admissionNo;
+  final int? admissionNo;
   final Department? department;
   final String? name;
   final String? dpURL;
   final Gender? gender;
   final DateTime? lastLogin;
+  final String? division;
+  final String? batch;
 
   factory UserModel.fromRawAdmin(String str, String id) =>
       UserModel.fromAdminJSON(json.decode(str), id);
@@ -80,19 +84,19 @@ class UserModel {
   factory UserModel.fromStudentJSON(Map<String, dynamic> json, String id) =>
       UserModel(
         id: id,
-        phone: json["phone"],
-        email: json["email"],
-
-        // // rollNumber: json["rollNumber"],
-        // // dob: json["dob"],
-        role: fromStringRole(json["role"]),
-        // localRole: json["local-role"],
-        // admissionNo: json["admission-no"],
+        phone: json["phone"] ?? "",
+        email: json["email"] ?? "",
+        rollNumber: json["rollNumber"] ?? 1,
+        dob: json["dob"].toDate() ?? "",
+        role: fromStringRole(json["role"]) ?? Role.student,
+        admissionNo: json["admission_number"],
         department: toDepartment(json["department"]),
-        name: json["name"],
-        dpURL: json["dpURL"],
+        name: json["name"] ?? "",
+        dpURL: json["dpURL"] ?? "",
         gender: toGender(json["gender"]),
-        lastLogin: json["last_login"].toDate(),
+        lastLogin: json["last_login"].toDate() ?? DateTime.now(),
+        division: json["division"],
+        batch: json["batch"] ?? "",
       );
 
   factory UserModel.fromParentJSON(Map<String, dynamic> json, String id) {
@@ -110,19 +114,20 @@ class UserModel {
   }
 
   Map<String, dynamic> toStudentJson() => {
-        "id": id,
-        "phone": phone,
-        "email": email,
-        "name": name,
-        // // "rollNumber": rollNumber,
-        // // "dob": dob,
+        "id": id ?? "",
+        "phone": phone ?? "",
+        "email": email ?? "",
+        "name": name ?? "",
+        "rollNumber": rollNumber ?? "",
+        "dob": Timestamp.fromDate(dob!),
         "role": fromRole(role!),
-        // "local-role": localRole,
-        // "admission-no": admissionNo,
+        "admission-no": admissionNo ?? "",
         "department": fromDepartment(department!),
-        "dpURL": dpURL,
+        "dpURL": dpURL ?? "",
         "gender": fromGender(gender!),
+        "division": division,
         "lastLogin": Timestamp.fromDate(lastLogin ?? DateTime.now()),
+        "batch": batch ?? ""
       };
 
   Map<String, dynamic> toAdminJson() => {
@@ -222,7 +227,7 @@ class UserModel {
       case Department.commerce:
         return "Commerce";
       case Department.cs:
-        return "Computer science";
+        return "Computer Science";
       case Department.science:
         return "Science";
       default:

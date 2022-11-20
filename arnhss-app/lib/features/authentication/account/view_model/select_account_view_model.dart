@@ -42,43 +42,22 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
 //* get profile of logged user
   Future<void> getProfiles(String phone, Role role) async {
     // role = Role.student;
-    if (role == Role.admin || role == Role.principle) {
-      // await _getSpecialUsers("+917444555666", role);
-      await _getSpecialUsers(phone, role);
-      return;
-    } else if (role == Role.student) {
-      // await _getStudentAccounts("+917444555666", role);
-      await _getStudentAccounts(phone, role);
-      return;
-    } else if (role == Role.teacher) {
-      // dummy for testing
-      // await _getTeachersAccount("+917444555666", role);
-      await _getTeachersAccount(phone, role);
-      return;
-    } else {}
+
+    // await _getSpecialUsers("+917444555666", role);
+    await _getSpecialUsers(phone, role);
+
+    return;
   }
 
   Future<void> _getSpecialUsers(String phone, Role role) async {
     toggleLoading();
     List<UserModel>? _specialUsers;
-    _specialUsers = await _authService.getSpecialUsers(phone, role);
+    _specialUsers = await _authService.getUsersList(phone, role);
     _profileList.clear();
     _profileList.addAll(_specialUsers ?? []);
     toggleLoading();
     _isEmpty = _profileList.isEmpty;
     notifyListeners();
-  }
-
-  Future<void> _getStudentAccounts(String phone, Role role) async {
-    toggleLoading();
-    _isEmpty = _profileList.isEmpty;
-    // notifyListeners();
-  }
-
-  Future<void> _getTeachersAccount(String phone, Role role) async {
-    toggleLoading();
-    _isEmpty = _profileList.isEmpty;
-    // notifyListeners();
   }
 
   void signIn(

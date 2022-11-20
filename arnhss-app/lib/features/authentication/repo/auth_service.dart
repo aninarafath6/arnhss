@@ -97,13 +97,11 @@ class AuthService with HandleException {
     try {
       updateUserProfile(user);
     } catch (e) {
-      print("asdf");
       handleException(e);
     }
   }
 
   void updateUserProfile(UserModel user) async {
-    // QuerySnapshot querySnapshot;
     CollectionReference _collectionRef;
 
     try {
@@ -128,49 +126,71 @@ class AuthService with HandleException {
       await _user?.updateEmail(user.email.toString());
       await _user?.updatePhotoURL(user.dpURL);
     } catch (e) {
-      print(e);
       handleException(InvalidException("User Profile is not updated!!", false));
     }
   }
 
-  Future<List<UserModel>?> getSpecialUsers(String phone, Role role) async {
+  Future<List<UserModel>?> getUsersList(String phone, Role role) async {
     QuerySnapshot? querySnapshot;
-    final CollectionReference _usersCollection =
-        _firestoreInstance.collection(FirebaseConstants.userCollection);
+    final _usersCollection = _firestoreInstance
+        .collectionGroup(FirebaseConstants.getCollectionName(role));
 
     try {
       await Future.delayed(const Duration(seconds: 1));
-      debugPrint("special user phone number is $phone");
-      debugPrint("Selecting special user  account......");
-      debugPrint(role.describe);
+      debugPrint("${role.describe}'s phone number is $phone");
+      debugPrint("Selecting ${role.describe}'s  account......");
 
-      querySnapshot = await _usersCollection
-          .where(
-            "phone",
-            isEqualTo: phone,
-          )
-          .where(
-            "role",
-            isEqualTo: role.describe,
-          )
-          .get();
+      if (role == Role.student) {
+        querySnapshot = await _usersCollection
+            .where("phone", isEqualTo: phone)
+            .where("role", isEqualTo: role.describe)
+            .get();
+      } else {
+        querySnapshot = await _usersCollection
+            .where("phone", isEqualTo: phone)
+            .where("role", isEqualTo: role.describe)
+            .get();
+      }
 
       debugPrint(querySnapshot.docs.toString());
 
-      return querySnapshot.docs.map((e) {
-        UserModel user =
-            UserModel.fromRawJson(e.data() as Map<String, dynamic>, e.id);
-        debugPrint(user.id.toString() + "is id for " + user.name.toString());
-        print(Timestamp.fromDate(user.lastLogin!));
+      return Future.wait(querySnapshot.docs.map((e) async {
+        // courseDetails  = courseDetails.data();
+        // print(courseDetails?.data());
 
-        debugPrint(user.lastLogin.toString() +
-            "is last log time of  " +
-            user.name.toString());
+        if (role == Role.student) {
+          var divisionDetails = await e.reference.parent.parent?.get();
+          var batchDetails =
+              await divisionDetails?.reference.parent.parent?.get();
+          var courseDetails = await divisionDetails
+              ?.reference.parent.parent?.parent.parent
+              ?.get();
+          UserModel user = UserModel.fromRawJson(
+            <String, dynamic>{
+              ...e.data() as Map<String, dynamic>,
+              "batch": batchDetails?.data()?["name"],
+              "department": courseDetails?.data()?["name"]
+            },
+            e.id,
+          );
+          debugPrint(user.id.toString() + "is id for " + user.name.toString());
 
-        return user;
-      }).toList();
+          debugPrint(user.lastLogin.toString() +
+              "is last log time of  " +
+              user.name.toString());
+          return user;
+        } else {
+          UserModel user = UserModel.fromRawJson(
+            <String, dynamic>{
+              ...e.data() as Map<String, dynamic>,
+            },
+            e.id,
+          );
+          return user;
+        }
+      }).toList());
     } catch (e) {
-      // debugPrint("error from getprofile");
+      print(e);
       handleException(e);
       return null;
     }

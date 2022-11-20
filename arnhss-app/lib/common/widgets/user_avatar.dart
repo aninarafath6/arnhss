@@ -53,7 +53,7 @@ class _UserAvatarState extends State<UserAvatar> {
                 cacheKey: widget.user?.id.toString(),
                 errorWidget: ((context, url, error) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(0.0),
                     child: Image.asset(
                       offlineDP(Gender.male),
                     ),
