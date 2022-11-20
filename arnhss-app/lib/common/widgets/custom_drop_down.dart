@@ -1,5 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
+import 'package:flutter/foundation.dart';
 
 class CustomDropDown<T> extends StatefulWidget {
   const CustomDropDown({
@@ -7,18 +9,22 @@ class CustomDropDown<T> extends StatefulWidget {
     required this.title,
     required this.leadingIcon,
     required this.options,
-    this.onTap,
+    this.value,
+    required this.changed,
+    // this.onTap,
   }) : super(key: key);
   final String title;
-  final Function()? onTap;
+  // final Function()? onTap;
   final IconData leadingIcon;
   final List<T> options;
+  final Function(dynamic) changed;
+  final T? value;
 
   @override
   State<CustomDropDown> createState() => _CustomDropDownState();
 }
 
-class _CustomDropDownState<T> extends State<CustomDropDown> {
+class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
   T? dropDownValue;
   @override
   Widget build(BuildContext context) {
@@ -33,13 +39,13 @@ class _CustomDropDownState<T> extends State<CustomDropDown> {
         child: DropdownButton<T>(
             hint: Text(widget.title),
             isExpanded: true,
-            value: dropDownValue,
+            value: widget.value ?? dropDownValue,
             underline: const SizedBox(),
             enableFeedback: true,
             isDense: false,
             items: widget.options
                 .map((e) => DropdownMenuItem<T>(
-                      child: Text(e),
+                      child: Text(describeEnum(e.toString()).capitalize),
                       value: e,
                     ))
                 .toList(),
@@ -47,28 +53,9 @@ class _CustomDropDownState<T> extends State<CustomDropDown> {
               setState(() {
                 dropDownValue = value;
               });
+              widget.changed(dropDownValue);
             }),
       ),
     );
-    // return Container(
-    //   width: context.getWidth(100),
-    //   height: 55,
-    //   decoration: BoxDecoration(
-    //       color: CustomColors.lightBgOverlay,
-    //       borderRadius: BorderRadius.circular(8)),
-    //   child: ListTile(
-    //     onTap: onTap,
-    //     title: Text(
-    //       title,
-    //       style: CustomTextTheme(context: context).headLine2().copyWith(
-    //             fontWeight: FontWeight.w400,
-    //             fontSize: context.getHeight(1.6),
-    //           ),
-    //     ),
-    //     leading: Icon(
-    //       leadingIcon,
-    //     ),
-    //   ),
-    // );
   }
 }

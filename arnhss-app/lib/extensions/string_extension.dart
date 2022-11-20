@@ -7,4 +7,15 @@ extension StringExtension on String {
       style: style,
     );
   }
+
+  String get capitalize {
+    List<String> sliced = split(" ");
+
+    return sliced
+        .map((e) {
+          return "${e[0].toUpperCase()}${e.substring(1).toLowerCase()}";
+        })
+        .join(" ")
+        .toString();
+  }
 }

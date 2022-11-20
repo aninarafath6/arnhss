@@ -1,71 +1,144 @@
 import 'dart:convert';
-
 import 'package:arnhss/common/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  UserModel(
-      {this.phone,
-      this.id,
-      this.rollNumber,
-      this.dob,
-      this.role,
-      this.localRole,
-      this.admissionNo,
-      this.department,
-      this.name,
-      this.gender,
-      this.dpURL});
+  UserModel({
+    this.phone,
+    this.id,
+    this.rollNumber,
+    this.dob,
+    this.role,
+    // this.localRole,
+    this.admissionNo,
+    this.department,
+    this.name,
+    this.gender,
+    this.dpURL,
+    this.email,
+    this.lastLogin,
+    this.division,
+    this.batch,
+  });
 
   final String? id;
   final String? phone;
+  final String? email;
   final int? rollNumber;
-  final String? dob;
+  final DateTime? dob;
   final Role? role;
-  final String? localRole;
+  // final String? localRole;
   final int? admissionNo;
   final Department? department;
   final String? name;
   final String? dpURL;
   final Gender? gender;
+  final DateTime? lastLogin;
+  final String? division;
+  final String? batch;
 
-  factory UserModel.fromRawJson(String str) =>
-      UserModel.fromJson(json.decode(str));
+  factory UserModel.fromRawAdmin(String str, String id) =>
+      UserModel.fromAdminJSON(json.decode(str), id);
 
-  String toRawJson() => json.encode(toJson());
+  factory UserModel.fromRawStudent(String str, String id) =>
+      UserModel.fromAdminJSON(json.decode(str), "");
 
-  static List<UserModel> listFromJson(QuerySnapshot? data) {
-    return data!.docs.map((e) {
-      return UserModel.fromRawJson(jsonEncode(e.data()));
-    }).toList();
+  factory UserModel.fromRawJson(Map<String, dynamic> data, String? id) {
+    // Map<String, dynamic> decoded = json.decode(str);
+    id = data["id"] ?? id;
+
+    Role? role = fromStringRole(data["role"]);
+
+    if (role == Role.admin) {
+      return UserModel.fromAdminJSON(data, id!);
+    } else if (role == Role.student) {
+      return UserModel.fromStudentJSON(data, id!);
+    } else {
+      return UserModel.fromParentJSON(data, id!);
+    }
   }
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        id: json["id"],
-        phone: json["phone"],
-        rollNumber: json["rollNumber"],
-        dob: json["dob"],
-        role: fromStringRole(json["role"]),
-        localRole: json["local-role"],
-        admissionNo: json["admission-no"],
+  String toRawJson() => json.encode(toAdminJson().toString());
+
+  // static List<UserModel> listFromJson(QuerySnapshot? data) {
+  //   return data!.docs.map((e) {
+  //     return UserModel.fromRawJson(jsonEncode(e.data()));
+  //   }).toList();
+  // }
+
+  factory UserModel.fromAdminJSON(Map<String, dynamic> json, String id) {
+    json["last_login"] = json["last_login"] as Timestamp;
+
+    // print(fromStringRole(json["role"]));
+    return UserModel(
+      id: id,
+      email: json["email"],
+      phone: json["phone"],
+      role: fromStringRole(json["role"]),
+      name: json["name"],
+      dpURL: json["dpURL"],
+      gender: toGender(json["gender"]),
+      lastLogin: json["last_login"].toDate(),
+    );
+  }
+  factory UserModel.fromStudentJSON(Map<String, dynamic> json, String id) =>
+      UserModel(
+        id: id,
+        phone: json["phone"] ?? "",
+        email: json["email"] ?? "",
+        rollNumber: json["rollNumber"] ?? 1,
+        dob: json["dob"].toDate() ?? "",
+        role: fromStringRole(json["role"]) ?? Role.student,
+        admissionNo: json["admission_number"],
         department: toDepartment(json["department"]),
-        name: json["name"],
-        dpURL: json["profileImageURL"],
+        name: json["name"] ?? "",
+        dpURL: json["dpURL"] ?? "",
         gender: toGender(json["gender"]),
+        lastLogin: json["last_login"].toDate() ?? DateTime.now(),
+        division: json["division"],
+        batch: json["batch"] ?? "",
       );
 
-  Map<String, dynamic> toJson() => {
+  factory UserModel.fromParentJSON(Map<String, dynamic> json, String id) {
+    // print(fromStringRole(json["role"]));
+    return UserModel(
+      id: id,
+      email: json["email"],
+      phone: json["phone"],
+      role: fromStringRole(json["role"]),
+      name: json["name"],
+      dpURL: json["dpURL"],
+      gender: toGender(json["gender"]),
+      lastLogin: json["last_login"].toDate(),
+    );
+  }
+
+  Map<String, dynamic> toStudentJson() => {
+        "id": id ?? "",
+        "phone": phone ?? "",
+        "email": email ?? "",
+        "name": name ?? "",
+        "rollNumber": rollNumber ?? "",
+        "dob": Timestamp.fromDate(dob!),
+        "role": fromRole(role!),
+        "admission-no": admissionNo ?? "",
+        "department": fromDepartment(department!),
+        "dpURL": dpURL ?? "",
+        "gender": fromGender(gender!),
+        "division": division,
+        "lastLogin": Timestamp.fromDate(lastLogin ?? DateTime.now()),
+        "batch": batch ?? ""
+      };
+
+  Map<String, dynamic> toAdminJson() => {
         "id": id,
         "phone": phone,
-        "rollNumber": rollNumber,
-        "dob": dob,
-        "role": fromRole(role!),
-        "local-role": localRole,
-        "admission-no": admissionNo,
-        "department": fromDepartment(department!),
+        "email": email,
         "name": name,
-        "profileImageURL": dpURL,
+        "role": fromRole(role!),
+        "dpURL": dpURL,
         "gender": fromGender(gender!),
+        "lastLogin": Timestamp.fromDate(lastLogin ?? DateTime.now()),
       };
 
   static Role? fromStringRole(String role) {
@@ -79,7 +152,7 @@ class UserModel {
       case "principle":
         return Role.principle;
       default:
-        return Role.student;
+        return Role.admin;
     }
   }
 
@@ -94,7 +167,7 @@ class UserModel {
       case Role.principle:
         return "Principle";
       default:
-        return "Student";
+        return "admin";
     }
   }
 
@@ -154,7 +227,7 @@ class UserModel {
       case Department.commerce:
         return "Commerce";
       case Department.cs:
-        return "Computer science";
+        return "Computer Science";
       case Department.science:
         return "Science";
       default:

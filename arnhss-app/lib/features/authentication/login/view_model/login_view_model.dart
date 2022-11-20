@@ -1,3 +1,4 @@
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
@@ -18,6 +19,7 @@ class LoginViewModel extends ChangeNotifier with HandleException {
   final TextEditingController _mobileNumberController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final FocusNode _myFocusNode = FocusNode();
+  Role? _userRole;
 
   bool _loading = false;
   String _verificationId = "";
@@ -25,11 +27,16 @@ class LoginViewModel extends ChangeNotifier with HandleException {
 
   //* getters
   TextEditingController get mobileNumberController => _mobileNumberController;
-
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
   bool get loading => _loading;
   String get vi => _verificationId;
+  Role? get getUserRole => _userRole;
+
+  //* setters
+  set setUserRole(Role role) {
+    _userRole = role;
+  }
 
 //* validate
   bool validate() {
@@ -47,7 +54,11 @@ class LoginViewModel extends ChangeNotifier with HandleException {
         throw InvalidException("Please enter your mobile number! ", false);
       } else {
         if (regExp.hasMatch(_mobileNumberController.text)) {
-          return true;
+          if (_userRole == null) {
+            throw InvalidException("Please select your Role! ", false);
+          } else {
+            return true;
+          }
         } else {
           throw InvalidException("Please enter valid mobile number!", false);
         }
@@ -67,7 +78,8 @@ class LoginViewModel extends ChangeNotifier with HandleException {
 // get otp functionality
   void getOtp(BuildContext context, {bool reGet = false}) async {
     // * phone number from mobile number input controller
-    final String phoneNumber = mobileNumberController.text.toString();
+    final String phoneNumber = mobileNumberController.text.trim().toString();
+    
     // * provider
     final provider = context.read<VerifyOtpViewModel>();
 
@@ -120,11 +132,11 @@ class LoginViewModel extends ChangeNotifier with HandleException {
     provider.isFirstReq = false;
   }
 
+ 
   void disposeLogin() {
     // print("login dispose method");
-    _mobileNumberController.text = "";
+    _mobileNumberController.text = "";    
     _scrollController.dispose();
     _myFocusNode.dispose();
-    super.dispose();
   }
 }

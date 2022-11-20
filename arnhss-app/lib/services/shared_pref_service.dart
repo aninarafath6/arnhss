@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/models/user.model.dart';
@@ -15,11 +17,15 @@ class SharedPrefService with HandleException {
       SharedPreferences pref = await _prefs;
       pref.setBool("login", true);
       pref.setString("id", user.id ?? "");
-      pref.setString("department", UserModel.fromDepartment(user.department!));
+      if (user.role == Role.student) {
+        pref.setString(
+            "department", UserModel.fromDepartment(user.department!));
+      }
       pref.setString("role", UserModel.toStringRole(user.role ?? Role.student));
       pref.setString("name", user.name ?? "");
       pref.setString("user", user.toRawJson());
     } catch (e) {
+      print(e);
       handleException(e);
     }
   }
@@ -38,9 +44,10 @@ class SharedPrefService with HandleException {
   Future<UserModel?> getUser() async {
     try {
       SharedPreferences pref = await _prefs;
-      String? rawUser = pref.getString("user");
+      Map<String, dynamic>? rawUser =
+          jsonDecode(jsonEncode(pref.getString("user")));
       if (rawUser != null) {
-        return UserModel.fromRawJson(rawUser);
+        return UserModel.fromRawJson(rawUser, null);
       } else {
         throw InvalidException("User not found🤔", false);
       }

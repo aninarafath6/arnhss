@@ -16,9 +16,10 @@ class NotesView extends StatelessWidget {
     debugPrint("Notes view build");
 
     var _readProvider = context.read<NotesViewModel>();
-    var sub = _readProvider
-        .getSubjects(context.read<HomeViewModel>().user?.department)
-        .subjects!;
+    var sub = [];
+    // var sub = _readProvider
+    // .getSubjects(context.read<HomeViewModel>().user?.department)
+    // .subjects!;
     return Scaffold(
       appBar: notesAppBar(context, "Notes"),
       body: SingleChildScrollView(

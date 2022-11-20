@@ -16,7 +16,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   void dispose() {
-    // LoginViewModel().dispose();
+    LoginViewModel().disposeLogin();
     super.dispose();
   }
 
@@ -43,12 +43,7 @@ class _LoginViewState extends State<LoginView> {
               const EdgeInsets.symmetric(horizontal: AppSizes.default_padding),
           child: ResponsiveLayout(
             mobile: Column(children: loginItems),
-            tablet: Row(
-              // physics: NeverScrollableScrollPhysics(),
-              // controller: context.watch<LoginViewModel>().scrollController,
-              // addAutomaticKeepAlives: true,
-              children: loginItems,
-            ),
+            tablet: Row(children: loginItems),
           ),
         ),
       ),

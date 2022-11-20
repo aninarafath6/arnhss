@@ -28,29 +28,35 @@ class _UserAvatarState extends State<UserAvatar> {
       backgroundColor: CustomColors.bgOverlay,
       child: widget.user?.dpURL == null
           ? Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(0.0),
               child: Image.asset(offlineDP(widget.user?.gender ?? Gender.male)),
             )
           : ClipOval(
               child: CachedNetworkImage(
                 imageUrl: widget.user!.dpURL!,
+                key: ValueKey(widget.user!.id),
                 width: 100,
                 height: 100,
-                placeholder: ((context, url) => Center(
-                      child: Text(
-                        " ${widget.user?.name?.split(" ")[0].split("")[0]}${widget.user?.name?.split(" ")[1].split("")[0]}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: CustomColors.dark.withOpacity(.5),
-                        ),
+                fit: BoxFit.cover,
+                placeholder: ((context, url) {
+                  List<String>? nameList = widget.user?.name?.split(" ");
+                  return Center(
+                    child: Text(
+                      " ${nameList?[0].split("")[0]}${nameList!.length > 1 ? nameList[0].split("")[0] : ""}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: CustomColors.dark.withOpacity(.5),
                       ),
-                    )),
-                cacheKey: widget.user?.id,
+                    ),
+                  );
+                }),
+                cacheKey: widget.user?.id.toString(),
                 errorWidget: ((context, url, error) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(0.0),
                     child: Image.asset(
-                        offlineDP(widget.user?.gender ?? Gender.male)),
+                      offlineDP(Gender.male),
+                    ),
                   );
                 }),
               ),

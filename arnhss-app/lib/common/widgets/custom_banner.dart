@@ -8,12 +8,14 @@ class CustomBanner extends StatelessWidget {
     required this.image,
     this.subtitle,
     required this.title,
+    this.titiling = false,
     this.isSmall = false,
   }) : super(key: key);
   final String image;
   final String title;
   final String? subtitle;
   final bool isSmall;
+  final bool titiling;
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
@@ -28,18 +30,22 @@ class CustomBanner extends StatelessWidget {
               image,
             ),
           ),
-          // Text(
-          //   title,
-          //   key: ValueKey(title.toString()),
-          //   textAlign: TextAlign.center,
-          //   style: CustomTextTheme(context: context).headLine(),
-          // ),
-          // SizedBox(height: isSmall ? 5 : 15),
-          // Text(
-          //   subtitle ?? "",
-          //   textAlign: TextAlign.center,
-          //   style: CustomTextTheme(context: context).paragraph(),
-          // ),
+          titiling
+              ? Text(
+                  title,
+                  key: ValueKey(title.toString()),
+                  textAlign: TextAlign.center,
+                  style: CustomTextTheme(context: context).headLine(),
+                )
+              : const SizedBox(),
+          titiling ? SizedBox(height: isSmall ? 5 : 15) : const SizedBox(),
+          titiling
+              ? Text(
+                  subtitle ?? "",
+                  textAlign: TextAlign.center,
+                  style: CustomTextTheme(context: context).paragraph(),
+                )
+              : const SizedBox(),
         ],
       ),
     );

@@ -1,17 +1,23 @@
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:arnhss/common/constants/firebase_constants.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/extensions/enum_extension.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
 class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  static final FirebaseFirestore _firestoreInstance =
+      FirebaseFirestore.instance;
+
   final SharedPrefService _prefService = SharedPrefService();
 
   Stream<User?>? get user {
@@ -33,7 +39,9 @@ class AuthService with HandleException {
         //* phone number
         phoneNumber: '$countryCode $phone',
         // * verification complete callback
-        verificationCompleted: (PhoneAuthCredential credential) async {},
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          debugPrint("verification is completed");
+        },
         // * handle verification failed state
         verificationFailed: verificationFailed,
         // * handle call back when the code sent
@@ -79,127 +87,123 @@ class AuthService with HandleException {
       });
     } catch (e) {
       //   print(e);()
+
+      //* error callback
       errorCallback!();
+      //* handling the exception
       handleException(e);
       return false;
     }
   }
 
+// * sign in function the function will execute after selecting the account
   Future<void> signIn(AuthCredential? credential, UserModel user) async {
-    // UserCredential? _userCredential;
-
     try {
+      //* update user profile things in auth state
       updateUserProfile(user);
     } catch (e) {
       handleException(e);
     }
-
-    // try {
-    //   // * user credential
-    //   if (credential != null) {
-    //     await _firebaseAuth.signInWithCredential(credential).catchError(
-    //       (error) {
-    //         debugPrint("throwing error from here");
-    //         throw error;
-    //       },
-    //     ).then(
-    //       ((value) async {
-    //         updateUserProfile(user);
-    //       }),
-    //     );
-    //   } else {
-    //     throw InvalidException("Something went wrong!!", false);
-    //   }
-    //   //* handle firebase exception
-    // } on FirebaseAuthException catch (e) {
-    //   debugPrint(e.code);
-    //   handleException(InvalidException(e.code, false), top: true);
-    // } catch (e) {
-    //   debugPrint("here $e");
-    //   handleException(e);
-    // }
-
-    //* return the user credential
-    // return _userCredential;
   }
 
+// * update profile method
   void updateUserProfile(UserModel user) async {
+    // * collection reference
+    final _collectionRef;
+    _collectionRef = _firestoreInstance
+        .collectionGroup(FirebaseConstants.getCollectionName(user.role!));
+
+    try {
+      // * updating the last login time and setting status into true;
+
+      _collectionRef
+          .doc(user.id)
+          .update({"last_login": DateTime.now(), "status": true}).then(
+              (value) => debugPrint("user login status is updated"));
+    } catch (e) {
+      handleException(
+          InvalidException("User current status is not updated!!", false));
+    }
+
+    //* updating firebase user profile
     try {
       var _user = _firebaseAuth.currentUser;
       await _user?.updateDisplayName(user.name);
+      await _user?.updateEmail(user.email.toString());
       await _user?.updatePhotoURL(user.dpURL);
     } catch (e) {
       handleException(InvalidException("User Profile is not updated!!", false));
     }
   }
 
-  Future<List<UserModel>?> getListUsers(String phone) async {
-    print(phone);
-    // * get users who have the same number
+//* get users list for account selection
+  Future<List<UserModel>?> getUsersList(String phone, Role role) async {
     QuerySnapshot? querySnapshot;
-    QuerySnapshot? studentsSnapshot;
-    QuerySnapshot? teacherSnapshot;
-    List<UserModel>? docs;
-
-    final CollectionReference _usersCollection =
-        FirebaseFirestore.instance.collection('users');
-    final CollectionReference _studentsCollection =
-        FirebaseFirestore.instance.collection('students');
-    final CollectionReference _teachersCollection =
-        FirebaseFirestore.instance.collection('teachers');
-    // final CollectionReference _studentCollection =
-    //     FirebaseFirestore.instance.collection('users');
+    //* collection reference
+    final _usersCollection = _firestoreInstance
+        .collectionGroup(FirebaseConstants.getCollectionName(role));
 
     try {
-      // * fetch the document which have same phone number
+      //* dummy delay for loading
       await Future.delayed(const Duration(seconds: 1));
+      debugPrint("${role.describe}'s phone number is $phone");
+      debugPrint("Selecting ${role.describe}'s  account......");
 
-      querySnapshot =
-          await _usersCollection.where("phone", isEqualTo: phone).get();
+      //* fetching user collection with phone and role number
+      querySnapshot = await _usersCollection
+          .where("phone", isEqualTo: phone)
+          .where("role", isEqualTo: role.describe)
+          .get();
 
-      studentsSnapshot =
-          await _studentsCollection.where("phone", isEqualTo: phone).get();
-      teacherSnapshot =
-          await _teachersCollection.where("phone", isEqualTo: phone).get();
+      debugPrint(querySnapshot.docs.toString());
 
-      // print();
-      // docs?.addAll();
+      //* converting map users list to user model list with future.wait
+      return Future.wait(querySnapshot.docs.map((e) async {
+        /*
+         * if role is student then fetch division details and batch details and also course details
+         * then map that data into [UserModel]
+        */
 
-      docs = [
-        ...querySnapshot.docs
-            .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-            .toList(),
+        if (role == Role.student) {
+          //* fetching division details
+          var divisionDetails = await e.reference.parent.parent?.get();
 
-        //! there is a conflict when convert student model to user model so there is need a check
-        // ...studentsSnapshot.docs
-        //     .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-        //     .toList(),
-      ];
+          //* fetching batch details
+          var batchDetails =
+              await divisionDetails?.reference.parent.parent?.get();
 
-      // querySnapshot.docs
+          //* fetching course details
+          var courseDetails = await divisionDetails
+              ?.reference.parent.parent?.parent.parent
+              ?.get();
 
-      // docs = [
-      //   ...studentsSnapshot.docs
-      //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-      //       .toList(),
-      //   ...teacherSnapshot.docs
-      //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-      //       .toList(),
-      //   ...querySnapshot.docs
-      //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-      //       .toList()
-      // ];
+          //* map
+          UserModel user = UserModel.fromRawJson(
+            <String, dynamic>{
+              ...e.data() as Map<String, dynamic>,
+              "batch": batchDetails?.data()?["name"],
+              "department": courseDetails?.data()?["name"]
+            },
+            e.id,
+          );
+
+          //? debug printings for identification
+          debugPrint(user.id.toString() + "is id for " + user.name.toString());
+          debugPrint(user.lastLogin.toString() +
+              "is last log time of  " +
+              user.name.toString());
+          return user;
+        } else {
+          // * if role is not student then just map with this data
+          UserModel user = UserModel.fromRawJson(
+              <String, dynamic>{...e.data() as Map<String, dynamic>}, e.id);
+          return user;
+        }
+      }).toList());
     } catch (e) {
-      debugPrint(e.toString());
+      //* exception handling
+      debugPrint(e.toString() + "error from getUser list function");
       handleException(e);
-    }
-
-    // * if query snapshot has data then return data other wise return null
-    if (docs != null) {
-      debugPrint("users found");
-      return docs;
-    } else {
-      debugPrint("docs is null");
       return null;
     }
   }
