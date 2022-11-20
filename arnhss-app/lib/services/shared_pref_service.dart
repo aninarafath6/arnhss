@@ -17,12 +17,14 @@ class SharedPrefService with HandleException {
       // * call sharedPreference
       SharedPreferences pref = await _prefs;
       pref.setBool("login", true);
-      pref.setString("id", user.id);
+      pref.setString("id", user.id ?? "");
       if (user.role == Role.student) {
-        pref.setString("department", fromDepartment(user.student!.department!));
+        pref.setString(
+            "department", UserModel.fromDepartment(user.department!));
       }
-      pref.setString("role", toStringRole(user.role));
-      pref.setString("user", user.toJson());
+      pref.setString("role", UserModel.toStringRole(user.role ?? Role.student));
+      pref.setString("name", user.name ?? "");
+      pref.setString("user", user.toRawJson());
     } catch (e) {
       log("error from set user on localStorage $e");
       handleException(e);
@@ -46,12 +48,11 @@ class SharedPrefService with HandleException {
       Map<String, dynamic>? rawUser =
           jsonDecode(jsonEncode(pref.getString("user")));
       if (rawUser != null) {
-        return UserModel.fromJson(rawUser, null);
+        return UserModel.fromRawJson(rawUser, null);
       } else {
         throw InvalidException("User not found🤔", false);
       }
     } catch (e) {
-      log("error from  get user method in sharedPref $e");
       handleException(e);
     }
     return null;

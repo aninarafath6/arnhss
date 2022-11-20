@@ -44,9 +44,9 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
 //* get profile of logged user
   Future<void> getProfiles(String phone, Role role) async {
     //? testing stuffs!!!
-    // role = Role.student;
-    // await _getSpecialUsers("+917444555666", role);
-    await _getSpecialUsers(phone, role);
+    role = Role.teacher;
+    await _getSpecialUsers("+917444555666", role);
+    // await _getSpecialUsers(phone, role);
 
     return;
   }

@@ -35,12 +35,16 @@ class AccountTile extends StatelessWidget {
           leading: UserAvatar(user: user),
           title: user!.name.toString().capitalize.toText(),
           subtitle: (user!.role == Role.student
-              ? fromDepartment(user!.department!).toString().toText(
+              ? UserModel.fromDepartment(user!.department!).toString().toText(
                     style: const TextStyle(overflow: TextOverflow.ellipsis),
                   )
-              : user!.email?.toText(
-                  style: const TextStyle(overflow: TextOverflow.ellipsis),
-                )),
+              : user!.role == Role.teacher
+                  ? user!.teacherSubject?.toText(
+                      style: const TextStyle(overflow: TextOverflow.ellipsis),
+                    )
+                  : user!.email?.toText(
+                      style: const TextStyle(overflow: TextOverflow.ellipsis),
+                    )),
           trailing: Container(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             decoration: BoxDecoration(

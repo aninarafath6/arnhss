@@ -63,7 +63,7 @@ class AppDrawer extends StatelessWidget {
                             vertical: 2,
                           ),
                           child: Text(
-                            " ${toStringRole(value.user?.role ?? Role.student)}",
+                            " ${UserModel.toStringRole(value.user?.role ?? Role.student)}",
                             style: CustomTextTheme(context: context)
                                 .paragraph()
                                 .copyWith(
@@ -90,8 +90,7 @@ class AppDrawer extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                      "${value.user?.student?.name ?? "Unknown User"} ",
+                                  Text("${value.user?.name ?? "Unknown User"} ",
                                       style: CustomTextTheme(context: context)
                                           .headLine2()
                                           .copyWith(fontSize: 17)),
@@ -117,7 +116,7 @@ class AppDrawer extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                value.user?.student?.phone ?? "+91 XXXXXXXXXX",
+                                value.user?.phone ?? "+91 XXXXXXXXXX",
                                 style: CustomTextTheme(context: context)
                                     .paragraph()
                                     .copyWith(fontSize: 12),

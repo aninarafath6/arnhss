@@ -41,7 +41,7 @@ class NoticeModel {
         subject: json["subject"] ?? "",
         description: json["description"] ?? "",
         subDescription: json["subDescription"] ?? "",
-        role: fromStringRole(json["role"] ?? ""),
+        role: UserModel.fromStringRole(json["role"] ?? ""),
         date: json["date"] ?? "",
         // icon: jsonDecode(json["icon"]) ?? Remix.a24_hours_fill,
       );
@@ -51,7 +51,7 @@ class NoticeModel {
         "subject": subject,
         "description": description,
         "subDescription": subDescription,
-        "role": toStringRole(role ?? Role.student),
+        "role": UserModel.toStringRole(role ?? Role.student),
         "date": date,
         "icon": icon,
       };

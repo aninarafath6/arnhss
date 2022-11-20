@@ -198,6 +198,20 @@ class AuthService with HandleException {
           //? printing user details for only reference
           log(user.toRawJson());
           return user;
+        } else if (role == Role.teacher) {
+          Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+          var subjectDetails = await data["subject"].get();
+
+          print(subjectDetails.data()["name"]);
+          UserModel user = UserModel.fromRawJson(<String, dynamic>{
+            ...e.data() as Map<String, dynamic>,
+            "subject": subjectDetails.data()["name"]
+          }, e.id);
+
+          //? testing
+          log(user.toRawJson());
+
+          return user;
         } else {
           // * if role is not student then just map with this data
           UserModel user = UserModel.fromRawJson(
