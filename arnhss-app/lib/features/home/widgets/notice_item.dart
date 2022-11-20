@@ -160,7 +160,7 @@ class _NoticeItemState extends State<NoticeItem>
                                       ),
                                     ),
                                     Text(
-                                      '- ${UserModel.toStringRole(notice.role ?? Role.teacher)}',
+                                      '- ${toStringRole(notice.role ?? Role.teacher)}',
                                       style: GoogleFonts.baloo2(
                                         color: Colors.black,
                                         fontWeight: FontWeight.normal,
