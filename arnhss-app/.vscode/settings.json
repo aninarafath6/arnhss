@@ -12,6 +12,7 @@
         "remixicon",
         "sqflite",
         "tabbar",
+        "typedefs",
         "unfocus"
     ],
     "cmake.sourceDirectory": "${workspaceFolder}/linux"
