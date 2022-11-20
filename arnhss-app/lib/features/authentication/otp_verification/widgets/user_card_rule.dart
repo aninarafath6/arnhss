@@ -23,7 +23,7 @@ class UserRuleCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(
-          AppSizes.defualt_border_raidus + 2,
+          AppSizes.default_border_radius + 2,
         ),
       ),
       child: Center(

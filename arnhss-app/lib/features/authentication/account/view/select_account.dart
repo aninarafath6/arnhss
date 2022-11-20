@@ -1,6 +1,7 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
@@ -28,8 +29,10 @@ class _SelectAccountState extends State<SelectAccount> {
   @override
   void initState() {
     context.read<SelectAccountViewModel>().getProfiles(
-        context.read<CountryViewModel>().selectedCountry.dialCode +
-            context.read<LoginViewModel>().mobileNumberController.text.trim());
+          context.read<CountryViewModel>().selectedCountry.dialCode +
+              context.read<LoginViewModel>().mobileNumberController.text.trim(),
+          context.read<LoginViewModel>().getUserRole ?? Role.student,
+        );
 
     super.initState();
   }
@@ -57,9 +60,10 @@ class _SelectAccountState extends State<SelectAccount> {
                     : "assets/images/icons/team-features-illustration.png.webp",
                 title: isEmpty ? "Can't Find Profile" : "Get Your Profile",
                 subtitle: isEmpty
-                    ? "Your profile has not been found. Please contact your class teacher for assistance"
+                    ? "Your profile has not been found. Please contact Admin for assistance"
                     : "Choose an account to be proceed",
                 isSmall: true,
+                titiling: true,
               ),
             ),
             const SizedBox(height: 30),

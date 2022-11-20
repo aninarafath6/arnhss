@@ -15,7 +15,7 @@ class SharedPrefService with HandleException {
       SharedPreferences pref = await _prefs;
       pref.setBool("login", true);
       pref.setString("id", user.id ?? "");
-      pref.setString("department", UserModel.fromDepartment(user.department!));
+      // pref.setString("department", UserModel.fromDepartment(user.department!));
       pref.setString("role", UserModel.toStringRole(user.role ?? Role.student));
       pref.setString("name", user.name ?? "");
       pref.setString("user", user.toRawJson());

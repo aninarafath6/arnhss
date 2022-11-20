@@ -1,102 +1,67 @@
 import 'dart:convert';
-import 'package:arnhss/common/enums.dart';
 
-class UserModel {
-  UserModel({
+import 'package:arnhss/common/enums.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class AdminModel {
+  AdminModel({
     this.phone,
     this.id,
-    // this.rollNumber,
-    // this.dob,
+    this.dob,
     this.role,
-    // this.localRole,
-    // this.admissionNo,
+    this.localRole,
+    this.admissionNo,
     this.department,
     this.name,
     this.gender,
     this.dpURL,
-    this.email,
   });
 
   final String? id;
   final String? phone;
-  final String? email;
-  // final int? rollNumber;
-  // final String? dob;
+  final String? dob;
   final Role? role;
-  // final String? localRole;
-  // final int? admissionNo;
+  final String? localRole;
+  final int? admissionNo;
   final Department? department;
   final String? name;
   final String? dpURL;
   final Gender? gender;
 
-  factory UserModel.fromRawAdmin(String str, String id) =>
-      UserModel.fromAdminJSON(json.decode(str), id);
+  factory AdminModel.fromRawJson(String str) =>
+      AdminModel.fromJson(json.decode(str));
 
-  factory UserModel.fromRawStudent(String str) =>
-      UserModel.fromAdminJSON(json.decode(str), "");
+  String toRawJson() => json.encode(toJson());
 
-  factory UserModel.fromRawJson(String str) =>
-      UserModel.fromStudentJSON(json.decode(str));
-
-  String toRawJson() => json.encode(toAdminJson());
-
-  // static List<UserModel> listFromJson(QuerySnapshot? data) {
-  //   return data!.docs.map((e) {
-  //     return UserModel.fromRawJson(jsonEncode(e.data()));
-  //   }).toList();
-  // }
-
-  factory UserModel.fromAdminJSON(Map<String, dynamic> json, String id) {
-    // print(fromStringRole(json["role"]));
-    return UserModel(
-      id: id,
-      email: json["email"],
-      phone: json["phone"],
-      role: fromStringRole(json["role"]),
-      name: json["name"],
-      dpURL: json["dpURL"],
-      gender: toGender(json["gender"]),
-    );
+  static List<AdminModel> listFromJson(QuerySnapshot? data) {
+    return data!.docs.map((e) {
+      return AdminModel.fromRawJson(jsonEncode(e.data()));
+    }).toList();
   }
-  factory UserModel.fromStudentJSON(Map<String, dynamic> json) => UserModel(
+
+  factory AdminModel.fromJson(Map<String, dynamic> json) => AdminModel(
         id: json["id"],
         phone: json["phone"],
-        email: json["email"],
-
-        // // rollNumber: json["rollNumber"],
-        // // dob: json["dob"],
+        dob: json["dob"],
         role: fromStringRole(json["role"]),
-        // localRole: json["local-role"],
-        // admissionNo: json["admission-no"],
+        localRole: json["local-role"],
+        admissionNo: json["admission-no"],
         department: toDepartment(json["department"]),
         name: json["name"],
-        dpURL: json["dpURL"],
+        dpURL: json["profileImageURL"],
         gender: toGender(json["gender"]),
       );
 
-  Map<String, dynamic> toStudentJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "phone": phone,
-        "email": email,
-        "name": name,
-        // // "rollNumber": rollNumber,
-        // // "dob": dob,
+        "dob": dob,
         "role": fromRole(role!),
-        // "local-role": localRole,
-        // "admission-no": admissionNo,
+        "local-role": localRole,
+        "admission-no": admissionNo,
         "department": fromDepartment(department!),
-        "dpURL": dpURL,
-        "gender": fromGender(gender!),
-      };
-
-  Map<String, dynamic> toAdminJson() => {
-        "id": id,
-        "phone": phone,
-        "email": email,
         "name": name,
-        "role": fromRole(role!),
-        "dpURL": dpURL,
+        "profileImageURL": dpURL,
         "gender": fromGender(gender!),
       };
 
@@ -111,7 +76,7 @@ class UserModel {
       case "principle":
         return Role.principle;
       default:
-        return Role.admin;
+        return Role.student;
     }
   }
 
@@ -126,7 +91,7 @@ class UserModel {
       case Role.principle:
         return "Principle";
       default:
-        return "admin";
+        return "Student";
     }
   }
 

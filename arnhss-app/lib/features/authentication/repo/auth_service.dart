@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/extensions/enum_extension.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
 class AuthService with HandleException {
@@ -135,76 +138,131 @@ class AuthService with HandleException {
     }
   }
 
-  Future<List<UserModel>?> getListUsers(String phone) async {
-    print(phone);
-    // * get users who have the same number
+  Future<List<UserModel>?> getSpecialUsers(String phone, Role role) async {
     QuerySnapshot? querySnapshot;
-    QuerySnapshot? studentsSnapshot;
-    QuerySnapshot? teacherSnapshot;
-    List<UserModel>? docs;
-
     final CollectionReference _usersCollection =
         FirebaseFirestore.instance.collection('users');
-    final CollectionReference _studentsCollection =
-        FirebaseFirestore.instance.collection('students');
-    final CollectionReference _teachersCollection =
-        FirebaseFirestore.instance.collection('teachers');
-    // final CollectionReference _studentCollection =
-    //     FirebaseFirestore.instance.collection('users');
 
     try {
-      // * fetch the document which have same phone number
       await Future.delayed(const Duration(seconds: 1));
+      debugPrint("special user phone number is $phone");
+      debugPrint("Selecting special user  account......");
+      debugPrint(role.describe);
 
-      querySnapshot =
-          await _usersCollection.where("phone", isEqualTo: phone).get();
+      querySnapshot = await _usersCollection
+          .where(
+            "phone",
+            isEqualTo: phone,
+          )
+          .where(
+            "role",
+            isEqualTo: role.describe,
+          )
+          .get();
 
-      studentsSnapshot =
-          await _studentsCollection.where("phone", isEqualTo: phone).get();
-      teacherSnapshot =
-          await _teachersCollection.where("phone", isEqualTo: phone).get();
+      debugPrint(querySnapshot.docs.toString());
 
-      // print();
-      // docs?.addAll();
-
-      docs = [
-        ...querySnapshot.docs
-            .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-            .toList(),
-
-        //! there is a conflict when convert student model to user model so there is need a check
-        // ...studentsSnapshot.docs
-        //     .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-        //     .toList(),
-      ];
-
-      // querySnapshot.docs
-
-      // docs = [
-      //   ...studentsSnapshot.docs
-      //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-      //       .toList(),
-      //   ...teacherSnapshot.docs
-      //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-      //       .toList(),
-      //   ...querySnapshot.docs
-      //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
-      //       .toList()
-      // ];
+      return querySnapshot.docs.map((e) {
+        debugPrint("id is ${e.id}");
+        UserModel user = UserModel.fromRawAdmin(jsonEncode(e.data()), e.id);
+        debugPrint(user.id.toString());
+        return user;
+      }).toList();
     } catch (e) {
       debugPrint(e.toString());
       handleException(e);
-    }
-
-    // * if query snapshot has data then return data other wise return null
-    if (docs != null) {
-      debugPrint("users found");
-      return docs;
-    } else {
-      debugPrint("docs is null");
       return null;
     }
   }
+
+  // Future<List<T>?> getListUsers<T>(String phone, Role role) async {
+  //   // * get users who have the same number
+  //   QuerySnapshot? querySnapshot;
+  //   // QuerySnapshot? studentsSnapshot;
+  //   // QuerySnapshot? teacherSnapshot;
+
+  //   // List<UserModel>? docs;
+
+  //   final CollectionReference _usersCollection =
+  //       FirebaseFirestore.instance.collection('users');
+  //   // final CollectionReference _studentsCollection =
+  //   //     FirebaseFirestore.instance.collection('students');
+  //   // final CollectionReference _teachersCollection =
+  //   //     FirebaseFirestore.instance.collection('teachers');
+  //   // final CollectionReference _studentCollection =
+  //   //     FirebaseFirestore.instance.collection('users');
+
+  //   try {
+  //     // * dummy delay
+  //     await Future.delayed(const Duration(seconds: 1));
+
+  //     switch (role) {
+  //       case Role.admin:
+  //         debugPrint("admin phone number is $phone");
+  //         debugPrint("Selecting Admin account account......");
+  //         querySnapshot =
+  //             await _usersCollection.where("phone", isEqualTo: phone).get();
+  //         // return querySnapshot.docs
+  //         //     .map((e) => T.fromRawJson(jsonEncode(e.data())))
+  //         //     .toList();
+
+  //         // return "a";
+  //         // return
+  //         // case Role.principle:
+  //         //   querySnapshot =
+  //         //       await _usersCollection.where("phone", isEqualTo: phone).get();
+  //         //   docs = querySnapshot.docs
+  //         //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //         //       .toList();
+  //         break;
+
+  //       default:
+  //     }
+
+  //     // // * fetch the document which have same phone number
+  //     // await Future.delayed(const Duration(seconds: 1));
+
+  //     // studentsSnapshot =
+  //     //     await _studentsCollection.where("phone", isEqualTo: phone).get();
+  //     // teacherSnapshot =
+  //     //     await _teachersCollection.where("phone", isEqualTo: phone).get();
+
+  //     // docs = [
+  //     //   //! there is a conflict when convert student model to user model so there is need a check
+  //     //   // ...studentsSnapshot.docs
+  //     //   //     .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //     //   //     .toList(),
+  //     // ];
+
+  //     // querySnapshot.docs
+
+  //     // docs = [
+  //     //   ...studentsSnapshot.docs
+  //     //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //     //       .toList(),
+  //     //   ...teacherSnapshot.docs
+  //     //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //     //       .toList(),
+  //     //   ...querySnapshot.docs
+  //     //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //     //       .toList()
+  //     // ];
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //     handleException(e);
+  //     return null;
+  //   }
+
+  //   // * if query snapshot has data then return data other wise return null
+  //   // if (docs!.isNotEmpty) {
+  //   //   debugPrint("users found");
+  //   //   print(docs);
+  //   //   return docs;
+  //   // } else {
+  //   //   debugPrint("docs is null");
+  //   //   return null;
+  //   // }
+  // }
 
 // * sign out user
   Future<void> logout() async {

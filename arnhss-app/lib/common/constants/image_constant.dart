@@ -4,7 +4,7 @@ class Images {
       "assets/images/icons/home-page-hero-refreshed-v3.png.webp";
   static const otp_image = "assets/images/icons/Export1.png";
   static const flag_base_url = "https://flagcdn.com/48x36/";
-  static const maleStudentRoleIcon = "assets/images/icons/rahim-makani.png";
+  static const maleStudentRoleIcon = "assets/images/icons/vinay-hiremath.png";
   static const femaleStudentRoleIcon =
       "assets/images/icons/marie-szuts.png.webp";
 

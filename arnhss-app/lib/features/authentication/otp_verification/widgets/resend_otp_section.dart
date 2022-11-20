@@ -47,7 +47,7 @@ class ResendOtpSection extends StatelessWidget {
             color: Colors.transparent,
             width: 100,
             fontWeight: FontWeight.bold,
-            height: 30,
+            height: 50,
           ),
         ),
       ],

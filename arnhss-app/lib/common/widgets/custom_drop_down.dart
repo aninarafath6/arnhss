@@ -45,7 +45,7 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
             isDense: false,
             items: widget.options
                 .map((e) => DropdownMenuItem<T>(
-                      child: Text(describeEnum(e.toString()).capitalize()),
+                      child: Text(describeEnum(e.toString()).capitalize),
                       value: e,
                     ))
                 .toList(),
