@@ -28,7 +28,7 @@ class _UserAvatarState extends State<UserAvatar> {
       backgroundColor: CustomColors.bgOverlay,
       child: widget.user?.dpURL == null
           ? Padding(
-              padding: const EdgeInsets.all(3.0),
+              padding: const EdgeInsets.all(0.0),
               child: Image.asset(offlineDP(widget.user?.gender ?? Gender.male)),
             )
           : ClipOval(
@@ -56,7 +56,6 @@ class _UserAvatarState extends State<UserAvatar> {
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
                       offlineDP(Gender.male),
-                      // offlineDP(widget.user?.gender ?? Gender.male),
                     ),
                   );
                 }),

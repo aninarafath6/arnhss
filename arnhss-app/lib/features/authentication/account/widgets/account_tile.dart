@@ -33,7 +33,7 @@ class AccountTile extends StatelessWidget {
               const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           shape: const RoundedRectangleBorder(),
           leading: UserAvatar(user: user),
-          title: user!.name.toString().toText(),
+          title: user!.name.toString().capitalize.toText(),
           subtitle: (user!.role == Role.student
               ? user!.department?.describe.capitalize.toText(
                   style: const TextStyle(overflow: TextOverflow.ellipsis),

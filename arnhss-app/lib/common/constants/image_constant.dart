@@ -4,9 +4,8 @@ class Images {
       "assets/images/icons/home-page-hero-refreshed-v3.png.webp";
   static const otp_image = "assets/images/icons/Export1.png";
   static const flag_base_url = "https://flagcdn.com/48x36/";
-  static const maleStudentRoleIcon = "assets/images/icons/vinay-hiremath.png";
-  static const femaleStudentRoleIcon =
-      "assets/images/icons/marie-szuts.png.webp";
+  static const maleStudentRoleIcon = "assets/images/icons/gender_male.png";
+  static const femaleStudentRoleIcon = "assets/images/icons/female.png";
 
   static const teacherRoleIcon = "assets/images/icons/teacher.png";
   static const parentRoleIcon =
