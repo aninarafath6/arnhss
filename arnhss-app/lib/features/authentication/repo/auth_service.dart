@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:arnhss/common/constants/firebase_constants.dart';
 import 'package:arnhss/common/enums.dart';
@@ -182,7 +183,8 @@ class AuthService with HandleException {
             <String, dynamic>{
               ...e.data() as Map<String, dynamic>,
               "batch": batchDetails?.data()?["name"],
-              "department": courseDetails?.data()?["name"]
+              "department": courseDetails?.data()?["name"],
+              "division": divisionDetails?.data()?["name"]
             },
             e.id,
           );
@@ -192,6 +194,9 @@ class AuthService with HandleException {
           debugPrint(user.lastLogin.toString() +
               "is last log time of  " +
               user.name.toString());
+
+          //? printing user details for only reference
+          log(user.toRawJson());
           return user;
         } else {
           // * if role is not student then just map with this data

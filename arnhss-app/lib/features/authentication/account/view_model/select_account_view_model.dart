@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/models/user.model.dart';
@@ -49,13 +51,21 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
     return;
   }
 
+//* get profile method
   Future<void> _getSpecialUsers(String phone, Role role) async {
+    _isEmpty = false;
+    //* setting loading as true
     toggleLoading();
-    List<UserModel>? _specialUsers;
-    _specialUsers = await _authService.getUsersList(phone, role);
+    // * getting users list
+    List<UserModel>? _specialUsers =
+        await _authService.getUsersList(phone, role);
+    //* clearing the old list
     _profileList.clear();
+    //* adding new users list
     _profileList.addAll(_specialUsers ?? []);
+    //* setting loading as false
     toggleLoading();
+    //* checking profile is empty or not
     _isEmpty = _profileList.isEmpty;
     notifyListeners();
   }
@@ -70,7 +80,7 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
         await _sharedPrefService.setUser(user);
         success();
       } catch (e) {
-        print("error from sign in method");
+        log("error from sign in method");
         handleException(e);
       }
     });
