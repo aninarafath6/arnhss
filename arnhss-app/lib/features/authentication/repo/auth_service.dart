@@ -110,18 +110,24 @@ class AuthService with HandleException {
 // * update profile method
   void updateUserProfile(UserModel user) async {
     // * collection reference
-    final _collectionRef;
-    _collectionRef = _firestoreInstance
-        .collectionGroup(FirebaseConstants.getCollectionName(user.role!));
+    final QuerySnapshot _collectionRef = await _firestoreInstance
+        .collectionGroup(FirebaseConstants.getCollectionName(user.role!))
+        .get();
 
     try {
       // * updating the last login time and setting status into true;
 
-      _collectionRef
-          .doc(user.id)
-          .update({"last_login": DateTime.now(), "status": true}).then(
-              (value) => debugPrint("user login status is updated"));
+      _collectionRef.docs
+          .where((element) => element.id == user.id)
+          .first
+          .reference
+          .update({"last_login": DateTime.now(), "status": true});
+
+      // .doc(user.id)
+      // .update({"last_login": DateTime.now(), "status": true}).then(
+      //     (value) => debugPrint("user login status is updated"));
     } catch (e) {
+      print(e);
       handleException(
           InvalidException("User current status is not updated!!", false));
     }
