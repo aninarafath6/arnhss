@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:arnhss/common/constants/firebase_constants.dart';
 import 'package:arnhss/common/enums.dart';
@@ -109,18 +110,24 @@ class AuthService with HandleException {
 // * update profile method
   void updateUserProfile(UserModel user) async {
     // * collection reference
-    final _collectionRef;
-    _collectionRef = _firestoreInstance
-        .collectionGroup(FirebaseConstants.getCollectionName(user.role!));
+    final QuerySnapshot _collectionRef = await _firestoreInstance
+        .collectionGroup(FirebaseConstants.getCollectionName(user.role!))
+        .get();
 
     try {
       // * updating the last login time and setting status into true;
 
-      _collectionRef
-          .doc(user.id)
-          .update({"last_login": DateTime.now(), "status": true}).then(
-              (value) => debugPrint("user login status is updated"));
+      _collectionRef.docs
+          .where((element) => element.id == user.id)
+          .first
+          .reference
+          .update({"last_login": DateTime.now(), "status": true});
+
+      // .doc(user.id)
+      // .update({"last_login": DateTime.now(), "status": true}).then(
+      //     (value) => debugPrint("user login status is updated"));
     } catch (e) {
+      debugPrint(e.toString() + " error from update profile method");
       handleException(
           InvalidException("User current status is not updated!!", false));
     }
@@ -182,7 +189,8 @@ class AuthService with HandleException {
             <String, dynamic>{
               ...e.data() as Map<String, dynamic>,
               "batch": batchDetails?.data()?["name"],
-              "department": courseDetails?.data()?["name"]
+              "department": courseDetails?.data()?["name"],
+              "division": divisionDetails?.data()?["name"]
             },
             e.id,
           );
@@ -192,6 +200,23 @@ class AuthService with HandleException {
           debugPrint(user.lastLogin.toString() +
               "is last log time of  " +
               user.name.toString());
+
+          //? printing user details for only reference
+          log(user.toRawJson());
+          return user;
+        } else if (role == Role.teacher) {
+          Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+          var subjectDetails = await data["subject"].get();
+
+          print(subjectDetails.data()["name"]);
+          UserModel user = UserModel.fromRawJson(<String, dynamic>{
+            ...e.data() as Map<String, dynamic>,
+            "subject": subjectDetails.data()["name"]
+          }, e.id);
+
+          //? testing
+          log(user.toRawJson());
+
           return user;
         } else {
           // * if role is not student then just map with this data

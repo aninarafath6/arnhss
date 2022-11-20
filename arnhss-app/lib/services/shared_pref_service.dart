@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
@@ -25,7 +26,7 @@ class SharedPrefService with HandleException {
       pref.setString("name", user.name ?? "");
       pref.setString("user", user.toRawJson());
     } catch (e) {
-      print(e);
+      log("error from set user on localStorage $e");
       handleException(e);
     }
   }
