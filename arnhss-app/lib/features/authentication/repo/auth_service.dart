@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'dart:convert';
 
 import 'package:arnhss/common/constants/firebase_constants.dart';
 import 'package:arnhss/common/enums.dart';
@@ -16,8 +16,7 @@ import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
 class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  static final FirebaseFirestore _firestoreInstance =
-      FirebaseFirestore.instance;
+  static FirebaseFirestore _firestoreInstance = FirebaseFirestore.instance;
 
   final SharedPrefService _prefService = SharedPrefService();
 
@@ -41,7 +40,7 @@ class AuthService with HandleException {
         phoneNumber: '$countryCode $phone',
         // * verification complete callback
         verificationCompleted: (PhoneAuthCredential credential) async {
-          debugPrint("verification is completed");
+          print("verification is completed");
         },
         // * handle verification failed state
         verificationFailed: verificationFailed,
@@ -107,26 +106,25 @@ class AuthService with HandleException {
     }
   }
 
-// * update profile method
   void updateUserProfile(UserModel user) async {
-    // * collection reference
-    final _collectionRef;
-    _collectionRef = _firestoreInstance
-        .collectionGroup(FirebaseConstants.getCollectionName(user.role!));
+    CollectionReference _collectionRef;
 
     try {
-      // * updating the last login time and setting status into true;
-
-      _collectionRef
-          .doc(user.id)
-          .update({"last_login": DateTime.now(), "status": true}).then(
-              (value) => debugPrint("user login status is updated"));
+      if (user.role == Role.admin || user.role == Role.student) {
+        _collectionRef =
+            _firestoreInstance.collection(FirebaseConstants.userCollection);
+        _collectionRef
+            .doc(user.id)
+            .update({"last_login": DateTime.now(), "status": true}).then(
+                (value) => debugPrint("user login status is updated"));
+      } else if (user.role == Role.student) {
+      } else if (user.role == Role.teacher) {
+      } else {}
     } catch (e) {
       handleException(
           InvalidException("User current status is not updated!!", false));
     }
 
-    //* updating firebase user profile
     try {
       var _user = _firebaseAuth.currentUser;
       await _user?.updateDisplayName(user.name);
@@ -137,95 +135,160 @@ class AuthService with HandleException {
     }
   }
 
-//* get users list for account selection
   Future<List<UserModel>?> getUsersList(String phone, Role role) async {
     QuerySnapshot? querySnapshot;
-    //* collection reference
     final _usersCollection = _firestoreInstance
         .collectionGroup(FirebaseConstants.getCollectionName(role));
 
     try {
-      //* dummy delay for loading
       await Future.delayed(const Duration(seconds: 1));
       debugPrint("${role.describe}'s phone number is $phone");
       debugPrint("Selecting ${role.describe}'s  account......");
 
-      //* fetching user collection with phone and role number
-      querySnapshot = await _usersCollection
-          .where("phone", isEqualTo: phone)
-          .where("role", isEqualTo: role.describe)
-          .get();
+      if (role == Role.student) {
+        querySnapshot = await _usersCollection
+            .where("phone", isEqualTo: phone)
+            .where("role", isEqualTo: role.describe)
+            .get();
+      } else {
+        querySnapshot = await _usersCollection
+            .where("phone", isEqualTo: phone)
+            .where("role", isEqualTo: role.describe)
+            .get();
+      }
 
       debugPrint(querySnapshot.docs.toString());
 
-      //* converting map users list to user model list with future.wait
       return Future.wait(querySnapshot.docs.map((e) async {
-        /*
-         * if role is student then fetch division details and batch details and also course details
-         * then map that data into [UserModel]
-        */
+        // courseDetails  = courseDetails.data();
+        // print(courseDetails?.data());
 
         if (role == Role.student) {
-          //* fetching division details
           var divisionDetails = await e.reference.parent.parent?.get();
-
-          //* fetching batch details
           var batchDetails =
               await divisionDetails?.reference.parent.parent?.get();
-
-          //* fetching course details
           var courseDetails = await divisionDetails
               ?.reference.parent.parent?.parent.parent
               ?.get();
-
-          //* map
           UserModel user = UserModel.fromRawJson(
             <String, dynamic>{
               ...e.data() as Map<String, dynamic>,
               "batch": batchDetails?.data()?["name"],
-              "department": courseDetails?.data()?["name"],
-              "division": divisionDetails?.data()?["name"]
+              "department": courseDetails?.data()?["name"]
             },
             e.id,
           );
-
-          //? debug printings for identification
           debugPrint(user.id.toString() + "is id for " + user.name.toString());
+
           debugPrint(user.lastLogin.toString() +
               "is last log time of  " +
               user.name.toString());
-
-          //? printing user details for only reference
-          log(user.toRawJson());
-          return user;
-        } else if (role == Role.teacher) {
-          Map<String, dynamic> data = e.data() as Map<String, dynamic>;
-          var subjectDetails = await data["subject"].get();
-
-          print(subjectDetails.data()["name"]);
-          UserModel user = UserModel.fromRawJson(<String, dynamic>{
-            ...e.data() as Map<String, dynamic>,
-            "subject": subjectDetails.data()["name"]
-          }, e.id);
-
-          //? testing
-          log(user.toRawJson());
-
           return user;
         } else {
-          // * if role is not student then just map with this data
           UserModel user = UserModel.fromRawJson(
-              <String, dynamic>{...e.data() as Map<String, dynamic>}, e.id);
+            <String, dynamic>{
+              ...e.data() as Map<String, dynamic>,
+            },
+            e.id,
+          );
           return user;
         }
       }).toList());
     } catch (e) {
-      //* exception handling
-      debugPrint(e.toString() + "error from getUser list function");
+      print(e);
       handleException(e);
       return null;
     }
   }
+
+  // Future<List<T>?> getListUsers<T>(String phone, Role role) async {
+  //   // * get users who have the same number
+  //   QuerySnapshot? querySnapshot;
+  //   // QuerySnapshot? studentsSnapshot;
+  //   // QuerySnapshot? teacherSnapshot;
+
+  //   // List<UserModel>? docs;
+
+  //   final CollectionReference _usersCollection =
+  //       FirebaseFirestore.instance.collection('users');
+  //   // final CollectionReference _studentsCollection =
+  //   //     FirebaseFirestore.instance.collection('students');
+  //   // final CollectionReference _teachersCollection =
+  //   //     FirebaseFirestore.instance.collection('teachers');
+  //   // final CollectionReference _studentCollection =
+  //   //     FirebaseFirestore.instance.collection('users');
+
+  //   try {
+  //     // * dummy delay
+  //     await Future.delayed(const Duration(seconds: 1));
+
+  //     switch (role) {
+  //       case Role.admin:
+  //         debugPrint("admin phone number is $phone");
+  //         debugPrint("Selecting Admin account account......");
+  //         querySnapshot =
+  //             await _usersCollection.where("phone", isEqualTo: phone).get();
+  //         // return querySnapshot.docs
+  //         //     .map((e) => T.fromRawJson(jsonEncode(e.data())))
+  //         //     .toList();
+
+  //         // return "a";
+  //         // return
+  //         // case Role.principle:
+  //         //   querySnapshot =
+  //         //       await _usersCollection.where("phone", isEqualTo: phone).get();
+  //         //   docs = querySnapshot.docs
+  //         //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //         //       .toList();
+  //         break;
+
+  //       default:
+  //     }
+
+  //     // // * fetch the document which have same phone number
+  //     // await Future.delayed(const Duration(seconds: 1));
+
+  //     // studentsSnapshot =
+  //     //     await _studentsCollection.where("phone", isEqualTo: phone).get();
+  //     // teacherSnapshot =
+  //     //     await _teachersCollection.where("phone", isEqualTo: phone).get();
+
+  //     // docs = [
+  //     //   //! there is a conflict when convert student model to user model so there is need a check
+  //     //   // ...studentsSnapshot.docs
+  //     //   //     .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //     //   //     .toList(),
+  //     // ];
+
+  //     // querySnapshot.docs
+
+  //     // docs = [
+  //     //   ...studentsSnapshot.docs
+  //     //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //     //       .toList(),
+  //     //   ...teacherSnapshot.docs
+  //     //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //     //       .toList(),
+  //     //   ...querySnapshot.docs
+  //     //       .map((e) => UserModel.fromRawJson(jsonEncode(e.data())))
+  //     //       .toList()
+  //     // ];
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //     handleException(e);
+  //     return null;
+  //   }
+
+  //   // * if query snapshot has data then return data other wise return null
+  //   // if (docs!.isNotEmpty) {
+  //   //   debugPrint("users found");
+  //   //   print(docs);
+  //   //   return docs;
+  //   // } else {
+  //   //   debugPrint("docs is null");
+  //   //   return null;
+  //   // }
+  // }
 
 // * sign out user
   Future<void> logout() async {
