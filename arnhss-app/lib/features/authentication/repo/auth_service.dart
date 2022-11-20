@@ -127,7 +127,7 @@ class AuthService with HandleException {
       // .update({"last_login": DateTime.now(), "status": true}).then(
       //     (value) => debugPrint("user login status is updated"));
     } catch (e) {
-      print(e);
+      debugPrint(e.toString() + " error from update profile method");
       handleException(
           InvalidException("User current status is not updated!!", false));
     }

@@ -113,27 +113,36 @@ class _SelectAccountState extends State<SelectAccount> {
                 : Consumer<SelectAccountViewModel>(
                     builder: (context, value, child) {
                     return CustomButton(
-                      label: "Continue",
-                      loading: value.buttonLoading,
-                      onTap: () {
-                        value.signIn(
-                          context.read<VerifyOtpViewModel>().authCredential,
-                          value.profilesList[value.selectedIndex],
-                          () async {
-                            value.toggleButtonLoading();
-                            await Future.delayed(const Duration(seconds: 1));
-                            value.toggleButtonLoading();
-                            _buildSuccess(context);
-                            await Future.delayed(const Duration(seconds: 3));
-                            Get.offNamedUntil(
-                              HomeView.routeName,
-                              ((route) => false),
-                            );
-                            context.read<LoginViewModel>().disposeLogin();
-                          },
-                        );
-                      },
-                    );
+                        label: "Continue",
+                        loading: value.buttonLoading,
+                        onTap: value.profilesList.isNotEmpty
+                            ? () {
+                                value.signIn(
+                                  context
+                                      .read<VerifyOtpViewModel>()
+                                      .authCredential,
+                                  value.profilesList[value.selectedIndex],
+                                  () async {
+                                    value.toggleButtonLoading();
+                                    await Future.delayed(
+                                        const Duration(seconds: 1));
+                                    value.toggleButtonLoading();
+                                    _buildSuccess(context);
+                                    await Future.delayed(
+                                        const Duration(seconds: 3));
+                                    Get.offNamedUntil(
+                                      HomeView.routeName,
+                                      ((route) => false),
+                                    );
+                                    context
+                                        .read<LoginViewModel>()
+                                        .disposeLogin();
+                                  },
+                                );
+                              }
+                            : () {
+                                print("users array is now empty");
+                              });
                   }),
             const SizedBox(height: 30),
             isEmpty ? const Spacer() : const SizedBox(),
