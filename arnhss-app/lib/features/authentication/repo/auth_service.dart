@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:arnhss/common/constants/firebase_constants.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/extensions/enum_extension.dart';
@@ -15,6 +16,8 @@ import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
 class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  static FirebaseFirestore _firestoreInstance = FirebaseFirestore.instance;
+
   final SharedPrefService _prefService = SharedPrefService();
 
   Stream<User?>? get user {
@@ -91,49 +94,41 @@ class AuthService with HandleException {
   }
 
   Future<void> signIn(AuthCredential? credential, UserModel user) async {
-    // UserCredential? _userCredential;
-
     try {
       updateUserProfile(user);
     } catch (e) {
+      print("asdf");
       handleException(e);
     }
-
-    // try {
-    //   // * user credential
-    //   if (credential != null) {
-    //     await _firebaseAuth.signInWithCredential(credential).catchError(
-    //       (error) {
-    //         debugPrint("throwing error from here");
-    //         throw error;
-    //       },
-    //     ).then(
-    //       ((value) async {
-    //         updateUserProfile(user);
-    //       }),
-    //     );
-    //   } else {
-    //     throw InvalidException("Something went wrong!!", false);
-    //   }
-    //   //* handle firebase exception
-    // } on FirebaseAuthException catch (e) {
-    //   debugPrint(e.code);
-    //   handleException(InvalidException(e.code, false), top: true);
-    // } catch (e) {
-    //   debugPrint("here $e");
-    //   handleException(e);
-    // }
-
-    //* return the user credential
-    // return _userCredential;
   }
 
   void updateUserProfile(UserModel user) async {
+    // QuerySnapshot querySnapshot;
+    CollectionReference _collectionRef;
+
+    try {
+      if (user.role == Role.admin || user.role == Role.principle) {
+        _collectionRef =
+            _firestoreInstance.collection(FirebaseConstants.userCollection);
+        _collectionRef
+            .doc(user.id)
+            .update({"last_login": DateTime.now(), "status": true}).then(
+                (value) => debugPrint("user login status is updated"));
+      } else if (user.role == Role.student) {
+      } else if (user.role == Role.teacher) {
+      } else {}
+    } catch (e) {
+      handleException(
+          InvalidException("User current status is not updated!!", false));
+    }
+
     try {
       var _user = _firebaseAuth.currentUser;
       await _user?.updateDisplayName(user.name);
+      await _user?.updateEmail(user.email.toString());
       await _user?.updatePhotoURL(user.dpURL);
     } catch (e) {
+      print(e);
       handleException(InvalidException("User Profile is not updated!!", false));
     }
   }
@@ -141,7 +136,7 @@ class AuthService with HandleException {
   Future<List<UserModel>?> getSpecialUsers(String phone, Role role) async {
     QuerySnapshot? querySnapshot;
     final CollectionReference _usersCollection =
-        FirebaseFirestore.instance.collection('users');
+        _firestoreInstance.collection(FirebaseConstants.userCollection);
 
     try {
       await Future.delayed(const Duration(seconds: 1));
@@ -163,13 +158,19 @@ class AuthService with HandleException {
       debugPrint(querySnapshot.docs.toString());
 
       return querySnapshot.docs.map((e) {
-        debugPrint("id is ${e.id}");
-        UserModel user = UserModel.fromRawAdmin(jsonEncode(e.data()), e.id);
-        debugPrint(user.id.toString());
+        UserModel user =
+            UserModel.fromRawJson(e.data() as Map<String, dynamic>, e.id);
+        debugPrint(user.id.toString() + "is id for " + user.name.toString());
+        print(Timestamp.fromDate(user.lastLogin!));
+
+        debugPrint(user.lastLogin.toString() +
+            "is last log time of  " +
+            user.name.toString());
+
         return user;
       }).toList();
     } catch (e) {
-      debugPrint(e.toString());
+      // debugPrint("error from getprofile");
       handleException(e);
       return null;
     }

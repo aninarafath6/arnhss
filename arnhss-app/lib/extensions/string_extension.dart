@@ -9,6 +9,13 @@ extension StringExtension on String {
   }
 
   String get capitalize {
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+    List<String> sliced = split(" ");
+
+    return sliced
+        .map((e) {
+          return "${e[0].toUpperCase()}${e.substring(1).toLowerCase()}";
+        })
+        .join(" ")
+        .toString();
   }
 }

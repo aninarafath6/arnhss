@@ -42,7 +42,7 @@ class _UserAvatarState extends State<UserAvatar> {
                   List<String>? nameList = widget.user?.name?.split(" ");
                   return Center(
                     child: Text(
-                      " ${nameList?[0].split("")[0]}${nameList!.length > 1 ? nameList[0] : ""}",
+                      " ${nameList?[0].split("")[0]}${nameList!.length > 1 ? nameList[0].split("")[0] : ""}",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: CustomColors.dark.withOpacity(.5),

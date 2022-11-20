@@ -41,22 +41,21 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
 
 //* get profile of logged user
   Future<void> getProfiles(String phone, Role role) async {
-    // switch (role) {
-    //   case Role.admin:
-    //     _getSpecialUsers(phone, role);
-    //     break;
-    //   case Role.principle:
-    //     _getSpecialUsers(phone, role);
-    //     break;
-
-    //   default:
-    // }
-
-    role = Role.admin;
+    // role = Role.student;
     if (role == Role.admin || role == Role.principle) {
-      await _getSpecialUsers("+917444555666", role);
+      // await _getSpecialUsers("+917444555666", role);
+      await _getSpecialUsers(phone, role);
       return;
-    }
+    } else if (role == Role.student) {
+      // await _getStudentAccounts("+917444555666", role);
+      await _getStudentAccounts(phone, role);
+      return;
+    } else if (role == Role.teacher) {
+      // dummy for testing
+      // await _getTeachersAccount("+917444555666", role);
+      await _getTeachersAccount(phone, role);
+      return;
+    } else {}
   }
 
   Future<void> _getSpecialUsers(String phone, Role role) async {
@@ -70,6 +69,18 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
+  Future<void> _getStudentAccounts(String phone, Role role) async {
+    toggleLoading();
+    _isEmpty = _profileList.isEmpty;
+    // notifyListeners();
+  }
+
+  Future<void> _getTeachersAccount(String phone, Role role) async {
+    toggleLoading();
+    _isEmpty = _profileList.isEmpty;
+    // notifyListeners();
+  }
+
   void signIn(
     AuthCredential? authCredential,
     UserModel user,
@@ -80,6 +91,7 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
         await _sharedPrefService.setUser(user);
         success();
       } catch (e) {
+        print("error from sign in method");
         handleException(e);
       }
     });

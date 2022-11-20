@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:arnhss/common/enums.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
   UserModel({
@@ -15,6 +16,7 @@ class UserModel {
     this.gender,
     this.dpURL,
     this.email,
+    this.lastLogin,
   });
 
   final String? id;
@@ -29,17 +31,30 @@ class UserModel {
   final String? name;
   final String? dpURL;
   final Gender? gender;
+  final DateTime? lastLogin;
 
   factory UserModel.fromRawAdmin(String str, String id) =>
       UserModel.fromAdminJSON(json.decode(str), id);
 
-  factory UserModel.fromRawStudent(String str) =>
+  factory UserModel.fromRawStudent(String str, String id) =>
       UserModel.fromAdminJSON(json.decode(str), "");
 
-  factory UserModel.fromRawJson(String str) =>
-      UserModel.fromStudentJSON(json.decode(str));
+  factory UserModel.fromRawJson(Map<String, dynamic> data, String? id) {
+    // Map<String, dynamic> decoded = json.decode(str);
+    id = data["id"] ?? id;
 
-  String toRawJson() => json.encode(toAdminJson());
+    Role? role = fromStringRole(data["role"]);
+
+    if (role == Role.admin) {
+      return UserModel.fromAdminJSON(data, id!);
+    } else if (role == Role.student) {
+      return UserModel.fromStudentJSON(data, id!);
+    } else {
+      return UserModel.fromParentJSON(data, id!);
+    }
+  }
+
+  String toRawJson() => json.encode(toAdminJson().toString());
 
   // static List<UserModel> listFromJson(QuerySnapshot? data) {
   //   return data!.docs.map((e) {
@@ -48,6 +63,8 @@ class UserModel {
   // }
 
   factory UserModel.fromAdminJSON(Map<String, dynamic> json, String id) {
+    json["last_login"] = json["last_login"] as Timestamp;
+
     // print(fromStringRole(json["role"]));
     return UserModel(
       id: id,
@@ -57,10 +74,12 @@ class UserModel {
       name: json["name"],
       dpURL: json["dpURL"],
       gender: toGender(json["gender"]),
+      lastLogin: json["last_login"].toDate(),
     );
   }
-  factory UserModel.fromStudentJSON(Map<String, dynamic> json) => UserModel(
-        id: json["id"],
+  factory UserModel.fromStudentJSON(Map<String, dynamic> json, String id) =>
+      UserModel(
+        id: id,
         phone: json["phone"],
         email: json["email"],
 
@@ -73,7 +92,22 @@ class UserModel {
         name: json["name"],
         dpURL: json["dpURL"],
         gender: toGender(json["gender"]),
+        lastLogin: json["last_login"].toDate(),
       );
+
+  factory UserModel.fromParentJSON(Map<String, dynamic> json, String id) {
+    // print(fromStringRole(json["role"]));
+    return UserModel(
+      id: id,
+      email: json["email"],
+      phone: json["phone"],
+      role: fromStringRole(json["role"]),
+      name: json["name"],
+      dpURL: json["dpURL"],
+      gender: toGender(json["gender"]),
+      lastLogin: json["last_login"].toDate(),
+    );
+  }
 
   Map<String, dynamic> toStudentJson() => {
         "id": id,
@@ -88,6 +122,7 @@ class UserModel {
         "department": fromDepartment(department!),
         "dpURL": dpURL,
         "gender": fromGender(gender!),
+        "lastLogin": Timestamp.fromDate(lastLogin ?? DateTime.now()),
       };
 
   Map<String, dynamic> toAdminJson() => {
@@ -98,6 +133,7 @@ class UserModel {
         "role": fromRole(role!),
         "dpURL": dpURL,
         "gender": fromGender(gender!),
+        "lastLogin": Timestamp.fromDate(lastLogin ?? DateTime.now()),
       };
 
   static Role? fromStringRole(String role) {
