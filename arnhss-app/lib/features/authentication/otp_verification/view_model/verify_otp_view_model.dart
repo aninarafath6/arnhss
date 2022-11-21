@@ -57,7 +57,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
 
 // * the time for resend the otp
   Future<void> startTimer() async {
-    print("started");
+    debugPrint("started");
     const Duration lim = Duration(seconds: 1);
     timer = Timer.periodic(lim, (timer) {
       if (_balanceTime == 0) {

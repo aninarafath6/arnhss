@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -45,17 +46,39 @@ class SharedPrefService with HandleException {
   Future<UserModel?> getUser() async {
     try {
       SharedPreferences pref = await _prefs;
-      Map<String, dynamic>? rawUser =
-          jsonDecode(jsonEncode(pref.getString("user")));
-      if (rawUser != null) {
-        return UserModel.fromRawJson(rawUser, null);
+
+      String rawUser = pref.getString("user").toString();
+
+      if (rawUser != "") {
+        Map<String, dynamic> userObject =
+            jsonDecode(rawUser) as Map<String, dynamic>;
+        print(userObject);
+
+        UserModel user = UserModel.fromRawJson(userObject, null);
+
+        return user;
       } else {
-        throw InvalidException("User not found🤔", false);
+        throw InvalidException(
+            "Local User not found🤔\nPlease login again ", false);
       }
     } catch (e) {
+      log("exception from getUser method in sharedPref $e", zone: Zone.current);
       handleException(e);
     }
     return null;
+  }
+
+//* get user role from local storage
+  Future<Role?> getRole() async {
+    try {
+      SharedPreferences pref = await _prefs;
+      String? stringRole = pref.getString("role");
+      return UserModel.fromStringRole(stringRole ?? "student");
+    } catch (e) {
+      debugPrint("error from getRole in sharedPref +$e");
+      handleException(e);
+      return null;
+    }
   }
 
 // * clear all log state

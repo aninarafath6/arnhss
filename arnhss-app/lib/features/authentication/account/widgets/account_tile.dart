@@ -39,7 +39,7 @@ class AccountTile extends StatelessWidget {
                     style: const TextStyle(overflow: TextOverflow.ellipsis),
                   )
               : user!.role == Role.teacher
-                  ? user!.teacherSubject?.toText(
+                  ? user!.teacherSubject?.capitalize.toText(
                       style: const TextStyle(overflow: TextOverflow.ellipsis),
                     )
                   : user!.email?.toText(
@@ -51,7 +51,7 @@ class AccountTile extends StatelessWidget {
               color: getOverlayColor(user?.role),
               borderRadius: BorderRadius.circular(2),
             ),
-            child: user!.role!.describe.capitalize.toText(),
+            child: user!.role!.fancy.toText(),
           ),
         ),
       ),

@@ -5,12 +5,14 @@ import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/custom_modal.dart';
 import 'package:arnhss/common/widgets/user_avatar.dart';
 import 'package:arnhss/extensions/string_extension.dart';
+import 'package:arnhss/extensions/enum_extension.dart';
+
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/profile/view/profile_view.dart';
-import 'package:arnhss/models/user.model.dart';
+// import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/firebase_database_service.dart';
 import 'package:get/route_manager.dart';
 import 'package:remixicon/remixicon.dart';
@@ -21,7 +23,7 @@ class AppDrawer extends StatelessWidget {
     this.image = "assets/images/icons/home-and-living-badge.png.webp",
   }) : super(key: key);
 
-  final String? image;
+  final String image;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -46,7 +48,7 @@ class AppDrawer extends StatelessWidget {
                         left: 190,
                         bottom: -30,
                         // alignment: Alignment.bottomRight,
-                        child: Image.asset(image!),
+                        child: Image.asset(image),
                       ),
                       Positioned(
                         right: 0,
@@ -63,7 +65,7 @@ class AppDrawer extends StatelessWidget {
                             vertical: 2,
                           ),
                           child: Text(
-                            " ${UserModel.toStringRole(value.user?.role ?? Role.student)}",
+                            "${value.user?.role!.fancy ?? ""}  ",
                             style: CustomTextTheme(context: context)
                                 .paragraph()
                                 .copyWith(
@@ -297,7 +299,7 @@ class _LogoutTileState extends State<_LogoutTile> {
             setState(() => loading = true);
             await Future.delayed(const Duration(milliseconds: 800));
             setState(() => loading = false);
-            AuthService().logout();
+            AuthService().logout(context.read<HomeViewModel>().user);
             Get.offNamedUntil(LoginView.routeName, (_) => false);
           },
         );

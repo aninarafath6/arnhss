@@ -121,7 +121,7 @@ class AuthService with HandleException {
           .where((element) => element.id == user.id)
           .first
           .reference
-          .update({"last_login": DateTime.now(), "status": true});
+          .update({"last_login": Timestamp.now(), "status": true});
 
       // .doc(user.id)
       // .update({"last_login": DateTime.now(), "status": true}).then(
@@ -139,6 +139,7 @@ class AuthService with HandleException {
       await _user?.updateEmail(user.email.toString());
       await _user?.updatePhotoURL(user.dpURL);
     } catch (e) {
+      print("error from user updating function on auth service $e");
       handleException(InvalidException("User Profile is not updated!!", false));
     }
   }
@@ -170,6 +171,8 @@ class AuthService with HandleException {
          * if role is student then fetch division details and batch details and also course details
          * then map that data into [UserModel]
         */
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        DateTime lastLogin = data["last_login"].toDate() as DateTime;
 
         if (role == Role.student) {
           //* fetching division details
@@ -184,13 +187,17 @@ class AuthService with HandleException {
               ?.reference.parent.parent?.parent.parent
               ?.get();
 
+          DateTime dob = data["dob"].toDate() as DateTime;
+
           //* map
           UserModel user = UserModel.fromRawJson(
             <String, dynamic>{
-              ...e.data() as Map<String, dynamic>,
+              ...data,
               "batch": batchDetails?.data()?["name"],
               "department": courseDetails?.data()?["name"],
-              "division": divisionDetails?.data()?["name"]
+              "division": divisionDetails?.data()?["name"],
+              "last_login": lastLogin.microsecondsSinceEpoch,
+              "dob": dob.microsecondsSinceEpoch,
             },
             e.id,
           );
@@ -205,13 +212,13 @@ class AuthService with HandleException {
           log(user.toRawJson());
           return user;
         } else if (role == Role.teacher) {
-          Map<String, dynamic> data = e.data() as Map<String, dynamic>;
           var subjectDetails = await data["subject"].get();
 
           print(subjectDetails.data()["name"]);
           UserModel user = UserModel.fromRawJson(<String, dynamic>{
-            ...e.data() as Map<String, dynamic>,
-            "subject": subjectDetails.data()["name"]
+            ...data,
+            "subject": subjectDetails.data()["name"],
+            "last_login": lastLogin.microsecondsSinceEpoch,
           }, e.id);
 
           //? testing
@@ -221,7 +228,12 @@ class AuthService with HandleException {
         } else {
           // * if role is not student then just map with this data
           UserModel user = UserModel.fromRawJson(
-              <String, dynamic>{...e.data() as Map<String, dynamic>}, e.id);
+            <String, dynamic>{
+              ...e.data() as Map<String, dynamic>,
+              "last_login": lastLogin.microsecondsSinceEpoch,
+            },
+            e.id,
+          );
           return user;
         }
       }).toList());
@@ -234,12 +246,35 @@ class AuthService with HandleException {
   }
 
 // * sign out user
-  Future<void> logout() async {
-    try {
-      await _firebaseAuth.signOut();
-      _prefService.clear();
-    } catch (e) {
-      handleException(e);
+  Future<void> logout(UserModel? user) async {
+    if (user != null) {
+      // * collection reference
+      final QuerySnapshot _collectionRef = await _firestoreInstance
+          .collectionGroup(FirebaseConstants.getCollectionName(user.role!))
+          .get();
+      try {
+        _collectionRef.docs
+            .where((element) => element.id == user.id)
+            .first
+            .reference
+            .update({"status": false}).then(
+          (value) async {
+            await _firebaseAuth.signOut();
+            log("logout success✅", zone: Zone.current, name: "logout");
+          },
+        ).catchError((e) {
+          debugPrint("error from logout status update");
+          handleException(e);
+        });
+      } catch (e) {
+        log("error from logout function $e");
+        handleException(e);
+      }
     }
+    _prefService.clear();
+
+    // try {} catch (e) {
+    //   handleException(e);
+    // }
   }
 }

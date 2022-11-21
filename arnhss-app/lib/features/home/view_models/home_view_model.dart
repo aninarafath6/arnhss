@@ -46,6 +46,7 @@ class HomeViewModel with ChangeNotifier {
 
   // * get user
   void getUser() async {
+    print("users getting ");
     _user = await _prefService.getUser();
     notifyListeners();
   }
