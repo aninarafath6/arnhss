@@ -109,7 +109,7 @@ class ActionSection extends StatelessWidget {
                 child: const Text("EDIT")),
             TextButton(
               onPressed: () {
-                context.read<LoginViewModel>().getOtp(context);
+                context.read<LoginViewModel>().getOtp(context,req: true);
               },
               child: context.watch<LoginViewModel>().loading
                   ? const CupertinoActivityIndicator(

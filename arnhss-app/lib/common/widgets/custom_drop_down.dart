@@ -52,8 +52,8 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
             onChanged: (T? value) {
               setState(() {
                 dropDownValue = value;
+                widget.changed(dropDownValue);
               });
-              widget.changed(dropDownValue);
             }),
       ),
     );
