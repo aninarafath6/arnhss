@@ -13,7 +13,8 @@ import 'package:arnhss/features/users/student/home/view_models/home_view_model.d
 import 'package:arnhss/features/users/student/profile/view/profile_view.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 // import 'package:arnhss/models/user.model.dart';
-import 'package:arnhss/services/firebase_database_service.dart';
+import 'package:arnhss/features/users/service/notice_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/route_manager.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -146,7 +147,7 @@ class AppDrawer extends StatelessWidget {
                     // Update the state of the app.
 
                     //* test notice board working
-                    FireBaseDatabaseService().setNotice(NoticeModel(
+                    NoticeService().setNotice(NoticeModel(
                       date: "01 March 2022",
                       role: Role.principle,
                       subDescription:
@@ -294,7 +295,8 @@ class _LogoutTileState extends State<_LogoutTile> {
             Get.back();
           },
           done: "SURE".toText(style: const TextStyle(color: Colors.red)),
-          loading: !loading,
+          loading: loading,
+          loadingWidget: const CupertinoActivityIndicator(),
           onDone: () async {
             setState(() => loading = true);
             await Future.delayed(const Duration(milliseconds: 800));

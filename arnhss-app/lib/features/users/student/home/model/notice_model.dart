@@ -14,6 +14,7 @@ class NoticeModel {
   final Role? role;
   final String? lastDate;
   final IconData? icon;
+  // final DateTime? createdAt;
 
   NoticeModel({
     this.id,
@@ -24,6 +25,7 @@ class NoticeModel {
     this.role,
     this.lastDate,
     this.icon,
+    // this.createdAt,
   });
 
   factory NoticeModel.fromRawJson(String str) =>
@@ -43,6 +45,7 @@ class NoticeModel {
         subDescription: json["subDescription"] ?? "",
         role: UserModel.fromStringRole(json["role"] ?? ""),
         date: json["date"] ?? "",
+        // createdAt: json["created_at"] ?? ""
         // icon: jsonDecode(json["icon"]) ?? Remix.a24_hours_fill,
       );
 
@@ -54,5 +57,6 @@ class NoticeModel {
         "role": UserModel.toStringRole(role ?? Role.student),
         "date": date,
         "icon": icon,
+        // "created_at": createdAt,
       };
 }

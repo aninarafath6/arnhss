@@ -42,6 +42,7 @@ class RoleLayout extends StatelessWidget {
           log("welcome", name: snapshot.data?.fancy ?? "");
 
           Role? role = snapshot.data;
+          log("you are $role");
 
           if (role == Role.student) {
             return student;

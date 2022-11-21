@@ -1,18 +1,24 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/common/widgets/custom_modal.dart';
+import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:arnhss/models/user.model.dart';
-import 'package:arnhss/services/firebase_database_service.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:remixicon/remixicon.dart';
 
 class NoticeItem extends StatefulWidget {
   const NoticeItem({
     Key? key,
+    this.role,
   }) : super(key: key);
+  final Role? role;
 
   @override
   State<NoticeItem> createState() => _NoticeItemState();
@@ -20,13 +26,13 @@ class NoticeItem extends StatefulWidget {
 
 class _NoticeItemState extends State<NoticeItem>
     with SingleTickerProviderStateMixin {
+  //* for animations
   static const double _initialHeight = 190;
   static const double _expandedHeight = 500;
   double height = _initialHeight;
   bool _isExpanded = false;
 
   late AnimationController _animationController;
-  // final IconData icon;
 
   @override
   void initState() {
@@ -51,26 +57,57 @@ class _NoticeItemState extends State<NoticeItem>
       updateStatus(false);
       height = _initialHeight;
     }
-    return InkWell(
-      onTap: () {
-        setState(() {
-          if (height == _expandedHeight) {
-            updateStatus(false);
-            height = _initialHeight;
-            _animationController.duration = const Duration(milliseconds: 1000);
-            _animationController.reverse();
-          } else {
-            if (notice != null) {
-              updateStatus(true);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 21),
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            if (height == _expandedHeight) {
+              updateStatus(false);
+              height = _initialHeight;
+              _animationController.duration =
+                  const Duration(milliseconds: 1000);
+              _animationController.reverse();
+            } else {
+              if (notice != null) {
+                updateStatus(true);
+              }
+              _animationController.forward();
+              height = _expandedHeight;
             }
-            _animationController.forward();
-            height = _expandedHeight;
+          });
+        },
+
+        //* delete a notice
+        //* only notice can delete admin's
+        onLongPress: () {
+          if (notice != null) {
+            if (widget.role == Role.admin || widget.role == Role.principle) {
+              customModal(
+                context,
+                title: "Delete Notice?",
+                content:
+                    "If you agree to the deletion of this notice, can we proceed?",
+                deny: "DENY",
+                onDeny: () async {
+                  Get.back();
+                  await Future.delayed(const Duration(milliseconds: 300));
+                  Get.back();
+                },
+                done: "SURE".toText(style: const TextStyle(color: Colors.red)),
+                loading: context.read<NoticeViewModel>().dltLoading,
+                onDone: () async {
+                  context.read<NoticeViewModel>().deleteNotice();
+                  Get.back();
+
+                  // setState(() => loading = true);
+                  // setState(() => loading = false);
+                },
+              );
+              log("let me delete");
+            }
           }
-        });
-      },
-      child: StreamProvider<NoticeModel?>.value(
-        initialData: null,
-        value: FireBaseDatabaseService().notice,
+        },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 1400),
           curve: const ElasticInOutCurve(.8),

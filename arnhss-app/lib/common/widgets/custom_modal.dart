@@ -1,5 +1,7 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:flutter/cupertino.dart';
 
 Future<dynamic> customModal(
   BuildContext context, {
@@ -24,7 +26,13 @@ Future<dynamic> customModal(
         actions: [
           TextButton(onPressed: onDeny, child: Text(deny)),
           TextButton(
-              onPressed: onDone, child: loading ? loadingWidget ?? done : done),
+            onPressed: onDone,
+            child: loading
+                ? const CupertinoActivityIndicator(
+                    color: CustomColors.dark,
+                  )
+                : done,
+          ),
         ],
         actionsAlignment: MainAxisAlignment.spaceBetween,
       );

@@ -1,21 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:arnhss/features/users/student/home/model/notice_model.dart';
+import 'package:arnhss/helpers/dailog_helper.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class FireBaseDatabaseService with HandleException {
-  //* collection reference
-  final CollectionReference noticesCollection =
-      FirebaseFirestore.instance.collection('notices');
-
-//* get stream
-  Stream<QuerySnapshot?> get notices {
-    return noticesCollection.snapshots();
-  }
-
+class NoticeService with HandleException {
   Stream<NoticeModel>? get notice {
     try {
       DatabaseReference ref = FirebaseDatabase.instance.ref('notice');
@@ -28,6 +20,22 @@ class FireBaseDatabaseService with HandleException {
       handleException(e);
     }
     return null;
+  }
+
+  Future<void> deleteNotice() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("notice");
+    try {
+      await Future.delayed(const Duration(milliseconds: 300));
+      await ref.remove();
+      DialogHelper.showErrorDialog(
+        description: "The notice has been successfully deleted.",
+        top: false,
+        title: "Success ✅",
+      );
+    } catch (e) {
+      log(e.toString(), name: "delete notice");
+      handleException(e);
+    }
   }
 
   void setNotice(NoticeModel newNotice) async {

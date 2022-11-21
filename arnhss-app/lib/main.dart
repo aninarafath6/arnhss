@@ -10,6 +10,7 @@ import 'package:arnhss/features/users/student/home/view_models/home_view_model.d
 import 'package:arnhss/features/users/student/notes/view_model/notes_view_model.dart';
 import 'package:arnhss/features/users/student/notifications/view_model/notification_view_model.dart';
 import 'package:arnhss/features/users/student/planner/view_model/planner_view_model.dart';
+import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/firebase_options.dart';
 import 'package:arnhss/services/db_service.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NotesViewModel()),
         ChangeNotifierProvider(create: (_) => SelectAccountViewModel()),
         ChangeNotifierProvider(create: (_) => UserViewModel()),
+        ChangeNotifierProvider(create: (_) => NoticeViewModel()),
       ],
       child: GetMaterialApp(
         title: 'arnhss',

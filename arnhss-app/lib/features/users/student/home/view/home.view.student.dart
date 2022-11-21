@@ -5,9 +5,9 @@ import 'package:arnhss/features/users/student/home/model/notice_model.dart';
 import 'package:arnhss/features/users/student/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/users/widget/custom_app_bar.dart';
 import 'package:arnhss/features/users/student/home/widgets/home_grid.dart';
-import 'package:arnhss/features/users/student/home/widgets/notice_item.dart';
+import 'package:arnhss/features/users/widget/notice_item.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
-import 'package:arnhss/services/firebase_database_service.dart';
+import 'package:arnhss/features/users/service/notice_service.dart';
 
 class StudentHome extends StatefulWidget {
   static const routeName = "/home";
@@ -29,7 +29,7 @@ class _StudentHomeState extends State<StudentHome> {
   Widget build(BuildContext context) {
     debugPrint("===== Admin home view build =====");
     return StreamProvider<NoticeModel?>.value(
-      value: FireBaseDatabaseService().notice,
+      value: NoticeService().notice,
       catchError: ((context, error) {
         log(error.toString(), name: " admin home view");
         return null;
@@ -47,10 +47,7 @@ class _StudentHomeState extends State<StudentHome> {
             padding: EdgeInsets.zero,
             physics: const BouncingScrollPhysics(),
             children: const [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 21),
-                child: NoticeItem(),
-              ),
+              NoticeItem(),
               HomeGrid(),
               SizedBox(height: 10),
             ],
