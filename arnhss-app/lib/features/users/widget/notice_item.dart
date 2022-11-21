@@ -11,6 +11,7 @@ import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:remixicon/remixicon.dart';
 
 class NoticeItem extends StatefulWidget {
@@ -33,9 +34,11 @@ class _NoticeItemState extends State<NoticeItem>
   bool _isExpanded = false;
 
   late AnimationController _animationController;
+  final DateFormat formatter = DateFormat('EE, dd MMM');
 
   @override
   void initState() {
+    context.read<NoticeViewModel>().noticeController = TextEditingController();
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
@@ -95,7 +98,7 @@ class _NoticeItemState extends State<NoticeItem>
                   Get.back();
                 },
                 done: "SURE".toText(style: const TextStyle(color: Colors.red)),
-                loading: context.read<NoticeViewModel>().dltLoading,
+                loading: context.read<NoticeViewModel>().loading,
                 onDone: () async {
                   context.read<NoticeViewModel>().deleteNotice();
                   Get.back();
@@ -113,7 +116,7 @@ class _NoticeItemState extends State<NoticeItem>
           curve: const ElasticInOutCurve(.8),
           width: context.getWidth(100) - 41,
           height:
-              notice?.subject == "" || notice == null ? _initialHeight : height,
+              notice?.notice == "" || notice == null ? _initialHeight : height,
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
             color: CustomColors.lightBgOverlay,
@@ -144,7 +147,7 @@ class _NoticeItemState extends State<NoticeItem>
                   ],
                 ),
                 const SizedBox(height: 20),
-                notice?.subject == "" || notice == null
+                notice?.notice == "" || notice == null
                     ? Center(
                         child: Image.asset(
                           "assets/images/icons/hero.png.webp",
@@ -163,7 +166,7 @@ class _NoticeItemState extends State<NoticeItem>
                                       animation: _animationController,
                                       builder: (context, _) {
                                         return Text(
-                                          notice.subject ?? "",
+                                          notice.notice ?? "",
                                           style: GoogleFonts.rokkitt(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w400,
@@ -185,10 +188,12 @@ class _NoticeItemState extends State<NoticeItem>
                                 const Spacer(),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      notice.date ?? "",
+                                      formatter
+                                          .format(DateTime.now())
+                                          .toString(),
                                       style: GoogleFonts.breeSerif(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w300,

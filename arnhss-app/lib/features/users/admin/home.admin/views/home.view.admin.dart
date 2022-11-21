@@ -1,12 +1,19 @@
 import 'dart:developer';
+import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/student/home/model/notice_model.dart';
 import 'package:arnhss/features/users/student/home/widgets/app_drawer.dart';
+import 'package:arnhss/features/users/student/home/widgets/qout_0f_the_day.dart';
+import 'package:arnhss/features/users/student/home/widgets/tile.dart';
+import 'package:arnhss/features/users/student/planner/widgets/add_plan_bottom_form.dart';
+import 'package:arnhss/features/users/widget/add_notice_sheet.dart';
 import 'package:arnhss/features/users/widget/custom_app_bar.dart';
 import 'package:arnhss/features/users/student/home/widgets/home_grid.dart';
 import 'package:arnhss/features/users/widget/notice_item.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/features/users/service/notice_service.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class AdminHome extends StatefulWidget {
   static const routeName = "/home";
@@ -26,6 +33,89 @@ class _AdminHomeState extends State<AdminHome> {
 
   @override
   Widget build(BuildContext context) {
+    List<StaggeredGridTile> adminElements = [
+      StaggeredGridTile.count(
+        crossAxisCellCount: 3,
+        mainAxisCellCount: 3.8,
+        child: Tile(
+          index: 0,
+          image: "assets/images/icons/nt-to-do-list-removebg-preview.png",
+          label: "Attendance",
+          onTap: () => Navigator.pushNamed(context, AttendanceView.routeName),
+        ),
+      ),
+      StaggeredGridTile.count(
+        crossAxisCellCount: 3,
+        mainAxisCellCount: 3,
+        child: Tile(
+          index: 1,
+          image: "assets/images/icons/marketing-badge.png.webp",
+          label: " Notices",
+          count: 3,
+          onTap: () => Navigator.pushNamed(context, PlannerView.routeName),
+        ),
+      ),
+      StaggeredGridTile.count(
+        crossAxisCellCount: 3,
+        mainAxisCellCount: .8,
+        child: TextButton(
+          style: ButtonStyle(
+            overlayColor: MaterialStateColor.resolveWith(
+                (states) => Colors.grey.shade800.withOpacity(.9)),
+            backgroundColor: MaterialStateProperty.all(
+              CustomColors.dark,
+            ),
+          ),
+          onPressed: () {
+            showAddNotice(context);
+          },
+          child: const Center(
+            child: Text(
+              "Post a notice",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+      StaggeredGridTile.count(
+        crossAxisCellCount: 2,
+        mainAxisCellCount: 2,
+        child: Tile(
+          index: 3,
+          image: "assets/images/icons/oc-plane-removebg-preview.png",
+          count: 2,
+          label: "Notifications",
+          onTap: () => Navigator.pushNamed(context, NotificationView.routeName),
+        ),
+      ),
+      StaggeredGridTile.count(
+        crossAxisCellCount: 2,
+        mainAxisCellCount: 2,
+        child: Tile(
+          index: 4,
+          image: "assets/images/icons/growing-books.png.webp",
+          label: "Notes",
+          onTap: () => Navigator.pushNamed(context, NotesView.routeName),
+        ),
+      ),
+      const StaggeredGridTile.count(
+        crossAxisCellCount: 2,
+        mainAxisCellCount: 2,
+        child: Tile(
+          index: 4,
+          image: "assets/images/icons/planning-badge.png.webp",
+          label: "Time Table",
+        ),
+      ),
+      const StaggeredGridTile.count(
+        crossAxisCellCount: 6,
+        mainAxisCellCount: 3.4,
+        child: QoutOfTheDay(),
+      ),
+    ];
+
     debugPrint("===== Admin home view build =====");
     return StreamProvider<NoticeModel?>.value(
       value: NoticeService().notice,
@@ -47,8 +137,8 @@ class _AdminHomeState extends State<AdminHome> {
             physics: const BouncingScrollPhysics(),
             children: [
               NoticeItem(role: value.user?.role),
-              const HomeGrid(),
-              const SizedBox(height: 10),
+              HomeGrid(elements: adminElements),
+              // const SizedBox(height: 10),
             ],
           ),
         );

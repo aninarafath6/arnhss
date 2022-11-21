@@ -6,12 +6,12 @@ class CustomInput extends StatelessWidget {
   const CustomInput({
     Key? key,
     this.hintText,
-    this.large = false,
+    this.size = Sizing.sm,
     this.controller,
   }) : super(key: key);
 
   final String? hintText;
-  final bool? large;
+  final Sizing size;
   final TextEditingController? controller;
 
   @override
@@ -20,13 +20,23 @@ class CustomInput extends StatelessWidget {
       width: context.getWidth(100),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       margin: const EdgeInsets.only(bottom: 10),
-      height: large! ? 150 : 50,
+      height: size == Sizing.xl
+          ? 500
+          : size == Sizing.lg
+              ? 150
+              : 50,
       decoration: BoxDecoration(
         color: CustomColors.bgOverlay,
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextField(
-        maxLines: large! ? 5 : 1,
+        maxLines: size == Sizing.xl
+            ? 20
+            : size == Sizing.lg
+                ? 5
+                : 1,
+        // maxLines: null,
+        keyboardType: TextInputType.multiline,
         controller: controller,
         minLines: 1,
         cursorColor: CustomColors.dark,
@@ -39,4 +49,10 @@ class CustomInput extends StatelessWidget {
       ),
     );
   }
+}
+
+enum Sizing {
+  sm,
+  lg,
+  xl,
 }

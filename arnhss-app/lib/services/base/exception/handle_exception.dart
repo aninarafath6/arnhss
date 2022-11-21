@@ -1,4 +1,4 @@
-import 'package:arnhss/helpers/dailog_helper.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

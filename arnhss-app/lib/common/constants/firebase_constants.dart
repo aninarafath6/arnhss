@@ -5,6 +5,7 @@ class FirebaseConstants {
   static const String studentsCollection = "students";
   static const String teachersCollection = "teachers";
   static const String parentsCollection = "teachers";
+  static const String noticeCollection = "notices";
 
   static String getCollectionName(Role role) {
     switch (role) {

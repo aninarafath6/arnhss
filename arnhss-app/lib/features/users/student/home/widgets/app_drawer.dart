@@ -147,19 +147,7 @@ class AppDrawer extends StatelessWidget {
                     // Update the state of the app.
 
                     //* test notice board working
-                    NoticeService().setNotice(NoticeModel(
-                      date: "01 March 2022",
-                      role: Role.principle,
-                      subDescription:
-                          "(Write the answer letter given below and submit it to the class teacher with the signature of the parents)\n\nNotice of parent meeting to be held on 01.09.2022 has been received. He knows that he will come to the meeting.\nParent's Signature:\nName:\nStudent Name:\nClass studied:",
-                      subject: """
-Dear Parents,
-Plus one A meeting of the parents of Plus Two students is being held on Thursday 01.09.2022 at 2 pm in the Higher Secondary  Auditorium in order to evaluate the result of the general examination and similarly  to evaluate the result of the unit test and to directly assess the learning progress of the teachers' children. Your presence is requested in the said meeting.
 
-Regards,
-Dr. C. Anas (Principal)
-29.08.2022.""",
-                    ));
                     // ...
                   },
                 ),

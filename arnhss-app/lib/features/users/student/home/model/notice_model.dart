@@ -7,25 +7,21 @@ import 'package:flutter/material.dart';
 
 class NoticeModel {
   final String? id;
-  final String? subject;
-  final String? description;
-  final String? subDescription;
+  final String? notice;
   final String? date;
   final Role? role;
-  final String? lastDate;
   final IconData? icon;
-  // final DateTime? createdAt;
+  final DateTime? createdAt;
+  final String? useId;
 
   NoticeModel({
     this.id,
-    this.subject,
-    this.description,
-    this.subDescription,
     this.date,
     this.role,
-    this.lastDate,
     this.icon,
-    // this.createdAt,
+    this.createdAt,
+    this.notice,
+    this.useId,
   });
 
   factory NoticeModel.fromRawJson(String str) =>
@@ -38,25 +34,26 @@ class NoticeModel {
         [];
   }
 
-  factory NoticeModel.fromJson(Map<String, dynamic> json) => NoticeModel(
-        id: json["id"] ?? "",
-        subject: json["subject"] ?? "",
-        description: json["description"] ?? "",
-        subDescription: json["subDescription"] ?? "",
-        role: UserModel.fromStringRole(json["role"] ?? ""),
-        date: json["date"] ?? "",
-        // createdAt: json["created_at"] ?? ""
-        // icon: jsonDecode(json["icon"]) ?? Remix.a24_hours_fill,
-      );
+  factory NoticeModel.fromJson(Map<String, dynamic> json) {
+    return NoticeModel(
+      id: json["id"] ?? "",
+      role: UserModel.fromStringRole(json["role"] ?? ""),
+      date: json["date"] ?? "",
+      useId: json["user_id"] ?? "",
+      notice: json["notice"] ?? "",
+      createdAt: DateTime.fromMicrosecondsSinceEpoch(json["created_at"]),
+      // createdAt: json["created_at"] ?? DateTime.now(),
+      // icon: jsonDecode(json["icon"]) ?? Remix.a24_hours_fill,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "subject": subject,
-        "description": description,
-        "subDescription": subDescription,
-        "role": UserModel.toStringRole(role ?? Role.student),
+        "role": UserModel.toStringRole(role),
+        "notice": notice,
         "date": date,
+        "user_id": useId,
         "icon": icon,
-        // "created_at": createdAt,
+        "created_at": createdAt?.microsecondsSinceEpoch,
       };
 }
