@@ -10,6 +10,7 @@ import 'package:arnhss/features/authentication/account/widgets/account_tile.dart
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/users/role_wrapper.dart';
 import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
 
@@ -131,7 +132,7 @@ class _SelectAccountState extends State<SelectAccount> {
                                     await Future.delayed(
                                         const Duration(seconds: 3));
                                     Get.offNamedUntil(
-                                      StudentHome.routeName,
+                                      RoleWrapper.routeName,
                                       ((route) => false),
                                     );
                                     context

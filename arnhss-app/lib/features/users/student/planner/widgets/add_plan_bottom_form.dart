@@ -71,7 +71,7 @@ void showAddPlanForm(BuildContext context) {
 
                 CustomInput(
                   hintText: "Enter your note",
-                  large: true,
+                  size: Sizing.lg,
                   controller: _provider.descriptionController,
                 ),
                 Text("Date & Time",

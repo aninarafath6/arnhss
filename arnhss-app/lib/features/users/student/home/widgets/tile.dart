@@ -41,6 +41,7 @@ class Tile extends StatelessWidget {
                     child: Image.asset(
                       image!,
                       width: isSmall! ? 100 : 300,
+                      // fit: BoxFit.,
                     ),
                   ),
                   const SizedBox(height: 10),

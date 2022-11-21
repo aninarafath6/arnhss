@@ -25,13 +25,13 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const RoleWrapper());
       case StudentHome.routeName:
         return MaterialPageRoute(builder: (_) => const StudentHome());
-      case NoticeView.routeName:
-        final NoticeModel args = settings.arguments as NoticeModel;
-        return MaterialPageRoute(
-          builder: (_) => NoticeView(
-            notice: args,
-          ),
-        );
+      // case NoticeView.routeName:
+      //   final NoticeModel args = settings.arguments as NoticeModel;
+      //   return MaterialPageRoute(
+      //     builder: (_) => NoticeView(
+      //       notice: args,
+      //     ),
+      //   );
       case AttendanceView.routeName:
         return MaterialPageRoute(builder: (_) => const AttendanceView());
       case PlannerView.routeName:

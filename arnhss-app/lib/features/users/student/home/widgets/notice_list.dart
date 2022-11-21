@@ -1,6 +1,6 @@
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/student/home/model/notice_model.dart';
-import 'package:arnhss/features/users/student/home/widgets/notice_item.dart';
+import 'package:arnhss/features/users/widget/notice_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NoticeList extends StatelessWidget {
