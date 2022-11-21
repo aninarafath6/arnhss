@@ -51,7 +51,7 @@ class AccountTile extends StatelessWidget {
               color: getOverlayColor(user?.role),
               borderRadius: BorderRadius.circular(2),
             ),
-            child: user!.role!.describe.capitalize.toText(),
+            child: user!.role!.fancy.toText(),
           ),
         ),
       ),

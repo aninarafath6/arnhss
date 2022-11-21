@@ -60,11 +60,11 @@ class UserModel {
 
   String toRawJson() {
     if (role == Role.admin) {
-      return jsonEncode(toAdminJson().toString());
+      return jsonEncode(toAdminJson());
     } else if (role == Role.student) {
-      return jsonEncode(toStudentJson().toString());
+      return jsonEncode(toStudentJson());
     } else {
-      return jsonEncode(toTeacherJson().toString());
+      return jsonEncode(toTeacherJson());
     }
   }
 
@@ -81,9 +81,9 @@ class UserModel {
   //     UserModel.fromAdminJSON(json.decode(str), "");
 
   factory UserModel.fromAdminJSON(Map<String, dynamic> json, String id) {
-    json["last_login"] = json["last_login"] as Timestamp;
+    print(json["role"]);
+    print(fromStringRole(json["role"]));
 
-    // print(fromStringRole(json["role"]));
     return UserModel(
       id: id,
       email: json["email"],
@@ -92,14 +92,11 @@ class UserModel {
       name: json["name"],
       dpURL: json["dpURL"],
       gender: toGender(json["gender"]),
-      lastLogin: json["last_login"].toDate(),
+      lastLogin: DateTime.fromMicrosecondsSinceEpoch(json["last_login"]),
     );
   }
 
   factory UserModel.fromTeacherJSON(Map<String, dynamic> json, String id) {
-    json["last_login"] = json["last_login"] as Timestamp;
-
-    // print(fromStringRole(json["role"]));
     return UserModel(
         id: id,
         email: json["email"],
@@ -108,58 +105,45 @@ class UserModel {
         name: json["name"],
         dpURL: json["dpURL"],
         gender: toGender(json["gender"]),
-        lastLogin: json["last_login"].toDate(),
+        lastLogin: DateTime.fromMicrosecondsSinceEpoch(json["last_login"]),
         teacherSubject: json["subject"]);
   }
-  factory UserModel.fromStudentJSON(Map<String, dynamic> json, String id) =>
-      UserModel(
-        id: id,
-        phone: json["phone"],
-        email: json["email"],
-        rollNumber: json["roll_number"],
-        dob: json["dob"].toDate(),
-        role: fromStringRole(json["role"]),
-        admissionNo: json["admission_number"],
-        department: toDepartment(json["department"]),
-        name: json["name"],
-        dpURL: json["dpURL"],
-        gender: toGender(json["gender"]),
-        lastLogin: json["last_login"].toDate(),
-        division: json["division"],
-        batch: json["batch"],
-        parentPhone: json["parent_phone"],
-        secondLanguage: json["second_ language"],
-      );
-
-  factory UserModel.fromParentJSON(Map<String, dynamic> json, String id) {
-    // print(fromStringRole(json["role"]));
+  factory UserModel.fromStudentJSON(Map<String, dynamic> json, String id) {
     return UserModel(
       id: id,
-      email: json["email"],
       phone: json["phone"],
+      email: json["email"],
+      rollNumber: json["roll_number"],
+      dob: DateTime.fromMicrosecondsSinceEpoch(json["dob"]),
       role: fromStringRole(json["role"]),
+      admissionNo: json["admission_number"],
+      department: toDepartment(json["department"]),
       name: json["name"],
       dpURL: json["dpURL"],
       gender: toGender(json["gender"]),
-      lastLogin: json["last_login"].toDate(),
+      lastLogin: DateTime.fromMicrosecondsSinceEpoch(json["last_login"]),
+      division: json["division"],
+      batch: json["batch"],
+      parentPhone: json["parent_phone"],
+      secondLanguage: json["second_ language"],
     );
   }
 
   Map<String, dynamic> toStudentJson() => {
-        "id": id ?? "",
-        "phone": phone ?? "",
-        "email": email ?? "",
-        "name": name ?? "",
-        "roll_number": rollNumber ?? "",
-        "dob": Timestamp.fromDate(dob!),
-        "role": fromRole(role!),
-        "admission_number": admissionNo ?? "",
-        "department": fromDepartment(department!),
-        "dpURL": dpURL ?? "",
+        "id": id,
+        "phone": phone,
+        "email": email,
+        "name": name,
+        "roll_number": rollNumber,
+        "dob": dob != null ? lastLogin?.microsecondsSinceEpoch : null,
+        "role": toStringRole(role),
+        "admission_number": admissionNo,
+        "department": fromDepartment(department),
+        "dpURL": dpURL,
         "gender": fromGender(gender),
         "division": division,
-        "lastLogin": Timestamp.fromDate(lastLogin ?? DateTime.now()),
-        "batch": batch ?? "",
+        "last_login": lastLogin?.microsecondsSinceEpoch,
+        "batch": batch,
         "parent_phone": parentPhone,
         "second_ language": secondLanguage,
       };
@@ -169,10 +153,10 @@ class UserModel {
         "phone": phone,
         "email": email,
         "name": name,
-        "role": fromRole(role!),
+        "role": toStringRole(role),
         "dpURL": dpURL,
         "gender": fromGender(gender),
-        "lastLogin": Timestamp.fromDate(lastLogin ?? DateTime.now()),
+        "last_login": lastLogin?.microsecondsSinceEpoch,
       };
 
   Map<String, dynamic> toTeacherJson() => {
@@ -180,12 +164,14 @@ class UserModel {
         "phone": phone,
         "email": email,
         "name": name,
-        "role": fromRole(role!),
+        "role": toStringRole(role!),
         "dpURL": dpURL,
         "gender": fromGender(gender),
         "subject": teacherSubject,
-        "lastLogin": Timestamp.fromDate(lastLogin ?? DateTime.now()),
+        "last_login": lastLogin?.microsecondsSinceEpoch,
       };
+
+  //* helpers
   static Role? fromStringRole(String role) {
     switch (role.toLowerCase()) {
       case "student":
@@ -201,7 +187,7 @@ class UserModel {
     }
   }
 
-  static String toStringRole(Role role) {
+  static String toStringRole(Role? role) {
     switch (role) {
       case Role.student:
         return "Student";
@@ -216,21 +202,22 @@ class UserModel {
     }
   }
 
-  static String fromRole(Role role) {
-    switch (role) {
-      case Role.student:
-        return "Student";
-      case Role.teacher:
-        return "Teacher";
-      case Role.parent:
-        return "Parent";
-      case Role.principle:
-        return "Principle";
-
-      default:
-        return "Student";
-    }
-  }
+  // static String toStringRole(Role? role) {
+  //   switch (role) {
+  //     case Role.student:
+  //       return "student";
+  //     case Role.teacher:
+  //       return "teacher";
+  //     case Role.parent:
+  //       return "parent";
+  //     case Role.principle:
+  //       return "principle";
+  //     case Role.admin:
+  //       return "admin";
+  //     default:
+  //       return "Student";
+  //   }
+  // }
 
   static Gender toGender(String str) {
     switch (str.toLowerCase()) {
@@ -267,7 +254,7 @@ class UserModel {
     }
   }
 
-  static String fromDepartment(Department department) {
+  static String fromDepartment(Department? department) {
     switch (department) {
       case Department.commerce:
         return "Commerce";

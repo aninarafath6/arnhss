@@ -13,7 +13,7 @@ import 'package:arnhss/features/planner/view_model/planner_view_model.dart';
 import 'package:arnhss/firebase_options.dart';
 import 'package:arnhss/services/db_service.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+// import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -23,8 +23,8 @@ void main() async {
   await DBService.initDB();
 
 // ? cache cleaner just a
-  DefaultCacheManager manager = new DefaultCacheManager();
-  manager.emptyCache(); //clears all data in cache.
+//   DefaultCacheManager manager = new DefaultCacheManager();
+//   manager.emptyCache(); //clears all data in cache.
 
   initializeDateFormatting().then(
     (_) async {

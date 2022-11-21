@@ -1,4 +1,6 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
+import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter/material.dart';
 
 extension Dimensions on BuildContext {
@@ -31,4 +33,9 @@ extension Dimensions on BuildContext {
         height: getHeight(height),
         width: getWidth(width),
       );
+
+  //* ==== Role based stuffs ======
+  Future<Role> get role async {
+    return await SharedPrefService().getRole() ?? Role.student;
+  }
 }

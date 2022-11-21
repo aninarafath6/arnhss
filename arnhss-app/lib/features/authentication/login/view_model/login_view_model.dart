@@ -77,7 +77,8 @@ class LoginViewModel extends ChangeNotifier with HandleException {
   }
 
 // get otp functionality
-  void getOtp(BuildContext context, {bool reGet = false, bool req=false}) async {
+  void getOtp(BuildContext context,
+      {bool reGet = false, bool req = false}) async {
     // * phone number from mobile number input controller
     final String phoneNumber = mobileNumberController.text.trim().toString();
 
@@ -89,7 +90,7 @@ class LoginViewModel extends ChangeNotifier with HandleException {
   * or we can send otp when the balance time is 0 that means the resendAvailable is true 
  */
     toggleLoading();
-    if (provider.isFirstReq || provider.resendAvailable||req) {
+    if (provider.isFirstReq || provider.resendAvailable || req) {
       // * start loading
       var status = true;
       await _authService
@@ -136,7 +137,12 @@ class LoginViewModel extends ChangeNotifier with HandleException {
   void disposeLogin() {
     // print("login dispose method");
     _mobileNumberController.text = "";
+  }
+
+  @override
+  void dispose() {
     _scrollController.dispose();
     _myFocusNode.dispose();
+    super.dispose();
   }
 }
