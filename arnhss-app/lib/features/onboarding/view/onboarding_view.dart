@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
-import 'package:arnhss/common/widgets/responsive_layout.dart';
+import 'package:arnhss/common/widgets/layout/responsive_layout.dart';
 import 'package:arnhss/features/onboarding/view/onboard_background.dart';
 import 'package:arnhss/features/onboarding/view/onboarding_content.dart';
 import 'package:flutter/material.dart';

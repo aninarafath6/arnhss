@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/common/widgets/responsive_layout.dart';
+import 'package:arnhss/common/widgets/layout/responsive_layout.dart';
 import 'package:arnhss/features/onboarding/view/onboard_background.dart';
 // import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 

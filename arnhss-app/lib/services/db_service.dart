@@ -1,6 +1,6 @@
 import 'package:arnhss/common/constants/database_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/features/planner/models/plan.dart';
+import 'package:arnhss/features/users/student/planner/models/plan.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:sqflite/sqflite.dart';
 

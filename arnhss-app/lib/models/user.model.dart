@@ -172,8 +172,8 @@ class UserModel {
       };
 
   //* helpers
-  static Role? fromStringRole(String role) {
-    switch (role.toLowerCase()) {
+  static Role? fromStringRole(String? role) {
+    switch (role?.toLowerCase()) {
       case "student":
         return Role.student;
       case "parent":

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:arnhss/features/home/model/notice_model.dart';
+import 'package:arnhss/features/users/student/home/model/notice_model.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
