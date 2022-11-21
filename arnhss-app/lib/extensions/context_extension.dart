@@ -35,7 +35,9 @@ extension Dimensions on BuildContext {
       );
 
   //* ==== Role based stuffs ======
-  Future<Role> get role async {
-    return await SharedPrefService().getRole() ?? Role.student;
+  Future<Role?> get getRole async {
+    return await SharedPrefService().getRole();
   }
+
+  // bool get isAdmin => getRole.then((value) => value) == Role.admin;
 }

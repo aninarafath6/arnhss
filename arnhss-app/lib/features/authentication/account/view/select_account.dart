@@ -131,7 +131,7 @@ class _SelectAccountState extends State<SelectAccount> {
                                     await Future.delayed(
                                         const Duration(seconds: 3));
                                     Get.offNamedUntil(
-                                      HomeView.routeName,
+                                      StudentHome.routeName,
                                       ((route) => false),
                                     );
                                     context

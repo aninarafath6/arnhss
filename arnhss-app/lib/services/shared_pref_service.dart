@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/features/users/role_wrapper.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
@@ -23,7 +24,7 @@ class SharedPrefService with HandleException {
         pref.setString(
             "department", UserModel.fromDepartment(user.department!));
       }
-      pref.setString("role", UserModel.toStringRole(user.role ?? Role.student));
+      pref.setString("role", UserModel.toStringRole(user.role));
       pref.setString("name", user.name ?? "");
       pref.setString("user", user.toRawJson());
     } catch (e) {
@@ -36,10 +37,15 @@ class SharedPrefService with HandleException {
   Future<String> start() async {
     SharedPreferences pref = await _prefs;
     bool? login = pref.getBool("login");
-    if (login == null) {
-      return OnboardingView.routeName;
+    String? role = pref.getString("role");
+    if (role == null) {
+      return LoginView.routeName;
     } else {
-      return login ? HomeView.routeName : OnboardingView.routeName;
+      if (login == null) {
+        return OnboardingView.routeName;
+      } else {
+        return login ? RoleWrapper.routeName : OnboardingView.routeName;
+      }
     }
   }
 
@@ -70,10 +76,11 @@ class SharedPrefService with HandleException {
 
 //* get user role from local storage
   Future<Role?> getRole() async {
+    print("call is here");
     try {
       SharedPreferences pref = await _prefs;
       String? stringRole = pref.getString("role");
-      return UserModel.fromStringRole(stringRole ?? "student");
+      return UserModel.fromStringRole(stringRole);
     } catch (e) {
       debugPrint("error from getRole in sharedPref +$e");
       handleException(e);

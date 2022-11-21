@@ -1,5 +1,6 @@
 import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/features/profile/view/profile_view.dart';
+import 'package:arnhss/features/users/role_wrapper.dart';
+import 'package:arnhss/features/users/student/profile/view/profile_view.dart';
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -20,8 +21,10 @@ class AppRoutes {
       //   return MaterialPageRoute(builder: (_) => const StudentAuthentication());
       case SelectAccount.routeName:
         return MaterialPageRoute(builder: (_) => const SelectAccount());
-      case HomeView.routeName:
-        return MaterialPageRoute(builder: (_) => const HomeView());
+      case RoleWrapper.routeName:
+        return MaterialPageRoute(builder: (_) => const RoleWrapper());
+      case StudentHome.routeName:
+        return MaterialPageRoute(builder: (_) => const StudentHome());
       case NoticeView.routeName:
         final NoticeModel args = settings.arguments as NoticeModel;
         return MaterialPageRoute(
@@ -43,6 +46,7 @@ class AppRoutes {
         final Subject sub = settings.arguments as Subject;
         return MaterialPageRoute(
             builder: (_) => SelectedNoteView(subject: sub));
+
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

@@ -23,6 +23,7 @@ class _SplashViewState extends State<SplashView> {
       const Duration(seconds: 3),
       () async {
         String routeName = await _sharedPrefService.start();
+        print(routeName);
         Get.offNamedUntil(routeName, (_) => false);
       },
     );
