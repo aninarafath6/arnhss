@@ -50,7 +50,7 @@ class NoticeModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "role": UserModel.toStringRole(role),
-        "notice": notice,
+      "notice": notice,
         "date": date,
         "user_id": useId,
         "icon": icon,

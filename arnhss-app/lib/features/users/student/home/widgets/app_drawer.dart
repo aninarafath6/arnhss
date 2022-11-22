@@ -7,6 +7,7 @@ import 'package:arnhss/common/widgets/user_avatar.dart';
 import 'package:arnhss/extensions/enum_extension.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
+import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/users/student/home/view_models/home_view_model.dart';
@@ -107,6 +108,7 @@ class AppDrawer extends StatelessWidget {
                                   //     vertical: 2,
                                   //   ),
                                   //   child: Text(
+
                                   //     " ${UserModel.toStringRole(value.user?.role ?? Role.student)}",
                                   //     style: CustomTextTheme(context: context)
                                   //         .paragraph()
@@ -272,24 +274,34 @@ class _LogoutTileState extends State<_LogoutTile> {
       ),
       leading: const Icon(Remix.logout_circle_r_line),
       onTap: () {
-        customModal(
+        loginModal(
           context,
           title: "Are you sure?",
           content: "Could you please confirm that you wish to sign out now?",
           deny: "DENY",
           onDeny: () async {
-            Get.back();
             await Future.delayed(const Duration(milliseconds: 300));
-            Get.back();
+            Navigator.pop(context);
           },
-          done: "SURE".toText(style: const TextStyle(color: Colors.red)),
-          loading: loading,
-          loadingWidget: const CupertinoActivityIndicator(),
+          done: loading
+              ? const CupertinoActivityIndicator(
+                  color: CustomColors.dark,
+                )
+              : const Text("SURE"),
+          // done: "SURE".toText(style: const TextStyle(color: Colors.red)),
+          // loading: loading,
+          // loadingWidget: const CupertinoActivityIndicator(),
           onDone: () async {
-            setState(() => loading = true);
-            await Future.delayed(const Duration(milliseconds: 800));
-            setState(() => loading = false);
-            AuthService().logout(context.read<UserViewModel>().user);
+            await Future.delayed(const Duration(milliseconds: 200));
+
+            await context
+                .read<LoginViewModel>()
+                .logout(context.read<UserViewModel>().user);
+            // setState(() => loading = true);
+            // await Future.delayed(const Duration(milliseconds: 800));
+            // setState(() => loading = false);
+            // await Future.delayed(const Duration(milliseconds: 200));
+
             Get.offNamedUntil(LoginView.routeName, (_) => false);
           },
         );

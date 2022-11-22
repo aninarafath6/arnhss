@@ -58,7 +58,7 @@ class _SelectAccountState extends State<SelectAccount> {
               child: CustomBanner(
                 image: isEmpty
                     ? "assets/images/icons/not_exist.png"
-                    : "assets/images/icons/team-features-illustration.png.webp",
+                    : "assets/images/icons/notice_board.png",
                 title: isEmpty ? "Can't Find Profile" : "Get Your Profile",
                 subtitle: isEmpty
                     ? "Your profile has not been found. Please contact Admin for assistance"
@@ -86,6 +86,7 @@ class _SelectAccountState extends State<SelectAccount> {
                             ),
                           )
                         : ListView.builder(
+                            shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return AccountTile(
                                 user: context

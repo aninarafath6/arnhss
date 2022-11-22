@@ -1,8 +1,10 @@
+import 'package:arnhss/abstract/loader.abstract.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
 import 'package:arnhss/features/authentication/otp_verification/view_model/verify_otp_view_model.dart';
+import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 
-class LoginViewModel extends ChangeNotifier with HandleException {
+class LoginViewModel extends Loader with HandleException {
   // * instances
   final AuthService _authService = AuthService();
   // final VerifyOtpViewModel _verifyOtpViewModel = VerifyOtpViewModel();
@@ -21,7 +23,12 @@ class LoginViewModel extends ChangeNotifier with HandleException {
   final FocusNode _myFocusNode = FocusNode();
   Role? _userRole;
 
-  bool _loading = false;
+  bool loading = false;
+  void toggleLoading() {
+    loading = !loading;
+    notifyListeners();
+  }
+
   String _verificationId = "";
   int? resentToken;
 
@@ -29,7 +36,7 @@ class LoginViewModel extends ChangeNotifier with HandleException {
   TextEditingController get mobileNumberController => _mobileNumberController;
   ScrollController get scrollController => _scrollController;
   FocusNode get myFocusNode => _myFocusNode;
-  bool get loading => _loading;
+  // bool get loading => _loading;
   String get vi => _verificationId;
   Role? get getUserRole => _userRole;
 
@@ -70,11 +77,11 @@ class LoginViewModel extends ChangeNotifier with HandleException {
     }
   }
 
-//* toggle loading
-  void toggleLoading() {
-    _loading = !loading;
-    notifyListeners();
-  }
+// //* toggle loading
+//   void toggleLoading() {
+//     loading = !loading;
+//     notifyListeners();
+//   }
 
 // get otp functionality
   void getOtp(BuildContext context,
@@ -112,9 +119,9 @@ class LoginViewModel extends ChangeNotifier with HandleException {
               toggleLoading();
             },
             verificationFailed: (FirebaseAuthException error) {
-              _loading = false;
+              loading = false;
               Get.back();
-              handleException(InvalidException(error.message, false));
+              handleException(error);
             },
             // * time out handler
             timeout: provider.duration,
@@ -132,6 +139,13 @@ class LoginViewModel extends ChangeNotifier with HandleException {
     }
     // * set the first req into false
     provider.isFirstReq = false;
+  }
+
+  Future<void> logout(UserModel? user) async {
+    toggleLoading();
+    await Future.delayed(const Duration(milliseconds: 400));
+    await _authService.logout(user);
+    toggleLoading();
   }
 
   void disposeLogin() {

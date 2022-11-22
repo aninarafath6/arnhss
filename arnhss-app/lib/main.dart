@@ -1,3 +1,4 @@
+import 'package:arnhss/abstract/loader.abstract.dart';
 import 'package:arnhss/common/routes/app_routes.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/theme.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SelectAccountViewModel()),
         ChangeNotifierProvider(create: (_) => UserViewModel()),
         ChangeNotifierProvider(create: (_) => NoticeViewModel()),
+        ChangeNotifierProvider(create: (_) => Loader()),
       ],
       child: GetMaterialApp(
         title: 'arnhss',
