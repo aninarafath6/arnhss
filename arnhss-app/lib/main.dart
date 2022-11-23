@@ -16,13 +16,21 @@ import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/firebase_options.dart';
 import 'package:arnhss/services/db_service.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 // import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+Future<void> onBackgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification?.title);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseMessaging.onBackgroundMessage(onBackgroundHandler);
   await DBService.initDB();
 
 // ? cache cleaner just a
@@ -35,6 +43,12 @@ void main() async {
         name: 'arnhss',
         options: DefaultFirebaseOptions.currentPlatform,
       );
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: true, // Required to display a heads up notification
+        badge: true,
+        sound: true,
+      );
 
       // ? just for checking functionality
       // print(await AuthService().getListUsers("+917444555666"));
@@ -44,8 +58,21 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  // FirebaseMessaging
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

@@ -48,6 +48,8 @@ dependencies:
   shared_preferences: ^2.0.15
   firebase_database: ^9.1.7
   flutter_cache_manager: ^3.3.0
+  flutter_local_notifications: ^12.0.4
+  firebase_messaging: ^13.1.0
 
 flutter_icons:
   android: "launcher_icon"

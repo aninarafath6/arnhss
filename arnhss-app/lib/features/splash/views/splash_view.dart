@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/extensions/context_extension.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -19,15 +22,41 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void initState() {
+    //* this function will work while app is still background.
+    FirebaseMessaging.instance.getInitialMessage().then(_handleMessage);
+
+    //* only work when the app is working on foreground
+    //* this will not work on background
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message.notification != null) {
+        log(message.notification?.title.toString() ?? "");
+      }
+    });
+
+    //* Also handle any interaction when the app is in the background via a
+    //* Stream listener
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+
     Timer(
       const Duration(seconds: 3),
       () async {
         String routeName = await _sharedPrefService.start();
-        print(routeName);
         Get.offNamedUntil(routeName, (_) => false);
       },
     );
     super.initState();
+  }
+
+  //* handle the notification message
+  void _handleMessage(RemoteMessage? message) {
+    //* if the notification message have routeName then navigate to that page
+
+    if (message != null) {
+      String? _routeName = message.data['route'];
+      if (_routeName != null) {
+        Navigator.of(context).pushNamed(_routeName);
+      }
+    }
   }
 
   @override

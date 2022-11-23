@@ -9,20 +9,20 @@ import 'package:arnhss/features/authentication/otp_verification/view/index.dart'
 import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:flutter/cupertino.dart';
 
-Future<dynamic> noticeModal(
-  BuildContext context, {
-  required String content,
-  required String title,
-  String deny = 'EDIT',
-  required Widget done,
-  VoidCallback? onDeny,
-  VoidCallback? onDone,
-}) {
+Future<dynamic> noticeModal(BuildContext context,
+    {required String content,
+    required String title,
+    String deny = 'EDIT',
+    required Widget done,
+    VoidCallback? onDeny,
+    VoidCallback? onDone,
+    bool isBlur = false}) {
   return showDialog(
     context: context,
     builder: (context) {
       return BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
+        filter:
+            ImageFilter.blur(sigmaX: isBlur ? 1 : 0, sigmaY: isBlur ? 1 : 0),
         child: AlertDialog(
           title: Text(title),
           content: Text(

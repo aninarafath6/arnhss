@@ -50,12 +50,13 @@ class _NoticeItemState extends State<NoticeItem>
   @override
   Widget build(BuildContext context) {
     final notice = Provider.of<NoticeModel?>(context);
-    final loading = context.watch<NoticeViewModel>().loading;
+    // final loading = context.watch<NoticeViewModel>().loading;
     updateStatus(bool status) async {
       await Future.delayed(const Duration(milliseconds: 800));
-      // setState(() {
-      //   _isExpanded = status;
-      // });
+      // Before calling setState check if the state is mounted.
+      if (mounted) {
+        setState(() => _isExpanded = status);
+      }
     }
 
     if (notice == null) {
