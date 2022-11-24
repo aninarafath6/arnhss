@@ -14,7 +14,9 @@ import 'package:arnhss/features/users/student/planner/view_model/planner_view_mo
 import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/firebase_options.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/db_service.dart';
+import 'package:arnhss/services/local_notificatoin_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
@@ -24,12 +26,12 @@ import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> onBackgroundHandler(RemoteMessage message) async {
-  print(message.data.toString());
-  print(message.notification?.title);
+  LocalNotificationService.firePlay(message);
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(onBackgroundHandler);
   await DBService.initDB();
 
