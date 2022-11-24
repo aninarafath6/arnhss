@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/extensions/context_extension.dart';
-import 'package:arnhss/services/local_notificatoin_service.dart';
+import 'package:arnhss/services/notification/notification_service.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -20,19 +17,12 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   final SharedPrefService _sharedPrefService = SharedPrefService();
+  final NotificationService _notificationService = NotificationService();
 
   @override
   void initState() {
-    //* this function will work while app is still background.
-    FirebaseMessaging.instance.getInitialMessage().then(_handleMessage);
-
-    //* only work when the app is working on foreground
-    //* this will not work on background
-    FirebaseMessaging.onMessage.listen(_handleMessage);
-
-    //* Also handle any interaction when the app is in the background via a
-    //* Stream listener
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+    //* notification Handler
+    _notificationService.setupInteractedMessage(context);
 
     Timer(
       const Duration(seconds: 3),
@@ -42,22 +32,6 @@ class _SplashViewState extends State<SplashView> {
       },
     );
     super.initState();
-  }
-
-  //* handle the notification message
-  void _handleMessage(RemoteMessage? message) {
-    print(message?.notification?.title);
-    print(message?.notification?.body);
-
-    //* if the notification message have routeName then navigate to that page
-
-    if (message != null) {
-      LocalNotificationService.firePlay(message);
-      String? _routeName = message.data['route'];
-      if (_routeName != null) {
-        Navigator.of(context).pushNamed(_routeName);
-      }
-    }
   }
 
   @override

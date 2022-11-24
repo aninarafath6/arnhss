@@ -36,4 +36,26 @@ class LocalNotificationService {
       log(e.toString(), name: "firePlay");
     }
   }
+
+//* display dummy notification
+  static void display(String title, String body) {
+    try {
+      int id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      _notificationsPlugin.show(
+        id,
+        title,
+        body,
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'arnhss_108020', // id
+            'arnhss_108020', // id
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+        ),
+      );
+    } catch (e) {
+      log(e.toString(), name: "display");
+    }
+  }
 }

@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:arnhss/common/constants/firebase_constants.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
@@ -78,6 +80,8 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
     await _authService.signIn(authCredential, user).then((value) async {
       try {
         await _sharedPrefService.setUser(user);
+        FirebaseMessaging.instance
+            .subscribeToTopic(FirebaseConstants.authenticatedUSERS);
         success();
       } catch (e) {
         log("error from sign in method");

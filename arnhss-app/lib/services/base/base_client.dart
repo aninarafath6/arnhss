@@ -1,20 +1,21 @@
 import 'dart:io';
 
-// ignore: depend_on_referenced_packages
-import 'package:arnhss/common/constants/network_constants.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class BaseClient {
+  BaseClient({required this.baseURL});
+  final String baseURL;
   var client = http.Client();
 
   // get method
   Future<dynamic> get(String api) async {}
   // post method
-  Future<dynamic> post(String api, dynamic object, {dynamic header}) async {
-    var payload = jsonEncode(object);
-    var uri = Uri.parse(NetworkConstants.baseURL + api);
+  Future<dynamic> post(String api, dynamic data, {dynamic header}) async {
+    var payload = jsonEncode(data);
+
+    Uri uri = Uri.parse(baseURL + api);
 
     try {
       var response = await client.post(uri, body: payload, headers: header);

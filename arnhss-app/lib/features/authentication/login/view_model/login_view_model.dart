@@ -1,4 +1,5 @@
 import 'package:arnhss/abstract/loader.abstract.dart';
+import 'package:arnhss/common/constants/firebase_constants.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
@@ -8,6 +9,7 @@ import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
@@ -144,7 +146,10 @@ class LoginViewModel extends Loader with HandleException {
   Future<void> logout(UserModel? user) async {
     toggleLoading();
     await Future.delayed(const Duration(milliseconds: 400));
+
     await _authService.logout(user);
+    FirebaseMessaging.instance
+        .unsubscribeFromTopic(FirebaseConstants.authenticatedUSERS);
     toggleLoading();
   }
 
