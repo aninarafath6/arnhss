@@ -39,7 +39,7 @@ AppBar customHomeAppBar(BuildContext context, UserModel? user) {
                 )),
             const SizedBox(height: 5),
             Text(
-            formatter.format(DateTime.now()).toString(),
+              formatter.format(DateTime.now()).toString(),
               style: const TextStyle(
                 color: CustomColors.light,
                 fontSize: 12,

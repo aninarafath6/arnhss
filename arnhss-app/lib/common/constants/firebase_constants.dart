@@ -7,6 +7,12 @@ class FirebaseConstants {
   static const String parentsCollection = "teachers";
   static const String noticeCollection = "notices";
 
+  //* topics
+  static const String authenticatedUSERS = "verified";
+  static const String students = "students";
+  static const String teachers = "teachers";
+  static const String admins = "admins";
+
   static String getCollectionName(Role role) {
     switch (role) {
       case Role.student:

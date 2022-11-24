@@ -14,7 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
-class AuthService with HandleException {
+class AuthService with HandleException  {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   static final FirebaseFirestore _firestoreInstance =
       FirebaseFirestore.instance;
@@ -62,6 +62,7 @@ class AuthService with HandleException {
       );
     } catch (e) {
       //* handle exception.
+      print("this $e");
       handleException(e);
     }
   }
@@ -214,7 +215,7 @@ class AuthService with HandleException {
         } else if (role == Role.teacher) {
           var subjectDetails = await data["subject"].get();
 
-          print(subjectDetails.data()["name"]);
+          // print(subjectDetails.data()["name"]);
           UserModel user = UserModel.fromRawJson(<String, dynamic>{
             ...data,
             "subject": subjectDetails.data()["name"],

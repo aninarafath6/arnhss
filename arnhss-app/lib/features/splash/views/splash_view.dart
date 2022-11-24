@@ -1,5 +1,6 @@
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/extensions/context_extension.dart';
+import 'package:arnhss/services/notification/notification_service.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -16,14 +17,17 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   final SharedPrefService _sharedPrefService = SharedPrefService();
+  final NotificationService _notificationService = NotificationService();
 
   @override
   void initState() {
+    //* notification Handler
+    _notificationService.setupInteractedMessage(context);
+
     Timer(
       const Duration(seconds: 3),
       () async {
         String routeName = await _sharedPrefService.start();
-        print(routeName);
         Get.offNamedUntil(routeName, (_) => false);
       },
     );

@@ -1,3 +1,4 @@
+import 'package:arnhss/abstract/loader.abstract.dart';
 import 'package:arnhss/common/routes/app_routes.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/theme.dart';
@@ -14,15 +15,27 @@ import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/firebase_options.dart';
 import 'package:arnhss/services/db_service.dart';
+import 'package:arnhss/services/notification/local_notification_service.dart';
+import 'package:arnhss/services/notification/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+//* Handle notification while app is working on background
+Future<void> onBackgroundHandler(RemoteMessage message) async {
+  LocalNotificationService.firePlay(message);
+}
+
+NotificationService notificationService = NotificationService();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotificationService.initialize();
+  FirebaseMessaging.onBackgroundMessage(onBackgroundHandler);
   await DBService.initDB();
+  await dotenv.load(fileName: ".env");
 
 // ? cache cleaner just a
 //   DefaultCacheManager manager = new DefaultCacheManager();
@@ -34,10 +47,12 @@ void main() async {
         name: 'arnhss',
         options: DefaultFirebaseOptions.currentPlatform,
       );
-
-      // ? just for checking functionality
-      // print(await AuthService().getListUsers("+917444555666"));
-
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
       runApp(const MyApp());
     },
   );
@@ -45,6 +60,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -60,6 +76,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SelectAccountViewModel()),
         ChangeNotifierProvider(create: (_) => UserViewModel()),
         ChangeNotifierProvider(create: (_) => NoticeViewModel()),
+        ChangeNotifierProvider(create: (_) => Loader()),
       ],
       child: GetMaterialApp(
         title: 'arnhss',

@@ -48,6 +48,9 @@ dependencies:
   shared_preferences: ^2.0.15
   firebase_database: ^9.1.7
   flutter_cache_manager: ^3.3.0
+  flutter_local_notifications: ^12.0.4
+  firebase_messaging: ^13.1.0
+  flutter_dotenv: ^5.0.2
 
 flutter_icons:
   android: "launcher_icon"
@@ -60,7 +63,6 @@ dev_dependencies:
 
   flutter_lints: ^1.0.0
 
-
 flutter:
   uses-material-design: true
   assets:
@@ -70,4 +72,4 @@ flutter:
     - assets/images/icons/
     - assets/images/ic_launcher/1024.png
     - assets/images/pngs/notes/
-
+    - .env

@@ -6,7 +6,7 @@ import 'package:arnhss/features/users/student/planner/view_model/planner_view_mo
 import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
-import 'package:arnhss/models/user.model.dart';
+
 import 'package:get/route_manager.dart';
 
 void showAddNotice(BuildContext context) {
@@ -72,26 +72,24 @@ void showAddNotice(BuildContext context) {
                   loading: context.watch<NoticeViewModel>().loading,
                   fontSize: context.isMobile ? 15 : 15,
                   onTap: (() {
-                    context
-                        .read<NoticeViewModel>()
-                        .addNotice(
-                          NoticeModel(
-                            notice: context
-                                .read<NoticeViewModel>()
-                                .noticeController
-                                .text,
-                            role: context.read<UserViewModel>().user?.role,
-                            useId: context.read<UserViewModel>().user?.id,
-                            createdAt: DateTime.now(),
-                          ),
-                        )
-                        .then((value) {
+                    context.read<NoticeViewModel>().addNotice(
+                        NoticeModel(
+                          notice: context
+                              .read<NoticeViewModel>()
+                              .noticeController
+                              .text,
+                          role: context.read<UserViewModel>().user?.role,
+                          useId: context.read<UserViewModel>().user?.id,
+                          createdAt: DateTime.now(),
+                        ), success: () {
                       Get.back();
                       DialogHelper.showErrorDialog(
                         description: "The notice has been successfully added.",
                         top: false,
                         title: "Success ✅",
                       );
+                    }, fail: () {
+                      Get.back();
                     });
                   }),
                   // onTap: () => _provider.savePlan(context),
