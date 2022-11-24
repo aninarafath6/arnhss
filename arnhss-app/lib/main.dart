@@ -22,6 +22,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //* Handle notification while app is working on background
 Future<void> onBackgroundHandler(RemoteMessage message) async {
@@ -34,6 +35,7 @@ void main() async {
   await LocalNotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(onBackgroundHandler);
   await DBService.initDB();
+  await dotenv.load(fileName: ".env");
 
 // ? cache cleaner just a
 //   DefaultCacheManager manager = new DefaultCacheManager();
