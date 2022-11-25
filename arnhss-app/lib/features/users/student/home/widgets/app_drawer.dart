@@ -1,5 +1,4 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/custom_modal.dart';
@@ -9,12 +8,9 @@ import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/authentication/repo/auth_service.dart';
-import 'package:arnhss/features/users/student/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/users/student/profile/view/profile_view.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
-// import 'package:arnhss/models/user.model.dart';
-import 'package:arnhss/features/users/service/notice_service.dart';
+import 'package:arnhss/models/user.model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/route_manager.dart';
 import 'package:remixicon/remixicon.dart';
@@ -94,30 +90,11 @@ class AppDrawer extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text("${value.user?.name ?? "Unknown User"} ",
+                                  Text(
+                                      "${value.user?.name?.capitalize ?? "Unknown User"} ",
                                       style: CustomTextTheme(context: context)
                                           .headLine2()
                                           .copyWith(fontSize: 17)),
-                                  // Container(
-                                  //   decoration: BoxDecoration(
-                                  //       color: const AccountTile()
-                                  //           .getOverlayColor(value.user?.role),
-                                  //       borderRadius: BorderRadius.circular(2)),
-                                  //   padding: const EdgeInsets.symmetric(
-                                  //     horizontal: 5,
-                                  //     vertical: 2,
-                                  //   ),
-                                  //   child: Text(
-
-                                  //     " ${UserModel.toStringRole(value.user?.role ?? Role.student)}",
-                                  //     style: CustomTextTheme(context: context)
-                                  //         .paragraph()
-                                  //         .copyWith(
-                                  //           fontSize: 12,
-                                  //           color: CustomColors.dark,
-                                  //         ),
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                               Text(
@@ -126,13 +103,6 @@ class AppDrawer extends StatelessWidget {
                                     .paragraph()
                                     .copyWith(fontSize: 12),
                               ),
-                              // Text(
-                              //   UserModel.toStringRole(
-                              //       value.user?.role ?? Role.student),
-                              //   style: CustomTextTheme(context: context)
-                              //       .paragraph()
-                              //       .copyWith(fontSize: 12),
-                              // ),
                             ],
                           ),
                         ],

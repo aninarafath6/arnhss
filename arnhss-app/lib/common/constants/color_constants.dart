@@ -10,5 +10,6 @@ class CustomColors {
   static Color presentColor = Colors.green.withOpacity(.6);
   static Color absentColor = Colors.red.withOpacity(.6);
   static Color halfColor = Colors.orange.withOpacity(.6);
+  static Color buttonSplash = const Color(0xff262626);
   static const Color bgLightBlueOverlay = Color(0xfff1f5f9);
 }

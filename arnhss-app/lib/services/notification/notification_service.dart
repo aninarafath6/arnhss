@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:arnhss/common/constants/network_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/services/base/base_client.dart';
@@ -29,8 +27,8 @@ class NotificationService {
 
   //* handle the notification message
   void _handleMessage(RemoteMessage? message, BuildContext context) {
-    print(message?.data["title"].toString());
-    print(message?.data["body"]);
+    debugPrint(message?.data["title"].toString());
+    debugPrint(message?.data["body"]);
 
     //* if the notification message have routeName then navigate to that page
 

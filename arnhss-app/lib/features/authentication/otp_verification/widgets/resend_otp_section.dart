@@ -15,6 +15,7 @@ class ResendOtpSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isResentAvl = context.read<VerifyOtpViewModel>().balanceTime == 0;
     return Column(
       children: [
         Text(
@@ -30,7 +31,9 @@ class ResendOtpSection extends StatelessWidget {
             horizontal: context.getWidth(0),
           ),
           child: CustomButton(
-            onTap: () => context.read<VerifyOtpViewModel>().balanceTime == 0
+            elevation: false,
+            
+            onTap: () => isResentAvl
                 ? context.read<LoginViewModel>().getOtp(
                       context,
                       reGet: true,

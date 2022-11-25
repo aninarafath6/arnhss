@@ -1,5 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/extensions/string_extension.dart';
+
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +34,7 @@ AppBar customHomeAppBar(BuildContext context, UserModel? user) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                "Hey, ${user?.name ?? ""} ${user?.role == Role.admin ? "🔓" : ""}",
+                "Hey, ${user?.name?.capitalize ?? ""} ${user?.role == Role.admin ? "🔓" : ""}",
                 style: const TextStyle(
                   color: CustomColors.dark,
                   fontWeight: FontWeight.bold,
