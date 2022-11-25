@@ -10,7 +10,7 @@ class LocalNotificationService {
 //* initialize notification method
   static Future<void> initialize() async {
     const InitializationSettings _initializeSettings = InitializationSettings(
-        android: AndroidInitializationSettings("@mipmap/launcher_icon"));
+        android: AndroidInitializationSettings("ic_stat_logo"));
     await _notificationsPlugin.initialize(_initializeSettings);
   }
 
