@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class HandleException {
   void handleException(error, {bool top = false}) {
-    log(error);
+    print(error);
     if (error is BadRequestException) {
       var message = error.message;
 

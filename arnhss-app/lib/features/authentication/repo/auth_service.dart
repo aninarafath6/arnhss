@@ -14,7 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
-class AuthService with HandleException  {
+class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   static final FirebaseFirestore _firestoreInstance =
       FirebaseFirestore.instance;
@@ -250,10 +250,11 @@ class AuthService with HandleException  {
   Future<void> logout(UserModel? user) async {
     if (user != null) {
       // * collection reference
-      final QuerySnapshot _collectionRef = await _firestoreInstance
-          .collectionGroup(FirebaseConstants.getCollectionName(user.role!))
-          .get();
+
       try {
+        final QuerySnapshot _collectionRef = await _firestoreInstance
+            .collectionGroup(FirebaseConstants.getCollectionName(user.role!))
+            .get();
         _collectionRef.docs
             .where((element) => element.id == user.id)
             .first

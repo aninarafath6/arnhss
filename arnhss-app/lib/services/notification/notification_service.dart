@@ -29,8 +29,8 @@ class NotificationService {
 
   //* handle the notification message
   void _handleMessage(RemoteMessage? message, BuildContext context) {
-    log(message?.notification?.title ?? "");
-    log(message?.notification?.body ?? "");
+    print(message?.data["title"].toString());
+    print(message?.data["body"]);
 
     //* if the notification message have routeName then navigate to that page
 
@@ -50,11 +50,14 @@ class NotificationService {
   ) async {
     final data = {
       "to": "/topics/$topic",
-      "notification": {
-        "title": title,
-        "body": body,
-      },
+      // "notification": {
+      //   "title": title,
+      //   "body": body,
+      // },
       "data": {
+        "model": {"id": DateTime.now().microsecondsSinceEpoch.toString()},
+        "body": body,
+        "title": title,
         "type": 'order',
         "id": 28,
         "click_action": 'FLUTTER_NOTIFICATION_CLICK',

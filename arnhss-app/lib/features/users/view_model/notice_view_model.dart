@@ -36,7 +36,7 @@ class NoticeViewModel extends ChangeNotifier {
       await _noticeService.setNotice(notice);
       await _notificationService.sendTopicPushNotification(
         FirebaseConstants.authenticatedUSERS,
-        "You have a notice from ARNHSS...❗️",
+        "A notice from ARNHSS...❗️",
         notice.notice ?? "",
       );
       noticeController.clear();

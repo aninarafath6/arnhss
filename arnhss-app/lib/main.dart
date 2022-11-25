@@ -31,7 +31,7 @@ Future<void> onBackgroundHandler(RemoteMessage message) async {
 
 NotificationService notificationService = NotificationService();
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+WidgetsFlutterBinding.ensureInitialized();
   await LocalNotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(onBackgroundHandler);
   await DBService.initDB();

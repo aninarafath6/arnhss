@@ -20,8 +20,8 @@ class LocalNotificationService {
       int id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       _notificationsPlugin.show(
         id,
-        message.notification?.title,
-        message.notification?.body,
+        message.data["title"],
+        message.data["body"],
         const NotificationDetails(
           android: AndroidNotificationDetails(
             'arnhss_108020', // id
