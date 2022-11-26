@@ -57,7 +57,6 @@ class NoticeService with HandleException {
         });
       });
     } catch (e) {
-      print(e);
       handleException(e);
     }
   }

@@ -33,6 +33,8 @@ class _NoticeViewState extends State<NoticeView> {
     debugPrint("older notice build");
 
     return Scaffold(
+      extendBodyBehindAppBar: false,
+      drawerEnableOpenDragGesture: false,
       appBar: customAppBar(context, title: "Prev-Notices"),
       body: SizedBox(
         width: double.infinity,
@@ -94,10 +96,15 @@ class _NoticeViewState extends State<NoticeView> {
                                     layoutBuilder: (child, _) {
                                       return child!;
                                     },
-                                    child: NoticeItem(
-                                      notice: value.notices[index],
-                                      header: false,
-                                      isExpanded: true,
+                                    child: Column(
+                                      children: [
+                                        NoticeItem(
+                                          notice: value.notices[index],
+                                          header: false,
+                                          isExpanded: true,
+                                        ),
+                                        const SizedBox(height: 15)
+                                      ],
                                     ),
                                   );
                                 }),
