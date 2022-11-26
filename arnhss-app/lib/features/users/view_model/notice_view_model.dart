@@ -1,4 +1,5 @@
 import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/common/widgets/date_picker/date_picker_widget.dart';
 import 'package:arnhss/extensions/enum_extension.dart';
 
 import 'package:arnhss/common/routes/index_routes.dart';
@@ -11,21 +12,44 @@ class NoticeViewModel extends ChangeNotifier with HandleException {
   final NoticeService _noticeService = NoticeService();
   late TextEditingController noticeController;
   final NotificationService _notificationService = NotificationService();
+  DateTime _selectedDate = DateTime.now();
+  final DatePickerController _timelineController = DatePickerController();
+
+  final List<NoticeModel> notices = [];
+
   Role? _target;
 
   bool loading = false;
+  bool getLoading = false;
+
   void toggleLoading() {
     loading = !loading;
     notifyListeners();
   }
 
+  void getToggleLoading() {
+    getLoading = !getLoading;
+    notifyListeners();
+  }
+
   //* getters
   Role? get target => _target;
+  DateTime get selectedDate => _selectedDate;
+  DatePickerController get dateController => _timelineController;
 
   //* setters
   set setTarget(Role? trg) {
     _target = trg;
     notifyListeners();
+  }
+
+  set setSelectedDate(DateTime date) {
+    _selectedDate = date;
+  }
+
+  // * navigate to today
+  void toToday() {
+    _timelineController.animateToSelection(curve: Curves.easeInOutCubic);
   }
 
   //* validate
@@ -87,5 +111,16 @@ class NoticeViewModel extends ChangeNotifier with HandleException {
         top: true,
       );
     }
+  }
+
+  void getNotices() async {
+    getToggleLoading();
+    List<NoticeModel>? result = await _noticeService.getNotice();
+    notices.clear();
+    notices.addAll(result ?? []);
+    notices.sort(
+      (a, b) => b.createdAt!.compareTo(a.createdAt!),
+    );
+    getToggleLoading();
   }
 }

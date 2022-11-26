@@ -6,7 +6,7 @@ import 'package:arnhss/services/shared_pref_service.dart';
 class UserViewModel with ChangeNotifier {
   final SharedPrefService _prefService = SharedPrefService();
   UserModel? _user;
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   //* getters
   UserModel? get user => _user;

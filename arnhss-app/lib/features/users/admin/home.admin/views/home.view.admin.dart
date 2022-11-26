@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/student/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/users/student/home/widgets/qout_0f_the_day.dart';
 import 'package:arnhss/features/users/student/home/widgets/tile.dart';
@@ -11,6 +12,9 @@ import 'package:arnhss/features/users/student/home/widgets/home_grid.dart';
 import 'package:arnhss/features/users/widget/notice_item.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/features/users/service/notice_service.dart';
+import 'package:arnhss/services/base/exception/app_exceptions.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class AdminHome extends StatefulWidget {
@@ -50,7 +54,7 @@ class _AdminHomeState extends State<AdminHome> {
           image: "assets/images/icons/marketing-badge.png.webp",
           label: " Notices",
           count: 3,
-          onTap: () => Navigator.pushNamed(context, PlannerView.routeName),
+          onTap: () => Navigator.pushNamed(context, NoticeView.routeName),
         ),
       ),
       StaggeredGridTile.count(
@@ -118,6 +122,11 @@ class _AdminHomeState extends State<AdminHome> {
     return StreamProvider<NoticeModel?>.value(
       value: NoticeService().notice,
       catchError: ((context, error) {
+        if (error.toString().contains("firebase_database/permission-denied")) {
+          HandleException().handleException(error);
+          SharedPrefService().clear();
+          Navigator.pushNamed(context, LoginView.routeName);
+        }
         log(error.toString(), name: " admin home view");
         return null;
       }),
@@ -134,7 +143,10 @@ class _AdminHomeState extends State<AdminHome> {
             padding: EdgeInsets.zero,
             physics: const BouncingScrollPhysics(),
             children: [
-              NoticeItem(role: value.user?.role),
+              NoticeItem(
+                role: value.user?.role,
+                notice: Provider.of<NoticeModel?>(context),
+              ),
               HomeGrid(elements: adminElements),
               // const SizedBox(height: 10),
             ],
@@ -144,3 +156,4 @@ class _AdminHomeState extends State<AdminHome> {
     );
   }
 }
+    // final notice = Provider.of<NoticeModel?>(context);

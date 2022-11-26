@@ -151,7 +151,7 @@ class LoginViewModel extends Loader with HandleException {
 
     await _authService.logout(user);
     FirebaseMessaging.instance.unsubscribeFromTopic(user?.role?.describe ?? "");
-  FirebaseMessaging.instance
+    FirebaseMessaging.instance
         .unsubscribeFromTopic(FirebaseConstants.authenticatedUSERS);
     FirebaseMessaging.instance.unsubscribeFromTopic(Role.everyone.describe);
 

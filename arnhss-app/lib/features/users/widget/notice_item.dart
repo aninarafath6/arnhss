@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:ui';
-
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
@@ -9,8 +8,6 @@ import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:arnhss/models/user.model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:remixicon/remixicon.dart';
@@ -19,8 +16,14 @@ class NoticeItem extends StatefulWidget {
   const NoticeItem({
     Key? key,
     this.role,
+    required this.notice,
+    this.header = true,
+    this.isExpanded = false,
   }) : super(key: key);
   final Role? role;
+  final NoticeModel? notice;
+  final bool header;
+  final bool isExpanded;
 
   @override
   State<NoticeItem> createState() => _NoticeItemState();
@@ -49,7 +52,6 @@ class _NoticeItemState extends State<NoticeItem>
 
   @override
   Widget build(BuildContext context) {
-    final notice = Provider.of<NoticeModel?>(context);
     // final loading = context.watch<NoticeViewModel>().loading;
     updateStatus(bool status) async {
       await Future.delayed(const Duration(milliseconds: 800));
@@ -59,7 +61,7 @@ class _NoticeItemState extends State<NoticeItem>
       }
     }
 
-    if (notice == null) {
+    if (widget.notice == null) {
       updateStatus(false);
       height = _initialHeight;
     }
@@ -76,7 +78,7 @@ class _NoticeItemState extends State<NoticeItem>
                     const Duration(milliseconds: 1000);
                 _animationController.reverse();
               } else {
-                if (notice != null) {
+                if (widget.notice != null) {
                   updateStatus(true);
                 }
                 _animationController.forward();
@@ -88,7 +90,7 @@ class _NoticeItemState extends State<NoticeItem>
           //* delete a notice
           //* only notice can delete admin's
           onLongPress: () {
-            if (notice != null) {
+            if (widget.notice != null) {
               if (widget.role == Role.admin || widget.role == Role.principle) {
                 noticeModal(
                   context,
@@ -115,7 +117,7 @@ class _NoticeItemState extends State<NoticeItem>
             duration: const Duration(milliseconds: 1400),
             curve: const ElasticInOutCurve(.8),
             width: context.getWidth(100) - 41,
-            height: notice?.notice == "" || notice == null
+            height: widget.notice?.notice == "" || widget.notice == null
                 ? _initialHeight
                 : height,
             padding: const EdgeInsets.all(18),
@@ -126,29 +128,31 @@ class _NoticeItemState extends State<NoticeItem>
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
               child: Column(
-                key: ValueKey(notice?.id),
+                key: ValueKey(widget.notice?.id),
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 6),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      Icon(Remix.alarm_warning_line),
-                      SizedBox(width: 5),
-                      Text(
-                        "Notice Board",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
+                  widget.header
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [
+                            Icon(Remix.alarm_warning_line),
+                            SizedBox(width: 5),
+                            Text(
+                              "Notice Board",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        )
+                      : const SizedBox(),
                   const SizedBox(height: 20),
-                  notice?.notice == "" || notice == null
+                  widget.notice?.notice == "" || widget.notice == null
                       ? Center(
                           child: Image.asset(
                             "assets/images/icons/hero.png.webp",
@@ -167,7 +171,7 @@ class _NoticeItemState extends State<NoticeItem>
                                         animation: _animationController,
                                         builder: (context, _) {
                                           return Text(
-                                            notice.notice ?? "",
+                                            widget.notice?.notice ?? "",
                                             style: GoogleFonts.rokkitt(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w400,
@@ -203,7 +207,7 @@ class _NoticeItemState extends State<NoticeItem>
                                         ),
                                       ),
                                       Text(
-                                        '- ${UserModel.toStringRole(notice.role ?? Role.teacher)}',
+                                        '- ${UserModel.toStringRole(widget.notice?.role ?? Role.teacher)}',
                                         style: GoogleFonts.baloo2(
                                           color: Colors.black,
                                           fontWeight: FontWeight.normal,

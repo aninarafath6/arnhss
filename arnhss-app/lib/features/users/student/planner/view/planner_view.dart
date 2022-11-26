@@ -30,7 +30,9 @@ class _PlannerViewState extends State<PlannerView> {
     debugPrint("Planner build");
 
     return Scaffold(
-      appBar: plannerAppBar(context),
+      appBar: datedAppBar(context, "Planner", () {
+        context.read<PlannerViewModel>().toToday();
+      }),
       body: SizedBox(
         width: double.infinity,
         child: Stack(
@@ -38,7 +40,19 @@ class _PlannerViewState extends State<PlannerView> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const DateTimeline(),
+                Consumer<PlannerViewModel>(builder: (context, value, child) {
+                  return DateTimeline(
+                    onDateChange: (date) {
+                      value.setSelectedDate = date;
+                    },
+                    controller: value.dateController,
+                    selectDate: value.date,
+                    initialSelectedDate: value.selectedDate,
+                    init: () {
+                      context.read<PlannerViewModel>().toToday();
+                    },
+                  );
+                }),
                 Expanded(
                   child: Consumer<PlannerViewModel>(
                       builder: (context, value, child) {

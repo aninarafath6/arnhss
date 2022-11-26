@@ -139,7 +139,9 @@ class _StudentHomeState extends State<StudentHome> {
             padding: EdgeInsets.zero,
             physics: const BouncingScrollPhysics(),
             children: [
-              const NoticeItem(),
+              NoticeItem(
+                notice: Provider.of<NoticeModel?>(context),
+              ),
               HomeGrid(elements: homeElements),
               const SizedBox(height: 10),
             ],

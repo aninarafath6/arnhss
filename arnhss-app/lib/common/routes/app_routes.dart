@@ -1,4 +1,5 @@
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/role_wrapper.dart';
 import 'package:arnhss/features/users/student/profile/view/profile_view.dart';
 
@@ -15,6 +16,10 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const OtpVerificationView());
       case CountrySelect.routeName:
         return MaterialPageRoute(builder: (_) => CountrySelect());
+
+      case NoticeView.routeName:
+        return MaterialPageRoute(builder: (_) => const NoticeView());
+
       // case UserRole.routeName:
       //   return MaterialPageRoute(builder: (_) => const UserRole());
       // case StudentAuthentication.routeName:

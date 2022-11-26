@@ -12,9 +12,11 @@ import 'package:firebase_database/firebase_database.dart';
 class NoticeService with HandleException {
   static final FirebaseFirestore _firestoreInstance =
       FirebaseFirestore.instance;
+
   Stream<NoticeModel>? get notice {
     try {
       DatabaseReference ref = FirebaseDatabase.instance.ref('notice');
+
       return ref.onValue.map(
         (event) => NoticeModel.fromRawJson(
           jsonEncode(event.snapshot.value),
@@ -57,6 +59,35 @@ class NoticeService with HandleException {
     } catch (e) {
       print(e);
       handleException(e);
+    }
+  }
+
+  Future<List<NoticeModel>?> getNotice() async {
+    QuerySnapshot? querySnapshot;
+
+    //* collection reference
+    final _usersCollection =
+        _firestoreInstance.collection(FirebaseConstants.noticeCollection);
+
+    try {
+      var data = await Future.delayed(const Duration(milliseconds: 300))
+          .then((value) async {
+        querySnapshot = await _usersCollection.get();
+        return querySnapshot?.docs.map(
+          (e) {
+            Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+            Timestamp createdAt = data["created_at"] as Timestamp;
+            return NoticeModel.fromJson({
+              ...data,
+              "created_at": createdAt.toDate().microsecondsSinceEpoch
+            });
+          },
+        ).toList();
+      });
+      return data;
+    } catch (e) {
+      handleException(e);
+      return null;
     }
   }
 }

@@ -279,4 +279,9 @@ class AuthService with HandleException {
     //   handleException(e);
     // }
   }
+
+  User? getCurrentUser() {
+    // _firebaseAuth.currentUser.getIdToken(true);
+    return _firebaseAuth.currentUser;
+  }
 }
