@@ -1,5 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/common/widgets/custom_drop_down.dart';
 import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/student/planner/view_model/planner_view_model.dart';
@@ -8,6 +10,7 @@ import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 
 import 'package:get/route_manager.dart';
+import 'package:remixicon/remixicon.dart';
 
 void showAddNotice(BuildContext context) {
   context.read<PlannerViewModel>().initialDateSelectedInFor();
@@ -54,6 +57,21 @@ void showAddNotice(BuildContext context) {
                 //   style: CustomTextTheme(context: context).headLine2(),
                 // ),
                 const SizedBox(height: 5),
+                CustomDropDown(
+                  title: "Choose notification target 🎯",
+                  leadingIcon: Remix.arrow_down_s_line,
+                  options: const [
+                    Role.student,
+                    Role.teacher,
+                    Role.admin,
+                    Role.everyone,
+                  ],
+                  value: context.watch<NoticeViewModel>().target,
+                  changed: (role) {
+                    context.read<NoticeViewModel>().setTarget = role;
+                  },
+                ),
+                const SizedBox(height: 15),
 
                 CustomInput(
                   hintText: "Write your notice ....",
@@ -62,9 +80,10 @@ void showAddNotice(BuildContext context) {
                 ),
 
                 const SizedBox(height: 10),
+
                 // const SizedBox(height: 15),
                 CustomButton(
-                  label: "Send ",
+                  label: "Send 📎",
                   width: context.isMobile
                       ? context.getWidth(100)
                       : context.getWidth(50),
@@ -89,7 +108,7 @@ void showAddNotice(BuildContext context) {
                         title: "Success ✅",
                       );
                     }, fail: () {
-                      Get.back();
+                      // Get.back();
                     });
                   }),
                   // onTap: () => _provider.savePlan(context),
@@ -111,17 +130,17 @@ class _FormHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 0.0),
+        Align(
+          alignment: Alignment.topLeft,
           child: TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
             child: const Text(
-              "Cancel      ",
+              "Cancel",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
@@ -129,19 +148,17 @@ class _FormHeader extends StatelessWidget {
             ),
           ),
         ),
-        const Text(
-          "New Notice",
-          style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-              color: CustomColors.dark),
-        ),
-        const Text(
-          "New Plan",
-          style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-              color: Colors.transparent),
+        const Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: Text(
+              "New Notice",
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: CustomColors.dark),
+            ),
+          ),
         ),
       ],
     );

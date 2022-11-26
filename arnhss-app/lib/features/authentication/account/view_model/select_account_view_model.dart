@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:arnhss/common/constants/firebase_constants.dart';
 import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/extensions/enum_extension.dart';
+
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
@@ -80,8 +82,22 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
     await _authService.signIn(authCredential, user).then((value) async {
       try {
         await _sharedPrefService.setUser(user);
+
+        if (user.role == Role.principle) {
+          FirebaseMessaging.instance.subscribeToTopic(Role.admin.describe);
+        } else {
+          FirebaseMessaging.instance.subscribeToTopic(
+            user.role?.describe ?? "dummy",
+          );
+        }
+
+        //* subscribe for a topics
+
         FirebaseMessaging.instance
             .subscribeToTopic(FirebaseConstants.authenticatedUSERS);
+        FirebaseMessaging.instance.subscribeToTopic(
+          Role.everyone.describe,
+        );
         success();
       } catch (e) {
         log("error from sign in method");

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:arnhss/common/constants/network_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/services/base/base_client.dart';
@@ -29,8 +27,8 @@ class NotificationService {
 
   //* handle the notification message
   void _handleMessage(RemoteMessage? message, BuildContext context) {
-    log(message?.notification?.title ?? "");
-    log(message?.notification?.body ?? "");
+    debugPrint(message?.data["title"].toString());
+    debugPrint(message?.data["body"]);
 
     //* if the notification message have routeName then navigate to that page
 
@@ -50,11 +48,14 @@ class NotificationService {
   ) async {
     final data = {
       "to": "/topics/$topic",
-      "notification": {
-        "title": title,
-        "body": body,
-      },
+      // "notification": {
+      //   "title": title,
+      //   "body": body,
+      // },
       "data": {
+        "model": {"id": DateTime.now().microsecondsSinceEpoch.toString()},
+        "body": body,
+        "title": title,
         "type": 'order',
         "id": 28,
         "click_action": 'FLUTTER_NOTIFICATION_CLICK',

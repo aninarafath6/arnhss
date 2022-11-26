@@ -1,7 +1,12 @@
 import 'package:arnhss/abstract/loader.abstract.dart';
+import 'package:arnhss/common/constants/firebase_constants.dart';
+import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/extensions/enum_extension.dart';
+
 import 'package:arnhss/common/routes/app_routes.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/theme.dart';
+import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/users/student/attendance/view_model/attendance_view_model.dart';
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
@@ -34,6 +39,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(onBackgroundHandler);
+
   await DBService.initDB();
   await dotenv.load(fileName: ".env");
 
@@ -53,6 +59,16 @@ void main() async {
         badge: true,
         sound: true,
       );
+      // FirebaseMessaging.instance.unsubscribeFromTopic(Role.admin.describe);
+      // FirebaseMessaging.instance.unsubscribeFromTopic(Role.teacher.describe);
+      // FirebaseMessaging.instance.unsubscribeFromTopic(Role.principle.describe);
+      // FirebaseMessaging.instance.unsubscribeFromTopic(Role.everyone.describe);
+      // FirebaseMessaging.instance.unsubscribeFromTopic(Role.student.describe);
+      // FirebaseMessaging.instance
+      //     .unsubscribeFromTopic(FirebaseConstants.authenticatedUSERS);
+
+      print("${AuthService().getCurrentUser()?.phoneNumber} user ");
+
       runApp(const MyApp());
     },
   );

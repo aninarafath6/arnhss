@@ -1,12 +1,13 @@
 import 'dart:developer';
 
+import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
+import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HandleException {
   void handleException(error, {bool top = false}) {
-    log(error);
     if (error is BadRequestException) {
       var message = error.message;
 
@@ -32,6 +33,17 @@ class HandleException {
 
       DialogHelper.showErrorDialog(
           description: error.message, title: "Oops 🥸", top: top);
+    } else if (error
+        .toString()
+        .contains("firebase_database/permission-denied")) {
+      log("database access denied", name: "");
+
+      DialogHelper.showErrorDialog(
+          description: "Sorry, your notice board access dined please  re-login",
+          title: "Oops 🥸",
+          top: top);
+
+
     } else {
       DialogHelper.showErrorDialog(
           description: "Something went wrong!", title: "Oops 🥸", top: top);

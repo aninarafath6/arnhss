@@ -16,6 +16,7 @@ class Images {
   static const notFound = 'assets/images/pngs/not-found.jpeg';
   static const notificationNotFound = "assets/images/pngs/notification.png";
   static const noteNotFound = "assets/images/icons/design-badge .png";
+  static const noNotice = "assets/images/icons/hero.png.webp";
 
   // * lottie files
   static const profileSuccess = "assets/lottie/lf30_editor_tsoh2riw.json";

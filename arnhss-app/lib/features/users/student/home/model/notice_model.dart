@@ -42,15 +42,14 @@ class NoticeModel {
       useId: json["user_id"] ?? "",
       notice: json["notice"] ?? "",
       createdAt: DateTime.fromMicrosecondsSinceEpoch(json["created_at"]),
-      // createdAt: json["created_at"] ?? DateTime.now(),
-      // icon: jsonDecode(json["icon"]) ?? Remix.a24_hours_fill,
+
     );
   }
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "role": UserModel.toStringRole(role),
-      "notice": notice,
+        "notice": notice,
         "date": date,
         "user_id": useId,
         "icon": icon,

@@ -95,6 +95,7 @@ class _VerifyOtpActionButton extends StatelessWidget {
     return CustomButton(
       label: "Verify OTP",
       isDisabled: context.watch<VerifyOtpViewModel>().otp == null,
+      elevation: context.watch<VerifyOtpViewModel>().otp != null,
       loading: context.watch<VerifyOtpViewModel>().isLoading,
       onTap: () async {
         bool isOtpValid =

@@ -4,6 +4,7 @@ enum Role {
   parent,
   admin,
   principle,
+  everyone,
 }
 
 enum Gender {

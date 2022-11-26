@@ -17,6 +17,7 @@ class CustomButton extends StatelessWidget {
     this.isDisabled = false,
     this.nonActiveColor = CustomColors.light,
     this.loading = false,
+    this.elevation = true,
   }) : super(key: key);
 
   final Color color;
@@ -31,41 +32,51 @@ class CustomButton extends StatelessWidget {
   final Color nonActiveColor;
   final bool loading;
 
+  final bool elevation;
+
   /// [color] is not required because there is default color , it  used to color of background
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: height,
-      child: TextButton(
-        style: ButtonStyle(
-          overlayColor:
-              MaterialStateColor.resolveWith((states) => color.withOpacity(.1)),
-        ),
-        onPressed: isDisabled ? null : onTap,
-        child: Container(
-          // width: width,
-          // height: height,
-          decoration: BoxDecoration(
-            color: isDisabled ? nonActiveColor : color,
-            borderRadius: BorderRadius.circular(
-              context.getHeight(1),
-            ),
+      height: height - 20,
+      child: Material(
+        child: TextButton(
+          style: ButtonStyle(
+            elevation: MaterialStateProperty.resolveWith(
+                (states) => elevation ? 5 : 0),
+            padding:
+                MaterialStateProperty.resolveWith((states) => EdgeInsets.zero),
+            overlayColor:
+                MaterialStateColor.resolveWith((states) => CustomColors.buttonSplash),
+            backgroundColor: MaterialStateColor.resolveWith(
+                (states) => isDisabled ? nonActiveColor : color),
           ),
-          child: Center(
-            child: loading
-                ? const CupertinoActivityIndicator(
-                    color: CustomColors.white,
-                  )
-                : Text(
-                    label,
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: fontSize,
-                      fontWeight: fontWeight,
+          onPressed: isDisabled ? null : onTap,
+          child: Container(
+            // width: width,
+            // height: height,
+            decoration: BoxDecoration(
+              // color: isDisabled ? nonActiveColor : color,
+              borderRadius: BorderRadius.circular(
+                context.getHeight(1),
+              ),
+            ),
+            child: Center(
+              child: loading
+                  ? const CupertinoActivityIndicator(
+                      color: CustomColors.white,
+                    )
+                  : Text(
+                      label,
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: fontSize,
+                        fontWeight: fontWeight,
+                      ),
                     ),
-                  ),
+            ),
           ),
         ),
       ),
