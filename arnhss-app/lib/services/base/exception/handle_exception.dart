@@ -1,9 +1,7 @@
 import 'dart:developer';
 
-import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
-import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HandleException {
@@ -39,11 +37,10 @@ class HandleException {
       log("database access denied", name: "");
 
       DialogHelper.showErrorDialog(
-          description: "Sorry, your notice board access dined please  re-login",
-          title: "Oops 🥸",
-          top: top);
-
-
+        description: "Sorry, your notice board access dined please  re-login",
+        title: "Oops 🥸",
+        top: top,
+      );
     } else {
       DialogHelper.showErrorDialog(
           description: "Something went wrong!", title: "Oops 🥸", top: top);

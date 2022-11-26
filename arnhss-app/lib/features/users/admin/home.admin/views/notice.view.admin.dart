@@ -33,6 +33,7 @@ class _NoticeViewState extends State<NoticeView> {
     debugPrint("older notice build");
 
     return Scaffold(
+      extendBodyBehindAppBar: false,
       appBar: customAppBar(context, title: "Prev-Notices"),
       body: SizedBox(
         width: double.infinity,
@@ -52,14 +53,16 @@ class _NoticeViewState extends State<NoticeView> {
                         value.getLoading
                             ? Center(
                                 child: Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        color: CustomColors.lightBgOverlay,
-                                        borderRadius: BorderRadius.circular(8)),
-                                    child: const CupertinoActivityIndicator(
-                                      color: Colors.black,
-                                    )),
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: CustomColors.bgOverlay,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const CupertinoActivityIndicator(
+                                    color: Colors.black,
+                                  ),
+                                ),
                               )
                             : const SizedBox(),
                         value.notices.isEmpty && value.getLoading != true
@@ -73,6 +76,7 @@ class _NoticeViewState extends State<NoticeView> {
                               )
                             : const SizedBox(),
                         CustomScrollView(
+                          physics: const BouncingScrollPhysics(),
                           slivers: [
                             CupertinoSliverRefreshControl(
                               builder: (context,
@@ -82,8 +86,8 @@ class _NoticeViewState extends State<NoticeView> {
                                   refreshIndicatorExtent) {
                                 return const SizedBox(height: .1);
                               },
-                              refreshTriggerPullDistance: 10,
-                              refreshIndicatorExtent: 10,
+                              // refreshTriggerPullDistance: 10,
+                              // refreshIndicatorExtent: 10,
                               onRefresh: value.getNotices,
                             ),
                             SliverList(
@@ -94,10 +98,15 @@ class _NoticeViewState extends State<NoticeView> {
                                     layoutBuilder: (child, _) {
                                       return child!;
                                     },
-                                    child: NoticeItem(
-                                      notice: value.notices[index],
-                                      header: false,
-                                      isExpanded: true,
+                                    child: Column(
+                                      children: [
+                                        NoticeItem(
+                                          notice: value.notices[index],
+                                          header: false,
+                                          isExpanded: true,
+                                        ),
+                                        const SizedBox(height: 15)
+                                      ],
                                     ),
                                   );
                                 }),

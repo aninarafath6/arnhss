@@ -17,14 +17,15 @@ class CustomInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: const BoxConstraints(maxHeight: 500, minHeight: 200),
       width: context.getWidth(100),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       margin: const EdgeInsets.only(bottom: 10),
-      height: size == Sizing.xl
-          ? 500
-          : size == Sizing.lg
-              ? 150
-              : 50,
+      // height: size == Sizing.xl
+      //     ? 500
+      //     : size == Sizing.lg
+      //         ? 150
+      //         : 50,
       decoration: BoxDecoration(
         color: CustomColors.bgOverlay,
         borderRadius: BorderRadius.circular(8),
@@ -35,7 +36,6 @@ class CustomInput extends StatelessWidget {
             : size == Sizing.lg
                 ? 5
                 : 1,
-        // maxLines: null,
         keyboardType: TextInputType.multiline,
         controller: controller,
         minLines: 1,
