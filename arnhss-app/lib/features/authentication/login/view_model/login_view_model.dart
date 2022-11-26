@@ -1,6 +1,8 @@
 import 'package:arnhss/abstract/loader.abstract.dart';
 import 'package:arnhss/common/constants/firebase_constants.dart';
 import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/extensions/enum_extension.dart';
+
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/otp_verify_view.dart';
@@ -148,8 +150,11 @@ class LoginViewModel extends Loader with HandleException {
     await Future.delayed(const Duration(milliseconds: 400));
 
     await _authService.logout(user);
-    FirebaseMessaging.instance
+    FirebaseMessaging.instance.unsubscribeFromTopic(user?.role?.describe ?? "");
+  FirebaseMessaging.instance
         .unsubscribeFromTopic(FirebaseConstants.authenticatedUSERS);
+    FirebaseMessaging.instance.unsubscribeFromTopic(Role.everyone.describe);
+
     toggleLoading();
   }
 

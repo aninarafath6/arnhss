@@ -83,10 +83,18 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
       try {
         await _sharedPrefService.setUser(user);
 
+        if (user.role == Role.principle) {
+          FirebaseMessaging.instance.subscribeToTopic(Role.admin.describe);
+        } else {
+          FirebaseMessaging.instance.subscribeToTopic(
+            user.role?.describe ?? "dummy",
+          );
+        }
+
         //* subscribe for a topics
-        FirebaseMessaging.instance.subscribeToTopic(
-          user.role?.describe ?? FirebaseConstants.authenticatedUSERS,
-        );
+
+        FirebaseMessaging.instance
+            .subscribeToTopic(FirebaseConstants.authenticatedUSERS);
         FirebaseMessaging.instance.subscribeToTopic(
           Role.everyone.describe,
         );

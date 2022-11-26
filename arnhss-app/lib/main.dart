@@ -1,4 +1,8 @@
 import 'package:arnhss/abstract/loader.abstract.dart';
+import 'package:arnhss/common/constants/firebase_constants.dart';
+import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/extensions/enum_extension.dart';
+
 import 'package:arnhss/common/routes/app_routes.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/theme.dart';
@@ -31,9 +35,10 @@ Future<void> onBackgroundHandler(RemoteMessage message) async {
 
 NotificationService notificationService = NotificationService();
 void main() async {
-WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await LocalNotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(onBackgroundHandler);
+
   await DBService.initDB();
   await dotenv.load(fileName: ".env");
 
@@ -53,6 +58,13 @@ WidgetsFlutterBinding.ensureInitialized();
         badge: true,
         sound: true,
       );
+      FirebaseMessaging.instance.unsubscribeFromTopic(Role.admin.describe);
+      FirebaseMessaging.instance.unsubscribeFromTopic(Role.teacher.describe);
+      FirebaseMessaging.instance.unsubscribeFromTopic(Role.principle.describe);
+      FirebaseMessaging.instance.unsubscribeFromTopic(Role.everyone.describe);
+      FirebaseMessaging.instance.unsubscribeFromTopic(Role.student.describe);
+      FirebaseMessaging.instance
+          .unsubscribeFromTopic(FirebaseConstants.authenticatedUSERS);
       runApp(const MyApp());
     },
   );
@@ -69,7 +81,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
         ChangeNotifierProvider(create: (_) => VerifyOtpViewModel()),
         ChangeNotifierProvider(create: (_) => StudentHomeViewModel()),
-        ChangeNotifierProvider(create: (_) => AttendanceViewModel()),
+      ChangeNotifierProvider(create: (_) => AttendanceViewModel()),
         ChangeNotifierProvider(create: (_) => PlannerViewModel()),
         ChangeNotifierProvider(create: (_) => NotificationViewModel()),
         ChangeNotifierProvider(create: (_) => NotesViewModel()),

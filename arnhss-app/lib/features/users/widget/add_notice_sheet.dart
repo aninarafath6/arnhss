@@ -58,12 +58,11 @@ void showAddNotice(BuildContext context) {
                 // ),
                 const SizedBox(height: 5),
                 CustomDropDown(
-                  title: "Choose you target 🎯",
+                  title: "Choose notification target 🎯",
                   leadingIcon: Remix.arrow_down_s_line,
                   options: const [
                     Role.student,
                     Role.teacher,
-                    Role.principle,
                     Role.admin,
                     Role.everyone,
                   ],
@@ -109,7 +108,7 @@ void showAddNotice(BuildContext context) {
                         title: "Success ✅",
                       );
                     }, fail: () {
-                      Get.back();
+                      // Get.back();
                     });
                   }),
                   // onTap: () => _provider.savePlan(context),

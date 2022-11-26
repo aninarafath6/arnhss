@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotificationService {
@@ -10,8 +12,22 @@ class LocalNotificationService {
 //* initialize notification method
   static Future<void> initialize() async {
     const InitializationSettings _initializeSettings = InitializationSettings(
-        android: AndroidInitializationSettings("ic_stat_logo"));
+      android: AndroidInitializationSettings("ic_stat_logo"),
+      iOS: DarwinInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+      ),
+    );
     await _notificationsPlugin.initialize(_initializeSettings);
+  }
+
+  static void onDidReceiveLocalNotification(
+      int id, String? title, String? body, String? payload) async {
+    print("here");
+    CupertinoDialogAction(
+      isDefaultAction: true,
+      child: Text('Ok'),
+      onPressed: () async {},
+    );
   }
 
 //* display firebase notification
@@ -30,6 +46,7 @@ class LocalNotificationService {
             importance: Importance.max,
             priority: Priority.high,
           ),
+          // iOS: IOSNotificationDetails(),
         ),
       );
     } catch (e) {
