@@ -70,7 +70,7 @@ class NoticeService with HandleException {
         _firestoreInstance.collection(FirebaseConstants.noticeCollection);
 
     try {
-      var data = await Future.delayed(const Duration(milliseconds: 300))
+      var data = await Future.delayed(const Duration(milliseconds: 500))
           .then((value) async {
         querySnapshot = await _usersCollection.get();
         return querySnapshot?.docs.map(

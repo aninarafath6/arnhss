@@ -1,12 +1,10 @@
+import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/users/student/home/model/notice_model.dart';
-import 'package:arnhss/features/users/student/planner/view_model/planner_view_model.dart';
-import 'package:arnhss/features/users/student/planner/widgets/add_plan_bottom_form.dart';
-import 'package:arnhss/features/users/student/planner/widgets/date_timeline.dart';
 import 'package:arnhss/features/users/student/planner/widgets/floating_button.dart';
 import 'package:arnhss/features/users/student/planner/widgets/not_found.dart';
-import 'package:arnhss/features/users/student/planner/widgets/planner_app_bar.dart';
 import 'package:arnhss/features/users/view_model/notice_view_model.dart';
+import 'package:arnhss/features/users/widget/add_notice_sheet.dart';
 import 'package:arnhss/features/users/widget/notice_item.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -32,15 +30,16 @@ class _NoticeViewState extends State<NoticeView> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Planner build");
+    debugPrint("older notice build");
 
     return Scaffold(
-      appBar: customAppBar(context, title: "Notices"),
+      appBar: customAppBar(context, title: "Prev-Notices"),
       body: SizedBox(
         width: double.infinity,
         child: Stack(
           children: [
             Column(
+              mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 16),
@@ -48,16 +47,48 @@ class _NoticeViewState extends State<NoticeView> {
                   child: Consumer<NoticeViewModel>(
                       builder: (context, value, child) {
                     // return SizedBox();
-                    return value.getLoading
-                        ? const Center(
-                            child: CupertinoActivityIndicator(),
-                          )
-                        : value.notices.isEmpty
-                            ? const Center(child: NotFound())
-                            : ListView.separated(
-                                separatorBuilder: ((context, index) =>
-                                    const SizedBox(height: 20)),
-                                itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        value.getLoading
+                            ? Center(
+                                child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: CustomColors.lightBgOverlay,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: const CupertinoActivityIndicator(
+                                      color: Colors.black,
+                                    )),
+                              )
+                            : const SizedBox(),
+                        value.notices.isEmpty && value.getLoading != true
+                            ? const SizedBox(
+                                child: NotFound(
+                                  imageURL: Images.noNotice,
+                                  title:
+                                      "At this time, there is no notice of any kind\navailable to you",
+                                ),
+                                width: double.infinity,
+                              )
+                            : const SizedBox(),
+                        CustomScrollView(
+                          slivers: [
+                            CupertinoSliverRefreshControl(
+                              builder: (context,
+                                  refreshState,
+                                  pulledExtent,
+                                  refreshTriggerPullDistance,
+                                  refreshIndicatorExtent) {
+                                return const SizedBox(height: .1);
+                              },
+                              refreshTriggerPullDistance: 10,
+                              refreshIndicatorExtent: 10,
+                              onRefresh: value.getNotices,
+                            ),
+                            SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                ((context, index) {
                                   return AnimatedSwitcher(
                                     duration: const Duration(milliseconds: 300),
                                     layoutBuilder: (child, _) {
@@ -69,15 +100,20 @@ class _NoticeViewState extends State<NoticeView> {
                                       isExpanded: true,
                                     ),
                                   );
-                                },
-                                itemCount: value.notices.length,
-                              );
+                                }),
+                                childCount: value.notices.length,
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    );
                   }),
                 ),
               ],
             ),
             FloatingButton(
-              onTap: () => showAddPlanForm(context),
+              onTap: () => showAddNotice(context),
             )
           ],
         ),

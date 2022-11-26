@@ -99,6 +99,7 @@ class NoticeViewModel extends ChangeNotifier with HandleException {
       );
       _target = null;
       noticeController.clear();
+      getNotices();
       toggleLoading();
       success();
     } else {
@@ -113,7 +114,7 @@ class NoticeViewModel extends ChangeNotifier with HandleException {
     }
   }
 
-  void getNotices() async {
+  Future<void> getNotices() async {
     getToggleLoading();
     List<NoticeModel>? result = await _noticeService.getNotice();
     notices.clear();

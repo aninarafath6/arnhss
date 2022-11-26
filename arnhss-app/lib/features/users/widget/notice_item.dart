@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ui';
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/widgets/custom_modal.dart';
@@ -155,7 +156,7 @@ class _NoticeItemState extends State<NoticeItem>
                   widget.notice?.notice == "" || widget.notice == null
                       ? Center(
                           child: Image.asset(
-                            "assets/images/icons/hero.png.webp",
+                           Images.noNotice,
                             width: 250,
                           ),
                         )
