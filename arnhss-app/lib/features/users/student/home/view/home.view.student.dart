@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:arnhss/features/authentication/login/view/login.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/student/home/model/notice_model.dart';
 import 'package:arnhss/features/users/student/home/widgets/app_drawer.dart';
@@ -8,6 +9,8 @@ import 'package:arnhss/features/users/student/home/widgets/home_grid.dart';
 import 'package:arnhss/features/users/widget/notice_item.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/features/users/service/notice_service.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/users/student/attendance/view/attendance_view.dart';
@@ -123,7 +126,12 @@ class _StudentHomeState extends State<StudentHome> {
     return StreamProvider<NoticeModel?>.value(
       value: NoticeService().notice,
       catchError: ((context, error) {
-        log(error.toString(), name: " admin home view");
+        if (error.toString().contains("firebase_database/permission-denied")) {
+          HandleException().handleException(error);
+          SharedPrefService().clear();
+          Navigator.pushNamed(context, LoginView.routeName);
+        }
+        log(error.toString(), name: " student home view");
         return null;
       }),
       initialData: null,

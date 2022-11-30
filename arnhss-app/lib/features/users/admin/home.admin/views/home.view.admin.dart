@@ -12,7 +12,6 @@ import 'package:arnhss/features/users/student/home/widgets/home_grid.dart';
 import 'package:arnhss/features/users/widget/notice_item.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/features/users/service/notice_service.dart';
-import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -41,8 +40,8 @@ class _AdminHomeState extends State<AdminHome> {
         mainAxisCellCount: 3.8,
         child: Tile(
           index: 0,
-          image: "assets/images/icons/nt-to-do-list-removebg-preview.png",
-          label: "Attendance",
+          image: "assets/images/icons/nt.png",
+          label: "Dashboard",
           onTap: () => Navigator.pushNamed(context, AttendanceView.routeName),
         ),
       ),

@@ -1,8 +1,4 @@
 import 'package:arnhss/abstract/loader.abstract.dart';
-import 'package:arnhss/common/constants/firebase_constants.dart';
-import 'package:arnhss/common/enums.dart';
-import 'package:arnhss/extensions/enum_extension.dart';
-
 import 'package:arnhss/common/routes/app_routes.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/theme.dart';
@@ -67,7 +63,7 @@ void main() async {
       // FirebaseMessaging.instance
       //     .unsubscribeFromTopic(FirebaseConstants.authenticatedUSERS);
 
-      print("${AuthService().getCurrentUser()?.phoneNumber} user ");
+      debugPrint("${AuthService().getCurrentUser()?.phoneNumber} user ");
 
       runApp(const MyApp());
     },

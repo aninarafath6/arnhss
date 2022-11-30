@@ -56,7 +56,7 @@ class _NoticeViewState extends State<NoticeView> {
                                   width: 50,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: CustomColors.bgOverlay,
+                                    color: CustomColors.bgOverlay ,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: const CupertinoActivityIndicator(

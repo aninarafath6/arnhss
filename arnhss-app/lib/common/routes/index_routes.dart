@@ -6,7 +6,6 @@ export 'package:arnhss/features/authentication/otp_verification/view/otp_verify_
 // export 'package:arnhss/features/authentication/user_role/views/user_role.dart';
 export 'package:arnhss/features/users/student/home/model/notice_model.dart';
 export 'package:arnhss/features/users/student/home/view/home.view.student.dart';
-export 'package:arnhss/features/users/student/home/view/notice_veiw.dart';
 export 'package:arnhss/features/onboarding/view/onboarding_view.dart';
 export 'package:arnhss/features/users/student/planner/view/planner_view.dart';
 export 'package:arnhss/features/splash/views/splash_view.dart';
