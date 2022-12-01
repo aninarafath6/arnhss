@@ -1,5 +1,5 @@
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
+import 'package:arnhss/common/widgets/custom_loading.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/student/planner/widgets/floating_button.dart';
 import 'package:arnhss/features/users/student/planner/widgets/not_found.dart';
@@ -51,19 +51,7 @@ class _NoticeViewState extends State<NoticeView> {
                     return Stack(
                       children: [
                         value.getLoading
-                            ? Center(
-                                child: Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: CustomColors.bgOverlay,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const CupertinoActivityIndicator(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
+                            ? const CustomLoading()
                             : const SizedBox(),
                         value.notices.isEmpty && value.getLoading != true
                             ? const SizedBox(

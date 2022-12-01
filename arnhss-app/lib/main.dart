@@ -1,12 +1,9 @@
 import 'package:arnhss/abstract/loader.abstract.dart';
-import 'package:arnhss/common/constants/firebase_constants.dart';
-import 'package:arnhss/common/enums.dart';
-import 'package:arnhss/extensions/enum_extension.dart';
-
 import 'package:arnhss/common/routes/app_routes.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/theme.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/student/attendance/view_model/attendance_view_model.dart';
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
@@ -67,7 +64,7 @@ void main() async {
       // FirebaseMessaging.instance
       //     .unsubscribeFromTopic(FirebaseConstants.authenticatedUSERS);
 
-      print("${AuthService().getCurrentUser()?.phoneNumber} user ");
+      debugPrint("${AuthService().getCurrentUser()?.phoneNumber} user ");
 
       runApp(const MyApp());
     },
@@ -93,6 +90,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserViewModel()),
         ChangeNotifierProvider(create: (_) => NoticeViewModel()),
         ChangeNotifierProvider(create: (_) => Loader()),
+        ChangeNotifierProvider(create: (_) => AdmissionViewModel()),
       ],
       child: GetMaterialApp(
         title: 'arnhss',

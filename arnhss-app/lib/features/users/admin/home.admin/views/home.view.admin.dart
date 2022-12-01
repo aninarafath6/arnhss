@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/users/admin/admission/views/admin_dashboard_view.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/student/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/users/student/home/widgets/qout_0f_the_day.dart';
@@ -12,7 +13,6 @@ import 'package:arnhss/features/users/student/home/widgets/home_grid.dart';
 import 'package:arnhss/features/users/widget/notice_item.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/features/users/service/notice_service.dart';
-import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -41,9 +41,9 @@ class _AdminHomeState extends State<AdminHome> {
         mainAxisCellCount: 3.8,
         child: Tile(
           index: 0,
-          image: "assets/images/icons/nt-to-do-list-removebg-preview.png",
-          label: "Attendance",
-          onTap: () => Navigator.pushNamed(context, AttendanceView.routeName),
+          image: "assets/images/icons/education-badge.png.webp",
+          label: "Admission",
+          onTap: () => Navigator.pushNamed(context, AdmissionView.routeName),
         ),
       ),
       StaggeredGridTile.count(

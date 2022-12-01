@@ -17,7 +17,8 @@ class CustomInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxHeight: 500, minHeight: 200),
+      constraints: BoxConstraints(
+          maxHeight: 500, minHeight: size == Sizing.sm ? 50 : 200),
       width: context.getWidth(100),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       margin: const EdgeInsets.only(bottom: 10),
