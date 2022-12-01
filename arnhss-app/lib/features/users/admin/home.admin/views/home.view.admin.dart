@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/users/admin/admission/views/admin_dashboard_view.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/student/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/users/student/home/widgets/qout_0f_the_day.dart';
@@ -40,9 +41,10 @@ class _AdminHomeState extends State<AdminHome> {
         mainAxisCellCount: 3.8,
         child: Tile(
           index: 0,
-          image: "assets/images/icons/nt.png",
-          label: "Dashboard",
-          onTap: () => Navigator.pushNamed(context, AttendanceView.routeName),
+          image: "assets/images/icons/education-badge.png.webp",
+          label: "Admission",
+          onTap: () =>
+              Navigator.pushNamed(context, AdminDashboardView.routeName),
         ),
       ),
       StaggeredGridTile.count(

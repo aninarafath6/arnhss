@@ -62,7 +62,6 @@ class AuthService with HandleException {
       );
     } catch (e) {
       //* handle exception.
-      print("this $e");
       handleException(e);
     }
   }

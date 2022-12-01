@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 class LoginViewModel extends Loader with HandleException {
   // * instances
   final AuthService _authService = AuthService();
+
   // final VerifyOtpViewModel _verifyOtpViewModel = VerifyOtpViewModel();
 
   // * controllers

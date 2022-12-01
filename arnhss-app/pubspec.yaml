@@ -52,6 +52,8 @@ dependencies:
   firebase_messaging: ^13.1.0
   flutter_dotenv: ^5.0.2
   custom_refresh_indicator: ^2.0.1
+  syncfusion_flutter_charts: ^20.3.59
+  fpdart: ^0.3.0
 
 flutter_icons:
   android: "launcher_icon"
