@@ -20,8 +20,8 @@ class AppRoutes {
 
       case NoticeView.routeName:
         return MaterialPageRoute(builder: (_) => const NoticeView());
-      case AdminDashboardView.routeName:
-        return MaterialPageRoute(builder: (_) => const AdminDashboardView());
+      case AdmissionView.routeName:
+        return MaterialPageRoute(builder: (_) => const AdmissionView());
 
       // case UserRole.routeName:
       //   return MaterialPageRoute(builder: (_) => const UserRole());

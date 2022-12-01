@@ -23,4 +23,18 @@ class AdmissionService with HandleException {
       return null;
     }
   }
+
+  Future<void> addCourse(Course newCourse) async {
+    try {
+      CollectionReference querySnapshot = _firestore.collection("course");
+      await querySnapshot.add(newCourse.toMap());
+    } catch (e) {
+      handleException(
+        InvalidException(
+          "Courses cannot be added because there is something wrong with them 🤯",
+          false,
+        ),
+      );
+    }
+  }
 }

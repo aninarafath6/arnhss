@@ -1,29 +1,29 @@
-import 'package:arnhss/abstract/loader.abstract.dart';
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/widgets/custom_loading.dart';
+import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/not_found.dart';
-import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/widgets/course_card.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
+import 'package:arnhss/services/base/exception/app_exceptions.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:remixicon/remixicon.dart';
-import 'package:shimmer/shimmer.dart';
 
-class AdminDashboardView extends StatefulWidget {
-  const AdminDashboardView({Key? key}) : super(key: key);
+class AdmissionView extends StatefulWidget {
+  const AdmissionView({Key? key}) : super(key: key);
   static const String routeName = "/admin_dashboard";
 
   @override
-  State<AdminDashboardView> createState() => _AdminDashboardViewState();
+  State<AdmissionView> createState() => _AdmissionViewState();
 }
 
-class _AdminDashboardViewState extends State<AdminDashboardView> {
+class _AdmissionViewState extends State<AdmissionView> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<AdmissionViewModel>().getCourses();
-      //... others are same
     });
     super.initState();
   }
@@ -34,9 +34,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
       appBar: customAppBar(context, title: "Courses"),
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppSizes.default_padding,
-          vertical: 10,
-        ),
+            horizontal: AppSizes.default_padding, vertical: 5),
         child: Consumer<AdmissionViewModel>(
           builder: (context, value, _) {
             return value.loading
@@ -62,7 +60,9 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
         ),
       ),
       floatingActionButton: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          showAddCourse(context);
+        },
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -76,51 +76,148 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
   }
 }
 
-class CourseCard extends StatelessWidget {
-  const CourseCard({
-    Key? key,
-    this.course,
-    this.isSkelton = false,
-  }) : super(key: key);
+void showAddCourse(BuildContext context) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    isScrollControlled: true,
+    context: context,
+    builder: ((context) {
+      var _provider = context.watch<AdmissionViewModel>();
+      return Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: Container(
+          // height: context.getHeight(65),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: const BoxDecoration(
+            color: CustomColors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+            ),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 100,
+                    height: 4,
+                    decoration: BoxDecoration(
+                        color: CustomColors.bgOverlay,
+                        borderRadius: BorderRadius.circular(14)),
+                  ),
+                ),
+                const SizedBox(height: 10),
 
-  final Course? course;
-  final bool isSkelton;
+                const FormHeader(title: "New Course"),
+                const SizedBox(height: 10),
+
+                CustomInput(
+                  hintText: "Course name",
+                  size: Sizing.sm,
+                  controller: context.read<AdmissionViewModel>().nameController,
+                ),
+                const SizedBox(height: 5),
+                CustomInput(
+                  hintText: "Course code",
+                  controller:
+                      context.read<AdmissionViewModel>().courseCodeController,
+                  size: Sizing.sm,
+                ),
+                const SizedBox(height: 5),
+
+                CustomInput(
+                  hintText: "Display code",
+                  controller:
+                      context.read<AdmissionViewModel>().displayCodeController,
+                  size: Sizing.sm,
+                ),
+                const SizedBox(height: 15),
+
+                const SizedBox(height: 10),
+
+                // const SizedBox(height: 15),
+                CustomButton(
+                  label: "Add ",
+                  width: context.isMobile
+                      ? context.getWidth(100)
+                      : context.getWidth(50),
+                  height: context.isMobile ? context.getHeight(8) : 60,
+                  fontSize: context.isMobile ? 15 : 15,
+                  loading: _provider.getSetLoading,
+                  onTap: (() async {
+                    bool status =
+                        await context.read<AdmissionViewModel>().addCourse();
+
+                    if (!status) {
+                      HandleException().handleException(
+                        InvalidException("Sorry, course not added ", false),
+                        top: true,
+                      );
+                    } else {
+                      DialogHelper.showSnackBar(
+                        title: "Success🤡",
+                        description: "Course added successfully ✔️",
+                      );
+                    }
+
+                    Navigator.of(context).pop();
+                  }),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      );
+    }),
+  );
+}
+
+class FormHeader extends StatelessWidget {
+  const FormHeader({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    if (isSkelton) {
-      return Shimmer.fromColors(
-        baseColor: CustomColors.bgOverlay,
-        highlightColor: CustomColors.light.withOpacity(.5),
-        child: ListTile(
-          title: Container(
-            width: context.getWidth(80),
-            color: Colors.black,
-            height: 12,
+    return Stack(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text(
+              "Cancel",
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: CustomColors.light),
+            ),
           ),
-          subtitle: Container(
-            width: context.getWidth(80),
-            color: Colors.black,
-            height: 8,
-            margin: const EdgeInsets.only(bottom: 4),
-          ),
-          leading: CircleAvatar(
-            backgroundColor: CustomColors.bgOverlay,
-            child: Text(course?.d_code ?? ""),
-          ),
-          trailing: const Icon(Icons.arrow_forward_ios_rounded),
         ),
-      );
-    } else {
-      return ListTile(
-        title: Text(course?.name ?? ""),
-        subtitle: Text("Course code : ${course?.code}"),
-        leading: CircleAvatar(
-          backgroundColor: CustomColors.bgOverlay,
-          child: Text(course?.d_code ?? ''),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Text(
+              title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: CustomColors.dark),
+            ),
+          ),
         ),
-        trailing: const Icon(Icons.arrow_forward_ios_rounded),
-      );
-    }
+      ],
+    );
   }
 }

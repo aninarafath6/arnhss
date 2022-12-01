@@ -43,8 +43,7 @@ class _AdminHomeState extends State<AdminHome> {
           index: 0,
           image: "assets/images/icons/education-badge.png.webp",
           label: "Admission",
-          onTap: () =>
-              Navigator.pushNamed(context, AdminDashboardView.routeName),
+          onTap: () => Navigator.pushNamed(context, AdmissionView.routeName),
         ),
       ),
       StaggeredGridTile.count(

@@ -1,4 +1,3 @@
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/widgets/custom_loading.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';

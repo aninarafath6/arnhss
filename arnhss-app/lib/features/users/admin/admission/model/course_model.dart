@@ -14,7 +14,6 @@ class Course {
   });
 
   Map<String, dynamic> toMap() => {
-        "id": id,
         "code": code,
         "d_code": d_code,
         "name": name,
