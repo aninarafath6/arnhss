@@ -76,16 +76,23 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
     }
   }
 
+  //* add course functionality
+
   Future<bool> addCourse() async {
     bool isValid = validate();
 
+// * validate inputs fields
     if (isValid) {
+      //* create new course with new data
       Course newCourse = Course(
         name: nameController.text.trim().capitalize,
         d_code: displayCodeController.text.trim().toUpperCase(),
         code: courseCodeController.text.trim().toUpperCase(),
         id: "",
       );
+
+      //* start loading
+      //* and set course on firebase
       _setToggleLoading = true;
       await _admissionService.addCourse(newCourse).then(
             (value) => _setCourses = [
@@ -93,7 +100,10 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
               newCourse,
             ],
           );
+//* set loading as false
       _setToggleLoading = false;
+
+      //* clear input controllers's value
       nameController.clear();
       courseCodeController.clear();
       displayCodeController.clear();

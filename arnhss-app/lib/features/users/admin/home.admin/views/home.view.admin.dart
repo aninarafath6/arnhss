@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/users/admin/admission/views/admin_dashboard_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/admission_view.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/student/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/users/student/home/widgets/qout_0f_the_day.dart';
