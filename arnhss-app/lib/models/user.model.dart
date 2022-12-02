@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:arnhss/common/enums.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class UserModel {
   UserModel(

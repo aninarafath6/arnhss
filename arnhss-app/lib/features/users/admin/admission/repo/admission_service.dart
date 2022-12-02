@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:arnhss/common/routes/index_routes.dart';
+import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
@@ -76,6 +77,55 @@ class AdmissionService with HandleException {
       });
     } catch (e) {
       handleException(e);
+    }
+  }
+
+  Future<List<Batch>?> getBatches(Course course) async {
+    try {
+      //* fetching sorted course data by course code
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+          .collection("course/${course.id}/batches")
+          .orderBy("code")
+          .get();
+
+      return querySnapshot.docs
+          .map((e) => Batch.fromMap(
+                {
+                  ...e.data(),
+                  "id": e.id,
+                },
+              ))
+          .toList();
+    } catch (e) {
+      print(e);
+      handleException(
+          InvalidException("Something wrong with course 🤯", false));
+      return null;
+    }
+  }
+
+  Future<Batch?> addBatch(Batch newBatch, {required String courseId}) async {
+    try {
+      CollectionReference collectionRef =
+          _firestore.collection("course/$courseId/batches");
+
+      DocumentReference docRef = await collectionRef.add(newBatch.toMap());
+      var data = await docRef.get();
+
+      return Batch.fromMap(
+        {
+          ...(data.data() as Map<String, dynamic>),
+          "id": docRef.id,
+        },
+      );
+    } catch (e) {
+      handleException(
+        InvalidException(
+          "Batch cannot be added because there is something wrong with them 🤯",
+          false,
+        ),
+      );
+      return null;
     }
   }
 }

@@ -42,7 +42,7 @@ class CustomSelector extends StatelessWidget {
                       fontSize: 13,
                     ),
                   ),
-                  // SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   Text(
                     content ?? "",
                     style: const TextStyle(
