@@ -4,6 +4,7 @@ import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/views/batch_view.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/add_course_form.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
@@ -75,6 +76,10 @@ class CourseCard extends StatelessWidget {
         onDismissed: (direction) =>
             context.read<AdmissionViewModel>().deleteCourse(course),
         child: ListTile(
+          onTap: () {
+            Navigator.pushNamed(context, BatchView.routeName,
+                arguments: course);
+          },
           onLongPress: () {
             context.read<AdmissionViewModel>().setUpToUpdate(course!);
             showCourseForm(

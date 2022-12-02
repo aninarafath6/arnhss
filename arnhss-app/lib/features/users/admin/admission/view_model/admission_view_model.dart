@@ -104,7 +104,6 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
   }
 
   //* add course functionality
-
   Future<bool> addCourse() async {
     bool isValid = validate();
 
