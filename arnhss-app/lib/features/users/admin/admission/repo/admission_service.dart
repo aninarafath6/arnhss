@@ -80,6 +80,8 @@ class AdmissionService with HandleException {
     }
   }
 
+  //* batch service
+
   Future<List<Batch>?> getBatches(Course course) async {
     try {
       //* fetching sorted course data by course code
@@ -126,6 +128,22 @@ class AdmissionService with HandleException {
         ),
       );
       return null;
+    }
+  }
+
+  Future<void> deleteBatch(Batch batch, {required String courseId}) async {
+    try {
+      CollectionReference collectionReference =
+          _firestore.collection("course/$courseId/batches");
+      collectionReference.doc(batch.id).delete().then((value) {
+        debugPrint("batch deleted successfully");
+        return null;
+      }).catchError((onError) {
+        debugPrint("batch is not deleted");
+        throw InvalidException("batch deletion failed..😟", false);
+      });
+    } catch (e) {
+      handleException(e);
     }
   }
 }

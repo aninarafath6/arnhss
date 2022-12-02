@@ -3,18 +3,20 @@ import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:intl/intl.dart';
 
 class BatchViewModel with ChangeNotifier, HandleException {
   final AdmissionService _admissionService = AdmissionService();
+  final DateFormat formatter = DateFormat('yyyy');
 
   late TextEditingController nameController = TextEditingController();
   late TextEditingController batchCodeController = TextEditingController();
   DateTime startDateController = DateTime.now();
-  DateTime endDateController = DateTime.now().add(
-    const Duration(days: 365 * 2),
-  );
+  DateTime endDateController =
+      DateTime.now().add(const Duration(days: 365 * 2));
 
   final List<Batch> _batches = [];
   bool _loading = false;
@@ -25,6 +27,8 @@ class BatchViewModel with ChangeNotifier, HandleException {
 //* getters.
   List<Batch> get batches => _batches;
   bool get loading => _loading;
+  bool get getSetLoading => _setLoading;
+  bool get getDeleteLoading => _deleteLoading;
 
   //* setters.
   set _toggleLoading(bool state) {
@@ -103,19 +107,30 @@ class BatchViewModel with ChangeNotifier, HandleException {
               (element) {
                 if (id == null) {
                   return element.code.toUpperCase() ==
-                      batchCodeController.text.trim().toUpperCase();
+                          batchCodeController.text.trim().toUpperCase() ||
+                      element.name.toUpperCase() ==
+                          nameController.text.trim().toUpperCase();
                 } else {
                   return element.code.toUpperCase() ==
-                          batchCodeController.text.trim().toUpperCase() &&
-                      element.id != id;
+                              batchCodeController.text.trim().toUpperCase() &&
+                          element.id != id ||
+                      element.name.toUpperCase() ==
+                          nameController.text.trim().toUpperCase();
                 }
               },
             ).toList();
 
             if (check.isNotEmpty) {
-              throw InvalidException("Batch id is already exist..", false);
+              throw InvalidException(
+                  "Batch id or name is already exist..", false);
             } else {
-              return true;
+              if (startDateController.microsecondsSinceEpoch <
+                  endDateController.microsecondsSinceEpoch) {
+                return true;
+              } else {
+                throw InvalidException(
+                    "Start date must be greater than end date...", false);
+              }
             }
           }
         }
@@ -124,6 +139,11 @@ class BatchViewModel with ChangeNotifier, HandleException {
       handleException(e, top: true);
       return false;
     }
+  }
+
+  void setUpForAdd(Course course) {
+    nameController.text =
+        "${formatter.format(startDateController).toString()}-${formatter.format(endDateController).toString()} ${course.d_code.toUpperCase()}";
   }
 
   //* add course functionality
@@ -158,6 +178,28 @@ class BatchViewModel with ChangeNotifier, HandleException {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<void> deleteCourse(Batch? batch, {required Course course}) async {
+    if (batch != null) {
+      _batches.removeWhere((element) => element.id == batch.id);
+      debugPrint("=== batch deletion process started =====");
+      _setToggleDeleteLoading = true;
+      await Future.delayed(const Duration(milliseconds: 300));
+      await _admissionService.deleteBatch(batch, courseId: course.id).then(
+            (value) => DialogHelper.showErrorDialog(
+              title: "success..✅",
+              description:
+                  "The ${batch.name} batch has been successfully deleted.",
+            ),
+          );
+
+      _setToggleDeleteLoading = false;
+    } else {
+      HandleException().handleException(
+        InvalidException("Batch deletion failed..😟, check batch id..", false),
+      );
     }
   }
 }

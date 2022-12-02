@@ -1,4 +1,5 @@
-import 'package:flutter/painting.dart';
+import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+
 import 'package:get/get.dart';
 
 class DialogHelper {
@@ -9,6 +10,7 @@ class DialogHelper {
       title ?? "",
       description ?? "something went wrong",
       margin: const EdgeInsets.all(20),
+      backgroundColor: Colors.white.withOpacity(.5),
       snackPosition: top ? SnackPosition.TOP : SnackPosition.BOTTOM,
     );
   }
@@ -20,6 +22,7 @@ class DialogHelper {
     Get.snackbar(
       title ?? "",
       description ?? "something went wrong",
+      backgroundColor: Colors.white,
       margin: const EdgeInsets.all(20),
       snackPosition: SnackPosition.BOTTOM,
       duration: duration,

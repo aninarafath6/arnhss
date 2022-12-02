@@ -50,8 +50,8 @@ class _BatchViewState extends State<BatchView> {
               return value.loading
                   ? ListView.builder(
                       itemCount: 5,
-                      itemBuilder: (context, index) =>
-                          const BatchCard(isSkelton: true),
+                      itemBuilder: (context, index) => BatchCard(
+                          isSkelton: true, course: widget.selectedCourse),
                     )
                   : value.batchCount == 0
                       ? NotFound(
@@ -63,9 +63,10 @@ class _BatchViewState extends State<BatchView> {
                       : ListView.builder(
                           itemCount: value.batchCount,
                           itemBuilder: (BuildContext context, index) {
-                            Batch course = value.batches[index];
+                            Batch batch = value.batches[index];
 
-                            return BatchCard(batch: course);
+                            return BatchCard(
+                                batch: batch, course: widget.selectedCourse);
                           },
                         );
             },
@@ -75,8 +76,11 @@ class _BatchViewState extends State<BatchView> {
       floatingActionButton: TextButton(
         onPressed: () {
           context.read<BatchViewModel>().clearControllers();
+          context.read<BatchViewModel>().setUpForAdd(widget.selectedCourse);
+
           showBatchForm(
             context,
+            course: widget.selectedCourse,
             onSubmit: () async {
               bool status = await context
                   .read<BatchViewModel>()
@@ -90,7 +94,7 @@ class _BatchViewState extends State<BatchView> {
               } else {
                 DialogHelper.showSnackBar(
                   title: "Success🤡",
-                  description: "Course added successfully ✔️",
+                  description: "Batch added successfully ✔️",
                 );
                 Navigator.of(context).pop();
               }

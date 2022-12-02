@@ -2,7 +2,7 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/custom_selector.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batch_view_model.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +11,7 @@ void showBatchForm(
   String title = "New Batch",
   String buttonTXT = "Add",
   required VoidCallback onSubmit,
+  required Course course,
 }) {
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
 
@@ -19,7 +20,7 @@ void showBatchForm(
     isScrollControlled: true,
     context: context,
     builder: ((context) {
-      var _provider = context.watch<AdmissionViewModel>();
+      var _provider = context.watch<BatchViewModel>();
       return Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: Container(
@@ -78,13 +79,17 @@ void showBatchForm(
                                     initialDate: context
                                         .read<BatchViewModel>()
                                         .startDateController,
-                                    firstDate: DateTime.now(),
+                                    firstDate:
+                                        DateTime.utc(DateTime.now().year - 4),
                                     lastDate:
-                                        DateTime.utc(DateTime.now().year + 2))
+                                        DateTime.utc(DateTime.now().year + 4))
                                 .then(
                               (value) {
                                 context.read<BatchViewModel>().setStartDate =
                                     value ?? DateTime.now();
+                                context
+                                    .read<BatchViewModel>()
+                                    .setUpForAdd(course);
                               },
                             );
                           },
@@ -103,25 +108,25 @@ void showBatchForm(
                                     context: context,
                                     initialDate: context
                                         .read<BatchViewModel>()
-                                        .startDateController,
-                                    firstDate: DateTime.now(),
+                                        .endDateController,
+                                    firstDate:
+                                        DateTime.utc(DateTime.now().year - 4),
                                     lastDate:
-                                        DateTime.utc(DateTime.now().year + 2))
+                                        DateTime.utc(DateTime.now().year + 4))
                                 .then(
                               (value) {
-                                context
-                                        .read<BatchViewModel>()
-                                        .endDateController =
+                                context.read<BatchViewModel>().setEndDate =
                                     value ?? DateTime.now();
+                                context
+                                    .read<BatchViewModel>()
+                                    .setUpForAdd(course);
                               },
                             );
                           },
                           content: formatter
-                              .format(
-                                context
-                                    .watch<BatchViewModel>()
-                                    .endDateController,
-                              )
+                              .format(context
+                                  .watch<BatchViewModel>()
+                                  .endDateController)
                               .toString()),
                     ),
                     // Expanded(

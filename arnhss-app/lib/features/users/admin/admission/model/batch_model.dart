@@ -18,7 +18,7 @@ class Batch {
   });
 
   Map<String, dynamic> toMap() => {
-        "code": code,
+        "code": code.toUpperCase(),
         "name": name,
         "start_date": Timestamp.fromDate(startDate),
         "end_date": Timestamp.fromDate(endDate),
@@ -30,7 +30,7 @@ class Batch {
 
     return Batch(
       id: batchMap["id"],
-      name: batchMap["name"].toString(),
+      name: batchMap["name"].toString().toUpperCase(),
       code: batchMap["code"].toString(),
       startDate: _startDate.toDate(),
       endDate: _endDate.toDate(),
