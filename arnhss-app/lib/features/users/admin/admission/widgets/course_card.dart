@@ -42,7 +42,11 @@ class CourseCard extends StatelessWidget {
             backgroundColor: CustomColors.bgOverlay,
             child: Text(course?.d_code ?? ""),
           ),
-          trailing: const Icon(Icons.arrow_forward_ios_rounded),
+          trailing: Container(
+            width: 15,
+            color: Colors.black,
+            height: 25,
+          ),
         ),
       );
     } else {

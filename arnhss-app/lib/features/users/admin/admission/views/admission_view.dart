@@ -7,8 +7,6 @@ import 'package:arnhss/features/users/admin/admission/view_model/admission_view_
 import 'package:arnhss/features/users/admin/admission/widgets/add_course_form.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/course_card.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
-import 'package:arnhss/services/base/exception/app_exceptions.dart';
-import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:remixicon/remixicon.dart';
 
 class AdmissionView extends StatefulWidget {
@@ -39,7 +37,7 @@ class _AdmissionViewState extends State<AdmissionView> {
           builder: (context, value, _) {
             return value.loading
                 ? ListView.builder(
-                    itemCount: 10,
+                    itemCount: 5,
                     itemBuilder: (context, index) =>
                         const CourseCard(isSkelton: true),
                   )
