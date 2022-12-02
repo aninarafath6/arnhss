@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
@@ -26,9 +28,10 @@ class AdmissionService with HandleException {
   Future<Course?> addCourse(Course newCourse) async {
     try {
       CollectionReference collectionRef = _firestore.collection("course");
+
       DocumentReference docRef = await collectionRef.add(newCourse.toMap());
       var data = await docRef.get();
-      print(data.data());
+
       return Course.fromMap(
         {
           ...(data.data() as Map<String, dynamic>),
@@ -36,13 +39,13 @@ class AdmissionService with HandleException {
         },
       );
     } catch (e) {
-      print(e);
       handleException(
         InvalidException(
           "Courses cannot be added because there is something wrong with them 🤯",
           false,
         ),
       );
+      return null;
     }
   }
 
@@ -57,7 +60,21 @@ class AdmissionService with HandleException {
         throw InvalidException("Course deletion failed..😟", false);
       });
     } catch (e) {
-      print(e);
+      handleException(e);
+    }
+  }
+
+  Future<void> editCourse(Course course) async {
+    try {
+      CollectionReference collectionRef = _firestore.collection("course");
+      collectionRef
+          .doc(course.id)
+          .update(course.toMap())
+          .then((value) => log("${course.name} updated"))
+          .catchError((error) {
+        throw InvalidException("Course is not updated..😟", false);
+      });
+    } catch (e) {
       handleException(e);
     }
   }

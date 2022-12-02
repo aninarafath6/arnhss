@@ -2,7 +2,7 @@
 
 class Course {
   final String id;
-  late final String code;
+  final String code;
   final String d_code;
   final String name;
 

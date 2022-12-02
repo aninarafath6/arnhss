@@ -6,6 +6,9 @@ import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/add_course_form.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/course_card.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
+import 'package:arnhss/services/base/exception/app_exceptions.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:remixicon/remixicon.dart';
 
 class AdmissionView extends StatefulWidget {
@@ -59,7 +62,27 @@ class _AdmissionViewState extends State<AdmissionView> {
       ),
       floatingActionButton: TextButton(
         onPressed: () {
-          showAddCourse(context);
+          context.read<AdmissionViewModel>().clearControllers();
+          showCourseForm(
+            context,
+            onSubmit: () async {
+              bool status =
+                  await context.read<AdmissionViewModel>().addCourse();
+
+              if (!status) {
+                // HandleException().handleException(
+                //   InvalidException("Sorry, course not added ", false),
+                //   top: true,
+                // );
+              } else {
+                DialogHelper.showSnackBar(
+                  title: "Success🤡",
+                  description: "Course added successfully ✔️",
+                );
+                Navigator.of(context).pop();
+              }
+            },
+          );
         },
         child: Container(
           padding: const EdgeInsets.all(12),
