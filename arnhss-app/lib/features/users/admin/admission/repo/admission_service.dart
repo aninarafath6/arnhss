@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
@@ -8,14 +11,12 @@ class AdmissionService with HandleException {
 
   Future<List<Course>?> getCourse() async {
     try {
-      //*
+      //* fetching sorted course data by course code
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await _firestore.collection("course").get();
+          await _firestore.collection("course").orderBy("code").get();
 
       return querySnapshot.docs
-          .map(
-            (e) => Course.fromMap({...e.data(), "id": e.id}),
-          )
+          .map((e) => Course.fromMap({...e.data(), "id": e.id}))
           .toList();
     } catch (e) {
       handleException(
@@ -24,10 +25,19 @@ class AdmissionService with HandleException {
     }
   }
 
-  Future<void> addCourse(Course newCourse) async {
+  Future<Course?> addCourse(Course newCourse) async {
     try {
-      CollectionReference querySnapshot = _firestore.collection("course");
-      await querySnapshot.add(newCourse.toMap());
+      CollectionReference collectionRef = _firestore.collection("course");
+
+      DocumentReference docRef = await collectionRef.add(newCourse.toMap());
+      var data = await docRef.get();
+
+      return Course.fromMap(
+        {
+          ...(data.data() as Map<String, dynamic>),
+          "id": docRef.id,
+        },
+      );
     } catch (e) {
       handleException(
         InvalidException(
@@ -35,6 +45,37 @@ class AdmissionService with HandleException {
           false,
         ),
       );
+      return null;
+    }
+  }
+
+  Future<void> deleteCourse(Course course) async {
+    try {
+      CollectionReference collectionReference = _firestore.collection("course");
+      collectionReference.doc(course.id).delete().then((value) {
+        debugPrint("course deleted successfully");
+        return null;
+      }).catchError((onError) {
+        debugPrint("course is not deleted");
+        throw InvalidException("Course deletion failed..😟", false);
+      });
+    } catch (e) {
+      handleException(e);
+    }
+  }
+
+  Future<void> editCourse(Course course) async {
+    try {
+      CollectionReference collectionRef = _firestore.collection("course");
+      collectionRef
+          .doc(course.id)
+          .update(course.toMap())
+          .then((value) => log("${course.name} updated"))
+          .catchError((error) {
+        throw InvalidException("Course is not updated..😟", false);
+      });
+    } catch (e) {
+      handleException(e);
     }
   }
 }

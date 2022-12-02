@@ -1,5 +1,5 @@
 import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/features/users/admin/admission/views/admin_dashboard_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/admission_view.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/role_wrapper.dart';
 import 'package:arnhss/features/users/student/profile/view/profile_view.dart';

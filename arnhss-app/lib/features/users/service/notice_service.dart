@@ -32,11 +32,14 @@ class NoticeService with HandleException {
     DatabaseReference ref = FirebaseDatabase.instance.ref("notice");
     try {
       return await Future.delayed(const Duration(milliseconds: 300)).then(
-          (value) => ref.remove().then((value) => DialogHelper.showErrorDialog(
+        (value) => ref.remove().then(
+              (value) => DialogHelper.showErrorDialog(
                 description: "The notice has been successfully deleted.",
                 top: false,
                 title: "Success ✅",
-              )));
+              ),
+            ),
+      );
     } catch (e) {
       log(e.toString(), name: "delete notice");
       handleException(e);
