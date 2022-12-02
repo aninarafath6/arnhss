@@ -1,6 +1,7 @@
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
 
   final List<Course> _courses = [];
   bool _loading = false;
+  bool _deleteLoading = false;
+
   bool _setLoading = false;
 
 //* getters.
@@ -22,6 +25,7 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
   int get courseCount => _courses.length;
   bool get loading => _loading;
   bool get getSetLoading => _setLoading;
+  bool get getDeleteLoading => _deleteLoading;
 
 //* setters.
   set _toggleLoading(bool state) {
@@ -34,9 +38,15 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
     notifyListeners();
   }
 
+  set _setToggleDeleteLoading(bool state) {
+    _deleteLoading = state;
+    notifyListeners();
+  }
+
   set _setCourses(List<Course> newCourses) {
     _courses.clear();
     _courses.addAll(newCourses);
+
     notifyListeners();
   }
 
@@ -95,12 +105,12 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
       //* and set course on firebase
       _setToggleLoading = true;
       await _admissionService.addCourse(newCourse).then(
-            (value) => _setCourses = [
+            (course) => _setCourses = [
               ..._courses,
-              newCourse,
+              course ?? newCourse,
             ],
           );
-//* set loading as false
+      //* set loading as false
       _setToggleLoading = false;
 
       //* clear input controllers's value
@@ -110,6 +120,29 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<void> deleteCourse(Course? course) async {
+    if (course != null) {
+      _courses.removeWhere((element) => element.id == course.id);
+      debugPrint("=== course deletion process started =====");
+      _setToggleDeleteLoading = true;
+      await Future.delayed(const Duration(milliseconds: 300));
+      await _admissionService.deleteCourse(course).then(
+            (value) => DialogHelper.showErrorDialog(
+              title: "success..✅",
+              description:
+                  "The ${course.name} course has been successfully deleted.",
+            ),
+          );
+
+      _setToggleDeleteLoading = false;
+    } else {
+      HandleException().handleException(
+        InvalidException(
+            "Course deletion failed..😟, check course id..", false),
+      );
     }
   }
 }

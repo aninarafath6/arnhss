@@ -48,12 +48,12 @@ class CustomButton extends StatelessWidget {
                 (states) => elevation ? 5 : 0),
             padding:
                 MaterialStateProperty.resolveWith((states) => EdgeInsets.zero),
-            overlayColor:
-                MaterialStateColor.resolveWith((states) => CustomColors.buttonSplash),
+            overlayColor: MaterialStateColor.resolveWith(
+                (states) => CustomColors.buttonSplash),
             backgroundColor: MaterialStateColor.resolveWith(
                 (states) => isDisabled ? nonActiveColor : color),
           ),
-          onPressed: isDisabled ? null : onTap,
+          onPressed: isDisabled || loading ? null : onTap,
           child: Container(
             // width: width,
             // height: height,
