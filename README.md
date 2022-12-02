@@ -1,12 +1,5 @@
 # screen shorts and work progress
 
- <img width='210' src="https://user-images.githubusercontent.com/65447144/183302437-8c846b5e-3f4b-4caa-8626-6e1eef4ac295.png"/>  <img width='210' src="https://user-images.githubusercontent.com/65447144/183710986-60f101db-12d2-45f0-bbfb-57913aea97d7.png" alt="onbaording"/>  <img width='210' src="https://user-images.githubusercontent.com/65447144/197381607-f69d6737-fb3a-47f4-a724-837e252f8b9e.png" alt="login page"/>  <img width='210' src="https://user-images.githubusercontent.com/65447144/197381610-2c8868d4-1896-45d2-a15e-32b2120f2bed.png" alt="country selection page"/> <img width='210' src="https://user-images.githubusercontent.com/65447144/197381762-6d0a404d-3740-49a2-bc85-458fd1c96434.png" alt="country selection page"/>
-
-
-
-
-
-<img width='300' height="300" src="https://user-images.githubusercontent.com/65447144/184448746-f6bab9e8-4197-419c-bd27-c0b3a7aca331.jpeg"/> <img height="300" width='300' src="https://user-images.githubusercontent.com/65447144/184449048-4d43402e-e6ac-406d-8b64-e6534568fdc7.jpeg"/> <img height="300" width='210'  src="https://user-images.githubusercontent.com/65447144/186739259-a21ae40f-465e-47ff-9020-90adf8dd2b5e.jpeg"/>
 
 
 [user flow chart ](https://www.figma.com/file/hqW9fdd2K8r4gRhCvAkCmG/user-flow-of-arnhss?node-id=0%3A1)
