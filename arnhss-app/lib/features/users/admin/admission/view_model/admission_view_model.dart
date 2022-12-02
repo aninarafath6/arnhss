@@ -76,13 +76,18 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
           if (courseCodeController.text.isEmpty) {
             throw InvalidException("Please enter display code..!!", false);
           } else {
-            List<Course> check = _courses
-                .where(
-                  (element) =>
-                      element.code == courseCodeController.text.trim() &&
-                      element.id != id,
-                )
-                .toList();
+            List<Course> check = _courses.where(
+              (element) {
+                if (id == null) {
+                  return element.code.toUpperCase() ==
+                      courseCodeController.text.trim().toUpperCase();
+                } else {
+                  return element.code.toUpperCase() ==
+                          courseCodeController.text.trim().toUpperCase() &&
+                      element.id != id;
+                }
+              },
+            ).toList();
 
             if (check.isNotEmpty) {
               throw InvalidException("Course id is  already exist..", false);
