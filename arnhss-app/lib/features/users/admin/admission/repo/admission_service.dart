@@ -99,7 +99,6 @@ class AdmissionService with HandleException {
               ))
           .toList();
     } catch (e) {
-      print(e);
       handleException(
           InvalidException("Something wrong with course 🤯", false));
       return null;
@@ -144,6 +143,50 @@ class AdmissionService with HandleException {
       });
     } catch (e) {
       handleException(e);
+    }
+  }
+
+  Future<Map<String, String?>> getCourseInnerData(Course course) async {
+    String batchRef = "course/${course.id}/batches";
+
+    try {
+      //* fetching batch collection
+      var batches = await _firestore.collection(batchRef).get();
+      int count = 0;
+
+      await Future.wait(batches.docs.map(
+        (batch) async {
+          //* fetching division collection
+          var divisions = await _firestore
+              .collection(batchRef)
+              .doc(batch.id)
+              .collection("divisions")
+              .get();
+
+          await Future.wait(
+            divisions.docs.map(
+              (division) async {
+                var students = await _firestore
+                    .collection(
+                        "$batchRef/${batch.id}/divisions/${division.id}/students")
+                    .get();
+
+                count += students.docs.length;
+              },
+            ),
+          );
+        },
+      ).toList());
+
+      return {
+        "batches": batches.docs.length.toString(),
+        "students": count.toString(),
+      };
+    } catch (e) {
+      handleException(e);
+      return {
+        "batches": null,
+      };
     }
   }
 }

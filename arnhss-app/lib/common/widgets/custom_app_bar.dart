@@ -2,6 +2,7 @@ import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 AppBar customAppBar(BuildContext context,
     {required String title,
@@ -9,6 +10,7 @@ AppBar customAppBar(BuildContext context,
     Function()? onBack,
     List<Widget>? actions}) {
   return AppBar(
+    systemOverlayStyle: SystemUiOverlayStyle.dark,
     backgroundColor: Colors.transparent,
     centerTitle: context.isMobile,
     elevation: 0,

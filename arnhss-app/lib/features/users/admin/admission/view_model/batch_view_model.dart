@@ -99,38 +99,33 @@ class BatchViewModel with ChangeNotifier, HandleException {
         if (batchCodeController.text.isEmpty) {
           throw InvalidException("Please enter batch code..!!", false);
         } else {
-          if (startDateController == null || endDateController == null) {
-            throw InvalidException(
-                "Please select start date and end date..!!", false);
-          } else {
-            List<Batch> check = _batches.where(
-              (element) {
-                if (id == null) {
-                  return element.code.toUpperCase() ==
-                          batchCodeController.text.trim().toUpperCase() ||
-                      element.name.toUpperCase() ==
-                          nameController.text.trim().toUpperCase();
-                } else {
-                  return element.code.toUpperCase() ==
-                              batchCodeController.text.trim().toUpperCase() &&
-                          element.id != id ||
-                      element.name.toUpperCase() ==
-                          nameController.text.trim().toUpperCase();
-                }
-              },
-            ).toList();
-
-            if (check.isNotEmpty) {
-              throw InvalidException(
-                  "Batch id or name is already exist..", false);
-            } else {
-              if (startDateController.microsecondsSinceEpoch <
-                  endDateController.microsecondsSinceEpoch) {
-                return true;
+          List<Batch> check = _batches.where(
+            (element) {
+              if (id == null) {
+                return element.code.toUpperCase() ==
+                        batchCodeController.text.trim().toUpperCase() ||
+                    element.name.toUpperCase() ==
+                        nameController.text.trim().toUpperCase();
               } else {
-                throw InvalidException(
-                    "Start date must be greater than end date...", false);
+                return element.code.toUpperCase() ==
+                            batchCodeController.text.trim().toUpperCase() &&
+                        element.id != id ||
+                    element.name.toUpperCase() ==
+                        nameController.text.trim().toUpperCase();
               }
+            },
+          ).toList();
+
+          if (check.isNotEmpty) {
+            throw InvalidException(
+                "Batch id or name is already exist..", false);
+          } else {
+            if (startDateController.microsecondsSinceEpoch <
+                endDateController.microsecondsSinceEpoch) {
+              return true;
+            } else {
+              throw InvalidException(
+                  "Start date must be greater than end date...", false);
             }
           }
         }
@@ -202,4 +197,8 @@ class BatchViewModel with ChangeNotifier, HandleException {
       );
     }
   }
+
+
+
+  
 }
