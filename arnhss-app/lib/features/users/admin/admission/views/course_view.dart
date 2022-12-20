@@ -6,11 +6,9 @@ import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/batch_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/views/batches_view.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/add_course_form.dart';
 import 'package:arnhss/features/users/student/home/widgets/tile.dart';
-import 'package:arnhss/features/users/student/planner/widgets/add_plan_bottom_form.dart';
-import 'package:arnhss/features/users/widget/add_notice_sheet.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
@@ -33,7 +31,7 @@ class _CourseViewState extends State<CourseView> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<BatchViewModel>().getBatches(widget.selectedCourse);
+      // context.read<CourseViewModel>().getBatches(widget.selectedCourse);
     });
     super.initState();
   }
@@ -171,21 +169,22 @@ class _CourseViewState extends State<CourseView> {
                   DText(value: widget.selectedCourse.code, name: "Code"),
                   const Divider(),
                   FutureBuilder<Map<String, String?>>(
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return DText(
-                            value: snapshot.data!["batches"] ?? "",
-                            name: "Batches",
-                          );
-                        }
-                        return const DText(
-                          value: "...",
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return DText(
+                          value: snapshot.data!["batches"] ?? "",
                           name: "Batches",
                         );
-                      },
-                      future: context
-                          .read<AdmissionViewModel>()
-                          .getCourseData(widget.selectedCourse)),
+                      }
+                      return const DText(
+                        value: "...",
+                        name: "Batches",
+                      );
+                    },
+                    future: context
+                        .read<AdmissionViewModel>()
+                        .getCourseData(widget.selectedCourse),
+                  ),
                   const Divider(),
                   FutureBuilder<Map<String, String?>>(
                       builder: (context, snapshot) {
@@ -215,13 +214,17 @@ class _CourseViewState extends State<CourseView> {
                 label: "Subjects",
               ),
             ),
-            const StaggeredGridTile.count(
+            StaggeredGridTile.count(
               crossAxisCellCount: 3,
               mainAxisCellCount: 6,
               child: Tile(
                 index: 1,
                 image: "assets/images/icons/sales-and-crm-badge.png.webp",
                 label: "Batches",
+                onTap: () => Navigator.of(context).pushNamed(
+                  BatchesView.routeName,
+                  arguments: widget.selectedCourse,
+                ),
                 count: 0,
               ),
             ),
@@ -237,78 +240,6 @@ class _CourseViewState extends State<CourseView> {
           ],
         ),
       ),
-
-      // child: Padding(
-      //   padding: const EdgeInsets.symmetric(
-      //     horizontal: AppSizes.default_padding - 10,
-      //     vertical: 5,
-      //   ),
-      //   child: Consumer<BatchViewModel>(
-      //     builder: (context, value, _) {
-      //       return value.loading
-      //           ? ListView.builder(
-      //               itemCount: 5,
-      //               itemBuilder: (context, index) => BatchCard(
-      //                   isSkelton: true, course: widget.selectedCourse),
-      //             )
-      //           : value.batchCount == 0
-      //               ? NotFound(
-      //                   imageURL:
-      //                       "assets/images/icons/spot-workflow.png.webp",
-      //                   title:
-      //                       "Unfortunately, no batch have been found under the ${widget.selectedCourse.name} course for this time",
-      //                 )
-      //               : ListView.builder(
-      //                   itemCount: value.batchCount,
-      //                   itemBuilder: (BuildContext context, index) {
-      //                     Batch batch = value.batches[index];
-
-      //                     return BatchCard(
-      //                         batch: batch, course: widget.selectedCourse);
-      //                   },
-      //                 );
-      //     },
-      //   ),
-      // ),
-      // ),
-      // floatingActionButton: TextButton(
-      //   onPressed: () {
-
-      //     context.read<BatchViewModel>().clearControllers();
-      //     context.read<BatchViewModel>().setUpForAdd(widget.selectedCourse);
-
-      //     showBatchForm(
-      //       context,
-      //       course: widget.selectedCourse,
-      //       onSubmit: () async {
-      //         bool status = await context
-      //             .read<BatchViewModel>()
-      //             .addBatch(widget.selectedCourse);
-
-      //         if (!status) {
-      //           // HandleException().handleException(
-      //           //   InvalidException("Sorry, course not added ", false),
-      //           //   top: true,
-      //           // );
-      //         } else {
-      //           DialogHelper.showSnackBar(
-      //             title: "Success🤡",
-      //             description: "Batch added successfully ✔️",
-      //           );
-      //           Navigator.of(context).pop();
-      //         }
-      //       },
-      //     );
-      //   },
-      //   child: Container(
-      //     padding: const EdgeInsets.all(12),
-      //     decoration: BoxDecoration(
-      //       borderRadius: BorderRadius.circular(5),
-      //       color: CustomColors.dark,
-      //     ),
-      //     child: const Icon(Remix.add_fill, color: Colors.white),
-      //   ),
-      // ),
     );
   }
 }

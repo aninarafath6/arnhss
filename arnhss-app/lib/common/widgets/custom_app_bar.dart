@@ -8,11 +8,12 @@ AppBar customAppBar(BuildContext context,
     {required String title,
     FocusNode? focus,
     Function()? onBack,
+    bool? center,
     List<Widget>? actions}) {
   return AppBar(
     systemOverlayStyle: SystemUiOverlayStyle.dark,
     backgroundColor: Colors.transparent,
-    centerTitle: context.isMobile,
+    centerTitle: center,
     elevation: 0,
     leading: IconButton(
       splashRadius: 25,

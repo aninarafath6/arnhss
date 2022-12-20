@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class HandleException {
   void handleException(error, {bool top = false}) {
+    print("what type");
+    print(error.message);
     if (error is BadRequestException) {
       var message = error.message;
 
@@ -22,10 +24,12 @@ class HandleException {
       DialogHelper.showErrorDialog(
           description: "It took longer to respond.", top: top);
     } else if (error is FirebaseAuthException) {
-      log(error.message.toString(), name: error.code);
+      // log(error.message.toString(), name: error.code);
+      // print("this is firebase exception");
 
-      DialogHelper.showErrorDialog(
-          description: error.code, title: "Oops 🥸", top: top);
+      // DialogHelper.showErrorDialog(
+      //     description: error.code, title: "Oops 🥸", top: top);
+      handleFirebaseErrors(error, top);
     } else if (error is InvalidException) {
       log(error.message.toString(), name: error.prefix.toString());
 
@@ -45,5 +49,13 @@ class HandleException {
       DialogHelper.showErrorDialog(
           description: "Something went wrong!", title: "Oops 🥸", top: top);
     }
+  }
+
+  handleFirebaseErrors(FirebaseAuthException error, top) {
+    if (error.code == "network-request-failed") {
+      print("this is firebase exception");
+      return DialogHelper.showErrorDialog(
+          description: "Sorry, Network connection lost....", title: "Oops 🥸", top: top);
+    } else {}
   }
 }

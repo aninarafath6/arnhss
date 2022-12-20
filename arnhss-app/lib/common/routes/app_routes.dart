@@ -1,7 +1,7 @@
 import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/admission_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/batches_view.dart';
 import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/role_wrapper.dart';
@@ -37,6 +37,13 @@ class AppRoutes {
       //   return MaterialPageRoute(builder: (_) => const StudentAuthentication());
       case SelectAccount.routeName:
         return MaterialPageRoute(builder: (_) => const SelectAccount());
+      case BatchesView.routeName:
+        return MaterialPageRoute(
+          builder: (_) {
+            final Course _selectedCourse = settings.arguments as Course;
+            return BatchesView(selectedCourse: _selectedCourse);
+          },
+        );
       case RoleWrapper.routeName:
         return MaterialPageRoute(builder: (_) => const RoleWrapper());
       case StudentHome.routeName:

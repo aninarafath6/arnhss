@@ -1,4 +1,4 @@
-import 'package:arnhss/common/widgets/custom_modal.dart';
+
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';

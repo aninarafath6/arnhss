@@ -3,7 +3,7 @@ import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/custom_selector.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/batch_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/course_view_model.dart';
 import 'package:intl/intl.dart';
 
 void showBatchForm(
@@ -20,7 +20,7 @@ void showBatchForm(
     isScrollControlled: true,
     context: context,
     builder: ((context) {
-      var _provider = context.watch<BatchViewModel>();
+      var _provider = context.watch<CourseViewModel>();
       return Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: Container(
@@ -57,13 +57,13 @@ void showBatchForm(
                 CustomInput(
                   hintText: "Batch name",
                   size: Sizing.sm,
-                  controller: context.read<BatchViewModel>().nameController,
+                  controller: context.read<CourseViewModel>().nameController,
                 ),
                 const SizedBox(height: 5),
                 CustomInput(
                   hintText: "Batch code",
                   controller:
-                      context.read<BatchViewModel>().batchCodeController,
+                      context.read<CourseViewModel>().batchCodeController,
                   size: Sizing.sm,
                 ),
                 const SizedBox(height: 5),
@@ -77,7 +77,7 @@ void showBatchForm(
                             showDatePicker(
                                     context: context,
                                     initialDate: context
-                                        .read<BatchViewModel>()
+                                        .read<CourseViewModel>()
                                         .startDateController,
                                     firstDate:
                                         DateTime.utc(DateTime.now().year - 4),
@@ -85,17 +85,17 @@ void showBatchForm(
                                         DateTime.utc(DateTime.now().year + 4))
                                 .then(
                               (value) {
-                                context.read<BatchViewModel>().setStartDate =
+                                context.read<CourseViewModel>().setStartDate =
                                     value ?? DateTime.now();
                                 context
-                                    .read<BatchViewModel>()
+                                    .read<CourseViewModel>()
                                     .setUpForAdd(course);
                               },
                             );
                           },
                           content: formatter
                               .format(context
-                                  .watch<BatchViewModel>()
+                                  .watch<CourseViewModel>()
                                   .startDateController)
                               .toString()),
                     ),
@@ -107,7 +107,7 @@ void showBatchForm(
                             showDatePicker(
                                     context: context,
                                     initialDate: context
-                                        .read<BatchViewModel>()
+                                        .read<CourseViewModel>()
                                         .endDateController,
                                     firstDate:
                                         DateTime.utc(DateTime.now().year - 4),
@@ -115,17 +115,17 @@ void showBatchForm(
                                         DateTime.utc(DateTime.now().year + 4))
                                 .then(
                               (value) {
-                                context.read<BatchViewModel>().setEndDate =
+                                context.read<CourseViewModel>().setEndDate =
                                     value ?? DateTime.now();
                                 context
-                                    .read<BatchViewModel>()
+                                    .read<CourseViewModel>()
                                     .setUpForAdd(course);
                               },
                             );
                           },
                           content: formatter
                               .format(context
-                                  .watch<BatchViewModel>()
+                                  .watch<CourseViewModel>()
                                   .endDateController)
                               .toString()),
                     ),
