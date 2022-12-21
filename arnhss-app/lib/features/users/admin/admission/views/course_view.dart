@@ -20,9 +20,9 @@ enum Choice { delete, update }
 class CourseView extends StatefulWidget {
   const CourseView({
     Key? key,
-    required this.selectedCourse,
+    // required this.selectedCourse,
   }) : super(key: key);
-  final Course selectedCourse;
+  // final Course selectedCourse;
   static const String routeName = "/batch_view";
 
   @override
@@ -30,20 +30,14 @@ class CourseView extends StatefulWidget {
 }
 
 class _CourseViewState extends State<CourseView> {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // context.read<CourseViewModel>().getBatches(widget.selectedCourse);
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    Course watchCourse = context.watch<AdmissionViewModel>().selectedCourse;
     return Scaffold(
       appBar: customAppBar(
         context,
-        title: widget.selectedCourse.name,
+        title: watchCourse.name,
         actions: [
           PopupMenuButton<Choice>(
             icon: const Icon(
@@ -53,9 +47,7 @@ class _CourseViewState extends State<CourseView> {
             enableFeedback: true,
             onSelected: (value) async {
               if (value == Choice.update) {
-                context
-                    .read<AdmissionViewModel>()
-                    .setUpToUpdate(widget.selectedCourse);
+                context.read<AdmissionViewModel>().setUpToUpdate(watchCourse);
                 showCourseForm(
                   context,
                   title: "Edit Course",
@@ -63,7 +55,7 @@ class _CourseViewState extends State<CourseView> {
                   onSubmit: () async {
                     bool status = await context
                         .read<AdmissionViewModel>()
-                        .update(widget.selectedCourse);
+                        .update(watchCourse);
 
                     if (!status) {
                       HandleException().handleException(
@@ -100,9 +92,7 @@ class _CourseViewState extends State<CourseView> {
                 );
 
                 if (status) {
-                  context
-                      .read<AdmissionViewModel>()
-                      .deleteCourse(widget.selectedCourse);
+                  context.read<AdmissionViewModel>().deleteCourse(watchCourse);
                   Navigator.pop(context);
                 }
               }
@@ -141,14 +131,14 @@ class _CourseViewState extends State<CourseView> {
               mainAxisCellCount: 4.5,
               child: DetailCard(
                 listData: [
-                  DText(value: widget.selectedCourse.name, name: "Name"),
+                  DText(value: watchCourse.name, name: "Name"),
                   const Divider(),
                   DText(
-                    value: widget.selectedCourse.d_code,
+                    value: watchCourse.d_code,
                     name: "Display code",
                   ),
                   const Divider(),
-                  DText(value: widget.selectedCourse.code, name: "Code"),
+                  DText(value: watchCourse.code, name: "Code"),
                   const Divider(),
                   FutureBuilder<Map<String, String?>>(
                     builder: (context, snapshot) {
@@ -165,7 +155,7 @@ class _CourseViewState extends State<CourseView> {
                     },
                     future: context
                         .read<AdmissionViewModel>()
-                        .getCourseData(widget.selectedCourse),
+                        .getCourseData(watchCourse),
                   ),
                   const Divider(),
                   FutureBuilder<Map<String, String?>>(
@@ -183,7 +173,7 @@ class _CourseViewState extends State<CourseView> {
                       },
                       future: context
                           .read<AdmissionViewModel>()
-                          .getCourseData(widget.selectedCourse)),
+                          .getCourseData(watchCourse)),
                 ],
               ),
             ),
@@ -205,7 +195,7 @@ class _CourseViewState extends State<CourseView> {
                 label: "Batches",
                 onTap: () => Navigator.of(context).pushNamed(
                   BatchesView.routeName,
-                  arguments: widget.selectedCourse,
+                  arguments: watchCourse,
                 ),
                 count: 0,
               ),

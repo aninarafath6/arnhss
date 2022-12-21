@@ -1,4 +1,3 @@
-
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';
@@ -10,6 +9,7 @@ import 'package:flutter/material.dart';
 class AdmissionViewModel with ChangeNotifier, HandleException {
   //* admission service object.
   final AdmissionService _admissionService = AdmissionService();
+  late Course selectedCourse;
 
   late TextEditingController nameController = TextEditingController();
   late TextEditingController courseCodeController = TextEditingController();
@@ -31,6 +31,11 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
 //* setters.
   set _toggleLoading(bool state) {
     _loading = state;
+    notifyListeners();
+  }
+
+  set setSelectedCourse(Course course) {
+    selectedCourse = course;
     notifyListeners();
   }
 
@@ -194,6 +199,7 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
         var index =
             _courses.indexWhere((element) => element.id == updatedCourse.id);
         _courses[index] = updatedCourse;
+        selectedCourse = updatedCourse;
       });
       //* set loading as false
       _setToggleLoading = false;

@@ -79,8 +79,11 @@ class CourseCard extends StatelessWidget {
           //   child:
           ListTile(
         onTap: () {
-          Navigator.pushNamed(context, CourseView.routeName, arguments: course);
-          
+          Navigator.pushNamed(
+            context,
+            CourseView.routeName,
+          );
+          context.read<AdmissionViewModel>().selectedCourse = course!;
         },
         // onLongPress: () {
         //   context.read<AdmissionViewModel>().setUpToUpdate(course!);
