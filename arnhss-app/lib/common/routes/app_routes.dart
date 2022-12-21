@@ -29,8 +29,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const AdmissionView());
       case CourseView.routeName:
         return MaterialPageRoute(builder: (_) {
-          final Course args = settings.arguments as Course;
-          return CourseView(selectedCourse: args);
+          // final Course args = settings.arguments as Course;
+          return const CourseView();
         });
 
       // case UserRole.routeName:
@@ -39,8 +39,8 @@ class AppRoutes {
       //   return MaterialPageRoute(builder: (_) => const StudentAuthentication());
       case SingleBatchView.routeName:
         return MaterialPageRoute(builder: (_) {
-          var args = settings.arguments;
-          return SingleBatchView(selectedBatch: args as Batch);
+          // var args = settings.arguments;
+          return const SingleBatchView();
         });
 
       case SelectAccount.routeName:

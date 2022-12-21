@@ -20,9 +20,9 @@ enum Choice { delete, update }
 class SingleBatchView extends StatefulWidget {
   const SingleBatchView({
     Key? key,
-    required this.selectedBatch,
+    // required this.selectedBatch,
   }) : super(key: key);
-  final Batch selectedBatch;
+  // final Batch selectedBatch;
   static const String routeName = "/";
 
   @override
@@ -33,17 +33,26 @@ class _SingleBatchViewState extends State<SingleBatchView> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<BatchViewModel>().checkStatus(widget.selectedBatch);
+      context
+          .read<BatchViewModel>()
+          .checkStatus(context.read<BatchViewModel>().selectedBatch);
     });
     super.initState();
   }
 
   @override
+  void dispose() {
+    context.read<BatchViewModel>().clearControllers();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Batch watchBatch = context.watch<BatchViewModel>().selectedBatch;
     return Scaffold(
       appBar: customAppBar(
         context,
-        title: widget.selectedBatch.name,
+        title: watchBatch.name,
         // center: false,
         actions: [
           PopupMenuButton<Choice>(
@@ -54,17 +63,15 @@ class _SingleBatchViewState extends State<SingleBatchView> {
             enableFeedback: true,
             onSelected: (value) async {
               if (value == Choice.update) {
-                context
-                    .read<BatchViewModel>()
-                    .setUpToUpdate(widget.selectedBatch);
+                context.read<BatchViewModel>().setUpToUpdate();
                 showBatchForm(
                   context,
                   title: "Edit Batch",
                   buttonTXT: "Update",
+                  dc: context.read<AdmissionViewModel>().selectedCourse.d_code,
                   onSubmit: () async {
-                    bool status = await context
-                        .read<BatchViewModel>()
-                        .update(widget.selectedBatch);
+                    bool status =
+                        await context.read<BatchViewModel>().update(watchBatch);
 
                     if (!status) {
                       HandleException().handleException(
@@ -101,9 +108,7 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                 );
 
                 if (status) {
-                  context
-                      .read<BatchViewModel>()
-                      .deleteBatch(widget.selectedBatch);
+                  context.read<BatchViewModel>().deleteBatch(watchBatch);
                   Navigator.pop(context);
                 }
               }
@@ -136,18 +141,18 @@ class _SingleBatchViewState extends State<SingleBatchView> {
           children: [
             DetailCard(
               listData: [
-                DText(value: widget.selectedBatch.name, name: "Name"),
+                DText(value: watchBatch.name, name: "Name"),
                 const Divider(),
-                DText(value: widget.selectedBatch.code, name: "Code"),
+                DText(value: watchBatch.code, name: "Code"),
                 const Divider(),
                 DText(
-                  value: widget.selectedBatch.startDate
+                  value: watchBatch.startDate
                       .dtFrm(e: "", d: "dd", m: " MMM ", y: "y"),
                   name: "Start Date",
                 ),
                 const Divider(),
                 DText(
-                  value: widget.selectedBatch.endDate.dtFrm(
+                  value: watchBatch.endDate.dtFrm(
                     e: "",
                     m: " MMM ",
                     d: "dd",

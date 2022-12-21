@@ -1,17 +1,18 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/single_batch_view.dart';
 import 'package:shimmer/shimmer.dart';
 
 class BatchCard extends StatelessWidget {
   const BatchCard({
     Key? key,
-    this.batch,
+    required this.batch,
     this.isSkelton = false,
   }) : super(key: key);
 
-  final Batch? batch;
+  final Batch batch;
   final bool isSkelton;
 
   @override
@@ -34,7 +35,7 @@ class BatchCard extends StatelessWidget {
           ),
           leading: CircleAvatar(
             backgroundColor: CustomColors.bgOverlay,
-            child: Text(batch?.code ?? ""),
+            child: Text(batch.code),
           ),
           trailing: Container(
             width: 15,
@@ -51,6 +52,7 @@ class BatchCard extends StatelessWidget {
             SingleBatchView.routeName,
             arguments: batch,
           );
+          context.read<BatchViewModel>().selectedBatch = batch;
         },
 
         title: Text(batch?.name ?? ""),

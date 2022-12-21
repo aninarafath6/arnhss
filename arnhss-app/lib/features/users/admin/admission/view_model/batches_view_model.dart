@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 class BatchViewModel extends ChangeNotifier with HandleException {
   final AdmissionService _admissionService = AdmissionService();
 
+  late Batch selectedBatch;
   late TextEditingController nameController = TextEditingController();
   late TextEditingController batchCodeController = TextEditingController();
   DateTime startDateController = DateTime.now();
@@ -69,7 +70,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   }
 
   //* edit batch
-  void setUpToUpdate(Batch batch) {
+  void setUpToUpdate() {
+    var batch = selectedBatch;
     nameController.text = batch.name;
     endDateController = batch.endDate;
     startDateController = batch.startDate;
@@ -79,12 +81,20 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   void clearControllers() {
     nameController.clear();
     batchCodeController.clear();
+    startDateController = DateTime.now();
+    endDateController = DateTime.utc(DateTime.now().year + 2);
   }
 
   void setUpForAdd(Course course) {
     final DateFormat formatter = DateFormat('yyyy');
     nameController.text =
         "${formatter.format(startDateController).toString()}-${formatter.format(endDateController).toString()} ${course.d_code.toUpperCase()}";
+  }
+
+  void setupToAdd(String courseDc) {
+    nameController.text =
+        "${startDateController.year}-${endDateController.year} $courseDc";
+    batchCodeController.text = (hold.length + 1).toString();
   }
 
   void get toggleFilter {
@@ -134,6 +144,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   }
 
   //* validate
+
   bool validate({String? id}) {
     //* handling errors
     try {
@@ -144,34 +155,23 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         if (batchCodeController.text.isEmpty) {
           throw InvalidException("Please enter batch code..!!", false);
         } else {
-          List<Batch> check = _batches.where(
+          List<Batch> check = hold.where(
             (element) {
               if (id == null) {
                 return element.code.toUpperCase() ==
-                        batchCodeController.text.trim().toUpperCase() ||
-                    element.name.toUpperCase() ==
-                        nameController.text.trim().toUpperCase();
+                    batchCodeController.text.trim().toUpperCase();
               } else {
                 return element.code.toUpperCase() ==
-                            batchCodeController.text.trim().toUpperCase() &&
-                        element.id != id ||
-                    element.name.toUpperCase() ==
-                        nameController.text.trim().toUpperCase();
+                        batchCodeController.text.trim().toUpperCase() &&
+                    element.id != id;
               }
             },
           ).toList();
 
           if (check.isNotEmpty) {
-            throw InvalidException(
-                "Batch id or name is already exist..", false);
+            throw InvalidException("Course id is  already exist..", false);
           } else {
-            if (startDateController.microsecondsSinceEpoch <
-                endDateController.microsecondsSinceEpoch) {
-              return true;
-            } else {
-              throw InvalidException(
-                  "Start date must be greater than end date...", false);
-            }
+            return true;
           }
         }
       }
@@ -220,6 +220,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   Future<void> deleteBatch(Batch? batch) async {
     if (batch != null) {
       _batches.removeWhere((element) => element.id == batch.id);
+      hold.removeWhere((element) => element.id == batch.id);
+
       debugPrint("=== batch deletion process started =====");
       _setToggleDeleteLoading = true;
       await Future.delayed(const Duration(milliseconds: 300));
@@ -242,8 +244,6 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   Future<bool> update(Batch oldBatch) async {
     bool isValid = validate(id: oldBatch.id);
 
-    print("here");
-
 // * validate inputs fields
     if (isValid) {
       //* create new batch with new data
@@ -263,6 +263,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         var index =
             _batches.indexWhere((element) => element.id == updatedBatch.id);
         _batches[index] = updatedBatch;
+        selectedBatch = updatedBatch;
+        notifyListeners();
       });
       //* set loading as false
       _setToggleLoading = false;

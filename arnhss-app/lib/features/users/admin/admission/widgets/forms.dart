@@ -146,6 +146,7 @@ void showBatchForm(
   String title = "New Batch",
   String buttonTXT = "Add",
   required VoidCallback onSubmit,
+  required String dc,
 }) {
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
@@ -198,6 +199,7 @@ void showBatchForm(
                   controller:
                       context.read<BatchViewModel>().batchCodeController,
                   size: Sizing.sm,
+                  keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 5),
                 Row(
@@ -216,6 +218,7 @@ void showBatchForm(
                           ).then(
                             (value) {
                               _provider.setStartDate = value ?? DateTime.now();
+                              context.read<BatchViewModel>().setupToAdd(dc);
                             },
                           );
                         },
@@ -240,6 +243,7 @@ void showBatchForm(
                           ).then(
                             (value) {
                               _provider.setEndDate = value ?? DateTime.now();
+                              context.read<BatchViewModel>().setupToAdd(dc);
                             },
                           );
                         },

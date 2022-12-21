@@ -35,6 +35,7 @@ class _AdmissionViewState extends State<AdmissionView> {
             horizontal: AppSizes.default_padding - 10, vertical: 5),
         child: Consumer<AdmissionViewModel>(
           builder: (context, value, _) {
+            
             return value.loading
                 ? ListView.builder(
                     itemCount: 5,
