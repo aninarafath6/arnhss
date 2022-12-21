@@ -8,11 +8,13 @@ class CustomInput extends StatelessWidget {
     this.hintText,
     this.size = Sizing.sm,
     this.controller,
+    this.keyboardType = TextInputType.multiline,
   }) : super(key: key);
 
   final String? hintText;
   final Sizing size;
   final TextEditingController? controller;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +34,12 @@ class CustomInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextField(
+        keyboardType: keyboardType,
         maxLines: size == Sizing.xl
             ? 20
             : size == Sizing.lg
                 ? 5
                 : 1,
-        keyboardType: TextInputType.multiline,
         controller: controller,
         minLines: 1,
         cursorColor: CustomColors.dark,

@@ -81,12 +81,20 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   void clearControllers() {
     nameController.clear();
     batchCodeController.clear();
+    startDateController = DateTime.now();
+    endDateController = DateTime.utc(DateTime.now().year + 2);
   }
 
   void setUpForAdd(Course course) {
     final DateFormat formatter = DateFormat('yyyy');
     nameController.text =
         "${formatter.format(startDateController).toString()}-${formatter.format(endDateController).toString()} ${course.d_code.toUpperCase()}";
+  }
+
+  void setupToAdd(String courseDc) {
+    nameController.text =
+        "${startDateController.year}-${endDateController.year} $courseDc";
+    batchCodeController.text = (hold.length + 1).toString();
   }
 
   void get toggleFilter {
@@ -212,6 +220,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   Future<void> deleteBatch(Batch? batch) async {
     if (batch != null) {
       _batches.removeWhere((element) => element.id == batch.id);
+      hold.removeWhere((element) => element.id == batch.id);
+
       debugPrint("=== batch deletion process started =====");
       _setToggleDeleteLoading = true;
       await Future.delayed(const Duration(milliseconds: 300));

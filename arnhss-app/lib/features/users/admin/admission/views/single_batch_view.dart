@@ -6,6 +6,7 @@ import 'package:arnhss/extensions/dt_extension.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
@@ -40,6 +41,12 @@ class _SingleBatchViewState extends State<SingleBatchView> {
   }
 
   @override
+  void dispose() {
+    context.read<BatchViewModel>().clearControllers();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Batch watchBatch = context.watch<BatchViewModel>().selectedBatch;
     return Scaffold(
@@ -61,6 +68,7 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                   context,
                   title: "Edit Batch",
                   buttonTXT: "Update",
+                  dc: context.read<AdmissionViewModel>().selectedCourse.d_code,
                   onSubmit: () async {
                     bool status =
                         await context.read<BatchViewModel>().update(watchBatch);
