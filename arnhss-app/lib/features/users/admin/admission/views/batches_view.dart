@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/not_found.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
@@ -28,34 +29,55 @@ class _BatchesViewState extends State<BatchesView> {
     super.initState();
   }
 
-  bool filter = true;
-
   @override
   Widget build(BuildContext context) {
+    bool isFilterApplied = context.watch<BatchViewModel>().filter;
     return Scaffold(
       appBar: customAppBar(context, title: "Batches", center: false, actions: [
         Center(
-          child: TextButton(
-            onPressed: () {
-              setState(() {
-                filter != filter;
-              });
-            },
-            child: Row(
-              children: [
-                Icon(filter ? Remix.filter_line : Remix.filter_off_line),
-                Text(
-                  "Active",
-                  style: CustomTextTheme(context: context).headLine2().copyWith(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
+          child: Container(
+            width: 100,
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            color: CustomColors.lightBgOverlay,
+            child: TextButton(
+              onPressed: () {
+                // setState(() {
+                //   filter = !filter;
+                // });
+                context.read<BatchViewModel>().toggleFilter;
+              },
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      isFilterApplied
+                          ? Remix.filter_line
+                          : Remix.filter_off_line,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 10),
+                    AnimatedSwitcher(
+                      key: ValueKey(isFilterApplied),
+                      duration: const Duration(milliseconds: 300),
+                      child: Text(
+                        isFilterApplied ? "Active" : "All",
+                        style: CustomTextTheme(context: context)
+                            .headLine2()
+                            .copyWith(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
-        const SizedBox(width: 30),
+        const SizedBox(width: 20),
       ]),
       body: Padding(
         padding: const EdgeInsets.symmetric(

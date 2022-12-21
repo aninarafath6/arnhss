@@ -1,6 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
+import 'package:arnhss/features/users/admin/admission/views/single_batch_view.dart';
 import 'package:shimmer/shimmer.dart';
 
 class BatchCard extends StatelessWidget {
@@ -45,7 +46,11 @@ class BatchCard extends StatelessWidget {
     } else {
       return ListTile(
         onTap: () {
-          // Navigator.pushNamed(context, CourseView.routeName, arguments: batch);
+          Navigator.pushNamed(
+            context,
+            SingleBatchView.routeName,
+            arguments: batch,
+          );
         },
 
         title: Text(batch?.name ?? ""),

@@ -7,7 +7,10 @@ class BatchViewModel extends ChangeNotifier {
   final AdmissionService _admissionService = AdmissionService();
 
   bool _loading = false;
-  List<Batch> _batches = [];
+  bool _filter = true;
+  bool _isActive = true;
+  final List<Batch> _batches = [];
+  List<Batch> hold = [];
 
   set _setBatch(List<Batch> newBatch) {
     _batches.clear();
@@ -19,12 +22,46 @@ class BatchViewModel extends ChangeNotifier {
   //* getters
   bool get loading => _loading;
   int get batchCount => _batches.length;
+  bool get filter => _filter;
   List<Batch> get batches => _batches;
+  bool get isActive => _isActive;
 
   //* setters.
   set _toggleLoading(bool state) {
     _loading = state;
     notifyListeners();
+  }
+
+  void get toggleFilter {
+    _filter = !filter;
+    if (_filter) {
+      filterWithDate();
+    } else {
+      print(hold);
+      _setBatch = hold;
+    }
+    notifyListeners();
+  }
+
+  void filterWithDate() {
+    // hold = _batches;
+    // print(hold);
+    _setBatch = hold
+        .where(
+          (element) =>
+              element.endDate.microsecondsSinceEpoch >=
+              DateTime.now().microsecondsSinceEpoch,
+        )
+        .toList();
+    notifyListeners();
+  }
+
+  bool checkStatus(Batch batch) {
+    bool status = batch.endDate.microsecondsSinceEpoch >=
+        DateTime.now().microsecondsSinceEpoch;
+    _isActive = status;
+    notifyListeners();
+    return status;
   }
 
   //* get course from firebase methods
@@ -35,7 +72,8 @@ class BatchViewModel extends ChangeNotifier {
     //* getting course form firebase service function.
     List<Batch>? result = await _admissionService.getBatches(course);
     //* setting result into courses by the help of setting method.
-    _setBatch = result ?? [];
+    hold = result ?? [];
+    filterWithDate();
     _toggleLoading = false;
   }
 }

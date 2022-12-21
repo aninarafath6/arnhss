@@ -1,5 +1,6 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/extensions/dt_extension.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
@@ -41,7 +42,7 @@ AppBar customHomeAppBar(BuildContext context, UserModel? user) {
                 )),
             const SizedBox(height: 5),
             Text(
-              formatter.format(DateTime.now()).toString(),
+              DateTime.now().dtFrm(),
               style: const TextStyle(
                 color: CustomColors.light,
                 fontSize: 12,
