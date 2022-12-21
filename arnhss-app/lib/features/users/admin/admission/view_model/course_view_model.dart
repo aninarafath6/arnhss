@@ -8,19 +8,11 @@ import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:intl/intl.dart';
 
 class CourseViewModel with ChangeNotifier, HandleException {
-
-
-
-
   final List<Batch> _batches = [];
   // int get batchCount => _batches.length;
-  bool _deleteLoading = false;
 
-  bool _setLoading = false;
 //* getters.
   // List<Batch> get batches => _batches;
-  bool get getSetLoading => _setLoading;
-  bool get getDeleteLoading => _deleteLoading;
 
   // //* setters.
   // set _toggleLoading(bool state) {
@@ -34,7 +26,6 @@ class CourseViewModel with ChangeNotifier, HandleException {
 
   //   notifyListeners();
   // }
-
 
 //   //* add course functionality
 //   Future<bool> addBatch(Course course) async {
@@ -71,25 +62,5 @@ class CourseViewModel with ChangeNotifier, HandleException {
 //     }
 //   }
 
-  // Future<void> deleteCourse(Batch? batch, {required Course course}) async {
-  //   if (batch != null) {
-  //     _batches.removeWhere((element) => element.id == batch.id);
-  //     debugPrint("=== batch deletion process started =====");
-  //     _setToggleDeleteLoading = true;
-  //     await Future.delayed(const Duration(milliseconds: 300));
-  //     await _admissionService.deleteBatch(batch, courseId: course.id).then(
-  //           (value) => DialogHelper.showErrorDialog(
-  //             title: "success..✅",
-  //             description:
-  //                 "The ${batch.name} batch has been successfully deleted.",
-  //           ),
-  //         );
-
-  //     _setToggleDeleteLoading = false;
-  //   } else {
-  //     HandleException().handleException(
-  //       InvalidException("Batch deletion failed..😟, check batch id..", false),
-  //     );
-  //   }
-  // }
+ 
 }

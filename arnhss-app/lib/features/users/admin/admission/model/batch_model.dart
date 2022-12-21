@@ -8,6 +8,7 @@ class Batch {
   final String name;
   final DateTime startDate;
   final DateTime endDate;
+  final String courseId;
 
   Batch({
     required this.name,
@@ -15,6 +16,7 @@ class Batch {
     required this.id,
     required this.endDate,
     required this.startDate,
+    required this.courseId,
   });
 
   Map<String, dynamic> toMap() => {
@@ -34,6 +36,7 @@ class Batch {
       code: batchMap["code"].toString(),
       startDate: _startDate.toDate(),
       endDate: _endDate.toDate(),
+      courseId: batchMap["course_id"],
     );
   }
 }

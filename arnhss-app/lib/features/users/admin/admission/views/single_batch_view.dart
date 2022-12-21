@@ -1,11 +1,21 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/common/widgets/custom_modal.dart';
 import 'package:arnhss/extensions/dt_extension.dart';
+import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
+import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
+import 'package:arnhss/services/base/exception/app_exceptions.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:remixicon/remixicon.dart';
+
+enum Choice { delete, update }
 
 class SingleBatchView extends StatefulWidget {
   const SingleBatchView({
@@ -36,104 +46,84 @@ class _SingleBatchViewState extends State<SingleBatchView> {
         title: widget.selectedBatch.name,
         // center: false,
         actions: [
-          IconButton(
-            onPressed: () {
-              showMenu(
-                context: context,
-                position:
-                    const RelativeRect.fromLTRB(double.infinity, 10, 10, 0),
-                items: [
-                  PopupMenuItem(
-                    child: GestureDetector(
-                      onTap: () {
-                        // context
-                        //     .read<AdmissionViewModel>()
-                        //     .setUpToUpdate(widget.selectedBatch);
-                        // showCourseForm(
-                        //   context,
-                        //   title: "Edit Course",
-                        //   buttonTXT: "Update",
-                        //   onSubmit: () async {
-                        //     bool status = await context
-                        //         .read<AdmissionViewModel>()
-                        //         .update(widget.selectedBatch);
-
-                        //     if (!status) {
-                        //       HandleException().handleException(
-                        //         InvalidException(
-                        //             "Sorry, course not updated ", false),
-                        //         top: true,
-                        //       );
-                        //     } else {
-                        //       DialogHelper.showSnackBar(
-                        //         title: "Success😊",
-                        //         description: "Course updated successfully ✔️",
-                        //       );
-                        //       Navigator.of(context).pop();
-                        //     }
-                        //   },
-                        // );
-                      },
-                      child: Row(
-                        children: const [
-                          Icon(Remix.edit_line),
-                          SizedBox(width: 15),
-                          Text("Edit Course"),
-                        ],
-                      ),
-                    ),
-                  ),
-                  PopupMenuItem(
-                    child: Material(
-                      child: GestureDetector(
-                        onTap: () async {
-                          // bool status = false;
-                          // await courseModal(
-                          //   context,
-                          //   content:
-                          //       "If you agree to the deletion of this course, can we proceed?",
-                          //   title: "Delete Course?",
-                          //   deny: "DENY",
-                          //   done: "SURE".toText(
-                          //       style: const TextStyle(color: Colors.red)),
-                          //   onDeny: () {
-                          //     status = false;
-                          //     Navigator.pop(context);
-                          //   },
-                          //   onDone: () {
-                          //     status = true;
-                          //     Navigator.pop(context);
-                          //   },
-                          // );
-
-                          // if (status) {
-                          //   context
-                          //       .read<AdmissionViewModel>()
-                          //       .deleteCourse(widget.selectedCourse);
-                          //   Navigator.pop(context);
-                          //   Navigator.pop(context);
-                          // } else {
-                          //   Navigator.pop(context);
-                          // }
-                        },
-                        child: Row(
-                          children: const [
-                            Icon(Remix.delete_bin_line),
-                            SizedBox(width: 15),
-                            Text("Delete Course"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              );
-            },
-            splashRadius: 20,
+          PopupMenuButton<Choice>(
             icon: const Icon(
               Remix.menu_5_line,
               color: Colors.black,
             ),
+            enableFeedback: true,
+            onSelected: (value) async {
+              if (value == Choice.update) {
+                context
+                    .read<BatchViewModel>()
+                    .setUpToUpdate(widget.selectedBatch);
+                showBatchForm(
+                  context,
+                  title: "Edit Batch",
+                  buttonTXT: "Update",
+                  onSubmit: () async {
+                    bool status = await context
+                        .read<BatchViewModel>()
+                        .update(widget.selectedBatch);
+
+                    if (!status) {
+                      HandleException().handleException(
+                        InvalidException("Sorry, Batch not updated ", false),
+                        top: true,
+                      );
+                    } else {
+                      DialogHelper.showSnackBar(
+                        title: "Success😊",
+                        description: "Batch updated successfully ✔️",
+                      );
+                      Navigator.of(context).pop();
+                    }
+                  },
+                );
+              } else {
+                bool status = false;
+                await batchModal(
+                  context,
+                  content:
+                      "If you agree to the deletion of this batch, can we proceed?",
+                  title: "Delete Batch?",
+                  deny: "DENY",
+                  done:
+                      "SURE".toText(style: const TextStyle(color: Colors.red)),
+                  onDeny: () {
+                    status = false;
+                    Navigator.pop(context);
+                  },
+                  onDone: () {
+                    status = true;
+                    Navigator.pop(context);
+                  },
+                );
+
+                if (status) {
+                  context
+                      .read<BatchViewModel>()
+                      .deleteBatch(widget.selectedBatch);
+                  Navigator.pop(context);
+                }
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: Choice.update,
+                child: MenuChip(
+                  name: "Edit Batch",
+                  icon: Remix.edit_line,
+                ),
+              ),
+              const PopupMenuItem(
+                value: Choice.delete,
+                child: MenuChip(
+                  name: "Delete Batch",
+                  icon: Remix.delete_bin_line,
+                ),
+              )
+            ],
           ),
         ],
       ),
