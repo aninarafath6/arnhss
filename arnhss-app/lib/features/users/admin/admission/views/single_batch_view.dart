@@ -34,7 +34,7 @@ class _SingleBatchViewState extends State<SingleBatchView> {
       appBar: customAppBar(
         context,
         title: widget.selectedBatch.name,
-        center: false,
+        // center: false,
         actions: [
           IconButton(
             onPressed: () {

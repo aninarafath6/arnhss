@@ -8,24 +8,17 @@ import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:intl/intl.dart';
 
 class CourseViewModel with ChangeNotifier, HandleException {
-  final AdmissionService _admissionService = AdmissionService();
-  final DateFormat formatter = DateFormat('yyyy');
 
-  late TextEditingController nameController = TextEditingController();
-  late TextEditingController batchCodeController = TextEditingController();
-  DateTime startDateController = DateTime.now();
-  DateTime endDateController =
-      DateTime.now().add(const Duration(days: 365 * 2));
+
+
 
   final List<Batch> _batches = [];
-  bool _loading = false;
   // int get batchCount => _batches.length;
   bool _deleteLoading = false;
 
   bool _setLoading = false;
 //* getters.
   // List<Batch> get batches => _batches;
-  bool get loading => _loading;
   bool get getSetLoading => _setLoading;
   bool get getDeleteLoading => _deleteLoading;
 
@@ -42,91 +35,6 @@ class CourseViewModel with ChangeNotifier, HandleException {
   //   notifyListeners();
   // }
 
-  set _setToggleLoading(bool state) {
-    _setLoading = state;
-    notifyListeners();
-  }
-
-  set _setToggleDeleteLoading(bool state) {
-    _deleteLoading = state;
-    notifyListeners();
-  }
-
-  set setEndDate(DateTime date) {
-    endDateController = date;
-    notifyListeners();
-  }
-
-  set setStartDate(DateTime date) {
-    startDateController = date;
-    notifyListeners();
-  }
-
-  //* edit course
-  void setUpToUpdate(Batch batch) {
-    nameController.text = batch.name;
-    endDateController = batch.endDate;
-    startDateController = batch.startDate;
-    batchCodeController.text = batch.code;
-  }
-
-  void clearControllers() {
-    nameController.clear();
-    batchCodeController.clear();
-  }
-
-  //* validate
-  bool validate({String? id}) {
-    //* handling errors
-    try {
-      // * if mobile number is empty then throw a invalid exception
-      if (nameController.text.isEmpty) {
-        throw InvalidException("Please enter batch name..!! ", false);
-      } else {
-        if (batchCodeController.text.isEmpty) {
-          throw InvalidException("Please enter batch code..!!", false);
-        } else {
-          List<Batch> check = _batches.where(
-            (element) {
-              if (id == null) {
-                return element.code.toUpperCase() ==
-                        batchCodeController.text.trim().toUpperCase() ||
-                    element.name.toUpperCase() ==
-                        nameController.text.trim().toUpperCase();
-              } else {
-                return element.code.toUpperCase() ==
-                            batchCodeController.text.trim().toUpperCase() &&
-                        element.id != id ||
-                    element.name.toUpperCase() ==
-                        nameController.text.trim().toUpperCase();
-              }
-            },
-          ).toList();
-
-          if (check.isNotEmpty) {
-            throw InvalidException(
-                "Batch id or name is already exist..", false);
-          } else {
-            if (startDateController.microsecondsSinceEpoch <
-                endDateController.microsecondsSinceEpoch) {
-              return true;
-            } else {
-              throw InvalidException(
-                  "Start date must be greater than end date...", false);
-            }
-          }
-        }
-      }
-    } catch (e) {
-      handleException(e, top: true);
-      return false;
-    }
-  }
-
-  void setUpForAdd(Course course) {
-    nameController.text =
-        "${formatter.format(startDateController).toString()}-${formatter.format(endDateController).toString()} ${course.d_code.toUpperCase()}";
-  }
 
 //   //* add course functionality
 //   Future<bool> addBatch(Course course) async {

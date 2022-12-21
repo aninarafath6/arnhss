@@ -4,7 +4,7 @@ import 'package:arnhss/common/widgets/not_found.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
-import 'package:arnhss/features/users/admin/admission/widgets/add_course_form.dart';
+import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/course_card.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:remixicon/remixicon.dart';

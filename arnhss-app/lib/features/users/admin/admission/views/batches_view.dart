@@ -5,9 +5,12 @@ import 'package:arnhss/common/widgets/not_found.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/batch_card.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/course_card.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:remixicon/remixicon.dart';
 
 class BatchesView extends StatefulWidget {
@@ -106,6 +109,41 @@ class _BatchesViewState extends State<BatchesView> {
                         },
                       );
           },
+        ),
+      ),
+      floatingActionButton: TextButton(
+        onPressed: () {
+          context.read<AdmissionViewModel>().clearControllers();
+          showBatchForm(
+            context,
+            title: "New Batch",
+            onSubmit: () async {
+              bool status = await context
+                  .read<BatchViewModel>()
+                  .addBatch(widget.selectedCourse.id);
+
+              if (!status) {
+                // HandleException().handleException(
+                //   InvalidException("Sorry, course not added ", false),
+                //   top: true,
+                // );
+              } else {
+                DialogHelper.showSnackBar(
+                  title: "Success🤡",
+                  description: "Course added successfully ✔️",
+                );
+                Navigator.of(context).pop();
+              }
+            },
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: CustomColors.dark,
+          ),
+          child: const Icon(Remix.add_fill, color: Colors.white),
         ),
       ),
     );
