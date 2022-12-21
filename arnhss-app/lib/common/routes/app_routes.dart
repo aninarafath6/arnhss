@@ -39,8 +39,8 @@ class AppRoutes {
       //   return MaterialPageRoute(builder: (_) => const StudentAuthentication());
       case SingleBatchView.routeName:
         return MaterialPageRoute(builder: (_) {
-          var args = settings.arguments;
-          return SingleBatchView(selectedBatch: args as Batch);
+          // var args = settings.arguments;
+          return const SingleBatchView();
         });
 
       case SelectAccount.routeName:
