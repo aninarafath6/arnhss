@@ -23,7 +23,12 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   set _setBatch(List<Batch> newBatch) {
     _batches.clear();
     _batches.addAll(newBatch);
+    notifyListeners();
+  }
 
+  set _setHold(List<Batch> holdings) {
+    hold.clear();
+    hold.addAll(holdings);
     notifyListeners();
   }
 
@@ -116,7 +121,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
     //* getting course form firebase service function.
     List<Batch>? result = await _admissionService.getBatches(course);
     //* setting result into courses by the help of setting method.
-    hold = result ?? [];
+    _setHold = result ?? [];
+    _setBatch = result ?? [];
 
     if (_filter) {
       filterWithDate();

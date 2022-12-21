@@ -207,7 +207,7 @@ class _CourseViewState extends State<CourseView> {
             ),
             const StaggeredGridTile.count(
               crossAxisCellCount: 3,
-              mainAxisCellCount: 3,
+              mainAxisCellCount: 5,
               child: Tile(
                 index: 0,
                 image: "assets/images/icons/notes.png",
@@ -216,7 +216,7 @@ class _CourseViewState extends State<CourseView> {
             ),
             StaggeredGridTile.count(
               crossAxisCellCount: 3,
-              mainAxisCellCount: 6,
+              mainAxisCellCount: 8,
               child: Tile(
                 index: 1,
                 image: "assets/images/icons/sales-and-crm-badge.png.webp",
