@@ -168,8 +168,8 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                 const Divider(),
                 DText(
                   value: context.watch<BatchViewModel>().isActive
-                      ? "Active"
-                      : "No Active",
+                      ? "ACTIVE"
+                      : "NOT ACTIVE",
                   name: "Status",
                   style: TextStyle(
                     color: context.watch<BatchViewModel>().isActive
