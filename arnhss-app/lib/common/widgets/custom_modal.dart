@@ -7,7 +7,7 @@ import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/batch_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/course_view_model.dart';
 import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -149,7 +149,7 @@ Future<dynamic> batchModal(
           TextButton(onPressed: onDeny, child: Text(deny)),
           TextButton(
             onPressed: onDone,
-            child: Provider.of<BatchViewModel>(context).getDeleteLoading
+            child: Provider.of<CourseViewModel>(context).getDeleteLoading
                 ? const CupertinoActivityIndicator(
                     color: CustomColors.dark,
                   )

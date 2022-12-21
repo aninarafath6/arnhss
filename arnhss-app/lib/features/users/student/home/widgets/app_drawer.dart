@@ -200,14 +200,14 @@ class AppDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
-                    "Developed by Anin Arafath (version 0.01)",
+                    "version 0.01",
                     textAlign: TextAlign.center,
                     style: CustomTextTheme(context: context)
                         .paragraph()
                         .copyWith(fontSize: 12),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
               ],
             ),
           )

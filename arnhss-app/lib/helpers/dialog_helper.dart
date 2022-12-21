@@ -1,3 +1,4 @@
+import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class DialogHelper {
     Get.snackbar(
       title ?? "",
       description ?? "something went wrong",
-      backgroundColor: Colors.white,
+      backgroundColor: CustomColors.lightBgOverlay,
       margin: const EdgeInsets.all(20),
       snackPosition: SnackPosition.BOTTOM,
       duration: duration,

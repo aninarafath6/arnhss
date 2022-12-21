@@ -2,7 +2,9 @@ import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/admission_view.dart';
-import 'package:arnhss/features/users/admin/admission/views/batch_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/batches_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/single_batch_view.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/role_wrapper.dart';
 import 'package:arnhss/features/users/student/profile/view/profile_view.dart';
@@ -25,18 +27,31 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const NoticeView());
       case AdmissionView.routeName:
         return MaterialPageRoute(builder: (_) => const AdmissionView());
-      case BatchView.routeName:
+      case CourseView.routeName:
         return MaterialPageRoute(builder: (_) {
           final Course args = settings.arguments as Course;
-          return BatchView(selectedCourse: args);
+          return CourseView(selectedCourse: args);
         });
 
       // case UserRole.routeName:
       //   return MaterialPageRoute(builder: (_) => const UserRole());
       // case StudentAuthentication.routeName:
       //   return MaterialPageRoute(builder: (_) => const StudentAuthentication());
+      case SingleBatchView.routeName:
+        return MaterialPageRoute(builder: (_) {
+          var args = settings.arguments;
+          return SingleBatchView(selectedBatch: args as Batch);
+        });
+
       case SelectAccount.routeName:
         return MaterialPageRoute(builder: (_) => const SelectAccount());
+      case BatchesView.routeName:
+        return MaterialPageRoute(
+          builder: (_) {
+            final Course _selectedCourse = settings.arguments as Course;
+            return BatchesView(selectedCourse: _selectedCourse);
+          },
+        );
       case RoleWrapper.routeName:
         return MaterialPageRoute(builder: (_) => const RoleWrapper());
       case StudentHome.routeName:

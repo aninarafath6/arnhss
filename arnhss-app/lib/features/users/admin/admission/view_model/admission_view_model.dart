@@ -1,3 +1,4 @@
+
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';
@@ -203,5 +204,9 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
     } else {
       return false;
     }
+  }
+
+  Future<Map<String, String?>> getCourseData(Course course) async {
+    return await _admissionService.getCourseInnerData(course);
   }
 }

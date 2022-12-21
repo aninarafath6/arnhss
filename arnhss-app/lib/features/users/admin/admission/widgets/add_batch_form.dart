@@ -3,7 +3,8 @@ import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/custom_selector.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/batch_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/course_view_model.dart';
 import 'package:intl/intl.dart';
 
 void showBatchForm(
@@ -20,7 +21,7 @@ void showBatchForm(
     isScrollControlled: true,
     context: context,
     builder: ((context) {
-      var _provider = context.watch<BatchViewModel>();
+      var _provider = context.watch<CourseViewModel>();
       return Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: Container(

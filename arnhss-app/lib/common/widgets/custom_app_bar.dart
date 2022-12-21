@@ -2,15 +2,18 @@ import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 AppBar customAppBar(BuildContext context,
     {required String title,
     FocusNode? focus,
     Function()? onBack,
+    bool? center,
     List<Widget>? actions}) {
   return AppBar(
+    systemOverlayStyle: SystemUiOverlayStyle.dark,
     backgroundColor: Colors.transparent,
-    centerTitle: context.isMobile,
+    centerTitle: center,
     elevation: 0,
     leading: IconButton(
       splashRadius: 25,
