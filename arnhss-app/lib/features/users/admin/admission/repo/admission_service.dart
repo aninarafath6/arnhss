@@ -123,6 +123,7 @@ class AdmissionService with HandleException {
         },
       );
     } catch (e) {
+      print(e);
       handleException(
         InvalidException(
           "Batch cannot be added because there is something wrong with them 🤯",
