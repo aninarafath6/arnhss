@@ -2,6 +2,7 @@ import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
@@ -15,6 +16,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   DateTime startDateController = DateTime.now();
   DateTime endDateController = DateTime.utc(DateTime.now().year + 2);
   bool _loading = false;
+  bool _deleteLoading = false;
   bool _filter = true;
   bool _isActive = true;
   final List<Batch> _batches = [];
@@ -34,6 +36,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
 
   //* getters
   bool get loading => _loading;
+  bool get deleteLoading => _deleteLoading;
   int get batchCount => _batches.length;
   bool get filter => _filter;
   List<Batch> get batches => _batches;
@@ -50,10 +53,10 @@ class BatchViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
-  // set _setToggleDeleteLoading(bool state) {
-  //   _deleteLoading = state;
-  //   notifyListeners();
-  // }
+  set _setToggleDeleteLoading(bool state) {
+    _deleteLoading = state;
+    notifyListeners();
+  }
 
   set setEndDate(DateTime date) {
     endDateController = date;
@@ -65,7 +68,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
-  //* edit course
+  //* edit batch
   void setUpToUpdate(Batch batch) {
     nameController.text = batch.name;
     endDateController = batch.endDate;
@@ -190,6 +193,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         startDate: startDateController,
         code: batchCodeController.text.trim().toUpperCase(),
         endDate: endDateController,
+        courseId: courseID,
         id: "",
       );
 
@@ -202,6 +206,64 @@ class BatchViewModel extends ChangeNotifier with HandleException {
               course ?? newBatch,
             ],
           );
+      //* set loading as false
+      _setToggleLoading = false;
+
+      //* clear input controllers's value
+      clearControllers();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<void> deleteBatch(Batch? batch) async {
+    if (batch != null) {
+      _batches.removeWhere((element) => element.id == batch.id);
+      debugPrint("=== batch deletion process started =====");
+      _setToggleDeleteLoading = true;
+      await Future.delayed(const Duration(milliseconds: 300));
+      await _admissionService.deleteBatch(batch, courseId: batch.courseId).then(
+            (value) => DialogHelper.showErrorDialog(
+              title: "success..✅",
+              description:
+                  "The ${batch.name} batch has been successfully deleted.",
+            ),
+          );
+
+      _setToggleDeleteLoading = false;
+    } else {
+      HandleException().handleException(
+        InvalidException("Batch deletion failed..😟, check batch id..", false),
+      );
+    }
+  }
+
+  Future<bool> update(Batch oldBatch) async {
+    bool isValid = validate(id: oldBatch.id);
+
+    print("here");
+
+// * validate inputs fields
+    if (isValid) {
+      //* create new batch with new data
+      Batch updatedBatch = Batch(
+        name: nameController.text.trim().capitalize ?? "",
+        code: batchCodeController.text.trim().toUpperCase(),
+        endDate: endDateController,
+        startDate: startDateController,
+        courseId: oldBatch.courseId,
+        id: oldBatch.id,
+      );
+
+      //* start loading
+      //* and set batch on firebase
+      _setToggleLoading = true;
+      await _admissionService.editBatch(updatedBatch).then((value) {
+        var index =
+            _batches.indexWhere((element) => element.id == updatedBatch.id);
+        _batches[index] = updatedBatch;
+      });
       //* set loading as false
       _setToggleLoading = false;
 

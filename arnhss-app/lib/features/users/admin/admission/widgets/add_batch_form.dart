@@ -21,7 +21,7 @@ void showBatchForm(
     isScrollControlled: true,
     context: context,
     builder: ((context) {
-      var _provider = context.watch<CourseViewModel>();
+      var _provider = context.watch<BatchViewModel>();
       return Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: Container(
@@ -147,7 +147,7 @@ void showBatchForm(
                       : context.getWidth(50),
                   height: context.isMobile ? context.getHeight(8) : 60,
                   fontSize: context.isMobile ? 15 : 15,
-                  loading: _provider.getSetLoading,
+                  loading: _provider.loading,
                   onTap: onSubmit,
                 ),
                 const SizedBox(height: 20),

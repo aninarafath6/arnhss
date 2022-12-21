@@ -91,12 +91,15 @@ class AdmissionService with HandleException {
           .get();
 
       return querySnapshot.docs
-          .map((e) => Batch.fromMap(
-                {
-                  ...e.data(),
-                  "id": e.id,
-                },
-              ))
+          .map(
+            (e) => Batch.fromMap(
+              {
+                ...e.data(),
+                "id": e.id,
+                "course_id": course.id,
+              },
+            ),
+          )
           .toList();
     } catch (e) {
       handleException(
@@ -187,6 +190,22 @@ class AdmissionService with HandleException {
       return {
         "batches": null,
       };
+    }
+  }
+
+  Future<void> editBatch(Batch updatedBatch) async {
+    try {
+      CollectionReference collectionRef =
+          _firestore.collection("course/${updatedBatch.courseId}/batches");
+      collectionRef
+          .doc(updatedBatch.id)
+          .update(updatedBatch.toMap())
+          .then((value) => log("${updatedBatch.name} updated"))
+          .catchError((error) {
+        throw InvalidException("batch is not updated..😟", false);
+      });
+    } catch (e) {
+      handleException(e);
     }
   }
 }
