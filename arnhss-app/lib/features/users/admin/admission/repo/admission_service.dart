@@ -132,6 +132,9 @@ class AdmissionService with HandleException {
         {
           ...(data.data() as Map<String, dynamic>),
           "id": docRef.id,
+          "course_id": courseId,
+          "teacher": newBatch.teacher,
+          "leader": newBatch.leader,
         },
       );
     } catch (e) {

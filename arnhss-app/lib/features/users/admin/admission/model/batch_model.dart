@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Batch {
   final String id;
-  late final String code;
+  late final int code;
   final String name;
   final DateTime startDate;
   final DateTime endDate;
@@ -25,7 +25,7 @@ class Batch {
   });
 
   Map<String, dynamic> toMap() => {
-        "code": code.toUpperCase(),
+        "code": code,
         "name": name,
         "start_date": Timestamp.fromDate(startDate),
         "end_date": Timestamp.fromDate(endDate),
@@ -40,7 +40,7 @@ class Batch {
     return Batch(
       id: batchMap["id"],
       name: batchMap["name"].toString().toUpperCase(),
-      code: batchMap["code"].toString(),
+      code: int.parse(batchMap["code"].toString()),
       startDate: _startDate.toDate(),
       endDate: _endDate.toDate(),
       courseId: batchMap["course_id"],

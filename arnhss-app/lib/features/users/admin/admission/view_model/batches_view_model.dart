@@ -83,7 +83,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
     nameController.text = batch.name;
     endDateController = batch.endDate;
     startDateController = batch.startDate;
-    batchCodeController.text = batch.code;
+    batchCodeController.text = batch.code.toString();
   }
 
   void clearControllers() {
@@ -171,11 +171,11 @@ class BatchViewModel extends ChangeNotifier with HandleException {
           List<Batch> check = hold.where(
             (element) {
               if (id == null) {
-                return element.code.toUpperCase() ==
-                    batchCodeController.text.trim().toUpperCase();
+                return element.code ==
+                    int.parse(batchCodeController.text.trim());
               } else {
-                return element.code.toUpperCase() ==
-                        batchCodeController.text.trim().toUpperCase() &&
+                return element.code ==
+                        int.parse(batchCodeController.text.trim()) &&
                     element.id != id;
               }
             },
@@ -209,7 +209,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
       Batch newBatch = Batch(
         name: nameController.text.trim().capitalize ?? "",
         startDate: startDateController,
-        code: batchCodeController.text.trim().toUpperCase(),
+        code: int.parse(batchCodeController.text.trim()),
         endDate: endDateController,
         courseId: courseID,
         teacher: teacher!,
@@ -224,6 +224,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         (batch) {
           if (batch != null) {
             print("hi");
+
+            batchCodeController.text = "hi";
             _setBatch = [..._batches, newBatch];
           }
         },
@@ -271,7 +273,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
       //* create new batch with new data
       Batch updatedBatch = Batch(
         name: nameController.text.trim().capitalize ?? "",
-        code: batchCodeController.text.trim().toUpperCase(),
+        code: int.parse(batchCodeController.text.trim()),
         endDate: endDateController,
         startDate: startDateController,
         courseId: oldBatch.courseId,

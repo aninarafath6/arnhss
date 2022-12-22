@@ -35,7 +35,7 @@ class BatchCard extends StatelessWidget {
           ),
           leading: CircleAvatar(
             backgroundColor: CustomColors.bgOverlay,
-            child: Text(batch.code),
+            child: Text(batch.code.toString()),
           ),
           trailing: Container(
             width: 15,
@@ -57,7 +57,7 @@ class BatchCard extends StatelessWidget {
         subtitle: Text("Batch code : ${batch.code}"),
         leading: CircleAvatar(
           backgroundColor: CustomColors.bgOverlay,
-          child: Text(batch.code),
+          child: Text(batch.code.toString()),
         ),
         trailing: const Icon(Icons.arrow_forward_ios_rounded),
         // ),

@@ -136,12 +136,12 @@ class _SingleBatchViewState extends State<SingleBatchView> {
               listData: [
                 DText(value: watchBatch.name, name: "Name"),
                 const Divider(),
-                DText(value: watchBatch.code, name: "Code"),
+                DText(value: watchBatch.code.toString(), name: "Code"),
                 const Divider(),
                 DText(
                     value: watchBatch.teacher.name.capitalize, name: "Teacher"),
                 const Divider(),
-                DText(value: watchBatch.leader ?? "NULL", name: "Leader"),
+                DText(value: watchBatch.leader, name: "Leader"),
                 const Divider(),
                 DText(
                   value: watchBatch.startDate
