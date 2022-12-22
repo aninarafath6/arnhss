@@ -1,10 +1,18 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/common/widgets/custom_drop_down.dart';
 import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/custom_selector.dart';
 import 'package:arnhss/extensions/dt_extension.dart';
+import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
+import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/views/select_teacher_view.dart';
+import 'package:arnhss/models/teacher.model.dart';
+import 'package:arnhss/models/user.model.dart';
+import 'package:remixicon/remixicon.dart';
 
 void showCourseForm(
   BuildContext context, {
@@ -201,6 +209,21 @@ void showBatchForm(
                   size: Sizing.sm,
                   keyboardType: TextInputType.number,
                 ),
+                const SizedBox(height: 5),
+                Consumer<BatchViewModel>(builder: (context, provider, child) {
+                  return TeacherDropdown(
+                    title: "Select batch teacher",
+                    leadingIcon: Remix.arrow_down_s_line,
+                    options: context.watch<AdmissionViewModel>().teachers,
+                    value: provider.teacher,
+                    changed: (TeacherModel teacher) {
+                      provider.setBatchTeacher = teacher;
+                    },
+                  );
+                }),
+                const SizedBox(height: 10),
+
+                const InputPlaceholder(title: "Leader"),
                 const SizedBox(height: 5),
                 Row(
                   children: [

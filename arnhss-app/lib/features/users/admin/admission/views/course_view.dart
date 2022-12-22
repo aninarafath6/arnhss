@@ -17,19 +17,13 @@ import 'package:remixicon/remixicon.dart';
 
 enum Choice { delete, update }
 
-class CourseView extends StatefulWidget {
+class CourseView extends StatelessWidget {
   const CourseView({
     Key? key,
     // required this.selectedCourse,
   }) : super(key: key);
   // final Course selectedCourse;
   static const String routeName = "/batch_view";
-
-  @override
-  State<CourseView> createState() => _CourseViewState();
-}
-
-class _CourseViewState extends State<CourseView> {
 
   @override
   Widget build(BuildContext context) {

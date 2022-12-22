@@ -54,6 +54,43 @@ class CustomInput extends StatelessWidget {
   }
 }
 
+class InputPlaceholder extends StatelessWidget {
+  const InputPlaceholder({
+    Key? key,
+    required this.title,
+    this.onTap,
+  }) : super(key: key);
+  final String title;
+  final Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 50,
+        width: context.getWidth(100),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        margin: const EdgeInsets.only(bottom: 10),
+        decoration: BoxDecoration(
+          color: CustomColors.bgOverlay,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: CustomTextTheme(context: context).paragraph(),
+            ),
+            const Spacer(),
+            const Icon(Icons.arrow_drop_down)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 enum Sizing {
   sm,
   lg,

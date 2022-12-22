@@ -2,6 +2,7 @@ import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
+import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,10 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
   late TextEditingController courseCodeController = TextEditingController();
   late TextEditingController displayCodeController = TextEditingController();
 
-  List<Course> _courses = [];
+  final List<Course> _courses = [];
   bool _loading = false;
   bool _deleteLoading = false;
-
+  List<TeacherModel> teachers = [];
   bool _setLoading = false;
 
 //* getters.
@@ -214,5 +215,13 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
 
   Future<Map<String, String?>> getCourseData(Course course) async {
     return await _admissionService.getCourseInnerData(course);
+  }
+
+  //* get teachers under course  from firebase methods
+  void getTeachers() async {
+    List<TeacherModel>? result =
+        await _admissionService.getTeachersUnderCourse(selectedCourse.id);
+    teachers.clear();
+    teachers.addAll(result ?? []);
   }
 }

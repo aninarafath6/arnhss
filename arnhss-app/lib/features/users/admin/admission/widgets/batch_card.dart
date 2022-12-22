@@ -47,19 +47,17 @@ class BatchCard extends StatelessWidget {
     } else {
       return ListTile(
         onTap: () {
-          Navigator.pushNamed(
-            context,
-            SingleBatchView.routeName,
-            arguments: batch,
-          );
-          context.read<BatchViewModel>().selectedBatch = batch;
+          context.read<BatchViewModel>().setSelectedBatch = batch;
+
+          Navigator.pushNamed(context, SingleBatchView.routeName,
+              arguments: batch);
         },
 
-        title: Text(batch?.name ?? ""),
-        subtitle: Text("Batch code : ${batch?.code}"),
+        title: Text(batch.name),
+        subtitle: Text("Batch code : ${batch.code}"),
         leading: CircleAvatar(
           backgroundColor: CustomColors.bgOverlay,
-          child: Text(batch?.code ?? ''),
+          child: Text(batch.code),
         ),
         trailing: const Icon(Icons.arrow_forward_ios_rounded),
         // ),

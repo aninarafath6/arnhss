@@ -57,7 +57,7 @@ void showAddNotice(BuildContext context) {
                 //   style: CustomTextTheme(context: context).headLine2(),
                 // ),
                 const SizedBox(height: 5),
-                CustomDropDown(
+                EnumDropDown(
                   title: "Choose notification target 🎯",
                   leadingIcon: Remix.arrow_down_s_line,
                   options: const [

@@ -5,6 +5,7 @@ import 'package:arnhss/common/widgets/not_found.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/batch_card.dart';
@@ -27,6 +28,7 @@ class _BatchesViewState extends State<BatchesView> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<BatchViewModel>().getBatches(widget.selectedCourse);
+      context.read<AdmissionViewModel>().getTeachers();
     });
     super.initState();
   }

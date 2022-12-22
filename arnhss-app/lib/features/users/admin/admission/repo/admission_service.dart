@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
+import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -90,17 +91,29 @@ class AdmissionService with HandleException {
           .orderBy("code")
           .get();
 
-      return querySnapshot.docs
-          .map(
-            (e) => Batch.fromMap(
+      return Future.wait(
+        querySnapshot.docs.map(
+          (e) async {
+            DocumentReference ref = e.data()["teacher"];
+            DocumentSnapshot teacher = await _firestore.doc(ref.path).get();
+
+            return Batch.fromMap(
               {
                 ...e.data(),
                 "id": e.id,
                 "course_id": course.id,
+                "teacher": TeacherModel.fromTeacherJSON(
+                  {
+                    ...teacher.data() as Map<String, dynamic>,
+                    "reference": teacher.reference,
+                    "id": teacher.id,
+                  },
+                ),
               },
-            ),
-          )
-          .toList();
+            );
+          },
+        ).toList(),
+      );
     } catch (e) {
       handleException(
           InvalidException("Something wrong with course 🤯", false));
@@ -110,10 +123,9 @@ class AdmissionService with HandleException {
 
   Future<Batch?> addBatch(Batch newBatch, {required String courseId}) async {
     try {
-      CollectionReference collectionRef =
-          _firestore.collection("course/$courseId/batches");
+      var collectionRef = _firestore.collection("course/$courseId/batches");
 
-      DocumentReference docRef = await collectionRef.add(newBatch.toMap());
+      var docRef = await collectionRef.add(newBatch.toMap());
       var data = await docRef.get();
 
       return Batch.fromMap(
@@ -130,8 +142,8 @@ class AdmissionService with HandleException {
           false,
         ),
       );
-      return null;
     }
+    return null;
   }
 
   Future<void> deleteBatch(Batch batch, {required String courseId}) async {
@@ -208,5 +220,34 @@ class AdmissionService with HandleException {
     } catch (e) {
       handleException(e);
     }
+  }
+
+  ///* batch service
+  Future<List<TeacherModel>?> getTeachersUnderCourse(String courseId) async {
+    try {
+      //* fetching sorted course data by course code
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+          .collection("course/$courseId/teachers")
+          .orderBy("name")
+          .get();
+
+      return querySnapshot.docs
+          .map(
+            (e) => TeacherModel.fromTeacherJSON(
+              {
+                ...e.data(),
+                "id": e.id,
+                "reference": e.reference,
+              },
+            ),
+          )
+          .toList();
+    } catch (e) {
+      print(e);
+      handleException(
+          InvalidException("Something wrong with course 🤯", false));
+      // Future.error("error");
+    }
+    return null;
   }
 }

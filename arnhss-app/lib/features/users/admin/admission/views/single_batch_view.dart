@@ -20,10 +20,9 @@ enum Choice { delete, update }
 class SingleBatchView extends StatefulWidget {
   const SingleBatchView({
     Key? key,
-    // required this.selectedBatch,
   }) : super(key: key);
-  // final Batch selectedBatch;
-  static const String routeName = "/";
+
+  static const String routeName = "/singleBatch";
 
   @override
   State<SingleBatchView> createState() => _SingleBatchViewState();
@@ -32,7 +31,7 @@ class SingleBatchView extends StatefulWidget {
 class _SingleBatchViewState extends State<SingleBatchView> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context
           .read<BatchViewModel>()
           .checkStatus(context.read<BatchViewModel>().selectedBatch);
@@ -41,14 +40,8 @@ class _SingleBatchViewState extends State<SingleBatchView> {
   }
 
   @override
-  void dispose() {
-    context.read<BatchViewModel>().clearControllers();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    Batch watchBatch = context.watch<BatchViewModel>().selectedBatch;
+    Batch? watchBatch = context.watch<BatchViewModel>().selectedBatch;
     return Scaffold(
       appBar: customAppBar(
         context,
@@ -144,6 +137,11 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                 DText(value: watchBatch.name, name: "Name"),
                 const Divider(),
                 DText(value: watchBatch.code, name: "Code"),
+                const Divider(),
+                DText(
+                    value: watchBatch.teacher.name.capitalize, name: "Teacher"),
+                const Divider(),
+                DText(value: watchBatch.leader ?? "NULL", name: "Leader"),
                 const Divider(),
                 DText(
                   value: watchBatch.startDate

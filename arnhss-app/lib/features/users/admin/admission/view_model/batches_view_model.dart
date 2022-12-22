@@ -3,6 +3,7 @@ import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
+import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
@@ -14,6 +15,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   late Batch selectedBatch;
   late TextEditingController nameController = TextEditingController();
   late TextEditingController batchCodeController = TextEditingController();
+  TeacherModel? teacher;
+
   DateTime startDateController = DateTime.now();
   DateTime endDateController = DateTime.utc(DateTime.now().year + 2);
   bool _loading = false;
@@ -69,6 +72,11 @@ class BatchViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
+  set setSelectedBatch(Batch batch) {
+    selectedBatch = batch;
+    notifyListeners();
+  }
+
   //* edit batch
   void setUpToUpdate() {
     var batch = selectedBatch;
@@ -104,6 +112,11 @@ class BatchViewModel extends ChangeNotifier with HandleException {
     } else {
       _setBatch = hold;
     }
+    notifyListeners();
+  }
+
+  set setBatchTeacher(TeacherModel newTeacher) {
+    teacher = newTeacher;
     notifyListeners();
   }
 
@@ -171,7 +184,12 @@ class BatchViewModel extends ChangeNotifier with HandleException {
           if (check.isNotEmpty) {
             throw InvalidException("Course id is  already exist..", false);
           } else {
-            return true;
+            if (teacher == null) {
+              throw InvalidException(
+                  "Each batch should have one teacher..", false);
+            } else {
+              return true;
+            }
           }
         }
       }
@@ -194,18 +212,22 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         code: batchCodeController.text.trim().toUpperCase(),
         endDate: endDateController,
         courseId: courseID,
-        id: "",
+        teacher: teacher!,
+        leader: " ",
+        id: " ",
       );
 
       //* start loading
       //* and set course on firebase
       _setToggleLoading = true;
       await _admissionService.addBatch(newBatch, courseId: courseID).then(
-            (course) => _setBatch = [
-              ..._batches,
-              course ?? newBatch,
-            ],
-          );
+        (batch) {
+          if (batch != null) {
+            print("hi");
+            _setBatch = [..._batches, newBatch];
+          }
+        },
+      );
       //* set loading as false
       _setToggleLoading = false;
 
@@ -254,6 +276,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         startDate: startDateController,
         courseId: oldBatch.courseId,
         id: oldBatch.id,
+        teacher: teacher!,
+        leader: "",
       );
 
       //* start loading

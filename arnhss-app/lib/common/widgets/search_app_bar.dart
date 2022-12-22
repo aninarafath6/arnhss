@@ -6,6 +6,7 @@ AppBar searchAppBar<T>(BuildContext context,
     {Brightness type = Brightness.dark,
     Function()? onTap,
     Function()? onSearchTap,
+    
     bool? searching = false,
     bool center = false,
     String? hintText = "Search you country code...",

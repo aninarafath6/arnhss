@@ -32,7 +32,9 @@ class CustomInput extends StatelessWidget {
                 Text(
                   context.watch<CountryViewModel>().selectedCountry.dialCode,
                   style: const TextStyle(
-                      fontWeight: FontWeight.w500, color: CustomColors.dark),
+                    fontWeight: FontWeight.w500,
+                    color: CustomColors.dark,
+                  ),
                 ),
                 const SizedBox(width: 5),
                 Image.network(
