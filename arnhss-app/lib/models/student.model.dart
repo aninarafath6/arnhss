@@ -9,7 +9,7 @@ class StudentModel {
     required this.id,
     required this.name,
     required this.gender,
-    required this.dpURL,
+    this.dpURL,
     required this.email,
     required this.lastLogin,
     this.reference,
@@ -28,7 +28,7 @@ class StudentModel {
   final DateTime dob;
   final int admissionNo;
   final String name;
-  final String dpURL;
+  String? dpURL;
   final Gender gender;
   final DateTime lastLogin;
   final String secondLanguage;

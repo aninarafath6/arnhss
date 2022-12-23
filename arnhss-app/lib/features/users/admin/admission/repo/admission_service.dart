@@ -6,10 +6,14 @@ import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:arnhss/services/firebase_common_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AdmissionService with HandleException {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final storage = FirebaseStorage.instance;
+  final FirebaseCommonService _firebaseCommonService = FirebaseCommonService();
 
   Future<List<Course>?> getCourse() async {
     try {
@@ -277,6 +281,11 @@ class AdmissionService with HandleException {
             "reference": e.reference,
             "batch": batchDetails?.data()?["name"],
             "department": courseDetails?.data()?["name"],
+            "dpURL": _firebaseCommonService.getStudentDP(
+              courseDetails?.data()?["name"],
+              batchDetails?.data()?["name"],
+              e.id,
+            ),
           });
         },
       ).toList());

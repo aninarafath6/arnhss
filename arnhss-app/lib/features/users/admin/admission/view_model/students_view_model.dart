@@ -7,15 +7,41 @@ class StudentViewModel extends ChangeNotifier {
   final AdmissionService _admissionService = AdmissionService();
 
   final List<StudentModel> _students = [];
+  final List<StudentModel> _allStudents = [];
+
   bool _loading = false;
+  bool _isSearching = false;
 
 //* getters
   List<StudentModel> get students => _students;
   bool get loading => _loading;
+  bool get isSearching => _isSearching = false;
 
 //* setters
   void toggleLoading() {
     _loading = !loading;
+    notifyListeners();
+  }
+
+  void toggleSearching() {
+    _isSearching = !_isSearching;
+    print(_isSearching);
+    notifyListeners();
+  }
+
+  void searchCountry(String qry) {
+    qry = qry.toLowerCase();
+    if (qry.isEmpty) {
+      _students.addAll(_allStudents);
+    } else {
+      _students.addAll(
+        _allStudents.where((element) {
+          return element.admissionNo.toString().toLowerCase().contains(qry) ||
+              element.name.toLowerCase().contains(qry) ||
+              element.rollNumber.toString().toLowerCase().contains(qry);
+        }).toList(),
+      );
+    }
     notifyListeners();
   }
 
@@ -27,6 +53,8 @@ class StudentViewModel extends ChangeNotifier {
         await _admissionService.getStudentsUnderBatch(batch);
     _students.clear();
     _students.addAll(result ?? []);
+    _allStudents.addAll(result ?? []);
+
     toggleLoading();
     notifyListeners();
   }

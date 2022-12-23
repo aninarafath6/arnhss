@@ -1,16 +1,19 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 
-AppBar searchAppBar<T>(BuildContext context,
-    {Brightness type = Brightness.dark,
-    Function()? onTap,
-    Function()? onSearchTap,
-    bool? searching = false,
-    bool center = false,
-    String? hintText = "Search you country code...",
-    String? title = "Choose your country",
-    FocusNode? focusNode}) {
+AppBar searchAppBar<T>(
+  BuildContext context, {
+  Brightness type = Brightness.dark,
+  Function()? onTap,
+  Function()? onSearchTap,
+  bool? searching = false,
+  bool center = false,
+  String? hintText = "Search you country code...",
+  String? title = "Choose your country",
+  FocusNode? focusNode,
+}) {
   return AppBar(
     backgroundColor: type == Brightness.dark ? CustomColors.dark : Colors.white,
     // toolbarHeight: 80,
@@ -25,7 +28,7 @@ AppBar searchAppBar<T>(BuildContext context,
     title: searching!
         ? TextField(
             focusNode: focusNode,
-            onChanged: context.read<CountryViewModel>().searchCountry,
+            onChanged: context.read<StudentViewModel>().searchCountry,
             cursorColor:
                 type == Brightness.dark ? Colors.white : CustomColors.dark,
             style: TextStyle(

@@ -34,7 +34,7 @@ class _StudentAvatarState extends State<StudentAvatar> {
             )
           : ClipOval(
               child: CachedNetworkImage(
-                imageUrl: widget.student.dpURL,
+                imageUrl: widget.student.dpURL!,
                 key: ValueKey(widget.student.id),
                 width: 100,
                 height: 100,
