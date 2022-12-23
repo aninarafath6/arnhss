@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 class CustomInput extends StatelessWidget {
   const CustomInput({
     Key? key,
+    required this.hintText,
   }) : super(key: key);
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class CustomInput extends StatelessWidget {
                     color: CustomColors.dark,
                   ),
                 ),
-                const SizedBox(width: 5),
+                const SizedBox(width: 2),
                 Image.network(
                   "${NetworkConstants.baseFlagURL}${context.watch<CountryViewModel>().selectedCountry.code.toLowerCase()}.png",
                   errorBuilder: ((context, error, stackTrace) {
@@ -55,7 +57,7 @@ class CustomInput extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 8.0),
           child: VerticalDivider(),
         ),
-        const InputBox(),
+        InputBox(hintText: hintText),
       ],
     );
   }

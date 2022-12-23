@@ -3,6 +3,7 @@ import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
+import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
@@ -16,6 +17,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   late TextEditingController nameController = TextEditingController();
   late TextEditingController batchCodeController = TextEditingController();
   TeacherModel? teacher;
+  StudentModel? leader;
 
   DateTime startDateController = DateTime.now();
   DateTime endDateController = DateTime.utc(DateTime.now().year + 2);
@@ -84,6 +86,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
     endDateController = batch.endDate;
     startDateController = batch.startDate;
     batchCodeController.text = batch.code.toString();
+    leader = batch.leader;
+    teacher = selectedBatch.teacher;
   }
 
   void clearControllers() {
@@ -91,6 +95,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
     batchCodeController.clear();
     startDateController = DateTime.now();
     endDateController = DateTime.utc(DateTime.now().year + 2);
+    leader = null;
+
   }
 
   void setUpForAdd(Course course) {
@@ -117,6 +123,11 @@ class BatchViewModel extends ChangeNotifier with HandleException {
 
   set setBatchTeacher(TeacherModel newTeacher) {
     teacher = newTeacher;
+    notifyListeners();
+  }
+
+  set setBatchLeader(StudentModel? newLeader) {
+    leader = newLeader;
     notifyListeners();
   }
 
@@ -213,7 +224,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         endDate: endDateController,
         courseId: courseID,
         teacher: teacher!,
-        leader: "",
+        leader: leader,
         id: "",
       );
 
@@ -277,7 +288,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         courseId: oldBatch.courseId,
         id: oldBatch.id,
         teacher: teacher!,
-        leader: "",
+        leader: leader,
       );
 
       //* start loading

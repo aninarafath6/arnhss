@@ -1,11 +1,15 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/widgets/custom_drop_down.dart';
 import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/custom_selector.dart';
 import 'package:arnhss/extensions/dt_extension.dart';
+import 'package:arnhss/features/authentication/login/widgets/input_box.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
+import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -216,10 +220,20 @@ void showBatchForm(
                     },
                   );
                 }),
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
 
-                const InputPlaceholder(title: "Leader"),
-                const SizedBox(height: 5),
+                Consumer<BatchViewModel>(builder: (context, provider, child) {
+                  return StudentDropdown(
+                    title: "Select class leader",
+                    leadingIcon: Remix.arrow_down_s_line,
+                    options: context.watch<StudentViewModel>().students,
+                    value: provider.leader,
+                    changed: (StudentModel leader) {
+                      provider.setBatchLeader = leader;
+                    },
+                  );
+                }),
+                const SizedBox(height: 15),
                 Row(
                   children: [
                     Expanded(
@@ -272,6 +286,148 @@ void showBatchForm(
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(height: 15),
+
+                const SizedBox(height: 10),
+
+                // const SizedBox(height: 15),
+                CustomButton(
+                  label: buttonTXT,
+                  width: context.isMobile
+                      ? context.getWidth(100)
+                      : context.getWidth(50),
+                  height: context.isMobile ? context.getHeight(8) : 60,
+                  fontSize: context.isMobile ? 15 : 15,
+                  loading: _provider.loading,
+                  onTap: onSubmit,
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      );
+    }),
+  );
+}
+
+void showStudentAddForm(
+  BuildContext context, {
+  String title = "Add Student",
+  String buttonTXT = "Add",
+  required VoidCallback onSubmit,
+  required String dc,
+}) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    isScrollControlled: true,
+    context: context,
+    builder: ((context) {
+      var _provider = context.watch<BatchViewModel>();
+
+      return Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: Container(
+          // height: context.getHeight(65),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: const BoxDecoration(
+            color: CustomColors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+            ),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 100,
+                    height: 4,
+                    decoration: BoxDecoration(
+                        color: CustomColors.bgOverlay,
+                        borderRadius: BorderRadius.circular(14)),
+                  ),
+                ),
+                const SizedBox(height: 10),
+
+                FormHeader(title: title),
+                const SizedBox(height: 10),
+
+                const CustomInput(
+                  hintText: "Name",
+                  size: Sizing.sm,
+                ),
+                const SizedBox(height: 5),
+                const CustomInput(
+                  hintText: "Email",
+                  size: Sizing.sm,
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 5),
+                const InputFelid(
+                  hintText: "Phone",
+                ),
+                const SizedBox(height: 10),
+                const InputFelid(
+                  hintText: "Parent'n Phone",
+                ),
+                const SizedBox(height: 10),
+                const CustomInput(
+                  hintText: "Roll Number",
+                  size: Sizing.sm,
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 5),
+                const CustomInput(
+                  hintText: "Admission Number",
+                  size: Sizing.sm,
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 5),
+                EnumDropDown<Gender>(
+                  title: "Gender",
+                  leadingIcon: Remix.arrow_down_s_line,
+                  options: const [
+                    Gender.female,
+                    Gender.male,
+                    Gender.other,
+                  ],
+                  changed: (_) {},
+                ),
+                const SizedBox(height: 10),
+                StringDropDown(
+                  title: "Second Language",
+                  leadingIcon: Remix.arrow_down_s_line,
+                  options: const ["Malayalam", "Arabic"],
+                  changed: (_) {},
+                ),
+                const SizedBox(height: 10),
+                CustomSelector(
+                  label: 'Date Of Birth',
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate:
+                          context.read<BatchViewModel>().endDateController,
+                      firstDate: DateTime.utc(DateTime.now().year - 4),
+                      lastDate: DateTime.utc(DateTime.now().year + 4),
+                    ).then(
+                      (value) {
+                        _provider.setEndDate = value ?? DateTime.now();
+                        context.read<BatchViewModel>().setupToAdd(dc);
+                      },
+                    );
+                  },
+                  content: context
+                      .watch<BatchViewModel>()
+                      .endDateController
+                      .dtFrm(e: "", d: "dd ", m: "MMM", y: " y"),
                 ),
                 const SizedBox(height: 15),
 

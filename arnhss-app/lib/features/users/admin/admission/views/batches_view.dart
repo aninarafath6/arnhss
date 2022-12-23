@@ -7,6 +7,7 @@ import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/batch_card.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/course_card.dart';
@@ -115,6 +116,9 @@ class _BatchesViewState extends State<BatchesView> {
       floatingActionButton: TextButton(
         onPressed: () {
           context.read<BatchViewModel>().clearControllers();
+          context.read<BatchViewModel>().setBatchLeader = null;
+          context.read<StudentViewModel>().clearStudents();
+
           context
               .read<BatchViewModel>()
               .setupToAdd(widget.selectedCourse.d_code);

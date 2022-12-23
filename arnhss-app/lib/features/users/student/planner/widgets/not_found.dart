@@ -2,13 +2,12 @@ import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 
-
 class NotFound extends StatelessWidget {
   const NotFound({
     Key? key,
     this.imageURL,
     this.title,
-    this.isBig = false,
+    this.isBig = true,
   }) : super(key: key);
   final String? imageURL;
   final String? title;
@@ -21,7 +20,7 @@ class NotFound extends StatelessWidget {
       children: [
         const Spacer(flex: 2),
         SizedBox(
-          width: context.getWidth(75),
+          width: context.getWidth(isBig ? 75 : 50),
           child: Center(
             child: Image.asset(imageURL ?? Images.notFound),
           ),

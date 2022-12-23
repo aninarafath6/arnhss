@@ -24,6 +24,11 @@ class StudentViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearStudents() {
+    _students.clear();
+    notifyListeners();
+  }
+
   void toggleSearching() {
     _isSearching = !_isSearching;
     print(_isSearching);

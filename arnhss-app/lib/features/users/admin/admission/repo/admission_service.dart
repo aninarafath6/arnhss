@@ -73,6 +73,21 @@ class AdmissionService with HandleException {
   Future<void> editCourse(Course course) async {
     try {
       CollectionReference collectionRef = _firestore.collection("course");
+      DocumentSnapshot oldCourse = await collectionRef.doc(course.id).get();
+      Map<String, dynamic> old = oldCourse.data() as Map<String, dynamic>;
+
+      print(old["name"]);
+
+      storage
+          .ref("")
+          .updateMetadata(
+              SettableMetadata(customMetadata: {'name': course.name}))
+          .then((_) {
+        print('Folder successfully renamed');
+      }).catchError((error) {
+        print('Error renaming folder: $error');
+      });
+
       collectionRef
           .doc(course.id)
           .update(course.toMap())
@@ -98,14 +113,40 @@ class AdmissionService with HandleException {
       return Future.wait(
         querySnapshot.docs.map(
           (e) async {
-            DocumentReference ref = e.data()["teacher"];
-            DocumentSnapshot teacher = await _firestore.doc(ref.path).get();
+            DocumentReference teacherRef = e.data()["teacher"];
+            DocumentReference? leaderRef = e.data()["leader"];
+
+            DocumentSnapshot teacher =
+                await _firestore.doc(teacherRef.path).get();
+            DocumentSnapshot? leader;
+
+            if (leaderRef != null) {
+              leader = await _firestore.doc(leaderRef.path).get();
+            }
+
+            // var batchDetails = await e.reference.parent.parent?.get();
+
+            //* fetching batch details
+            var courseDetails = await e.reference.parent.parent?.get();
+            // String? leaderDP = await _firebaseCommonService.getStudentDP(
+            //     courseDetails?.data()?["name"], e.data()["name"], e.id);
 
             return Batch.fromMap(
               {
                 ...e.data(),
                 "id": e.id,
                 "course_id": course.id,
+                "leader": leaderRef != null
+                    ? StudentModel.fromJSON(
+                        {
+                          ...leader?.data() as Map<String, dynamic>,
+                          "reference": leader?.reference,
+                          "id": leader?.id,
+                          "batch": e.data()["name"],
+                          "department": courseDetails?.data()?["name"],
+                        },
+                      )
+                    : null,
                 "teacher": TeacherModel.fromTeacherJSON(
                   {
                     ...teacher.data() as Map<String, dynamic>,
@@ -266,6 +307,7 @@ class AdmissionService with HandleException {
           .orderBy("roll_no")
           .get();
 
+      print(querySnapshot.docs);
       return Future.wait(querySnapshot.docs.map(
         (e) async {
           //* fetching division details

@@ -11,7 +11,9 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 class InputFelid extends StatelessWidget {
   const InputFelid({
     Key? key,
+    this.hintText = "Enter your mobile number",
   }) : super(key: key);
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class InputFelid extends StatelessWidget {
       decoration: BoxDecoration(
           color: CustomColors.lightBgOverlay,
           borderRadius: BorderRadius.circular(8)),
-      child: const CustomInput(),
+      child:  CustomInput(hintText: hintText,),
     );
   }
 }
@@ -29,8 +31,9 @@ class InputFelid extends StatelessWidget {
 class InputBox extends StatefulWidget {
   const InputBox({
     Key? key,
+    this.hintText = "Enter your mobile number",
   }) : super(key: key);
-
+  final String hintText;
   @override
   State<InputBox> createState() => _InputBoxState();
 }
@@ -73,7 +76,7 @@ class _InputBoxState extends State<InputBox> {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
             border: InputBorder.none,
-            hintText: "Enter your mobile number",
+            hintText: widget.hintText,
             hintStyle: CustomTextTheme(context: context)
                 .paragraph()
                 .copyWith(fontSize: 15),

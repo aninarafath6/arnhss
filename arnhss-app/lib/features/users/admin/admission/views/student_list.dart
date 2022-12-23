@@ -6,9 +6,12 @@ import 'package:arnhss/features/authentication/otp_verification/view/index.dart'
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/widgets/add_batch_form.dart';
+import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/student/planner/widgets/not_found.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remixicon/remixicon.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SelectFromList extends StatefulWidget {
@@ -64,10 +67,49 @@ class _SelectFromListState extends State<SelectFromList> {
                   )
                 : Center(
                     child: NotFound(
+                      imageURL: "assets/images/icons/map.png.webp",
+                      isBig: false,
                       title:
                           "There is no students for ${context.read<AdmissionViewModel>().selectedCourse.name} in ${context.read<BatchViewModel>().selectedBatch.name} batch",
                     ),
                   ),
+      ),
+      floatingActionButton: Row(
+        children: [
+          const Spacer(),
+          TextButton(
+            onPressed: () {
+              showStudentAddForm(
+                context,
+                onSubmit: () {},
+                dc: '',
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: CustomColors.dark,
+              ),
+              child: const Icon(Remix.add_fill, color: Colors.white),
+            ),
+          ),
+          Tooltip(
+            message: "import students from csv",
+            child: TextButton(
+              onPressed: () {},
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: CustomColors.dark,
+                ),
+                child: const Icon(Remix.download_cloud_2_line,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

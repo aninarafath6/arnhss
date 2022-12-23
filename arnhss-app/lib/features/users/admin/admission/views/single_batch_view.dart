@@ -63,6 +63,10 @@ class _SingleBatchViewState extends State<SingleBatchView> {
             onSelected: (value) async {
               if (value == Choice.update) {
                 context.read<BatchViewModel>().setUpToUpdate();
+                context
+                    .read<StudentViewModel>()
+                    .getStudents(context.read<BatchViewModel>().selectedBatch);
+
                 showBatchForm(
                   context,
                   title: "Edit Batch",
@@ -71,6 +75,9 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                   onSubmit: () async {
                     bool status =
                         await context.read<BatchViewModel>().update(watchBatch);
+                    context.read<BatchViewModel>().setBatchLeader = null;
+                    context.read<StudentViewModel>().clearStudents();
+
 
                     if (!status) {
                       HandleException().handleException(
@@ -155,8 +162,7 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                       name: "Teacher"),
                   const Divider(),
                   DText(
-                    value:
-                        watchBatch.leader == "" ? " Null" : watchBatch.leader,
+                    value: watchBatch.leader?.name ?? "NUll",
                     name: "Leader",
                   ),
                   const Divider(),

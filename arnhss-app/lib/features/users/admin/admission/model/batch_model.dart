@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -11,7 +12,7 @@ class Batch {
   final DateTime endDate;
   final String courseId;
   final TeacherModel teacher;
-  final String leader;
+  final StudentModel? leader;
 
   Batch({
     required this.name,
@@ -21,7 +22,7 @@ class Batch {
     required this.startDate,
     required this.courseId,
     required this.teacher,
-    required this.leader,
+    this.leader,
   });
 
   Map<String, dynamic> toMap() => {
@@ -30,7 +31,7 @@ class Batch {
         "start_date": Timestamp.fromDate(startDate),
         "end_date": Timestamp.fromDate(endDate),
         "teacher": teacher.reference,
-        "leader": leader,
+        "leader": leader?.reference,
       };
 
   factory Batch.fromMap(Map<String, dynamic> batchMap) {
