@@ -139,7 +139,7 @@ class AuthService with HandleException {
       await _user?.updateEmail(user.email.toString());
       await _user?.updatePhotoURL(user.dpURL);
     } catch (e) {
-      print("error from user updating function on auth service $e");
+      // print("error from user updating function on auth service $e");
       handleException(InvalidException("User Profile is not updated!!", false));
     }
   }
@@ -176,16 +176,16 @@ class AuthService with HandleException {
 
         if (role == Role.student) {
           //* fetching division details
-          var divisionDetails = await e.reference.parent.parent?.get();
+          var batchDetails = await e.reference.parent.parent?.get();
 
           //* fetching batch details
-          var batchDetails =
-              await divisionDetails?.reference.parent.parent?.get();
+          var courseDetails =
+              await batchDetails?.reference.parent.parent?.get();
 
-          //* fetching course details
-          var courseDetails = await divisionDetails
-              ?.reference.parent.parent?.parent.parent
-              ?.get();
+          // //* fetching course details
+          // var courseDetails = await divisionDetails
+          //     ?.reference.parent.parent?.parent.parent
+          //     ?.get();
 
           DateTime dob = data["dob"].toDate() as DateTime;
 
@@ -195,7 +195,7 @@ class AuthService with HandleException {
               ...data,
               "batch": batchDetails?.data()?["name"],
               "department": courseDetails?.data()?["name"],
-              "division": divisionDetails?.data()?["name"],
+              // "division": divisionDetails?.data()?["name"],
               "last_login": lastLogin.microsecondsSinceEpoch,
               "dob": dob.microsecondsSinceEpoch,
             },

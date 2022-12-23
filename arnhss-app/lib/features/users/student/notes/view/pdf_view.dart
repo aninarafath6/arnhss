@@ -54,22 +54,22 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
               setState(() {
                 errorMessage = error.toString();
               });
-              print(error.toString());
+              // print(error.toString());
             },
             onPageError: (page, error) {
               setState(() {
                 errorMessage = '$page: ${error.toString()}';
               });
-              print('$page: ${error.toString()}');
+              // print('$page: ${error.toString()}');
             },
             onViewCreated: (PDFViewController pdfViewController) {
               _controller.complete(pdfViewController);
             },
             onLinkHandler: (String? uri) {
-              print('goto uri: $uri');
+              // print('goto uri: $uri');
             },
             onPageChanged: (int? page, int? total) {
-              print('page change: $page/$total');
+              // print('page change: $page/$total');
               setState(() {
                 currentPage = page;
               });
@@ -77,7 +77,7 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
           ),
           errorMessage.isEmpty
               ? !isReady
-                  ? Center(
+                  ? const Center(
                       child: CircularProgressIndicator(),
                     )
                   : Container()

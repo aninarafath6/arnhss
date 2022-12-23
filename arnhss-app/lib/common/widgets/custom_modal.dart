@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:arnhss/abstract/loader.abstract.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/extensions/string_extension.dart';
@@ -8,7 +6,6 @@ import 'package:arnhss/features/authentication/login/view_model/login_view_model
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/course_view_model.dart';
 import 'package:arnhss/features/users/view_model/notice_view_model.dart';
 import 'package:flutter/cupertino.dart';
 

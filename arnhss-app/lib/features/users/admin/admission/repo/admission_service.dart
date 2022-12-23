@@ -138,7 +138,7 @@ class AdmissionService with HandleException {
         },
       );
     } catch (e) {
-      print(e);
+      // print(e);
       handleException(
         InvalidException(
           "Batch cannot be added because there is something wrong with them 🤯",
@@ -246,7 +246,7 @@ class AdmissionService with HandleException {
           )
           .toList();
     } catch (e) {
-      print(e);
+      // print(e);
       handleException(
           InvalidException("Something wrong with course 🤯", false));
       // Future.error("error");

@@ -21,8 +21,7 @@ class SharedPrefService with HandleException {
       pref.setBool("login", true);
       pref.setString("id", user.id ?? "");
       if (user.role == Role.student) {
-        pref.setString(
-            "department", UserModel.fromDepartment(user.department!));
+        pref.setString("department", user.department!);
       }
       pref.setString("role", UserModel.toStringRole(user.role));
       pref.setString("name", user.name ?? "");
@@ -58,7 +57,7 @@ class SharedPrefService with HandleException {
       if (rawUser != "") {
         Map<String, dynamic> userObject =
             jsonDecode(rawUser) as Map<String, dynamic>;
-        print(userObject);
+        // print(userObject);
 
         UserModel user = UserModel.fromRawJson(userObject, null);
 
@@ -76,7 +75,7 @@ class SharedPrefService with HandleException {
 
 //* get user role from local storage
   Future<Role?> getRole() async {
-    print("call is here");
+    // print("call is here");
     try {
       SharedPreferences pref = await _prefs;
       String? stringRole = pref.getString("role");

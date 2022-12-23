@@ -181,7 +181,7 @@ class NotesViewModel extends ChangeNotifier with HandleException {
   int get notCount => _notes.length;
 
   DepartmentModel getSubjects(Department? dep) {
-    print(dep);
+    // print(dep);
     return subjectList[dep ?? Department.cs]!;
   }
 

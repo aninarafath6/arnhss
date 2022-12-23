@@ -9,10 +9,13 @@ import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/student_list.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
+import 'package:arnhss/features/users/student/home/widgets/tile.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:remixicon/remixicon.dart';
 
 enum Choice { delete, update }
@@ -130,49 +133,94 @@ class _SingleBatchViewState extends State<SingleBatchView> {
           horizontal: AppSizes.default_padding,
           vertical: 5,
         ),
-        child: Column(
+        child: StaggeredGrid.count(
+          crossAxisCount: 6,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 8,
           children: [
-            DetailCard(
-              listData: [
-                DText(value: watchBatch.name, name: "Name"),
-                const Divider(),
-                DText(value: watchBatch.code.toString(), name: "Code"),
-                const Divider(),
-                DText(
-                    value: watchBatch.teacher.name.capitalize, name: "Teacher"),
-                const Divider(),
-                DText(value: watchBatch.leader, name: "Leader"),
-                const Divider(),
-                DText(
-                  value: watchBatch.startDate
-                      .dtFrm(e: "", d: "dd", m: " MMM ", y: "y"),
-                  name: "Start Date",
-                ),
-                const Divider(),
-                DText(
-                  value: watchBatch.endDate.dtFrm(
-                    e: "",
-                    m: " MMM ",
-                    d: "dd",
-                    y: "y",
+            StaggeredGridTile.count(
+              crossAxisCellCount: 6,
+              mainAxisCellCount: 5,
+              child: DetailCard(
+                listData: [
+                  DText(value: watchBatch.name, name: "Name"),
+                  const Divider(),
+                  DText(value: watchBatch.code.toString(), name: "Code"),
+                  const Divider(),
+                  DText(
+                      value: watchBatch.teacher.name.capitalize,
+                      name: "Teacher"),
+                  const Divider(),
+                  DText(
+                    value:
+                        watchBatch.leader == "" ? " Null" : watchBatch.leader,
+                    name: "Leader",
                   ),
-                  name: "End Date",
-                ),
-                const Divider(),
-                DText(
-                  value: context.watch<BatchViewModel>().isActive
-                      ? "ACTIVE"
-                      : "NOT ACTIVE",
-                  name: "Status",
-                  style: TextStyle(
-                    color: context.watch<BatchViewModel>().isActive
-                        ? CustomColors.presentColor
-                        : CustomColors.absentColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
+                  const Divider(),
+                  DText(
+                    value: watchBatch.startDate
+                        .dtFrm(e: "", d: "dd", m: " MMM ", y: "y"),
+                    name: "Start Date",
                   ),
-                ),
-              ],
+                  const Divider(),
+                  DText(
+                    value: watchBatch.endDate.dtFrm(
+                      e: "",
+                      m: " MMM ",
+                      d: "dd",
+                      y: "y",
+                    ),
+                    name: "End Date",
+                  ),
+                  const Divider(),
+                  DText(
+                    value: context.watch<BatchViewModel>().isActive
+                        ? "ACTIVE"
+                        : "NOT ACTIVE",
+                    name: "Status",
+                    style: TextStyle(
+                      color: context.watch<BatchViewModel>().isActive
+                          ? CustomColors.presentColor
+                          : CustomColors.absentColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const StaggeredGridTile.count(
+              crossAxisCellCount: 3,
+              mainAxisCellCount: 3,
+              child: Tile(
+                index: 1,
+                image: "assets/images/icons/planning-badge.png.webp",
+                label: "Time Table",
+
+                // onTap: () => Navigator.of(context).pushNamed(),
+                count: 0,
+              ),
+            ),
+            StaggeredGridTile.count(
+              crossAxisCellCount: 3,
+              mainAxisCellCount: 7,
+              child: Tile(
+                index: 0,
+                image:
+                    "assets/images/icons/oc-reading-book-removebg-preview.png",
+                label: "Students",
+                onTap: () =>
+                    Navigator.of(context).pushNamed(SelectFromList.routeName),
+              ),
+            ),
+            const StaggeredGridTile.count(
+              crossAxisCellCount: 3,
+              mainAxisCellCount: 4,
+              child: Tile(
+                index: 0,
+                image: "assets/images/icons/nt-to-do-list-removebg-preview.png",
+                label: "Attendance",
+              ),
             ),
           ],
         ),

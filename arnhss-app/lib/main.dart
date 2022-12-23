@@ -94,7 +94,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => Loader()),
         ChangeNotifierProvider(create: (_) => AdmissionViewModel()),
         ChangeNotifierProvider(create: (_) => BatchViewModel()),
-        // ChangeNotifierProvider(create: (_) => CourseViewModel()),
       ],
       child: GetMaterialApp(
         title: 'arnhss',

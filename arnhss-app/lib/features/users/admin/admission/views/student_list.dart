@@ -1,8 +1,9 @@
-import 'package:arnhss/common/constants/network_constants.dart';
-import 'package:arnhss/common/theme/text_theme.dart';
+import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/widgets/search_app_bar.dart';
+import 'package:arnhss/common/widgets/student_tile.dart';
 import 'package:arnhss/features/authentication/login/models/country_dropdown_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
+import 'package:arnhss/models/student.model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +17,10 @@ class SelectFromList extends StatelessWidget {
     return Scaffold(
       appBar: searchAppBar(
         context,
-        title: "Select a teacher",
-        hintText: "Search a teacher...",
-        type: Brightness.dark,
+        title: "Students",
+        hintText: "Search a student...",
+        type: Brightness.light,
+        center: true,
         onTap: () {
           if (context.read<CountryViewModel>().isSearching) {
             focusNode.unfocus();
@@ -48,39 +50,27 @@ class SelectFromList extends StatelessWidget {
             return ListView.separated(
               physics: const PageScrollPhysics(),
               itemBuilder: (context, index) {
-                // bool status =
-                //     context.read<CountryViewModel>().selectedCountry.code ==
-                //         snapshot.data![index].code;
-                return ListTile(
-                  onTap: () {
-                    context.read<CountryViewModel>().setCountry(
-                          snapshot.data![index],
-                        );
-                    Navigator.pop(context);
-                  },
-                  trailing: Text(
-                    snapshot.data![index].dialCode,
-                    style:
-                        CustomTextTheme(context: context).paragraph().copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                  ),
-                  title: Text(snapshot.data![index].name),
-                  leading: Image.network(
-                    "${NetworkConstants.baseFlagURL}${snapshot.data![index].code.toLowerCase()}.png",
-                    errorBuilder: ((context, error, stackTrace) {
-                      return Text(
-                        snapshot.data?[index].code ?? "",
-                      );
-                    }),
-                    width: 25,
+                return StudentTile(
+                  student: StudentModel(
+                    phone: "sample phone",
+                    id: "id",
+                    name: "Anin Arafath",
+                    gender: Gender.female,
+                    dpURL: "https://aninarafath.me/images/about-1.jpeg",
+                    email: "email",
+                    lastLogin: DateTime.now(),
+                    department: "Cs",
+                    // reference: DocumentReference(),
+                    admissionNo: index + 22000,
+                    dob: DateTime.now(),
+                    parentPhone: "parentPhone",
+                    rollNumber: index + 1,
+                    secondLanguage: "secondLanguage",
                   ),
                 );
               },
               separatorBuilder: (context, index) {
-                return const Divider(
-                  thickness: 1.2,
-                );
+                return const SizedBox();
               },
               itemCount: snapshot.data?.length ?? 0,
             );

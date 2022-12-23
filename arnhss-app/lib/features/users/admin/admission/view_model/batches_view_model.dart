@@ -213,8 +213,8 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         endDate: endDateController,
         courseId: courseID,
         teacher: teacher!,
-        leader: " ",
-        id: " ",
+        leader: "",
+        id: "",
       );
 
       //* start loading
@@ -223,8 +223,6 @@ class BatchViewModel extends ChangeNotifier with HandleException {
       await _admissionService.addBatch(newBatch, courseId: courseID).then(
         (batch) {
           if (batch != null) {
-            print("hi");
-
             batchCodeController.text = "hi";
             _setBatch = [..._batches, newBatch];
           }

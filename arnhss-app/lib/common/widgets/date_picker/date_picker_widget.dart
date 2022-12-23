@@ -59,7 +59,7 @@ class DatePicker extends StatefulWidget {
   final String locale;
   final DateTime? select;
 
-  DatePicker(this.startDate,
+  const DatePicker(this.startDate,
       {Key? key,
       this.width = 60,
       this.height = 80,
@@ -80,16 +80,17 @@ class DatePicker extends StatefulWidget {
       : assert(
             activeDates == null || inactiveDates == null,
             "Can't "
-            "provide both activated and deactivated dates List at the same time.");
+            "provide both activated and deactivated dates List at the same time."),
+        super(key: key);
 
   @override
-  State<StatefulWidget> createState() => new _DatePickerState();
+  State<StatefulWidget> createState() => _DatePickerState();
 }
 
 class _DatePickerState extends State<DatePicker> {
   DateTime? _currentDate;
 
-  ScrollController _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
 
   late final TextStyle selectedDateStyle;
   late final TextStyle selectedMonthStyle;
@@ -110,18 +111,18 @@ class _DatePickerState extends State<DatePicker> {
       widget.controller!.setDatePickerState(this);
     }
 
-    this.selectedDateStyle =
+    selectedDateStyle =
         widget.dateTextStyle.copyWith(color: widget.selectedTextColor);
-    this.selectedMonthStyle =
+    selectedMonthStyle =
         widget.monthTextStyle.copyWith(color: widget.selectedTextColor);
-    this.selectedDayStyle =
+    selectedDayStyle =
         widget.dayTextStyle.copyWith(color: widget.selectedTextColor);
 
-    this.deactivatedDateStyle =
+    deactivatedDateStyle =
         widget.dateTextStyle.copyWith(color: widget.deactivatedColor);
-    this.deactivatedMonthStyle =
+    deactivatedMonthStyle =
         widget.monthTextStyle.copyWith(color: widget.deactivatedColor);
-    this.deactivatedDayStyle =
+    deactivatedDayStyle =
         widget.dayTextStyle.copyWith(color: widget.deactivatedColor);
 
     super.initState();
@@ -129,7 +130,7 @@ class _DatePickerState extends State<DatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: widget.height,
       child: ListView.builder(
         itemCount: widget.daysCount,
@@ -140,7 +141,7 @@ class _DatePickerState extends State<DatePicker> {
           // if widget.startDate is null then use the initialDateValue
           DateTime date;
           DateTime _date = widget.startDate.add(Duration(days: index));
-          date = new DateTime(_date.year, _date.month, _date.day);
+          date = DateTime(_date.year, _date.month, _date.day);
 
           bool isDeactivated = false;
 

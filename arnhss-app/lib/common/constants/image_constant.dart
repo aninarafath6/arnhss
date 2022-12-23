@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names
+
 class Images {
   static String splash_logo = "assets/images/pngs/logo-2.jpeg";
   static String onboarding_image =

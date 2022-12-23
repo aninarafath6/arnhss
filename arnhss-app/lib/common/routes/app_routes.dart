@@ -3,7 +3,7 @@ import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/admission_view.dart';
 import 'package:arnhss/features/users/admin/admission/views/batches_view.dart';
 import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
-import 'package:arnhss/features/users/admin/admission/views/select_teacher_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/student_list.dart';
 import 'package:arnhss/features/users/admin/admission/views/single_batch_view.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/role_wrapper.dart';

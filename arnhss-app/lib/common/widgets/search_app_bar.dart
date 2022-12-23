@@ -6,7 +6,6 @@ AppBar searchAppBar<T>(BuildContext context,
     {Brightness type = Brightness.dark,
     Function()? onTap,
     Function()? onSearchTap,
-    
     bool? searching = false,
     bool center = false,
     String? hintText = "Search you country code...",
@@ -14,8 +13,9 @@ AppBar searchAppBar<T>(BuildContext context,
     FocusNode? focusNode}) {
   return AppBar(
     backgroundColor: type == Brightness.dark ? CustomColors.dark : Colors.white,
-    toolbarHeight: 80,
-    elevation: type == Brightness.dark ? 1 : 0,
+    // toolbarHeight: 80,
+
+    elevation: type == Brightness.dark ? 1 : .1,
     leading: IconButton(
       splashRadius: 26,
       icon: Icon(Icons.arrow_back_ios_new,
