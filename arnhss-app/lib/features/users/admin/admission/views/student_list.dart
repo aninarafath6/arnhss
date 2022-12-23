@@ -3,8 +3,10 @@ import 'package:arnhss/common/widgets/search_app_bar.dart';
 import 'package:arnhss/common/widgets/student_tile.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
+import 'package:arnhss/features/users/student/planner/widgets/not_found.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -47,18 +49,25 @@ class _SelectFromListState extends State<SelectFromList> {
                     )),
                 itemCount: 20,
               )
-            : ListView.separated(
-                physics: const PageScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return StudentTile(
-                    student: studentProvider.students[index],
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox();
-                },
-                itemCount: studentProvider.students.length,
-              ),
+            : studentProvider.students.isNotEmpty
+                ? ListView.separated(
+                    physics: const PageScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return StudentTile(
+                        student: studentProvider.students[index],
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox();
+                    },
+                    itemCount: studentProvider.students.length,
+                  )
+                : Center(
+                    child: NotFound(
+                      title:
+                          "There is no students for ${context.read<AdmissionViewModel>().selectedCourse.name} in ${context.read<BatchViewModel>().selectedBatch.name} batch",
+                    ),
+                  ),
       ),
     );
   }

@@ -179,24 +179,24 @@ class AdmissionService with HandleException {
       await Future.wait(batches.docs.map(
         (batch) async {
           //* fetching division collection
-          var divisions = await _firestore
+          var _batch = await _firestore
               .collection(batchRef)
               .doc(batch.id)
-              .collection("divisions")
+              .collection("students")
               .get();
+          count += _batch.docs.length;
 
-          await Future.wait(
-            divisions.docs.map(
-              (division) async {
-                var students = await _firestore
-                    .collection(
-                        "$batchRef/${batch.id}/divisions/${division.id}/students")
-                    .get();
+          // await Future.wait(
+          //   _batch.map(
+          //     (division) async {
+          //       var students = await _firestore
+          //           .collection("$batchRef/${batch.id}/${batch.id}/students")
+          //           .get();
 
-                count += students.docs.length;
-              },
-            ),
-          );
+          //       count += students.docs.length;
+          //     },
+          //   ),
+          // );
         },
       ).toList());
 
@@ -274,27 +274,47 @@ class AdmissionService with HandleException {
           //* fetching batch details
           var courseDetails =
               await batchDetails?.reference.parent.parent?.get();
-
-          return StudentModel.fromJSON({
-            ...e.data(),
-            "id": e.id,
-            "reference": e.reference,
-            "batch": batchDetails?.data()?["name"],
-            "department": courseDetails?.data()?["name"],
-            "dpURL": _firebaseCommonService.getStudentDP(
+          String? dpURL = await _firebaseCommonService.getStudentDP(
               courseDetails?.data()?["name"],
               batchDetails?.data()?["name"],
-              e.id,
-            ),
-          });
+              e.id);
+          return StudentModel.fromJSON(
+            {
+              ...e.data(),
+              "id": e.id,
+              "reference": e.reference,
+              "batch": batchDetails?.data()?["name"],
+              "department": courseDetails?.data()?["name"],
+              "dpURL": dpURL,
+            },
+          );
         },
       ).toList());
     } catch (e) {
       debugPrint(e.toString());
       handleException(
-          InvalidException("Something wrong with course 🤯", false));
+        InvalidException("Something wrong with course 🤯", false),
+      );
       // Future.error("error");
     }
     return null;
+  }
+
+  Future<int> getStudentsCount(Batch batch) async {
+    try {
+      //* fetching sorted course data by course code
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+          .collection("course/${batch.courseId}/batches/${batch.id}/students")
+          .get();
+
+      return querySnapshot.size;
+    } catch (e) {
+      debugPrint(e.toString());
+      handleException(
+        InvalidException("Something wrong with course 🤯", false),
+      );
+      // Future.error("error");
+    }
+    return 0;
   }
 }

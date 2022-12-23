@@ -11,6 +11,7 @@ class StudentViewModel extends ChangeNotifier {
 
   bool _loading = false;
   bool _isSearching = false;
+  int studentsCount = 0;
 
 //* getters
   List<StudentModel> get students => _students;
@@ -48,7 +49,7 @@ class StudentViewModel extends ChangeNotifier {
   //* get students under course  from firebase methods
   void getStudents(Batch batch) async {
     toggleLoading();
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 100));
     List<StudentModel>? result =
         await _admissionService.getStudentsUnderBatch(batch);
     _students.clear();
@@ -56,6 +57,13 @@ class StudentViewModel extends ChangeNotifier {
     _allStudents.addAll(result ?? []);
 
     toggleLoading();
+    notifyListeners();
+  }
+
+  void getStudentsCountUnderBatch(Batch batch) async {
+    print("here");
+    studentsCount = await _admissionService.getStudentsCount(batch);
+    print(studentsCount);
     notifyListeners();
   }
 

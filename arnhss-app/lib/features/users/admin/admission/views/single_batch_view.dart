@@ -8,6 +8,7 @@ import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
 import 'package:arnhss/features/users/admin/admission/views/student_list.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
@@ -34,10 +35,12 @@ class SingleBatchView extends StatefulWidget {
 class _SingleBatchViewState extends State<SingleBatchView> {
   @override
   void initState() {
+    var selectedBatch = context.read<BatchViewModel>().selectedBatch;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context
-          .read<BatchViewModel>()
-          .checkStatus(context.read<BatchViewModel>().selectedBatch);
+          .read<StudentViewModel>()
+          .getStudentsCountUnderBatch(selectedBatch);
+      context.read<BatchViewModel>().checkStatus(selectedBatch);
     });
     super.initState();
   }
@@ -140,7 +143,7 @@ class _SingleBatchViewState extends State<SingleBatchView> {
           children: [
             StaggeredGridTile.count(
               crossAxisCellCount: 6,
-              mainAxisCellCount: 5,
+              mainAxisCellCount: 5.5,
               child: DetailCard(
                 listData: [
                   DText(value: watchBatch.name, name: "Name"),
@@ -155,6 +158,14 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                     value:
                         watchBatch.leader == "" ? " Null" : watchBatch.leader,
                     name: "Leader",
+                  ),
+                  const Divider(),
+                  DText(
+                    value: context
+                        .watch<StudentViewModel>()
+                        .studentsCount
+                        .toString(),
+                    name: "Total Students",
                   ),
                   const Divider(),
                   DText(
