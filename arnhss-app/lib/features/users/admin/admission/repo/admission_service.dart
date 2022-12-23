@@ -1,8 +1,8 @@
 import 'dart:developer';
-
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
+import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
@@ -138,7 +138,6 @@ class AdmissionService with HandleException {
         },
       );
     } catch (e) {
-      // print(e);
       handleException(
         InvalidException(
           "Batch cannot be added because there is something wrong with them 🤯",
@@ -247,6 +246,42 @@ class AdmissionService with HandleException {
           .toList();
     } catch (e) {
       // print(e);
+      handleException(
+          InvalidException("Something wrong with course 🤯", false));
+      // Future.error("error");
+    }
+    return null;
+  }
+
+  ///* batch service
+  Future<List<StudentModel>?> getStudentsUnderBatch(Batch batch) async {
+    try {
+      //* fetching sorted course data by course code
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+          .collection("course/${batch.courseId}/batches/${batch.id}/students")
+          .orderBy("roll_no")
+          .get();
+
+      return Future.wait(querySnapshot.docs.map(
+        (e) async {
+          //* fetching division details
+          var batchDetails = await e.reference.parent.parent?.get();
+
+          //* fetching batch details
+          var courseDetails =
+              await batchDetails?.reference.parent.parent?.get();
+
+          return StudentModel.fromJSON({
+            ...e.data(),
+            "id": e.id,
+            "reference": e.reference,
+            "batch": batchDetails?.data()?["name"],
+            "department": courseDetails?.data()?["name"],
+          });
+        },
+      ).toList());
+    } catch (e) {
+      debugPrint(e.toString());
       handleException(
           InvalidException("Something wrong with course 🤯", false));
       // Future.error("error");

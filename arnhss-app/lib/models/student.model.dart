@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:arnhss/common/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -43,6 +44,7 @@ class StudentModel {
     Timestamp lastLogin = json["last_login"];
     Timestamp dob = json["dob"];
 
+    log(json.toString());
     return StudentModel(
       id: json["id"],
       department: json["department"],

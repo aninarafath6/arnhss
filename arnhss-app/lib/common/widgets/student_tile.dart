@@ -28,7 +28,7 @@ class StudentTile extends StatelessWidget {
           shape: const RoundedRectangleBorder(),
           leading: StudentAvatar(student: student),
           title: student.name.toString().capitalize.toText(),
-          subtitle: Text("Adm-No: ${student.admissionNo}"),
+          subtitle: Text("Admission-No: ${student.admissionNo}"),
           trailing: Container(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             decoration: BoxDecoration(
