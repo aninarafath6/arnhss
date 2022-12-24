@@ -163,7 +163,7 @@ class AuthService with HandleException {
       //* fetching user collection with phone and role number
       querySnapshot = await _usersCollection
           .where("phone", isEqualTo: phone)
-          .where("role", isEqualTo: role.describe)
+          .where("role", isEqualTo: UserModel.toStringRole(role))
           .get();
 
       debugPrint(querySnapshot.docs.toString());
@@ -193,8 +193,7 @@ class AuthService with HandleException {
           DateTime dob = data["dob"].toDate() as DateTime;
 
           String? dpURL = await _firebaseCommonService.getStudentDP(
-            courseDetails?.data()?["name"],
-            batchDetails?.data()?["name"],
+            batchDetails?.reference,
             e.id,
           );
 

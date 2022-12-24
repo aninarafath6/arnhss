@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/widgets/custom_drop_down.dart';
@@ -9,8 +11,12 @@ import 'package:arnhss/features/authentication/otp_verification/view/index.dart'
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
+
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:remixicon/remixicon.dart';
 
 void showCourseForm(
@@ -324,7 +330,8 @@ void showStudentAddForm(
     isScrollControlled: true,
     context: context,
     builder: ((context) {
-      var _provider = context.watch<BatchViewModel>();
+      var _readProvider = context.read<StudentViewModel>();
+      var _provider = context.watch<StudentViewModel>();
 
       return Padding(
         padding: MediaQuery.of(context).viewInsets,
@@ -359,35 +366,45 @@ void showStudentAddForm(
                 FormHeader(title: title),
                 const SizedBox(height: 10),
 
-                const CustomInput(
+                CustomInput(
                   hintText: "Name",
                   size: Sizing.sm,
+                  controller: _readProvider.nameController,
                 ),
                 const SizedBox(height: 5),
-                const CustomInput(
+                CustomInput(
                   hintText: "Email",
                   size: Sizing.sm,
                   keyboardType: TextInputType.emailAddress,
+                  controller: _readProvider.emailController,
                 ),
                 const SizedBox(height: 5),
-                const InputFelid(
-                  hintText: "Phone",
+                CustomInput(
+                  hintText: "Phone Number",
+                  size: Sizing.sm,
+                  keyboardType: TextInputType.number,
+                  controller: _readProvider.phoneController,
                 ),
-                const SizedBox(height: 10),
-                const InputFelid(
-                  hintText: "Parent'n Phone",
+                const SizedBox(height: 5),
+                CustomInput(
+                  hintText: "Parent's Phone Number",
+                  size: Sizing.sm,
+                  keyboardType: TextInputType.number,
+                  controller: _readProvider.parentPhoneController,
                 ),
-                const SizedBox(height: 10),
-                const CustomInput(
+                const SizedBox(height: 5),
+                CustomInput(
                   hintText: "Roll Number",
                   size: Sizing.sm,
                   keyboardType: TextInputType.number,
+                  controller: _readProvider.rollNoController,
                 ),
                 const SizedBox(height: 5),
-                const CustomInput(
+                CustomInput(
                   hintText: "Admission Number",
                   size: Sizing.sm,
                   keyboardType: TextInputType.number,
+                  controller: _readProvider.admissionNoController,
                 ),
                 const SizedBox(height: 5),
                 EnumDropDown<Gender>(
@@ -398,14 +415,18 @@ void showStudentAddForm(
                     Gender.male,
                     Gender.other,
                   ],
-                  changed: (_) {},
+                  changed: (gender) {
+                    _readProvider.gender = gender;
+                  },
                 ),
                 const SizedBox(height: 10),
                 StringDropDown(
                   title: "Second Language",
                   leadingIcon: Remix.arrow_down_s_line,
                   options: const ["Malayalam", "Arabic"],
-                  changed: (_) {},
+                  changed: (secLang) {
+                    _readProvider.secondLang = secLang;
+                  },
                 ),
                 const SizedBox(height: 10),
                 CustomSelector(
@@ -413,24 +434,49 @@ void showStudentAddForm(
                   onTap: () {
                     showDatePicker(
                       context: context,
-                      initialDate:
-                          context.read<BatchViewModel>().endDateController,
-                      firstDate: DateTime.utc(DateTime.now().year - 4),
-                      lastDate: DateTime.utc(DateTime.now().year + 4),
+                      initialDate: DateTime.utc(DateTime.now().year - 10),
+                      firstDate: DateTime.utc(DateTime.now().year - 20),
+                      lastDate: DateTime.utc(DateTime.now().year - 10),
                     ).then(
                       (value) {
-                        _provider.setEndDate = value ?? DateTime.now();
-                        context.read<BatchViewModel>().setupToAdd(dc);
+                        _provider.setDob = value ?? DateTime.now();
+                        // context.read<BatchViewModel>().setupToAdd(dc);
                       },
                     );
                   },
-                  content: context
-                      .watch<BatchViewModel>()
-                      .endDateController
-                      .dtFrm(e: "", d: "dd ", m: "MMM", y: " y"),
+                  content: _provider.dob != null
+                      ? _provider.dob?.dtFrm(e: "", d: "dd ", m: "MMM", y: " y")
+                      : "Select your Date of birth",
+                ),
+                const SizedBox(height: 10),
+
+                CustomSelector(
+                  label: 'Profile Photo',
+                  onTap: () async {
+                    final ImagePicker _picker = ImagePicker();
+                    final XFile? image =
+                        await _picker.pickImage(source: ImageSource.gallery);
+
+                    if (image != null) {
+                      File f = File(image.path);
+                      _readProvider.setDp = f;
+                    } else {
+                      DialogHelper.showSnackBar(
+                        title: "Oh,🤨",
+                        description: "Profile photo is not selected...",
+                        top: true,
+                      );
+                    }
+                  },
+                  icon: Remix.image_2_line,
+                  imagePath: _provider.dp,
+                  content: _provider.dp == null
+                      ? "Please select student dp"
+                      : _provider.dp?.path.split("/").last,
                 ),
                 const SizedBox(height: 15),
 
+                // Image.file(),
                 const SizedBox(height: 10),
 
                 // const SizedBox(height: 15),
@@ -441,7 +487,7 @@ void showStudentAddForm(
                       : context.getWidth(50),
                   height: context.isMobile ? context.getHeight(8) : 60,
                   fontSize: context.isMobile ? 15 : 15,
-                  loading: _provider.loading,
+                  loading: _provider.addStudentLoading,
                   onTap: onSubmit,
                 ),
                 const SizedBox(height: 20),

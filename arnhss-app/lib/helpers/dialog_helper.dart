@@ -19,13 +19,15 @@ class DialogHelper {
   static void showSnackBar(
       {String? title = "OTP 📲",
       String? description,
-      Duration? duration = const Duration(seconds: 3)}) {
+      Duration? duration = const Duration(seconds: 3),
+      bool top = false}) {
     Get.snackbar(
       title ?? "",
       description ?? "something went wrong",
       backgroundColor: CustomColors.lightBgOverlay,
       margin: const EdgeInsets.all(20),
-      snackPosition: SnackPosition.BOTTOM,
+
+      snackPosition: top ? SnackPosition.TOP : SnackPosition.BOTTOM,
       duration: duration,
     );
   }

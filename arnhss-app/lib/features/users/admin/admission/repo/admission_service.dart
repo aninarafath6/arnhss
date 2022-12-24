@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
@@ -9,6 +10,7 @@ import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/firebase_common_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 
 class AdmissionService with HandleException {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -136,12 +138,13 @@ class AdmissionService with HandleException {
                 ...e.data(),
                 "id": e.id,
                 "course_id": course.id,
-                "leader": leaderRef != null
+                "reference": e.reference,
+                "leader": leader != null
                     ? StudentModel.fromJSON(
                         {
-                          ...leader?.data() as Map<String, dynamic>,
-                          "reference": leader?.reference,
-                          "id": leader?.id,
+                          ...leader.data() as Map<String, dynamic>,
+                          "reference": leader.reference,
+                          "id": leader.id,
                           "batch": e.data()["name"],
                           "department": courseDetails?.data()?["name"],
                         },
@@ -180,6 +183,7 @@ class AdmissionService with HandleException {
           "course_id": courseId,
           "teacher": newBatch.teacher,
           "leader": newBatch.leader,
+          "reference": docRef,
         },
       );
     } catch (e) {
@@ -317,9 +321,9 @@ class AdmissionService with HandleException {
           var courseDetails =
               await batchDetails?.reference.parent.parent?.get();
           String? dpURL = await _firebaseCommonService.getStudentDP(
-              courseDetails?.data()?["name"],
-              batchDetails?.data()?["name"],
-              e.id);
+            batchDetails?.reference,
+            e.id,
+          );
           return StudentModel.fromJSON(
             {
               ...e.data(),
@@ -358,5 +362,54 @@ class AdmissionService with HandleException {
       // Future.error("error");
     }
     return 0;
+  }
+
+  Future<StudentModel?> addStudent({
+    required StudentModel student,
+    required Batch batch,
+    File? dp,
+  }) async {
+    try {
+      var collectionRef =
+          _firestore.collection("${batch.reference?.path}/students");
+
+      var docRef = await collectionRef.add(student.toJSON());
+      var data = await docRef.get();
+
+      if (dp != null) {
+        print("${batch.reference?.parent.parent?.id.toString()}is p id");
+
+        print("${batch.reference?.id} is b id");
+        await storage
+            .ref(
+                'students/${batch.reference?.parent.parent?.id}/${batch.id}/dp/${docRef.id}.jpg')
+            .putFile(dp);
+      }
+
+      String? dpURL = await _firebaseCommonService.getStudentDP(
+        batch.reference,
+        data.id,
+      );
+
+      return StudentModel.fromJSON(
+        {
+          ...(data.data() as Map<String, dynamic>),
+          "id": data.id,
+          "reference": data.reference,
+          "batch": batch.name,
+          "department": student.department,
+          "dpURL": dpURL,
+        },
+      );
+    } catch (e) {
+      print(e);
+      handleException(
+        InvalidException(
+          "Student is not added 🤯",
+          false,
+        ),
+      );
+    }
+    return null;
   }
 }

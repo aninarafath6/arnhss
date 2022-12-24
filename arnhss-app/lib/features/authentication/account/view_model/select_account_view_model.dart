@@ -50,6 +50,7 @@ class SelectAccountViewModel extends ChangeNotifier with HandleException {
     //? testing stuffs!!!
     // role = Role.admin;
     // await _getSpecialUsers("+917444555666", role);
+    print(phone);
     await _getSpecialUsers(phone, role);
 
     return;

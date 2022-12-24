@@ -69,7 +69,6 @@ class TeacherModel {
   }
 
   Map<String, dynamic> toTeacherJson() => {
-        "id": id,
         "phone": phone,
         "email": email,
         "name": name,

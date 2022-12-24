@@ -23,7 +23,6 @@ import 'package:arnhss/services/notification/local_notification_service.dart';
 import 'package:arnhss/services/notification/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -44,8 +43,8 @@ void main() async {
   await dotenv.load(fileName: ".env");
 
 // ? cache cleaner just a
-  DefaultCacheManager manager = new DefaultCacheManager();
-  manager.emptyCache(); //clears all data in cache.
+  // DefaultCacheManager manager = new DefaultCacheManager();
+  // manager.emptyCache(); //clears all data in cache.
 
   initializeDateFormatting().then(
     (_) async {

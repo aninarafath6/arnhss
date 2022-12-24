@@ -23,7 +23,9 @@ class InputFelid extends StatelessWidget {
       decoration: BoxDecoration(
           color: CustomColors.lightBgOverlay,
           borderRadius: BorderRadius.circular(8)),
-      child:  CustomInput(hintText: hintText,),
+      child: CustomInput(
+        hintText: hintText,
+      ),
     );
   }
 }

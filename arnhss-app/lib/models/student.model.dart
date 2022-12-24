@@ -37,7 +37,7 @@ class StudentModel {
   final String department;
 
   String toRawJson() {
-    return jsonEncode(toTeacherJson());
+    return jsonEncode(toJSON());
   }
 
   factory StudentModel.fromJSON(Map<String, dynamic> json) {
@@ -64,19 +64,19 @@ class StudentModel {
     );
   }
 
-  Map<String, dynamic> toTeacherJson() => {
-        "id": id,
+  Map<String, dynamic> toJSON() => {
         "phone": phone,
         "email": email,
         "name": name,
-        "dpURL": dpURL,
         "roll_no": rollNumber,
         "second_lang": secondLanguage,
         "admission_no": admissionNo,
         "parent_phone": parentPhone,
         "gender": fromGender(gender),
-        "dob": dob.microsecondsSinceEpoch,
-        "last_login": lastLogin.microsecondsSinceEpoch,
+        "dob": Timestamp.fromMicrosecondsSinceEpoch(dob.microsecondsSinceEpoch),
+        "last_login": Timestamp.fromMicrosecondsSinceEpoch(
+            lastLogin.microsecondsSinceEpoch),
+        "role": toStringRole(Role.student),
       };
 
   //* helpers

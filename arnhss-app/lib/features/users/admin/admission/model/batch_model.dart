@@ -3,6 +3,7 @@
 import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Batch {
   final String id;
@@ -13,7 +14,7 @@ class Batch {
   final String courseId;
   final TeacherModel teacher;
   final StudentModel? leader;
-
+  final DocumentReference? reference;
   Batch({
     required this.name,
     required this.code,
@@ -22,6 +23,7 @@ class Batch {
     required this.startDate,
     required this.courseId,
     required this.teacher,
+    this.reference,
     this.leader,
   });
 
@@ -47,6 +49,7 @@ class Batch {
       courseId: batchMap["course_id"],
       teacher: batchMap["teacher"],
       leader: batchMap["leader"],
+      reference: batchMap["reference"],
     );
   }
 }

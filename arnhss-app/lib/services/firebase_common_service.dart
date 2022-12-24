@@ -1,11 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseCommonService {
   Future<String?> getStudentDP(
-      String courseName, String batchName, String studentId) async {
+      DocumentReference? batchReference, String studentId) async {
     final storage = FirebaseStorage.instance;
 
-    Reference ref = storage.ref('$courseName/$batchName/DP/$studentId.jpg');
+    print(
+        'students/${batchReference?.parent.parent?.id}/${batchReference?.id}/dp/$studentId.jpg');
+
+    Reference ref = storage.ref(
+        'students/${batchReference?.parent.parent?.id}/${batchReference?.id}/dp/$studentId.jpg');
 
     String dpURL = await ref.getDownloadURL().catchError((error) {
       return "";

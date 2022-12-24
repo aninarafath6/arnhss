@@ -9,6 +9,7 @@ import 'package:arnhss/features/users/admin/admission/view_model/students_view_m
 import 'package:arnhss/features/users/admin/admission/widgets/add_batch_form.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/student/planner/widgets/not_found.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remixicon/remixicon.dart';
@@ -39,7 +40,10 @@ class _SelectFromListState extends State<SelectFromList> {
   Widget build(BuildContext context) {
     var studentProvider = context.watch<StudentViewModel>();
     return Scaffold(
-      appBar: customAppBar(context, title: "Students"),
+      appBar: customAppBar(
+        context,
+        title: "Students",
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
         child: studentProvider.loading
@@ -81,7 +85,29 @@ class _SelectFromListState extends State<SelectFromList> {
             onPressed: () {
               showStudentAddForm(
                 context,
-                onSubmit: () {},
+                onSubmit: () async {
+                  bool status = await context
+                      .read<StudentViewModel>()
+                      .addStudent(
+                          courseName: context
+                              .read<AdmissionViewModel>()
+                              .selectedCourse
+                              .name,
+                          batch: context.read<BatchViewModel>().selectedBatch);
+
+                  if (!status) {
+                    // HandleException().handleException(
+                    //   InvalidException("Sorry, course not added ", false),
+                    //   top: true,
+                    // );
+                  } else {
+                    DialogHelper.showSnackBar(
+                      title: "Success🤡",
+                      description: "Successfully added a student ✔️",
+                    );
+                    Navigator.of(context).pop();
+                  }
+                },
                 dc: '',
               );
             },
