@@ -125,7 +125,7 @@ class _AdminHomeState extends State<AdminHome> {
         if (error.toString().contains("firebase_database/permission-denied")) {
           HandleException().handleException(error);
           SharedPrefService().clear();
-          Navigator.pushNamed(context, LoginView.routeName);
+          Navigator.pushReplacementNamed(context, LoginView.routeName);
         }
         log(error.toString(), name: " admin home view");
         return null;
