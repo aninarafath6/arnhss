@@ -60,11 +60,11 @@ class NotificationService {
   ) async {
     final data = {
       "to": "/topics/$topic",
-      // "notification": {
-      //   "title": title,
-      //   "body": body,
-      // },
-
+      "notification": {
+        "title": title,
+        "body": body,
+        "android_channel_id": "arnhss_108020",
+      },
       "data": {
         "model": {
           "id": DateTime.now().microsecondsSinceEpoch.toString(),
@@ -73,7 +73,8 @@ class NotificationService {
         "title": title,
         "type": 'order',
         "id": 28,
-        "click_action": "FLUTTER_NOTIFICATION_CLICK"
+        "click_action": "FLUTTER_NOTIFICATION_CLICK",
+        "priority": "high",
       }
     };
 

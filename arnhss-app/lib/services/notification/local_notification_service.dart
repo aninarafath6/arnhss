@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -12,7 +13,9 @@ class LocalNotificationService {
   static Future<void> initialize() async {
     log("initialize notification");
     const InitializationSettings _initializeSettings = InitializationSettings(
-      android: AndroidInitializationSettings("ic_stat_logo"),
+      android: AndroidInitializationSettings(
+        "@drawable/ic_stat_logo",
+      ),
       iOS: DarwinInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification,
       ),
@@ -61,18 +64,22 @@ class LocalNotificationService {
     try {
       int id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       _notificationsPlugin.show(
-        id,
-        title,
-        body,
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-            'arnhss_108020', // id
-            'arnhss_108020', // id
-            importance: Importance.max,
-            priority: Priority.high,
+          id,
+          title,
+          "",
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              'arnhss_108020', // id
+              'arnhss_108020', // id
+              importance: Importance.max,
+              priority: Priority.high,
+              playSound: true,
+              setAsGroupSummary: true,
+              colorized: true,
+              color: Colors.white,
+            ),
           ),
-        ),
-      );
+          payload: body);
     } catch (e) {
       log(e.toString(), name: "display");
     }

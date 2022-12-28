@@ -181,7 +181,7 @@ class CourseView extends StatelessWidget {
             //   ),
             // ),
             StaggeredGridTile.count(
-              crossAxisCellCount: 3,
+              crossAxisCellCount: 6,
               mainAxisCellCount: 4,
               child: Tile(
                 index: 1,
@@ -194,15 +194,15 @@ class CourseView extends StatelessWidget {
                 count: 0,
               ),
             ),
-            const StaggeredGridTile.count(
-              crossAxisCellCount: 3,
-              mainAxisCellCount: 4,
-              child: Tile(
-                index: 0,
-                image: "assets/images/icons/woman-answering-phone.png.webp",
-                label: "Teachers",
-              ),
-            ),
+            // const StaggeredGridTile.count(
+            //   crossAxisCellCount: 3,
+            //   mainAxisCellCount: 4,
+            //   child: Tile(
+            //     index: 0,
+            //     image: "assets/images/icons/woman-answering-phone.png.webp",
+            //     label: "Teachers",
+            //   ),
+            // ),
           ],
         ),
       ),
