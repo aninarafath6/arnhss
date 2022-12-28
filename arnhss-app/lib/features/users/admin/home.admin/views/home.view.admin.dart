@@ -3,6 +3,7 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/views/admission_view.dart';
+import 'package:arnhss/features/users/admin/home.admin/views/all_teacher.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/student/home/widgets/app_drawer.dart';
 import 'package:arnhss/features/users/student/home/widgets/qout_0f_the_day.dart';
@@ -97,9 +98,10 @@ class _AdminHomeState extends State<AdminHome> {
         mainAxisCellCount: 2,
         child: Tile(
           index: 4,
-          image: "assets/images/icons/growing-books.png.webp",
-          label: "Notes",
-          onTap: () => Navigator.pushNamed(context, NotesView.routeName),
+          image: "assets/images/icons/teacher.png",
+          label: "Teachers",
+          onTap: () =>
+              Navigator.pushNamed(context, AllTeacherListView.routeName),
         ),
       ),
       const StaggeredGridTile.count(

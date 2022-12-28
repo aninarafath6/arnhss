@@ -7,6 +7,7 @@ import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/batches_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/teacher_list.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/student/home/widgets/tile.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
@@ -185,13 +186,15 @@ class CourseView extends StatelessWidget {
                 count: 0,
               ),
             ),
-            const StaggeredGridTile.count(
+            StaggeredGridTile.count(
               crossAxisCellCount: 3,
               mainAxisCellCount: 5,
               child: Tile(
                 index: 0,
                 image: "assets/images/icons/woman-answering-phone.png.webp",
                 label: "Teachers",
+                onTap: () =>
+                    Navigator.of(context).pushNamed(TeacherList.routeName),
               ),
             ),
           ],

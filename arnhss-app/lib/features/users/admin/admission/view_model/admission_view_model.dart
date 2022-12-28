@@ -216,18 +216,4 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
   Future<Map<String, String?>> getCourseData(Course course) async {
     return await _admissionService.getCourseInnerData(course);
   }
-
-  //* get teachers under course  from firebase methods
-  void getTeachers() async {
-    print("Get teachers");
-    print(teachers.length);
-
-    List<TeacherModel>? result =
-        await _admissionService.getTeachersUnderCourse(selectedCourse.id);
-
-    print("result is $result");
-    teachers.clear();
-    teachers.addAll(result ?? []);
-    notifyListeners();
-  }
 }

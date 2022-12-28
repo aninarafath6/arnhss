@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
+import 'package:arnhss/features/users/admin/admission/model/subject_model.dart';
 import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
@@ -117,7 +118,7 @@ class AdmissionService with HandleException {
             DocumentReference teacherRef = e.data()["teacher"];
             DocumentReference? leaderRef = e.data()["leader"];
 
-            DocumentSnapshot teacher =
+            DocumentSnapshot<Map<String, dynamic>> teacher =
                 await _firestore.doc(teacherRef.path).get();
             DocumentSnapshot? leader;
 
@@ -131,6 +132,15 @@ class AdmissionService with HandleException {
             var courseDetails = await e.reference.parent.parent?.get();
             // String? leaderDP = await _firebaseCommonService.getStudentDP(
             //     courseDetails?.data()?["name"], e.data()["name"], e.id);
+            DocumentReference subjectRef =
+                teacher.data()?["subject"] as DocumentReference;
+
+            // print(subjectRef.toString() + "is ref");
+
+            DocumentSnapshot<Map<String, dynamic>> subject =
+                await _firestore.doc(subjectRef.path).get();
+            String? dpURL =
+                await _firebaseCommonService.getTeacherDP(teacher.id);
 
             return Batch.fromMap(
               {
@@ -154,6 +164,12 @@ class AdmissionService with HandleException {
                     ...teacher.data() as Map<String, dynamic>,
                     "reference": teacher.reference,
                     "id": teacher.id,
+                    "dpURL": dpURL,
+                    "subject": SubjectModel.fromMap({
+                      ...subject.data() as Map<String, dynamic>,
+                      "reference": subject.reference,
+                      "id": e.id,
+                    }),
                   },
                 ),
               },
@@ -286,11 +302,74 @@ class AdmissionService with HandleException {
                 e.data()["reference"] as DocumentReference;
             DocumentSnapshot<Map<String, dynamic>> teacher =
                 await _firestore.doc(teacherRef.path).get();
+
+            // print(teacher.data().toString() + "is data");
+
+            DocumentReference subjectRef =
+                teacher.data()?["subject"] as DocumentReference;
+
+            // print(subjectRef.toString() + "is ref");
+
+            DocumentSnapshot<Map<String, dynamic>> subject =
+                await _firestore.doc(subjectRef.path).get();
+            String? dpURL =
+                await _firebaseCommonService.getTeacherDP(teacher.id);
+
+            // print(subject.data().toString() + "is sub");
+
             return TeacherModel.fromMap(
               {
                 ...?teacher.data(),
                 "id": teacher.id,
                 "reference": teacher.reference,
+                "dpURL": dpURL,
+                "subject": SubjectModel.fromMap({
+                  ...subject.data() as Map<String, dynamic>,
+                  "reference": subject.reference,
+                  "id": subject.id,
+                }),
+              },
+            );
+          },
+        ).toList(),
+      );
+    } catch (e) {
+      // print(e);
+      handleException(
+          InvalidException("Something wrong with teachers 🤯", false));
+      // Future.error("error");
+    }
+    return null;
+  }
+
+  Future<List<TeacherModel>?> getAllTeachers() async {
+    try {
+      //* fetching sorted course data by course code
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await _firestore.collection("teachers").get();
+
+      return Future.wait(
+        querySnapshot.docs.map(
+          (e) async {
+            DocumentReference subjectRef =
+                e.data()["subject"] as DocumentReference;
+
+            DocumentSnapshot<Map<String, dynamic>> subject =
+                await _firestore.doc(subjectRef.path).get();
+            String? dpURL = await _firebaseCommonService.getTeacherDP(e.id);
+            return TeacherModel.fromMap(
+              {
+                ...e.data(),
+                "id": e.id,
+                "reference": e.reference,
+                "dpURL": dpURL,
+                "subject": SubjectModel.fromMap(
+                  {
+                    "id": subject.id,
+                    ...subject.data() as Map<String, dynamic>,
+                    "reference": subject.reference
+                  },
+                ),
               },
             );
           },
@@ -402,6 +481,79 @@ class AdmissionService with HandleException {
           "batch": batch.name,
           "department": student.department,
           "dpURL": dpURL,
+        },
+      );
+    } catch (e) {
+      print(e);
+      handleException(
+        InvalidException(
+          "Student is not added 🤯",
+          false,
+        ),
+      );
+    }
+    return null;
+  }
+
+  Future<List<SubjectModel>?> getAllSubjects() async {
+    try {
+      //* fetching sorted course data by course code
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await _firestore.collection("subjects").orderBy("name").get();
+
+      return querySnapshot.docs
+          .map(
+            (e) => SubjectModel.fromMap({
+              ...e.data(),
+              "reference": e.reference,
+              "id": e.id,
+            }),
+          )
+          .toList();
+    } catch (e) {
+      debugPrint(e.toString());
+      handleException(
+        InvalidException("Something wrong with subjects 🤯", false),
+      );
+      // Future.error("error");
+    }
+    return null;
+  }
+
+  Future<TeacherModel?> addTeacher({
+    required TeacherModel teacher,
+    File? dp,
+  }) async {
+    try {
+      var collectionRef = _firestore.collection("teachers");
+
+      var docRef = await collectionRef.add(teacher.toTeacherJson());
+      var data = await docRef.get();
+
+      if (dp != null) {
+        await storage.ref('teachers/DP/${docRef.id}.jpg').putFile(dp);
+      }
+      DocumentReference subjectRef =
+          data.data()?["subject"] as DocumentReference;
+
+      // print(subjectRef.toString() + "is ref");
+
+      DocumentSnapshot<Map<String, dynamic>> subject =
+          await _firestore.doc(subjectRef.path).get();
+
+      String? dpURL = await _firebaseCommonService.getTeacherDP(data.id);
+
+      return TeacherModel.fromMap(
+        {
+          ...(data.data() as Map<String, dynamic>),
+          "id": data.id,
+          "reference": data.reference,
+          "dpURL": dpURL,
+          "subject": SubjectModel.fromMap({
+            ...subject.data() as Map<String, dynamic>,
+            "id": subject.id,
+            "reference": subject.reference,
+          }),
         },
       );
     } catch (e) {

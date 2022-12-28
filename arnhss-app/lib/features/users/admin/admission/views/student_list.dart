@@ -13,7 +13,7 @@ import 'package:shimmer/shimmer.dart';
 
 class StudentList extends StatefulWidget {
   const StudentList({Key? key}) : super(key: key);
-  static const routeName = "/select_fromList";
+  static const routeName = "/studentList";
 
   @override
   State<StudentList> createState() => _StudentListState();

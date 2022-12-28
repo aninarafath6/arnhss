@@ -1,6 +1,7 @@
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
+import 'package:arnhss/features/users/admin/admission/model/subject_model.dart';
 import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:flutter/foundation.dart';
@@ -106,7 +107,81 @@ class _TeacherDropdownState<T> extends State<TeacherDropdown> {
           items: widget.options
               .map(
                 (e) => DropdownMenuItem<String>(
-                  child: Text(e.name.toString()),
+                  child: Row(
+                    children: [
+                      Text(e.name.toString()),
+                      const Spacer(),
+                      Text(" ${e.subject.name.toString()}"),
+                    ],
+                  ),
+                  value: e.id,
+                ),
+              )
+              .toList(),
+          onChanged: (String? value) {
+            setState(() {
+              dropDownValue = value;
+              widget.changed(
+                  widget.options.firstWhere((element) => element.id == value));
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class SubjectDropDown extends StatefulWidget {
+  const SubjectDropDown({
+    Key? key,
+    required this.title,
+    required this.leadingIcon,
+    required this.options,
+    this.value,
+    required this.changed,
+    // this.onTap,
+  }) : super(key: key);
+  final String title;
+  // final Function()? onTap;
+  final IconData leadingIcon;
+  final List<SubjectModel> options;
+  final Function(SubjectModel) changed;
+  final SubjectModel? value;
+
+  @override
+  State<SubjectDropDown> createState() => _SubjectDropDownState();
+}
+
+class _SubjectDropDownState<T> extends State<SubjectDropDown> {
+  String? dropDownValue;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: context.getWidth(100),
+      padding: const EdgeInsets.all(12),
+      height: context.isMobile ? 55 : 50,
+      decoration: BoxDecoration(
+        color: CustomColors.lightBgOverlay,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Center(
+        child: DropdownButton<String>(
+          hint: Text(widget.title),
+          isExpanded: true,
+          value: widget.value?.id ?? dropDownValue,
+          underline: const SizedBox(),
+          enableFeedback: true,
+          isDense: false,
+          items: widget.options
+              .map(
+                (e) => DropdownMenuItem<String>(
+                  child: Row(
+                    children: [
+                      Text(e.name.toString()),
+                      const Spacer(),
+                      Text(" ${e.code.toString()}"),
+                    ],
+                  ),
                   value: e.id,
                 ),
               )

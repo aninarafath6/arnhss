@@ -1,4 +1,5 @@
 import 'package:arnhss/common/enums.dart';
+import 'package:arnhss/features/users/admin/admission/model/subject_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TeacherModel {
@@ -7,9 +8,10 @@ class TeacherModel {
     required this.phone,
     required this.name,
     required this.gender,
-    required this.dpURL,
+    this.dpURL,
     required this.email,
     required this.lastLogin,
+    required this.subject,
     this.reference,
   });
 
@@ -18,9 +20,10 @@ class TeacherModel {
   final String email;
   final DocumentReference? reference;
   final String name;
-  final String dpURL;
+  final String? dpURL;
   final Gender gender;
   final DateTime lastLogin;
+  final SubjectModel subject;
 
   factory TeacherModel.fromMap(Map<String, dynamic> json) {
     Timestamp lastLogin = json["last_login"];
@@ -33,6 +36,7 @@ class TeacherModel {
       dpURL: json["dpURL"],
       gender: toGender(json["gender"]),
       reference: json["reference"],
+      subject: json["subject"],
       lastLogin:
           DateTime.fromMicrosecondsSinceEpoch(lastLogin.microsecondsSinceEpoch),
     );
@@ -42,10 +46,12 @@ class TeacherModel {
         "phone": phone,
         "email": email,
         "name": name,
-        // "role": toStringRole(role),
-        "dpURL": dpURL,
+        "role": toStringRole(Role.teacher),
+        "dpURL": null,
         "gender": fromGender(gender),
-        "last_login": lastLogin.microsecondsSinceEpoch,
+        "last_login": Timestamp.fromMicrosecondsSinceEpoch(
+            lastLogin.microsecondsSinceEpoch),
+        "subject": subject.reference,
       };
 
   //* helpers

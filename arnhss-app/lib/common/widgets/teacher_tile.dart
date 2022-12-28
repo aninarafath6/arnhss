@@ -3,13 +3,13 @@ import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/widgets/student_avatar.dart';
 import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/models/student.model.dart';
+import 'package:arnhss/models/teacher.model.dart';
 import 'package:flutter/material.dart';
 
-class StudentTile extends StatelessWidget {
-  const StudentTile({Key? key, required this.student, this.onTap})
+class TeacherTile extends StatelessWidget {
+  const TeacherTile({Key? key, required this.teacher, this.onTap})
       : super(key: key);
-  final StudentModel student;
+  final TeacherModel teacher;
   final Function()? onTap;
 
   @override
@@ -26,16 +26,19 @@ class StudentTile extends StatelessWidget {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           shape: const RoundedRectangleBorder(),
-          leading: DynamicAvatar(user: student),
-          title: student.name.toString().capitalize.toText(),
-          subtitle: Text("Admission-No: ${student.admissionNo}"),
+          leading: DynamicAvatar(user: teacher),
+          title: teacher.name.toString().capitalize.toText(),
+          subtitle: Text(
+            teacher.email,
+            overflow: TextOverflow.ellipsis,
+          ),
           trailing: Container(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             decoration: BoxDecoration(
               color: getOverlayColor(Role.student),
               borderRadius: BorderRadius.circular(2),
             ),
-            child: Text("Roll-No: ${student.rollNumber}"),
+            child: Text(teacher.subject.name),
           ),
         ),
       ),

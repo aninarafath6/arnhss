@@ -6,6 +6,7 @@ import 'package:arnhss/features/authentication/repo/auth_service.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/teacher_view_model.dart';
 import 'package:arnhss/features/users/student/attendance/view_model/attendance_view_model.dart';
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AdmissionViewModel()),
         ChangeNotifierProvider(create: (_) => StudentViewModel()),
         ChangeNotifierProvider(create: (_) => BatchViewModel()),
+        ChangeNotifierProvider(create: (_) => TeacherViewModel()),
       ],
       child: GetMaterialApp(
         title: 'arnhss',

@@ -1,5 +1,4 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/widgets/student_tile.dart';
 import 'package:arnhss/common/widgets/teacher_tile.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
@@ -10,26 +9,26 @@ import 'package:arnhss/features/users/admin/admission/view_model/teacher_view_mo
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/student/planner/widgets/not_found.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
+import 'package:arnhss/services/base/exception/app_exceptions.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:shimmer/shimmer.dart';
 
-class TeacherList extends StatefulWidget {
-  const TeacherList({Key? key}) : super(key: key);
-  static const routeName = "/teacher_list";
+class AllTeacherListView extends StatefulWidget {
+  const AllTeacherListView({Key? key}) : super(key: key);
+  static const routeName = "/all_teacher_list";
 
   @override
-  State<TeacherList> createState() => _TeacherListState();
+  State<AllTeacherListView> createState() => _AllTeacherListViewState();
 }
 
-class _TeacherListState extends State<TeacherList> {
+class _AllTeacherListViewState extends State<AllTeacherListView> {
   final FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context
-          .read<TeacherViewModel>()
-          .getTeachers(context.read<AdmissionViewModel>().selectedCourse.id);
+      context.read<TeacherViewModel>().getAllTeachers();
     });
     super.initState();
   }
@@ -40,7 +39,7 @@ class _TeacherListState extends State<TeacherList> {
     return Scaffold(
       appBar: customAppBar(
         context,
-        title: "Teachers",
+        title: "All Teachers",
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
@@ -54,25 +53,24 @@ class _TeacherListState extends State<TeacherList> {
                     )),
                 itemCount: 20,
               )
-            : teacherProvider.teachers.isNotEmpty
+            : teacherProvider.allTeachers.isNotEmpty
                 ? ListView.separated(
                     physics: const PageScrollPhysics(),
                     itemBuilder: (context, index) {
                       return TeacherTile(
-                        teacher: teacherProvider.teachers[index],
+                        teacher: teacherProvider.allTeachers[index],
                       );
                     },
                     separatorBuilder: (context, index) {
                       return const SizedBox();
                     },
-                    itemCount: teacherProvider.teachers.length,
+                    itemCount: teacherProvider.allTeachers.length,
                   )
-                : Center(
+                : const Center(
                     child: NotFound(
                       imageURL: "assets/images/icons/map.png.webp",
                       isBig: false,
-                      title:
-                          "There is no Teachers found in  ${context.read<AdmissionViewModel>().selectedCourse.name} course",
+                      title: "This school has not teachers.🙄",
                     ),
                   ),
       ),
@@ -84,21 +82,10 @@ class _TeacherListState extends State<TeacherList> {
               showTeacherAddForm(
                 context,
                 onSubmit: () async {
-                  bool status = await context
-                      .read<StudentViewModel>()
-                      .addStudent(
-                          courseName: context
-                              .read<AdmissionViewModel>()
-                              .selectedCourse
-                              .name,
-                          batch: context.read<BatchViewModel>().selectedBatch);
+                  bool status =
+                      await context.read<TeacherViewModel>().addTeacher();
 
-                  if (!status) {
-                    // HandleException().handleException(
-                    //   InvalidException("Sorry, course not added ", false),
-                    //   top: true,
-                    // );
-                  } else {
+                  if (status) {
                     DialogHelper.showSnackBar(
                       title: "Success🤡",
                       description: "Successfully added a student ✔️",
@@ -106,8 +93,34 @@ class _TeacherListState extends State<TeacherList> {
                     Navigator.of(context).pop();
                   }
                 },
-                // dc: '',
               );
+              // showTeacherAddForm(
+              //   context,
+              //   onSubmit: () async {
+              //     bool status = await context
+              //         .read<StudentViewModel>()
+              //         .addStudent(
+              //             courseName: context
+              //                 .read<AdmissionViewModel>()
+              //                 .selectedCourse
+              //                 .name,
+              //             batch: context.read<BatchViewModel>().selectedBatch);
+
+              //     if (!status) {
+              //       // HandleException().handleException(
+              //       //   InvalidException("Sorry, course not added ", false),
+              //       //   top: true,
+              //       // );
+              //     } else {
+              //       DialogHelper.showSnackBar(
+              //         title: "Success🤡",
+              //         description: "Successfully added a student ✔️",
+              //       );
+              //       Navigator.of(context).pop();
+              //     }
+              //   },
+              //   dc: '',
+              // );
             },
             child: Container(
               padding: const EdgeInsets.all(12),

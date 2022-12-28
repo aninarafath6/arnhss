@@ -74,7 +74,7 @@ class AuthService with HandleException {
       {String? vi,
       String? otp,
       Callback? callback,
-      Callback? errorCallback}) async {
+      Function(dynamic)? errorCallback}) async {
     //* verify otp with phone auth provider
     AuthCredential credential =
         PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
@@ -90,12 +90,12 @@ class AuthService with HandleException {
         return true;
       });
     } catch (e) {
-      //   print(e);()
+      print(e);
 
       //* error callback
-      errorCallback!();
-      //* handling the exception
       handleException(e);
+      errorCallback!(e);
+      //* handling the exception
       return false;
     }
   }
