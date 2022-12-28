@@ -219,9 +219,13 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
 
   //* get teachers under course  from firebase methods
   void getTeachers() async {
-    
+    print("Get teachers");
+    print(teachers.length);
+
     List<TeacherModel>? result =
         await _admissionService.getTeachersUnderCourse(selectedCourse.id);
+
+    print("result is $result");
     teachers.clear();
     teachers.addAll(result ?? []);
     notifyListeners();

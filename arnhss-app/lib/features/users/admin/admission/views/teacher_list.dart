@@ -11,15 +11,15 @@ import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:shimmer/shimmer.dart';
 
-class StudentList extends StatefulWidget {
-  const StudentList({Key? key}) : super(key: key);
+class TeacherList extends StatefulWidget {
+  const TeacherList({Key? key}) : super(key: key);
   static const routeName = "/select_fromList";
 
   @override
-  State<StudentList> createState() => _StudentListState();
+  State<TeacherList> createState() => _TeacherListState();
 }
 
-class _StudentListState extends State<StudentList> {
+class _TeacherListState extends State<TeacherList> {
   final FocusNode focusNode = FocusNode();
 
   @override

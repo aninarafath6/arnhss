@@ -171,18 +171,9 @@ class CourseView extends StatelessWidget {
                 ],
               ),
             ),
-            // const StaggeredGridTile.count(
-            //   crossAxisCellCount: 3,
-            //   mainAxisCellCount: 5,
-            //   child: Tile(
-            //     index: 0,
-            //     image: "assets/images/icons/notes.png",
-            //     label: "Subjects",
-            //   ),
-            // ),
             StaggeredGridTile.count(
-              crossAxisCellCount: 6,
-              mainAxisCellCount: 4,
+              crossAxisCellCount: 3,
+              mainAxisCellCount: 5,
               child: Tile(
                 index: 1,
                 image: "assets/images/icons/sales-and-crm-badge.png.webp",
@@ -194,15 +185,15 @@ class CourseView extends StatelessWidget {
                 count: 0,
               ),
             ),
-            // const StaggeredGridTile.count(
-            //   crossAxisCellCount: 3,
-            //   mainAxisCellCount: 4,
-            //   child: Tile(
-            //     index: 0,
-            //     image: "assets/images/icons/woman-answering-phone.png.webp",
-            //     label: "Teachers",
-            //   ),
-            // ),
+            const StaggeredGridTile.count(
+              crossAxisCellCount: 3,
+              mainAxisCellCount: 5,
+              child: Tile(
+                index: 0,
+                image: "assets/images/icons/woman-answering-phone.png.webp",
+                label: "Teachers",
+              ),
+            ),
           ],
         ),
       ),

@@ -22,8 +22,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const OtpVerificationView());
       case CountrySelect.routeName:
         return MaterialPageRoute(builder: (_) => CountrySelect());
-      case SelectFromList.routeName:
-        return MaterialPageRoute(builder: (_) => SelectFromList());
+      case StudentList.routeName:
+        return MaterialPageRoute(builder: (_) => StudentList());
 
       case NoticeView.routeName:
         return MaterialPageRoute(builder: (_) => const NoticeView());

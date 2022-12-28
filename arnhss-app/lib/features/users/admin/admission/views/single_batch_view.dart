@@ -78,7 +78,6 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                     context.read<BatchViewModel>().setBatchLeader = null;
                     context.read<StudentViewModel>().clearStudents();
 
-
                     if (!status) {
                       HandleException().handleException(
                         InvalidException("Sorry, Batch not updated ", false),
@@ -158,8 +157,9 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                   DText(value: watchBatch.code.toString(), name: "Code"),
                   const Divider(),
                   DText(
-                      value: watchBatch.teacher.name.capitalize,
-                      name: "Teacher"),
+                    value: watchBatch.teacher.name.capitalize,
+                    name: "Teacher",
+                  ),
                   const Divider(),
                   DText(
                     value: watchBatch.leader?.name ?? "NUll",
@@ -227,7 +227,7 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                     "assets/images/icons/oc-reading-book-removebg-preview.png",
                 label: "Students",
                 onTap: () =>
-                    Navigator.of(context).pushNamed(SelectFromList.routeName),
+                    Navigator.of(context).pushNamed(StudentList.routeName),
               ),
             ),
             const StaggeredGridTile.count(

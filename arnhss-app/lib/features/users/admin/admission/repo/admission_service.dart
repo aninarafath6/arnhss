@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
@@ -150,7 +149,7 @@ class AdmissionService with HandleException {
                         },
                       )
                     : null,
-                "teacher": TeacherModel.fromTeacherJSON(
+                "teacher": TeacherModel.fromMap(
                   {
                     ...teacher.data() as Map<String, dynamic>,
                     "reference": teacher.reference,
@@ -277,26 +276,30 @@ class AdmissionService with HandleException {
   Future<List<TeacherModel>?> getTeachersUnderCourse(String courseId) async {
     try {
       //* fetching sorted course data by course code
-      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
-          .collection("course/$courseId/teachers")
-          .orderBy("name")
-          .get();
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await _firestore.collection("course/$courseId/teachers").get();
 
-      return querySnapshot.docs
-          .map(
-            (e) => TeacherModel.fromTeacherJSON(
+      return Future.wait(
+        querySnapshot.docs.map(
+          (e) async {
+            DocumentReference teacherRef =
+                e.data()["reference"] as DocumentReference;
+            DocumentSnapshot<Map<String, dynamic>> teacher =
+                await _firestore.doc(teacherRef.path).get();
+            return TeacherModel.fromMap(
               {
-                ...e.data(),
-                "id": e.id,
-                "reference": e.reference,
+                ...?teacher.data(),
+                "id": teacher.id,
+                "reference": teacher.reference,
               },
-            ),
-          )
-          .toList();
+            );
+          },
+        ).toList(),
+      );
     } catch (e) {
       // print(e);
       handleException(
-          InvalidException("Something wrong with course 🤯", false));
+          InvalidException("Something wrong with teachers 🤯", false));
       // Future.error("error");
     }
     return null;

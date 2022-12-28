@@ -1,12 +1,10 @@
-import 'dart:convert';
 import 'package:arnhss/common/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TeacherModel {
   TeacherModel({
-    required this.phone,
     required this.id,
-    required this.role,
+    required this.phone,
     required this.name,
     required this.gender,
     required this.dpURL,
@@ -19,46 +17,18 @@ class TeacherModel {
   final String phone;
   final String email;
   final DocumentReference? reference;
-
-  final Role role;
-
-  // final String? localRole;
   final String name;
   final String dpURL;
   final Gender gender;
   final DateTime lastLogin;
 
-  // bool operator ==(dynamic other) =>
-  //     other != null && other is TimeSelection && this.hour == other.hour;
-
-  factory TeacherModel.fromRawJson(Map<String, dynamic> data, String? id) {
-    return TeacherModel.fromTeacherJSON(data);
-  }
-
-  String toRawJson() {
-    return jsonEncode(toTeacherJson());
-  }
-
-  // static List<UserModel> listFromJson(QuerySnapshot? data) {
-  //   return data!.docs.map((e) {
-  //     return UserModel.fromRawJson(jsonEncode(e.data()));
-  //   }).toList();
-  // }
-
-  // factory UserModel.fromRawAdmin(String str, String id) =>
-  //     UserModel.fromAdminJSON(json.decode(str), id);
-
-  // factory UserModel.fromRawStudent(String str, String id) =>
-  //     UserModel.fromAdminJSON(json.decode(str), "");
-
-  factory TeacherModel.fromTeacherJSON(Map<String, dynamic> json) {
-    print(json);
+  factory TeacherModel.fromMap(Map<String, dynamic> json) {
     Timestamp lastLogin = json["last_login"];
     return TeacherModel(
       id: json["id"],
       email: json["email"],
       phone: json["phone"],
-      role: fromStringRole(json["role"]) ?? Role.teacher,
+      // role: fromStringRole(json["role"]) ?? Role.teacher,
       name: json["name"],
       dpURL: json["dpURL"],
       gender: toGender(json["gender"]),
@@ -72,7 +42,7 @@ class TeacherModel {
         "phone": phone,
         "email": email,
         "name": name,
-        "role": toStringRole(role),
+        // "role": toStringRole(role),
         "dpURL": dpURL,
         "gender": fromGender(gender),
         "last_login": lastLogin.microsecondsSinceEpoch,
