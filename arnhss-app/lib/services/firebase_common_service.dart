@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -8,38 +10,48 @@ class FirebaseCommonService {
 
     print(
         'students/${batchReference?.parent.parent?.id}/${batchReference?.id}/dp/$studentId.jpg');
+    try {
+      Reference ref = storage.ref(
+          'students/${batchReference?.parent.parent?.id}/${batchReference?.id}/dp/$studentId.jpg');
 
-    Reference ref = storage.ref(
-        'students/${batchReference?.parent.parent?.id}/${batchReference?.id}/dp/$studentId.jpg');
-
-    String dpURL = await ref.getDownloadURL().catchError((error) {
-      return "";
-    });
-
-    return dpURL == "" ? null : dpURL;
+      String dpURL = await ref.getDownloadURL().catchError((error) {
+        return "";
+      });
+      return dpURL == "" ? null : dpURL;
+    } catch (e) {
+      print("error" + e.toString());
+    }
   }
 
   Future<String?> getTeacherDP(String teacherID) async {
-    final storage = FirebaseStorage.instance;
+    try {
+      final storage = FirebaseStorage.instance;
 
-    Reference ref = storage.ref('teachers/DP/$teacherID.jpg');
+      Reference ref = storage.ref('teachers/DP/$teacherID.jpg');
 
-    String dpURL = await ref.getDownloadURL().catchError((error) {
-      return "";
-    });
+      String dpURL = await ref.getDownloadURL().catchError((error) {
+        return "";
+      });
 
-    return dpURL == "" ? null : dpURL;
+      return dpURL == "" ? null : dpURL;
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   Future<String?> getAdminDP(String adminID) async {
-    final storage = FirebaseStorage.instance;
+    try {
+      final storage = FirebaseStorage.instance;
 
-    Reference ref = storage.ref('admin/DP/$adminID.jpg');
+      Reference ref = storage.ref('admin/DP/$adminID.jpg');
 
-    String dpURL = await ref.getDownloadURL().catchError((error) {
-      return "";
-    });
+      String dpURL = await ref.getDownloadURL().catchError((error) {
+        return "";
+      });
 
-    return dpURL == "" ? null : dpURL;
+      return dpURL == "" ? null : dpURL;
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }

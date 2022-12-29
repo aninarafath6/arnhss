@@ -6,7 +6,6 @@ import 'package:arnhss/common/widgets/custom_drop_down.dart';
 import 'package:arnhss/common/widgets/custom_input.dart';
 import 'package:arnhss/common/widgets/custom_selector.dart';
 import 'package:arnhss/extensions/dt_extension.dart';
-import 'package:arnhss/features/authentication/login/widgets/input_box.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/subject_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
@@ -18,7 +17,6 @@ import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:remixicon/remixicon.dart';
 
 void showCourseForm(
@@ -511,7 +509,7 @@ void showTeacherAddForm(
   // required String dc,
 }) {
   showModalBottomSheet(
-    backgroundColor: Colors.transparent,
+    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
     isScrollControlled: true,
     context: context,
     builder: ((context) {

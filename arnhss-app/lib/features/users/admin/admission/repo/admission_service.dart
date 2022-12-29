@@ -24,7 +24,15 @@ class AdmissionService with HandleException {
           await _firestore.collection("course").orderBy("code").get();
 
       return querySnapshot.docs
-          .map((e) => Course.fromMap({...e.data(), "id": e.id}))
+          .map(
+            (e) => Course.fromMap(
+              {
+                ...e.data(),
+                "id": e.id,
+                "reference": e.reference,
+              },
+            ),
+          )
           .toList();
     } catch (e) {
       handleException(
@@ -44,6 +52,7 @@ class AdmissionService with HandleException {
         {
           ...(data.data() as Map<String, dynamic>),
           "id": docRef.id,
+          "reference": docRef,
         },
       );
     } catch (e) {
@@ -557,7 +566,6 @@ class AdmissionService with HandleException {
         },
       );
     } catch (e) {
-      print(e);
       handleException(
         InvalidException(
           "Student is not added 🤯",
@@ -566,5 +574,20 @@ class AdmissionService with HandleException {
       );
     }
     return null;
+  }
+
+  Future<void> addTeacherToCourse(
+      List<TeacherModel> teachers, DocumentReference courseReference) async {
+    try {
+      Future.wait(teachers.map((element) async {
+        Map<String, dynamic> data = {"reference": element.reference};
+        CollectionReference collectionRef =
+            _firestore.doc(courseReference.path).collection("teachers");
+
+        await collectionRef.add(data);
+      }));
+    } catch (e) {
+      handleException(e);
+    }
   }
 }
