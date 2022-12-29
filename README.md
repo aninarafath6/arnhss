@@ -10,7 +10,9 @@
 
 # ARNHSS -> School project
 
-_Description here_
+#Description here
+
+Welcome to the ARNHSS School Management Software System repository on GitHub! This system is designed to provide an interactive and user-friendly platform for parents, students, and teachers to communicate and collaborate. With this software, you can easily access important information, schedule events, and stay connected with the school community.
 
 ### Libraries used
 🌲
