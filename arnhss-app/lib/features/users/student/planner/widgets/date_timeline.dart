@@ -35,7 +35,7 @@ class _DateTimelineState<T> extends State<DateTimeline<T>> {
     return Padding(
       padding: const EdgeInsets.only(left: 21.0),
       child: DatePicker(
-        DateTime.now().subtract(const Duration(days: 300)),
+        DateTime.now().subtract(const Duration(days: 40)),
         controller: widget.controller,
         initialSelectedDate: widget.selectDate,
         selectionColor: CustomColors.dark,

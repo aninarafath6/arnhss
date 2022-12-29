@@ -28,7 +28,8 @@ class NotFound extends StatelessWidget {
         const SizedBox(height: 15),
         const SizedBox(height: 3),
         Text(
-          title ?? "No plans for this date",
+          title ??
+              "It doesn't appear that there are any plans for this date at the moment",
           style: CustomTextTheme(context: context).paragraph(),
           textAlign: TextAlign.center,
         ),

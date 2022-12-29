@@ -31,6 +31,7 @@ class _AdminHomeState extends State<AdminHome> {
   @override
   void initState() {
     context.read<UserViewModel>().getUser();
+
     super.initState();
   }
 
@@ -54,7 +55,7 @@ class _AdminHomeState extends State<AdminHome> {
           index: 1,
           image: "assets/images/icons/marketing-badge.png.webp",
           label: " Notices",
-          count: 3,
+          count: 1,
           onTap: () => Navigator.pushNamed(context, NoticeView.routeName),
         ),
       ),
@@ -87,10 +88,10 @@ class _AdminHomeState extends State<AdminHome> {
         mainAxisCellCount: 2,
         child: Tile(
           index: 3,
-          image: "assets/images/icons/oc-plane-removebg-preview.png",
-          count: 2,
-          label: "Notifications",
-          onTap: () => Navigator.pushNamed(context, NotificationView.routeName),
+          image: "assets/images/icons/oc-taking-note-removebg-preview (1).png",
+          label: "Planner",
+          count: 0,
+          onTap: () => Navigator.pushNamed(context, PlannerView.routeName),
         ),
       ),
       StaggeredGridTile.count(

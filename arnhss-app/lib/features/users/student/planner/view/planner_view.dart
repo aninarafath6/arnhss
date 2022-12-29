@@ -31,7 +31,7 @@ class _PlannerViewState extends State<PlannerView> {
 
     return Scaffold(
       appBar: datedAppBar(context, "Planner", () {
-        context.read<PlannerViewModel>().toToday();
+        context.read<PlannerViewModel>().toSelectedDay();
       }),
       body: SizedBox(
         width: double.infinity,
@@ -49,7 +49,7 @@ class _PlannerViewState extends State<PlannerView> {
                     selectDate: value.date,
                     initialSelectedDate: value.selectedDate,
                     init: () {
-                      context.read<PlannerViewModel>().toToday();
+                      context.read<PlannerViewModel>().toSelectedDay();
                     },
                   );
                 }),

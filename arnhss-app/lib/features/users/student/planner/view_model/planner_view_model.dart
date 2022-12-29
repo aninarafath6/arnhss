@@ -79,8 +79,12 @@ class PlannerViewModel extends ChangeNotifier with HandleException {
   }
 
 // * navigate to today
-  void toToday() {
+  void toSelectedDay() {
     _timelineController.animateToSelection(curve: Curves.easeInOutCubic);
+  }
+
+  void toToday() {
+    _timelineController.jumpToSelection();
   }
 
   void savePlan(BuildContext context) async {
