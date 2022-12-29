@@ -1,12 +1,13 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/widgets/student_tile.dart';
 import 'package:arnhss/common/widgets/teacher_tile.dart';
+import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/teacher_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/views/add_teacher_to_course_view.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/student/planner/widgets/not_found.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
@@ -37,6 +38,9 @@ class _TeacherListState extends State<TeacherList> {
   @override
   Widget build(BuildContext context) {
     var teacherProvider = context.watch<TeacherViewModel>();
+    var balanceTeacherWatcher =
+        context.watch<TeacherViewModel>().balanceTeachers;
+    var teacherWatcher = context.watch<TeacherViewModel>();
     return Scaffold(
       appBar: customAppBar(
         context,
@@ -81,33 +85,7 @@ class _TeacherListState extends State<TeacherList> {
           const Spacer(),
           TextButton(
             onPressed: () {
-              showTeacherAddForm(
-                context,
-                onSubmit: () async {
-                  bool status = await context
-                      .read<StudentViewModel>()
-                      .addStudent(
-                          courseName: context
-                              .read<AdmissionViewModel>()
-                              .selectedCourse
-                              .name,
-                          batch: context.read<BatchViewModel>().selectedBatch);
-
-                  if (!status) {
-                    // HandleException().handleException(
-                    //   InvalidException("Sorry, course not added ", false),
-                    //   top: true,
-                    // );
-                  } else {
-                    DialogHelper.showSnackBar(
-                      title: "Success🤡",
-                      description: "Successfully added a student ✔️",
-                    );
-                    Navigator.of(context).pop();
-                  }
-                },
-                // dc: '',
-              );
+              Navigator.pushNamed(context, AddTeacherToCourseView.routeName);
             },
             child: Container(
               padding: const EdgeInsets.all(12),

@@ -2,15 +2,10 @@ import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/widgets/teacher_tile.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/teacher_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/student/planner/widgets/not_found.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
-import 'package:arnhss/services/base/exception/app_exceptions.dart';
-import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -43,7 +38,7 @@ class _AllTeacherListViewState extends State<AllTeacherListView> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
-        child: teacherProvider.loading
+        child: teacherProvider.allTeacherLoading
             ? ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: ((context, index) => Shimmer.fromColors(

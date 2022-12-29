@@ -2,19 +2,20 @@ import 'dart:io';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/extensions/string_extension.dart';
-import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/subject_model.dart';
 import 'package:arnhss/features/users/admin/admission/repo/admission_service.dart';
-import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TeacherViewModel extends ChangeNotifier with HandleException {
   final AdmissionService _admissionService = AdmissionService();
 
-  List<TeacherModel> _teachers = [];
+  final List<TeacherModel> _teachers = [];
   List<TeacherModel> _allTeachers = [];
+  Set<TeacherModel> _balanceTeachers = {};
+
   final List<SubjectModel> _allSubjects = [];
 
   // final List<StudentModel> _allStudents = [];
@@ -31,15 +32,16 @@ class TeacherViewModel extends ChangeNotifier with HandleException {
 
   bool _loading = false;
   bool _addTeacherLoading = false;
-  bool _isSearching = false;
+  bool _allTeacherLoading = false;
   int studentsCount = 0;
 
 //* getters
   List<TeacherModel> get teachers => _teachers;
+  List<TeacherModel> get balanceTeachers => _balanceTeachers.toList();
   List<TeacherModel> get allTeachers => _allTeachers;
   List<SubjectModel> get allSubjects => _allSubjects;
   bool get loading => _loading;
-  bool get isSearching => _isSearching = false;
+  bool get allTeacherLoading => _allTeacherLoading;
   bool get addTeacherLoading => _addTeacherLoading;
 
 //* setters
@@ -59,8 +61,8 @@ class TeacherViewModel extends ChangeNotifier with HandleException {
     notifyListeners();
   }
 
-  void toggleSearching() {
-    _isSearching = !_isSearching;
+  void toggleAllTeacherLoading() {
+    _allTeacherLoading = !_allTeacherLoading;
     notifyListeners();
   }
 
@@ -141,11 +143,41 @@ class TeacherViewModel extends ChangeNotifier with HandleException {
   }
 
   void getAllTeachers() async {
-    toggleLoading();
+    toggleAllTeacherLoading();
     List<TeacherModel>? result = await _admissionService.getAllTeachers();
     _allTeachers.clear();
     _allTeachers.addAll(result ?? []);
-    toggleLoading();
+    toggleAllTeacherLoading();
+    notifyListeners();
+  }
+
+  void getBalanceTeachers() async {
+    toggleAllTeacherLoading();
+    _balanceTeachers.clear();
+    List<TeacherModel>? result = await _admissionService.getAllTeachers();
+
+    // for (var inAllTeachers in result ?? []) {
+    //   for (var teacher in teachers) {
+    //     if (inAllTeachers.id != teacher.id) {
+    //       _balanceTeachers.add(teacher);
+    //     }
+    //   }
+    // }
+
+    _balanceTeachers.addAll(result?.toSet() ?? {});
+    List<String> toRemove = [];
+
+    for (var teacherFromAll in _balanceTeachers) {
+      for (var teacher in _teachers) {
+        if (teacherFromAll.reference == teacher.reference) {
+          toRemove.add(teacherFromAll.id);
+          print("yes ${teacher.id}");
+        }
+      }
+    }
+    _balanceTeachers.removeWhere((element) => toRemove.contains(element.id));
+
+    toggleAllTeacherLoading();
     notifyListeners();
   }
 
@@ -191,6 +223,19 @@ class TeacherViewModel extends ChangeNotifier with HandleException {
     } else {
       return false;
     }
+  }
+
+  void addTeacherToCourse(
+      List<TeacherModel> teachers, DocumentReference courseRef) async {
+    print(courseRef.path);
+    print(teachers);
+
+    toggleAddTeacherLoading();
+    await _admissionService.addTeacherToCourse(teachers, courseRef).then(
+          (value) => _teachers.addAll(teachers),
+        );
+    toggleAddTeacherLoading();
+    notifyListeners();
   }
 
   void clearControllers() {

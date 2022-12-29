@@ -1,5 +1,6 @@
 import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
+import 'package:arnhss/features/users/admin/admission/views/add_teacher_to_course_view.dart';
 import 'package:arnhss/features/users/admin/admission/views/admission_view.dart';
 import 'package:arnhss/features/users/admin/admission/views/batches_view.dart';
 import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
@@ -30,7 +31,9 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const TeacherList());
       case AllTeacherListView.routeName:
         return MaterialPageRoute(builder: (_) => const AllTeacherListView());
-
+      case AddTeacherToCourseView.routeName:
+        return MaterialPageRoute(
+            builder: (_) => const AddTeacherToCourseView());
       case NoticeView.routeName:
         return MaterialPageRoute(builder: (_) => const NoticeView());
       case AdmissionView.routeName:
