@@ -101,12 +101,12 @@ class _AddTeacherToCourseViewState extends State<AddTeacherToCourseView> {
                           },
                           itemCount: teacherProvider.balanceTeachers.length,
                         )
-                      : Center(
+                      : const Center(
                           child: NotFound(
                             imageURL: "assets/images/icons/map.png.webp",
                             isBig: false,
                             title:
-                                "There is no Teachers found in  ${context.read<AdmissionViewModel>().selectedCourse.name} course",
+                                "No new teacher found for this course. Please try again or contact support",
                           ),
                         ),
             ),
