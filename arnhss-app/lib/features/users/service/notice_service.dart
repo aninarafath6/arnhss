@@ -88,6 +88,7 @@ class NoticeService with HandleException {
       });
       return data;
     } catch (e) {
+      print(e.toString() + "is error");
       handleException(e);
       return null;
     }

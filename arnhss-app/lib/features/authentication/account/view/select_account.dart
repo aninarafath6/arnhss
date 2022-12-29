@@ -2,13 +2,10 @@ import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/constants/image_constant.dart';
 import 'package:arnhss/common/enums.dart';
-import 'package:arnhss/common/routes/index_routes.dart';
-
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile_skelton.dart';
 import 'package:arnhss/features/authentication/account/widgets/account_tile.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/role_wrapper.dart';
 import 'package:get/route_manager.dart';
@@ -30,8 +27,7 @@ class _SelectAccountState extends State<SelectAccount> {
   @override
   void initState() {
     context.read<SelectAccountViewModel>().getProfiles(
-          context.read<CountryViewModel>().selectedCountry.dialCode +
-              context.read<LoginViewModel>().mobileNumberController.text.trim(),
+          context.read<LoginViewModel>().mobileNumberController.text.trim(),
           context.read<LoginViewModel>().getUserRole ?? Role.student,
         );
 

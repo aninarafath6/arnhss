@@ -1,9 +1,8 @@
-import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/custom_drop_down.dart';
 import 'package:arnhss/common/widgets/custom_modal.dart';
-import 'package:arnhss/extensions/string_extension.dart';
+
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/common/widgets/custom_button.dart';
@@ -48,7 +47,7 @@ class ActionSection extends StatelessWidget {
         const InputFelid(),
         const SizedBox(height: 10),
         Consumer<LoginViewModel>(builder: (context, provider, child) {
-          return CustomDropDown<Role>(
+          return EnumDropDown<Role>(
             title: "Choose your role",
             leadingIcon: Remix.arrow_down_s_line,
             options: const [
@@ -69,12 +68,12 @@ class ActionSection extends StatelessWidget {
           onTap: () {
             // var loading = context.watch<LoginViewModel>().loading;
             if (context.read<LoginViewModel>().validate()) {
-              var title = context
-                      .read<CountryViewModel>()
-                      .selectedCountry
-                      .dialCode +
-                  " " +
-                  context.read<LoginViewModel>().mobileNumberController.text;
+              // var title = context
+              //         .read<CountryViewModel>()
+              //         .selectedCountry
+              //         .dialCode +
+              //     " " +
+              //     context.read<LoginViewModel>().mobileNumberController.text;
               // customModal(context,
               //     content:
               //         'would you like to continue with  this phone number to OTP verification?',

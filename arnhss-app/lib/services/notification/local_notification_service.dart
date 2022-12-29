@@ -1,8 +1,8 @@
 import 'dart:developer';
 
+import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotificationService {
@@ -11,8 +11,11 @@ class LocalNotificationService {
 
 //* initialize notification method
   static Future<void> initialize() async {
+    log("initialize notification");
     const InitializationSettings _initializeSettings = InitializationSettings(
-      android: AndroidInitializationSettings("ic_stat_logo"),
+      android: AndroidInitializationSettings(
+        "@drawable/ic_stat_logo",
+      ),
       iOS: DarwinInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification,
       ),
@@ -22,16 +25,17 @@ class LocalNotificationService {
 
   static void onDidReceiveLocalNotification(
       int id, String? title, String? body, String? payload) async {
-    print("here");
+    debugPrint("notification did receive");
     CupertinoDialogAction(
       isDefaultAction: true,
-      child: Text('Ok'),
+      child: const Text('Ok'),
       onPressed: () async {},
     );
   }
 
 //* display firebase notification
   static void firePlay(RemoteMessage message) {
+    print("Fireplay");
     try {
       int id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       _notificationsPlugin.show(
@@ -56,21 +60,26 @@ class LocalNotificationService {
 
 //* display dummy notification
   static void display(String title, String body) {
+    print("display");
     try {
       int id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       _notificationsPlugin.show(
-        id,
-        title,
-        body,
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-            'arnhss_108020', // id
-            'arnhss_108020', // id
-            importance: Importance.max,
-            priority: Priority.high,
+          id,
+          title,
+          "",
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              'arnhss_108020', // id
+              'arnhss_108020', // id
+              importance: Importance.max,
+              priority: Priority.high,
+              playSound: true,
+              setAsGroupSummary: true,
+              colorized: true,
+              color: Colors.white,
+            ),
           ),
-        ),
-      );
+          payload: body);
     } catch (e) {
       log(e.toString(), name: "display");
     }

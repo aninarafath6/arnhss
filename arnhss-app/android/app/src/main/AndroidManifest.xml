@@ -2,6 +2,8 @@
     package="com.example.arnhss">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
 
    <application
         android:label="arnhss"
@@ -26,9 +28,11 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
-            <!-- <meta-data
+            <!-- <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_stat_logo" /> -->
+
+            <meta-data
               android:name="com.google.firebase.messaging.default_notification_icon"
-              android:resource="@mipmap/launcher_icon" /> -->
+              android:resource="@drawable/ic_stat_logo" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

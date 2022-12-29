@@ -183,34 +183,35 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 const _LogoutTile(),
+                context.spacing(height: 10),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Text("Made with ❤️ by CS2 2021-23",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 13)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          "version 0.01",
+                          textAlign: TextAlign.center,
+                          style: CustomTextTheme(context: context)
+                              .paragraph()
+                              .copyWith(fontSize: 12),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                )
               ],
             );
           }),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Text("Made with ❤️ by CS2 2021-23",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 13)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                    "version 0.01",
-                    textAlign: TextAlign.center,
-                    style: CustomTextTheme(context: context)
-                        .paragraph()
-                        .copyWith(fontSize: 12),
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
-          )
         ],
       ),
     );

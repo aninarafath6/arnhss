@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/common/widgets/custom_snack_bar.dart';
 import 'package:arnhss/features/authentication/repo/auth_service.dart';
+import 'package:arnhss/helpers/dialog_helper.dart';
+import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
@@ -83,8 +85,14 @@ class VerifyOtpViewModel extends ChangeNotifier {
         callback: () {
           toggleLoading();
         },
-        errorCallback: () {
+        errorCallback: (e) {
           toggleLoading();
+
+          DialogHelper.showErrorDialog(
+            title: "Sorry,👾",
+            description: e.code ?? "OTP Verification is failed",
+            top: true,
+          );
         },
       )
           .catchError(

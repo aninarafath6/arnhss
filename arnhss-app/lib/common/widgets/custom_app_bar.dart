@@ -12,7 +12,7 @@ AppBar customAppBar(BuildContext context,
     List<Widget>? actions}) {
   return AppBar(
     systemOverlayStyle: SystemUiOverlayStyle.dark,
-    backgroundColor: Colors.transparent,
+    backgroundColor: Colors.white,
     centerTitle: center,
     elevation: 0,
     leading: IconButton(

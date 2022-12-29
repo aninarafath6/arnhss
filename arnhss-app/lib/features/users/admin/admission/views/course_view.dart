@@ -7,6 +7,7 @@ import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/batches_view.dart';
+import 'package:arnhss/features/users/admin/admission/views/teacher_list.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/student/home/widgets/tile.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
@@ -17,19 +18,13 @@ import 'package:remixicon/remixicon.dart';
 
 enum Choice { delete, update }
 
-class CourseView extends StatefulWidget {
+class CourseView extends StatelessWidget {
   const CourseView({
     Key? key,
     // required this.selectedCourse,
   }) : super(key: key);
   // final Course selectedCourse;
   static const String routeName = "/batch_view";
-
-  @override
-  State<CourseView> createState() => _CourseViewState();
-}
-
-class _CourseViewState extends State<CourseView> {
 
   @override
   Widget build(BuildContext context) {
@@ -177,18 +172,9 @@ class _CourseViewState extends State<CourseView> {
                 ],
               ),
             ),
-            const StaggeredGridTile.count(
-              crossAxisCellCount: 3,
-              mainAxisCellCount: 5,
-              child: Tile(
-                index: 0,
-                image: "assets/images/icons/notes.png",
-                label: "Subjects",
-              ),
-            ),
             StaggeredGridTile.count(
               crossAxisCellCount: 3,
-              mainAxisCellCount: 8,
+              mainAxisCellCount: 5,
               child: Tile(
                 index: 1,
                 image: "assets/images/icons/sales-and-crm-badge.png.webp",
@@ -200,13 +186,15 @@ class _CourseViewState extends State<CourseView> {
                 count: 0,
               ),
             ),
-            const StaggeredGridTile.count(
+            StaggeredGridTile.count(
               crossAxisCellCount: 3,
-              mainAxisCellCount: 3,
+              mainAxisCellCount: 5,
               child: Tile(
                 index: 0,
                 image: "assets/images/icons/woman-answering-phone.png.webp",
                 label: "Teachers",
+                onTap: () =>
+                    Navigator.of(context).pushNamed(TeacherList.routeName),
               ),
             ),
           ],

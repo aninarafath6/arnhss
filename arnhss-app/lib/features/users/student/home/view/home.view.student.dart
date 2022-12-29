@@ -129,7 +129,7 @@ class _StudentHomeState extends State<StudentHome> {
         if (error.toString().contains("firebase_database/permission-denied")) {
           HandleException().handleException(error);
           SharedPrefService().clear();
-          Navigator.pushNamed(context, LoginView.routeName);
+          Navigator.pushReplacementNamed(context, LoginView.routeName);
         }
         log(error.toString(), name: " student home view");
         return null;

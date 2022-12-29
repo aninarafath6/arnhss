@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:arnhss/common/enums.dart';
 
-
 class UserModel {
   UserModel(
       {this.phone,
@@ -30,7 +29,7 @@ class UserModel {
   final Role? role;
   // final String? localRole;
   final int? admissionNo;
-  final Department? department;
+  final String? department;
   final String? name;
   final String? dpURL;
   final Gender gender;
@@ -117,7 +116,7 @@ class UserModel {
       dob: DateTime.fromMicrosecondsSinceEpoch(json["dob"]),
       role: fromStringRole(json["role"]),
       admissionNo: json["admission_number"],
-      department: toDepartment(json["department"]),
+      department: json["department"],
       name: json["name"],
       dpURL: json["dpURL"],
       gender: toGender(json["gender"]),
@@ -138,7 +137,7 @@ class UserModel {
         "dob": dob != null ? lastLogin?.microsecondsSinceEpoch : null,
         "role": toStringRole(role),
         "admission_number": admissionNo,
-        "department": fromDepartment(department),
+        "department": (department),
         "dpURL": dpURL,
         "gender": fromGender(gender),
         "division": division,

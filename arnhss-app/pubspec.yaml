@@ -54,6 +54,9 @@ dependencies:
   custom_refresh_indicator: ^2.0.1
   syncfusion_flutter_charts: ^20.3.59
   fpdart: ^0.3.0
+  firebase_storage: ^10.3.11
+  file_picker: ^5.2.4
+  image_picker: ^0.8.6
   # number_slide_animation: ^0.2.1
 
 flutter_icons:

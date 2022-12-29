@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class AppSizes {
   static const double default_padding = 21;
   static const double default_border_radius = 8;

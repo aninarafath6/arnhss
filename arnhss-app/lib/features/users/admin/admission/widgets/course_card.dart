@@ -1,14 +1,8 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/widgets/custom_modal.dart';
-import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
-import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
-import 'package:arnhss/helpers/dialog_helper.dart';
-import 'package:arnhss/services/base/exception/app_exceptions.dart';
-import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CourseCard extends StatelessWidget {
@@ -79,11 +73,12 @@ class CourseCard extends StatelessWidget {
           //   child:
           ListTile(
         onTap: () {
+          context.read<AdmissionViewModel>().selectedCourse = course!;
+
           Navigator.pushNamed(
             context,
             CourseView.routeName,
           );
-          context.read<AdmissionViewModel>().selectedCourse = course!;
         },
         // onLongPress: () {
         //   context.read<AdmissionViewModel>().setUpToUpdate(course!);

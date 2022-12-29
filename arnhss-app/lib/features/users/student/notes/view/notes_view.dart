@@ -1,9 +1,7 @@
 import 'package:arnhss/common/constants/app_sizes.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
-import 'package:arnhss/features/users/student/home/view_models/home_view_model.dart';
 import 'package:arnhss/features/users/student/home/widgets/tile.dart';
 import 'package:arnhss/features/users/student/notes/view/selected_note_view.dart';
-import 'package:arnhss/features/users/student/notes/view_model/notes_view_model.dart';
 import 'package:arnhss/features/users/student/notes/widgets/note_app_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -15,7 +13,6 @@ class NotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint("Notes view build");
 
-    var _readProvider = context.read<NotesViewModel>();
     var sub = [];
     // var sub = _readProvider
     // .getSubjects(context.read<HomeViewModel>().user?.department)

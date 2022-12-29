@@ -8,6 +8,7 @@ import 'package:arnhss/extensions/enum_extension.dart';
 import 'package:arnhss/models/user.model.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
+import 'package:arnhss/services/firebase_common_service.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,6 +19,8 @@ class AuthService with HandleException {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   static final FirebaseFirestore _firestoreInstance =
       FirebaseFirestore.instance;
+
+  final FirebaseCommonService _firebaseCommonService = FirebaseCommonService();
 
   final SharedPrefService _prefService = SharedPrefService();
 
@@ -71,7 +74,7 @@ class AuthService with HandleException {
       {String? vi,
       String? otp,
       Callback? callback,
-      Callback? errorCallback}) async {
+      Function(dynamic)? errorCallback}) async {
     //* verify otp with phone auth provider
     AuthCredential credential =
         PhoneAuthProvider.credential(verificationId: vi!, smsCode: otp!);
@@ -87,12 +90,12 @@ class AuthService with HandleException {
         return true;
       });
     } catch (e) {
-      //   print(e);()
+      print(e);
 
       //* error callback
-      errorCallback!();
-      //* handling the exception
       handleException(e);
+      errorCallback!(e);
+      //* handling the exception
       return false;
     }
   }
@@ -139,7 +142,7 @@ class AuthService with HandleException {
       await _user?.updateEmail(user.email.toString());
       await _user?.updatePhotoURL(user.dpURL);
     } catch (e) {
-      print("error from user updating function on auth service $e");
+      // print("error from user updating function on auth service $e");
       handleException(InvalidException("User Profile is not updated!!", false));
     }
   }
@@ -160,7 +163,7 @@ class AuthService with HandleException {
       //* fetching user collection with phone and role number
       querySnapshot = await _usersCollection
           .where("phone", isEqualTo: phone)
-          .where("role", isEqualTo: role.describe)
+          .where("role", isEqualTo: UserModel.toStringRole(role))
           .get();
 
       debugPrint(querySnapshot.docs.toString());
@@ -176,18 +179,23 @@ class AuthService with HandleException {
 
         if (role == Role.student) {
           //* fetching division details
-          var divisionDetails = await e.reference.parent.parent?.get();
+          var batchDetails = await e.reference.parent.parent?.get();
 
           //* fetching batch details
-          var batchDetails =
-              await divisionDetails?.reference.parent.parent?.get();
+          var courseDetails =
+              await batchDetails?.reference.parent.parent?.get();
 
-          //* fetching course details
-          var courseDetails = await divisionDetails
-              ?.reference.parent.parent?.parent.parent
-              ?.get();
+          // //* fetching course details
+          // var courseDetails = await divisionDetails
+          //     ?.reference.parent.parent?.parent.parent
+          //     ?.get();
 
           DateTime dob = data["dob"].toDate() as DateTime;
+
+          String? dpURL = await _firebaseCommonService.getStudentDP(
+            batchDetails?.reference,
+            e.id,
+          );
 
           //* map
           UserModel user = UserModel.fromRawJson(
@@ -195,9 +203,9 @@ class AuthService with HandleException {
               ...data,
               "batch": batchDetails?.data()?["name"],
               "department": courseDetails?.data()?["name"],
-              "division": divisionDetails?.data()?["name"],
               "last_login": lastLogin.microsecondsSinceEpoch,
               "dob": dob.microsecondsSinceEpoch,
+              "dpURL": dpURL,
             },
             e.id,
           );
@@ -214,11 +222,13 @@ class AuthService with HandleException {
         } else if (role == Role.teacher) {
           var subjectDetails = await data["subject"].get();
 
+          String? dpURL = await _firebaseCommonService.getTeacherDP(e.id);
           // print(subjectDetails.data()["name"]);
           UserModel user = UserModel.fromRawJson(<String, dynamic>{
             ...data,
             "subject": subjectDetails.data()["name"],
             "last_login": lastLogin.microsecondsSinceEpoch,
+            "dpURL": dpURL,
           }, e.id);
 
           //? testing
@@ -227,10 +237,13 @@ class AuthService with HandleException {
           return user;
         } else {
           // * if role is not student then just map with this data
+
+          String? dpURL = await _firebaseCommonService.getAdminDP(e.id);
           UserModel user = UserModel.fromRawJson(
             <String, dynamic>{
               ...e.data() as Map<String, dynamic>,
               "last_login": lastLogin.microsecondsSinceEpoch,
+              "dpURL": dpURL,
             },
             e.id,
           );
