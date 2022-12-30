@@ -61,7 +61,7 @@ class AdmissionViewModel with ChangeNotifier, HandleException {
   void getCourses() async {
     _toggleLoading = true;
     //? actings as delay
-    await Future.delayed(const Duration(milliseconds: 300));
+    // await Future.delayed(const Duration(milliseconds: 0));
     //* getting course form firebase service function.
     List<Course>? result = await _admissionService.getCourse();
     //* setting result into courses by the help of setting method.

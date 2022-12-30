@@ -65,8 +65,7 @@ void main() async {
       // FirebaseMessaging.instance.unsubscribeFromTopic(Role.principle.describe);
       // FirebaseMessaging.instance.unsubscribeFromTopic(Role.everyone.describe);
       // FirebaseMessaging.instance.unsubscribeFromTopic(Role.student.describe);
-      // FirebaseMessaging.instance
-      //     .unsubscribeFromTopic(FirebaseConstants.authenticatedUSERS);
+      // FirebaseMessaging.instance.unsubscribeFromTopic(FirebaseConstants.authenticatedUSERS);
 
       debugPrint("${AuthService().getCurrentUser()?.phoneNumber} user ");
 

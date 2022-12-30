@@ -11,6 +11,7 @@ import 'package:arnhss/features/users/admin/home.admin/views/all_teacher.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/role_wrapper.dart';
 import 'package:arnhss/features/users/student/profile/view/profile_view.dart';
+import 'package:arnhss/features/users/views/time_table_view.dart';
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -75,7 +76,8 @@ class AppRoutes {
         final Subject sub = settings.arguments as Subject;
         return MaterialPageRoute(
             builder: (_) => SelectedNoteView(subject: sub));
-
+      case TimeTableView.routeName:
+        return MaterialPageRoute(builder: (_) => const TimeTableView());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

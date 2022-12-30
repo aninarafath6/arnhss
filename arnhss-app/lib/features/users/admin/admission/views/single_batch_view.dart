@@ -13,6 +13,7 @@ import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
 import 'package:arnhss/features/users/admin/admission/views/student_list.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/student/home/widgets/tile.dart';
+import 'package:arnhss/features/users/views/time_table_view.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
@@ -206,15 +207,15 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                 ],
               ),
             ),
-            const StaggeredGridTile.count(
+            StaggeredGridTile.count(
               crossAxisCellCount: 3,
               mainAxisCellCount: 3,
               child: Tile(
                 index: 1,
                 image: "assets/images/icons/planning-badge.png.webp",
                 label: "Time Table",
-
-                // onTap: () => Navigator.of(context).pushNamed(),
+                onTap: () =>
+                    Navigator.of(context).pushNamed(TimeTableView.routeName),
                 count: 0,
               ),
             ),

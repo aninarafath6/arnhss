@@ -96,7 +96,6 @@ class BatchViewModel extends ChangeNotifier with HandleException {
     startDateController = DateTime.now();
     endDateController = DateTime.utc(DateTime.now().year + 2);
     leader = null;
-
   }
 
   void setUpForAdd(Course course) {
@@ -154,7 +153,7 @@ class BatchViewModel extends ChangeNotifier with HandleException {
   void getBatches(Course course) async {
     _toggleLoading = true;
     //? actings as delay
-    await Future.delayed(const Duration(milliseconds: 300));
+    // await Future.delayed(const Duration(milliseconds: 300));
     //* getting course form firebase service function.
     List<Batch>? result = await _admissionService.getBatches(course);
     //* setting result into courses by the help of setting method.
