@@ -1,10 +1,11 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
-import 'package:arnhss/common/widgets/custom_app_bar.dart';
-import 'package:arnhss/extensions/string_extension.dart';
 import 'package:arnhss/features/authentication/login/view/index.dart';
-import 'package:dotted_line/dotted_line.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
+import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
+import 'package:arnhss/features/users/student/planner/widgets/not_found.dart';
+import 'package:arnhss/features/users/view_model/timetable_view_model.dart';
+import 'package:arnhss/models/schedule.model.dart';
 import 'package:flutter/services.dart';
 
 class TimeTableView extends StatefulWidget {
@@ -17,11 +18,22 @@ class TimeTableView extends StatefulWidget {
 }
 
 class _TimeTableViewState extends State<TimeTableView> {
+  final PageController _pageController = PageController();
   int selectedIndex = 0;
+  List<String> workingDays = ["M", "T", "W", "T", "F"];
+
+  @override
+  void initState() {
+    context.read<TimetableViewModel>().getTimeTableOfDay(
+          batchRef: context.read<BatchViewModel>().selectedBatch.reference!,
+          day: workingDays[selectedIndex],
+        );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<String> workingDays = ["M", "T", "W", "T", "F"];
+    List<Schedule> subjects = [];
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -55,11 +67,12 @@ class _TimeTableViewState extends State<TimeTableView> {
                   (index) => InkWell(
                     borderRadius: BorderRadius.circular(25),
                     onTap: () {
-                      setState(
-                        () {
-                          selectedIndex = index;
-                        },
-                      );
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                      _pageController.animateToPage(selectedIndex,
+                          duration: const Duration(milliseconds: 800),
+                          curve: Curves.ease);
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
@@ -90,189 +103,106 @@ class _TimeTableViewState extends State<TimeTableView> {
           preferredSize: const Size(double.infinity, 70),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: ListView(
-          children: [
-            const SizedBox(height: 15),
-            ...List.generate(
-              7,
-              (index) {
-                if (index == 2 || index == 4 || index == 6) {
-                  return Column(
-                    children: [
-                      BreakTime(
-                        startTime: "09:00",
-                        endTime: "10:30",
-                        title: index == 2 || index == 6
-                            ? "INTERVAL"
-                            : "LUNCH BREAK",
-                      ),
-                      TimeTableCard(
-                        subjectName: "Mathematics",
-                        startTime: "09:00",
-                        endTime: "10:30",
-                        index: index,
-                      ),
-                    ],
-                  );
-                } else {
-                  return TimeTableCard(
-                    subjectName: "Mathematics",
-                    startTime: "09:00",
-                    endTime: "10:30",
-                    index: index,
-                  );
-                }
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+      body: PageView.builder(
+        controller: _pageController,
+        itemCount: workingDays.length,
+        onPageChanged: (value) {
+          setState(
+            () {
+              selectedIndex = value;
+            },
+          );
 
-class BreakTime extends StatelessWidget {
-  const BreakTime({
-    Key? key,
-    required this.startTime,
-    required this.endTime,
-    required this.title,
-  }) : super(key: key);
-  final String title;
-  final String startTime;
-  final String endTime;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-      width: context.getWidth(100),
-      child: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Row(
-              children: [
-                ...List.generate(
-                  context.getWidth(9).round(),
-                  (index) => Transform.rotate(
-                    angle: 120,
-                    child: Container(
-                      height: 40,
-                      width: 1,
-                      margin: const EdgeInsets.only(right: 10),
-                      color: index % 2 == 0
-                          ? Colors.black
-                          : CustomColors.halfColor,
+          context.read<TimetableViewModel>().getTimeTableOfDay(
+                batchRef:
+                    context.read<BatchViewModel>().selectedBatch.reference!,
+                day: workingDays[selectedIndex],
+              );
+        },
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 0),
+            child: subjects.isNotEmpty
+                ? ListView(
+                    children: List.generate(7, (index) {
+                      return const TimeTableCard();
+                    }),
+                  )
+                : const Padding(
+                    padding: EdgeInsets.all(50.0),
+                    child: NotFound(
+                      imageURL: "assets/images/icons/desk.png",
+                      title:
+                          "As of yet, the timetable for the project has not been finalized.",
                     ),
                   ),
-                )
-              ],
-            ),
-            Positioned(
-              // right: context.getWidth(50),
-              child: Container(
-                height: 40,
-                // width: 200,
-                color: Colors.white.withOpacity(.99),
-
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Center(
-                  child: Text(
-                    "$title ($startTime - $endTime)",
-                    style: const TextStyle(color: CustomColors.dark),
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 }
 
 class TimeTableCard extends StatelessWidget {
-  const TimeTableCard({
-    Key? key,
-    required this.startTime,
-    required this.endTime,
-    required this.subjectName,
-    required this.index,
-  }) : super(key: key);
-  final String subjectName;
-  final String startTime;
-  final String endTime;
-  final int index;
+  const TimeTableCard({Key? key, this.period}) : super(key: key);
+
+  final Period? period;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 7,
+            child: Container(
+                height: 80,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+                padding: const EdgeInsets.all(15),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: CustomColors.lightBgOverlay,
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                child: Row(
                   children: [
-                    Text(
-                      startTime,
-                      style: const TextStyle(fontSize: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          period?.subject.name ?? "",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        Text(
+                          period?.teacher.name ?? "",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 50),
-                    Text(
-                      endTime,
-                      style: const TextStyle(fontSize: 12),
-                    ),
+                    const Spacer(),
+                    Column(
+                      children: [
+                        Text(
+                          period?.startTime.format(context) ?? "",
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          period?.endTime.format(context) ?? "",
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    )
                   ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              DottedLine(
-                direction: Axis.vertical,
-                lineLength: index == 0 || index == 2
-                    ? 80
-                    : index == 6 || index == 1
-                        ? 85
-                        : 90,
-                lineThickness: 1.5,
-                dashLength: 5.0,
-                dashColor: Colors.black.withOpacity(.8),
-                dashGapLength: 2.0,
-              )
-            ],
+                )),
           ),
-        ),
-        Expanded(
-          flex: 7,
-          child: Container(
-            height: 80,
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            padding: const EdgeInsets.all(15),
-            width: double.infinity,
-            color: CustomColors.lightBgOverlay,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "$subjectName (${index + 1})",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                Text(
-                  "- Shaija Miss",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

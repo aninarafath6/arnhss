@@ -8,7 +8,7 @@ import 'package:arnhss/features/users/widget/custom_app_bar.dart';
 import 'package:arnhss/features/users/student/home/widgets/home_grid.dart';
 import 'package:arnhss/features/users/widget/notice_item.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
-import 'package:arnhss/features/users/service/notice_service.dart';
+import 'package:arnhss/features/users/repo/notice_service.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/shared_pref_service.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';

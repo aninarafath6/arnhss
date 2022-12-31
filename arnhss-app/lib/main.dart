@@ -7,6 +7,7 @@ import 'package:arnhss/features/users/admin/admission/view_model/admission_view_
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/teacher_view_model.dart';
+import 'package:arnhss/features/users/repo/timetable_service.dart';
 import 'package:arnhss/features/users/student/attendance/view_model/attendance_view_model.dart';
 import 'package:arnhss/features/authentication/account/view_model/select_account_view_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
@@ -17,6 +18,7 @@ import 'package:arnhss/features/users/student/notes/view_model/notes_view_model.
 import 'package:arnhss/features/users/student/notifications/view_model/notification_view_model.dart';
 import 'package:arnhss/features/users/student/planner/view_model/planner_view_model.dart';
 import 'package:arnhss/features/users/view_model/notice_view_model.dart';
+import 'package:arnhss/features/users/view_model/timetable_view_model.dart';
 import 'package:arnhss/features/users/view_model/user_view_model.dart';
 import 'package:arnhss/firebase_options.dart';
 import 'package:arnhss/services/db_service.dart';
@@ -97,6 +99,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => StudentViewModel()),
         ChangeNotifierProvider(create: (_) => BatchViewModel()),
         ChangeNotifierProvider(create: (_) => TeacherViewModel()),
+        ChangeNotifierProvider(create: (_) => TimetableViewModel()),
       ],
       child: GetMaterialApp(
         title: 'arnhss',

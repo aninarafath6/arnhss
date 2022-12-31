@@ -590,4 +590,44 @@ class AdmissionService with HandleException {
       handleException(e);
     }
   }
+
+  Future<Map<String, dynamic>?> getATeacher(
+      DocumentReference teacherRef) async {
+    try {
+      var response = await _firestore.doc(teacherRef.path).get();
+      DocumentReference subjectRef = response["subject"];
+      var subject = await _firestore.doc(subjectRef.path).get();
+
+      return {
+        ...response.data() as Map<String, dynamic>,
+        "reference": teacherRef,
+        "id": teacherRef.id,
+        "subject": SubjectModel.fromMap(
+          {
+            "id": subject.id,
+            ...subject.data() as Map<String, dynamic>,
+            "reference": subject.reference
+          },
+        ),
+      };
+    } catch (e) {
+      log("teacher getting got error on admission service");
+    }
+    return null;
+  }
+
+  Future<Map<String, dynamic>?> getASubject(
+      DocumentReference subjectRef) async {
+    try {
+      var resoposne = await _firestore.doc(subjectRef.path).get();
+      return {
+        ...resoposne.data() as Map<String, dynamic>,
+        "reference": subjectRef,
+        "id": subjectRef.id,
+      };
+    } catch (e) {
+      log("subject getting got error on admission service");
+    }
+    return null;
+  }
 }

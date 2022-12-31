@@ -3,7 +3,7 @@ import 'package:arnhss/common/widgets/date_picker/date_picker_widget.dart';
 import 'package:arnhss/extensions/enum_extension.dart';
 
 import 'package:arnhss/common/routes/index_routes.dart';
-import 'package:arnhss/features/users/service/notice_service.dart';
+import 'package:arnhss/features/users/repo/notice_service.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
 import 'package:arnhss/services/base/exception/handle_exception.dart';
 import 'package:arnhss/services/notification/notification_service.dart';
