@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:arnhss/common/constants/color_constants.dart';
 import 'package:arnhss/common/enums.dart';
 import 'package:arnhss/common/widgets/custom_drop_down.dart';
@@ -12,6 +11,8 @@ import 'package:arnhss/features/users/admin/admission/view_model/admission_view_
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/teacher_view_model.dart';
+import 'package:arnhss/features/users/student/planner/view_model/planner_view_model.dart';
+import 'package:arnhss/features/users/view_model/timetable_view_model.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/models/student.model.dart';
 import 'package:arnhss/models/teacher.model.dart';
@@ -509,7 +510,7 @@ void showTeacherAddForm(
   // required String dc,
 }) {
   showModalBottomSheet(
-    backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
     isScrollControlled: true,
     context: context,
     builder: ((context) {
@@ -634,6 +635,171 @@ void showTeacherAddForm(
                   height: context.isMobile ? context.getHeight(8) : 60,
                   fontSize: context.isMobile ? 15 : 15,
                   loading: _provider.addTeacherLoading,
+                  onTap: onSubmit,
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      );
+    }),
+  );
+}
+
+void showScheduleForm(
+  BuildContext context, {
+  String title = "Add Teacher",
+  String buttonTXT = "Add",
+  required VoidCallback onSubmit,
+  // required String dc,
+}) {
+  showModalBottomSheet(
+    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+    isScrollControlled: true,
+    context: context,
+    builder: ((context) {
+      // var _readProvider = context.read<TeacherViewModel>();
+      var _provider = context.watch<TimetableViewModel>();
+      context.watch<TeacherViewModel>().getAllSubject();
+
+      return Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: Container(
+          // height: context.getHeight(65),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: const BoxDecoration(
+            color: CustomColors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+            ),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 100,
+                    height: 4,
+                    decoration: BoxDecoration(
+                        color: CustomColors.bgOverlay,
+                        borderRadius: BorderRadius.circular(14)),
+                  ),
+                ),
+                const SizedBox(height: 10),
+
+                FormHeader(title: title),
+                const SizedBox(height: 10),
+                Consumer<TimetableViewModel>(
+                    builder: (context, provider, child) {
+                  return TeacherDropdown(
+                    title: "Select Teacher teacher",
+                    leadingIcon: Remix.arrow_down_s_line,
+                    options: context.watch<TeacherViewModel>().teachers,
+                    value: provider.teacher,
+                    changed: (TeacherModel teacher) {
+                      provider.teacher = teacher;
+                    },
+                  );
+                }),
+                const SizedBox(height: 10),
+                // Consumer<TimetableViewModel>(
+                //     builder: (context, provider, child) {
+                //   return SubjectDropDown(
+                //     title: "Select subject",
+                //     leadingIcon: Remix.arrow_down_s_line,
+                //     options: context.watch<TeacherViewModel>().allSubjects,
+                //     value: provider.subject,
+                //     changed: (SubjectModel subject) {
+                //       provider.subject = subject;
+                //     },
+                //   );
+                // }),
+                // const SizedBox(height: 10),
+                CustomSelector(
+                  label: 'Start Time',
+                  content: context
+                          .watch<TimetableViewModel>()
+                          .startTime
+                          ?.format(context) ??
+                      "Select start-time",
+                  icon: Remix.time_line,
+                  onTap: () {
+                    showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    ).then(
+                      (value) {
+                        return _provider.startTime = value;
+                      },
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 10),
+                CustomSelector(
+                  label: 'End Time',
+                  content: context
+                          .watch<TimetableViewModel>()
+                          .endTime
+                          ?.format(context) ??
+                      "Select end-time",
+                  icon: Remix.time_line,
+                  onTap: () {
+                    showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    ).then(
+                      (value) {
+                        return _provider.endTime = value;
+                      },
+                    );
+                  },
+                ),
+
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child:
+                //     Expanded(
+                //       child: CustomSelector(
+                //         label: 'End Time',
+                //         content: context
+                //                 .watch<TimetableViewModel>()
+                //                 .endTime
+                //                 ?.format(context) ??
+                //             "Select end-time",
+                //         icon: Remix.time_line,
+                //         onTap: () {
+                //           showTimePicker(
+                //             context: context,
+                //             initialTime: TimeOfDay.now(),
+                //           ).then(
+                //             (value) {
+                //               return _provider.endTime = value;
+                //             },
+                //           );
+                //         },
+                //       ),
+                //     ),
+                //   ],
+                // ),
+
+                const SizedBox(height: 20),
+                // const SizedBox(height: 15),
+                CustomButton(
+                  label: buttonTXT,
+                  width: context.isMobile
+                      ? context.getWidth(100)
+                      : context.getWidth(50),
+                  height: context.isMobile ? context.getHeight(8) : 60,
+                  fontSize: context.isMobile ? 15 : 15,
+                  loading: _provider.addLoading,
                   onTap: onSubmit,
                 ),
                 const SizedBox(height: 20),

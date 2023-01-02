@@ -9,12 +9,14 @@ class CustomInput extends StatelessWidget {
     this.size = Sizing.sm,
     this.controller,
     this.keyboardType = TextInputType.multiline,
+    this.isReadOnly = false,
   }) : super(key: key);
 
   final String? hintText;
   final Sizing size;
   final TextEditingController? controller;
   final TextInputType keyboardType;
+  final bool isReadOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class CustomInput extends StatelessWidget {
       ),
       child: TextField(
         keyboardType: keyboardType,
+        readOnly: isReadOnly,
         maxLines: size == Sizing.xl
             ? 20
             : size == Sizing.lg

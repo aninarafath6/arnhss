@@ -106,7 +106,7 @@ class _StudentHomeState extends State<StudentHome> {
           onTap: () => Navigator.pushNamed(context, NotesView.routeName),
         ),
       ),
-      const StaggeredGridTile.count(
+      StaggeredGridTile.count(
         crossAxisCellCount: 2,
         mainAxisCellCount: 2,
         child: Tile(

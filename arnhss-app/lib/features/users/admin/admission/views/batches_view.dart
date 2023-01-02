@@ -5,7 +5,7 @@ import 'package:arnhss/common/widgets/not_found.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';
 import 'package:arnhss/features/users/admin/admission/model/batch_model.dart';
 import 'package:arnhss/features/users/admin/admission/model/course_model.dart';
-import 'package:arnhss/features/users/admin/admission/view_model/admission_view_model.dart';
+
 import 'package:arnhss/features/users/admin/admission/view_model/batches_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/students_view_model.dart';
 import 'package:arnhss/features/users/admin/admission/view_model/teacher_view_model.dart';

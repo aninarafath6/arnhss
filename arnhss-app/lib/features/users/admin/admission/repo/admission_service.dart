@@ -187,6 +187,7 @@ class AdmissionService with HandleException {
         ).toList(),
       );
     } catch (e) {
+      print("$e is error");
       handleException(
           InvalidException("Something wrong with course 🤯", false));
       return null;
@@ -211,6 +212,8 @@ class AdmissionService with HandleException {
         },
       );
     } catch (e) {
+      print("$e is error");
+
       handleException(
         InvalidException(
           "Batch cannot be added because there is something wrong with them 🤯",

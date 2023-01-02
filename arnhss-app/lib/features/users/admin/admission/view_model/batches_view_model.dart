@@ -234,7 +234,10 @@ class BatchViewModel extends ChangeNotifier with HandleException {
         (batch) {
           if (batch != null) {
             batchCodeController.text = "hi";
-            _setBatch = [..._batches, newBatch];
+            _setBatch = [
+              ..._batches,
+              batch,
+            ];
           }
         },
       );
