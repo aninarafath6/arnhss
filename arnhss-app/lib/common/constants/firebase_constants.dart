@@ -7,6 +7,8 @@ class FirebaseConstants {
   static const String parentsCollection = "teachers";
   static const String noticeCollection = "notices";
   static const String timeTableCollection = "time_table";
+  static const String attendanceCollection = "attendance";
+
 
   //* topics
   static const String authenticatedUSERS = "verified";

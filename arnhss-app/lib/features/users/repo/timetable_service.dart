@@ -20,7 +20,6 @@ class TimeTableService extends HandleException {
     var data = await Future.wait(
       raw.map(
         (e) async {
-          print(e.data());
           Map<String, dynamic> data = e.data() as Map<String, dynamic>;
           List<dynamic> schedule = data["schedule"];
 
@@ -88,6 +87,7 @@ class TimeTableService extends HandleException {
       return _reference;
     } catch (e) {
       handleException(InvalidException("Period Schedule failed", false));
+      return null;
     }
   }
 }

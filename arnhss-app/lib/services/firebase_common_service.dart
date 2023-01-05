@@ -8,8 +8,6 @@ class FirebaseCommonService {
       DocumentReference? batchReference, String studentId) async {
     final storage = FirebaseStorage.instance;
 
-    print(
-        'students/${batchReference?.parent.parent?.id}/${batchReference?.id}/dp/$studentId.jpg');
     try {
       Reference ref = storage.ref(
           'students/${batchReference?.parent.parent?.id}/${batchReference?.id}/dp/$studentId.jpg');
@@ -18,9 +16,7 @@ class FirebaseCommonService {
         return "";
       });
       return dpURL == "" ? null : dpURL;
-    } catch (e) {
-      print("error" + e.toString());
-    }
+    } catch (e) {}
   }
 
   Future<String?> getTeacherDP(String teacherID) async {

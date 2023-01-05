@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:arnhss/common/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class StudentModel {
+class StudentModel extends Equatable {
   StudentModel({
     required this.phone,
     required this.id,
@@ -63,6 +64,9 @@ class StudentModel {
           DateTime.fromMicrosecondsSinceEpoch(lastLogin.microsecondsSinceEpoch),
     );
   }
+
+  @override
+  List<Object> get props => [id];
 
   Map<String, dynamic> toJSON() => {
         "phone": phone,

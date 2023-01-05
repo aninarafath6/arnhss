@@ -1,4 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
+import 'package:arnhss/common/routes/index_routes.dart';
 import 'package:arnhss/common/theme/text_theme.dart';
 import 'package:arnhss/common/widgets/custom_button.dart';
 import 'package:arnhss/common/widgets/student_tile.dart';
@@ -30,11 +31,16 @@ class _TakeAttendancePageState extends State<TakeAttendancePage>
     super.initState();
     _controller = TabController(vsync: this, length: 2);
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context
-          .read<StudentViewModel>()
-          .getStudents(context.read<BatchViewModel>().selectedBatch);
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context
+            .read<StudentViewModel>()
+            .getStudents(context.read<BatchViewModel>().selectedBatch);
+        context.read<AttendanceViewModel>().onStart(
+            context.read<BatchViewModel>().selectedBatch.reference!,
+            context.read<StudentViewModel>().students);
+      },
+    );
   }
 
   double _getTheHeight(int length) {
@@ -262,10 +268,20 @@ class _TakeAttendancePageState extends State<TakeAttendancePage>
                                         itemCount: _absentees.length,
                                       ),
                                     ),
-                              const Padding(
-                                padding: EdgeInsets.all(18.0),
+                              Padding(
+                                padding: const EdgeInsets.all(18.0),
                                 child: CustomButton(
                                   label: "Proceed",
+                                  onTap: () {
+                                    context
+                                        .read<AttendanceViewModel>()
+                                        .onProceed(
+                                            context
+                                                .read<BatchViewModel>()
+                                                .selectedBatch
+                                                .reference!,
+                                            _absentees);
+                                  },
                                 ),
                               )
                             ],

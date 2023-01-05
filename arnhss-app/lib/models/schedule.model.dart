@@ -78,6 +78,6 @@ class Period {
         "start_time": Timestamp.fromDate(
           DateTime(
               now.year, now.month, now.day, startTime.hour, startTime.minute),
-        )
+        ),
       };
 }

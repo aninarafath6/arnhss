@@ -405,7 +405,6 @@ class AdmissionService with HandleException {
           .orderBy("roll_no")
           .get();
 
-      print(querySnapshot.docs);
       return Future.wait(querySnapshot.docs.map(
         (e) async {
           //* fetching division details
