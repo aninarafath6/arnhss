@@ -1,4 +1,4 @@
-import 'package:arnhss/features/users/student/attendance/view_model/attendance_view_model.dart';
+import 'package:arnhss/features/users/view_model/attendance_view_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/country_view_model.dart';
 import 'package:arnhss/features/authentication/login/view_model/login_view_model.dart';
 import 'package:arnhss/features/authentication/otp_verification/view/index.dart';

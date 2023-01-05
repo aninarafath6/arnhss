@@ -27,6 +27,7 @@ class _TimeTableViewState extends State<TimeTableView> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<TimetableViewModel>().setSelectedIndex = 0;
       context.read<TimetableViewModel>().getTimeTable(
             batchRef: context.read<BatchViewModel>().selectedBatch.reference!,
           );

@@ -10,8 +10,11 @@ import 'package:arnhss/features/users/admin/admission/views/teacher_list.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/all_teacher.dart';
 import 'package:arnhss/features/users/admin/home.admin/views/notice.view.admin.dart';
 import 'package:arnhss/features/users/role_wrapper.dart';
+import 'package:arnhss/features/users/student/attendance/model/attendance_model.dart';
 import 'package:arnhss/features/users/student/profile/view/profile_view.dart';
+import 'package:arnhss/features/users/views/attendance_details_view.dart';
 import 'package:arnhss/features/users/views/time_table_view.dart';
+import 'package:arnhss/features/users/widget/take_attendance_page.dart';
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -78,6 +81,10 @@ class AppRoutes {
             builder: (_) => SelectedNoteView(subject: sub));
       case TimeTableView.routeName:
         return MaterialPageRoute(builder: (_) => const TimeTableView());
+      case AttendanceDetailView.routeName:
+        return MaterialPageRoute(builder: (_) => const AttendanceDetailView());
+      case TakeAttendancePage.routeName:
+        return MaterialPageRoute(builder: (_) => const TakeAttendancePage());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

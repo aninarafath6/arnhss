@@ -13,6 +13,7 @@ import 'package:arnhss/features/users/admin/admission/views/course_view.dart';
 import 'package:arnhss/features/users/admin/admission/views/student_list.dart';
 import 'package:arnhss/features/users/admin/admission/widgets/forms.dart';
 import 'package:arnhss/features/users/student/home/widgets/tile.dart';
+import 'package:arnhss/features/users/views/attendance_details_view.dart';
 import 'package:arnhss/features/users/views/time_table_view.dart';
 import 'package:arnhss/helpers/dialog_helper.dart';
 import 'package:arnhss/services/base/exception/app_exceptions.dart';
@@ -231,13 +232,15 @@ class _SingleBatchViewState extends State<SingleBatchView> {
                     Navigator.of(context).pushNamed(StudentList.routeName),
               ),
             ),
-            const StaggeredGridTile.count(
+            StaggeredGridTile.count(
               crossAxisCellCount: 3,
               mainAxisCellCount: 4,
               child: Tile(
                 index: 0,
                 image: "assets/images/icons/nt-to-do-list-removebg-preview.png",
                 label: "Attendance",
+                onTap: () => Navigator.of(context)
+                    .pushNamed(AttendanceDetailView.routeName),
               ),
             ),
           ],

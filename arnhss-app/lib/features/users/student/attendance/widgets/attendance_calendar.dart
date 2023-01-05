@@ -1,5 +1,5 @@
 import 'package:arnhss/common/constants/color_constants.dart';
-import 'package:arnhss/features/users/student/attendance/view_model/attendance_view_model.dart';
+import 'package:arnhss/features/users/view_model/attendance_view_model.dart';
 import 'package:arnhss/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
@@ -111,7 +111,7 @@ class AttendanceCalendar extends StatelessWidget {
           markedDateIconBuilder: (event) {
             return event.icon;
           },
-          pageSnapping: false,
+          pageSnapping: true,
           pageScrollPhysics: const BouncingScrollPhysics(),
           shouldShowTransform: false,
         ),
